@@ -1,11 +1,1 @@
-<?php
-// Enter your code here, enjoy!
-$array = array("1" => "PHP code tester Sandbox Online (v4)",
-    "emoji" => "😀 😃 😄 😁 😆", 5 , 5 => 89009,
-    "Random number" => rand(100,999),
-    "PHP Version" => phpversion()
-);
-
-foreach( $array as $key => $value ){
-    echo $key."\t=>\t".$value."\n";
-}
+<?php declare(strict_types=1); require_once __DIR__.'/includes/layout.php'; $config=mineacle_config(); ?><!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Home | Mineacle</title><link rel="stylesheet" href="assets/styles.css"></head><body><?php mineacle_header('home'); ?><main class="shell page"><section class="banner"><div><span class="tag">Mineacle</span><h1>Easy to join. Easy to understand.</h1><p class="lead">This V5 package focuses on a fully functional LiteBans-powered bans page.</p></div><a class="btn primary" href="bans.php">Open Bans</a></section><section class="section"><div class="mini-help"><div class="help-card"><strong>Copy IP</strong><span><?= h($config['site']['ip']) ?></span></div><div class="help-card"><strong>Discord</strong><span><?= h($config['site']['discord']) ?></span></div><div class="help-card"><strong>Bans</strong><span>Powered by LiteBans MySQL</span></div></div></section></main><?php mineacle_footer(); ?></body></html>
