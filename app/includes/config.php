@@ -11,6 +11,8 @@ return [
         'name' => 'Mineacle Network',
         'ip' => getenv('SERVER_IP') ?: 'mineacle.net',
         'discord' => getenv('DISCORD_URL') ?: 'https://discord.gg/4xrYFxdSWg',
+        'store' => getenv('STORE_URL') ?: 'https://store.mineacle.net',
+        'vote' => getenv('VOTE_URL') ?: 'https://vote.mineacle.net',
         'support_email' => getenv('SUPPORT_EMAIL') ?: 'support@mineacle.net',
 
         // Replace with your real checkout route later.

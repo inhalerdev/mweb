@@ -1,6 +1,16 @@
 <?php
 declare(strict_types=1);
 
+/*
+ * Public canonical route enforcement.
+ * If someone manually visits /bans.php, redirect them to /
+ */
+$requestPath = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH) ?: '';
+if (!defined('MINEACLE_INTERNAL_RENDER') && preg_match('~/bans\.php$~i', $requestPath)) {
+    header('Location: /', true, 301);
+    exit;
+}
+
 require_once __DIR__ . '/includes/layout.php';
 $config = mineacle_config();
 mineacle_page_head('Bans');
@@ -10,32 +20,50 @@ mineacle_page_head('Bans');
 
 <main class="page">
   <section class="hero shell">
-    <div class="hero-card">
-      <div class="hero-copy">
-        <span class="tag">Mineacle Player Safety</span>
+    <div class="hero-banner">
+      <div class="hero-image" aria-hidden="true"></div>
+      <div class="hero-overlay" aria-hidden="true"></div>
+
+      <div class="hero-content">
+        <span class="tag">Mineacle Network</span>
+        <img class="hero-logo" src="assets/mineacle-logo.png?v=9" alt="Mineacle">
         <h1>Public Ban List</h1>
         <p>
-          Search active Mineacle punishments. This page only shows safe public LiteBans details —
-          never private player IP addresses or database secrets.
+          Search active Mineacle punishments, copy the server IP, visit the store, vote for rewards,
+          or join Discord for help.
         </p>
 
-        <div class="hero-actions">
-          <button class="btn primary copy-ip" data-copy="<?= h($config['site']['ip']) ?>">
-            <img src="assets/copy.svg" alt=""> Copy IP
-          </button>
-          <a class="btn soft" href="<?= h($config['site']['discord']) ?>" target="_blank" rel="noopener">
-            <img src="assets/discord.svg" alt=""> Get Help
+        <div class="hero-link-grid" aria-label="Mineacle quick links">
+          <a class="hero-link store" href="<?= h($config['site']['store'] ?? 'https://store.mineacle.net') ?>">
+            <span class="hero-link-icon"><img src="assets/basket.svg" alt=""></span>
+            <span><strong>Store</strong><small>Ranks, perks, and support</small></span>
           </a>
-        </div>
-      </div>
 
-      <div class="hero-logo-wrap" aria-hidden="true">
-        <img class="hero-logo" src="assets/mineacle-logo.png?v=8" alt="">
+          <a class="hero-link vote" href="<?= h($config['site']['vote'] ?? 'https://vote.mineacle.net') ?>">
+            <span class="hero-link-icon"><img src="assets/vote.svg" alt=""></span>
+            <span><strong>Vote</strong><small>Claim rewards and help Mineacle grow</small></span>
+          </a>
+
+          <a class="hero-link bans active" href="/">
+            <span class="hero-link-icon"><img src="assets/hammer.svg" alt=""></span>
+            <span><strong>Bans</strong><small>View public punishment records</small></span>
+          </a>
+
+          <a class="hero-link discord" href="<?= h($config['site']['discord']) ?>" target="_blank" rel="noopener">
+            <span class="hero-link-icon"><img src="assets/discord.svg" alt=""></span>
+            <span><strong>Discord</strong><small>Appeals, help, and updates</small></span>
+          </a>
+
+          <button class="hero-link copy copy-ip" type="button" data-copy="<?= h($config['site']['ip']) ?>">
+            <span class="hero-link-icon"><img src="assets/copy.svg" alt=""></span>
+            <span><strong>Copy IP</strong><small><?= h($config['site']['ip']) ?></small></span>
+          </button>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="shell bans-section">
+  <section class="shell bans-section" id="bans">
     <div class="ban-list-wrap">
       <div class="ban-toolbar">
         <div class="ban-title">
@@ -65,7 +93,7 @@ mineacle_page_head('Bans');
 
     <div class="rule-grid">
       <article class="rule-card">
-        <img src="assets/shield.svg" alt="">
+        <img src="assets/hammer.svg" alt="">
         <strong>Player Bans</strong>
         <span>Eligible active player bans may show an unban payment option</span>
       </article>
