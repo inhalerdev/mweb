@@ -1,3 +1,4 @@
 <?php
-header('Location: bans.php', true, 302);
-exit;
+declare(strict_types=1);
+
+require __DIR__ . '/bans.php';

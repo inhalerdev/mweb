@@ -1,5 +1,18 @@
 Options -Indexes
 
+DirectoryIndex bans.php index.php
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Redirect /bans.php to /
+  RewriteCond %{THE_REQUEST} \s/+bans\.php[\s?] [NC]
+  RewriteRule ^bans\.php$ / [R=301,L]
+
+  # Serve / from bans.php
+  RewriteRule ^$ bans.php [L]
+</IfModule>
+
 <FilesMatch "^\.">
   Require all denied
 </FilesMatch>
@@ -7,10 +20,6 @@ Options -Indexes
 <FilesMatch "^(config|db|bans-lib|layout)\.php$">
   Require all denied
 </FilesMatch>
-
-<IfModule mod_rewrite.c>
-  RewriteEngine On
-</IfModule>
 
 <IfModule mod_headers.c>
   Header always set X-Content-Type-Options "nosniff"
