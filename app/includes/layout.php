@@ -15,8 +15,8 @@ function mineacle_page_head(string $title): void {
     echo '<meta name="viewport" content="width=device-width,initial-scale=1">';
     echo '<title>' . h($title) . ' | ' . $name . '</title>';
     echo '<meta name="description" content="Mineacle public bans portal">';
-    echo '<link rel="icon" type="image/png" href="assets/favicon.png?v=10.1">';
-    echo '<link rel="stylesheet" href="assets/styles.css?v=10.1">';
+    echo '<link rel="icon" type="image/png" href="assets/favicon.png?v=10.2">';
+    echo '<link rel="stylesheet" href="assets/styles.css?v=10.2">';
     echo '</head>';
 }
 
@@ -53,8 +53,12 @@ function mineacle_footer(): void {
 
     echo '<div class="achievement-toast" id="toast" role="status" aria-live="polite">';
     echo '<div class="achievement-icon"><img src="assets/copy.svg" alt=""></div>';
-    echo '<div><strong>Server IP copied</strong><span>mineacle.net</span></div>';
+    echo '<div class="achievement-copy">';
+    echo '<small>Mineacle Network</small>';
+    echo '<strong>IP copied</strong>';
+    echo '<span>Ready to join <b>mineacle.net</b></span>';
+    echo '</div>';
     echo '</div>';
 
-    echo '<script src="assets/main.js?v=10.1"></script>';
+    echo '<script src="assets/main.js?v=10.2"></script>';
 }

@@ -199,9 +199,9 @@ document.querySelectorAll(".copy-ip").forEach(button => {
     const value = button.dataset.copy || "mineacle.net";
     try {
       await navigator.clipboard.writeText(value);
-      showToast("Server IP copied", value);
+      showToast("IP copied", value);
     } catch {
-      showToast("Copy server IP", value);
+      showToast("Copy IP", value);
     }
   });
 });

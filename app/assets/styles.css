@@ -501,3 +501,139 @@ img{max-width:100%}
   max-width:100%;
 }
 
+
+/* V10.2 Mineacle copy IP toast */
+.achievement-toast{
+  position:fixed!important;
+  top:18px!important;
+  right:18px!important;
+  z-index:9999!important;
+  width:min(370px,calc(100vw - 28px))!important;
+  min-height:86px!important;
+  display:grid!important;
+  grid-template-columns:58px 1fr!important;
+  align-items:center!important;
+  gap:14px!important;
+  padding:14px 16px!important;
+  border-radius:20px!important;
+  background:
+    linear-gradient(135deg,rgba(255,85,255,.14),rgba(125,60,255,.10)),
+    rgba(12,8,20,.94)!important;
+  border:1px solid rgba(255,136,255,.42)!important;
+  box-shadow:
+    0 22px 55px rgba(0,0,0,.58),
+    0 0 34px rgba(255,85,255,.18),
+    inset 0 0 0 1px rgba(255,255,255,.045)!important;
+  opacity:0;
+  transform:translateY(-12px) scale(.96)!important;
+  pointer-events:none;
+  overflow:hidden!important;
+}
+.achievement-toast::before{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  background:
+    radial-gradient(circle at 18% 50%,rgba(255,136,255,.26),transparent 7rem),
+    radial-gradient(circle at 92% 18%,rgba(191,250,255,.12),transparent 6rem);
+  pointer-events:none;
+}
+.achievement-toast::after{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:4px;
+  background:linear-gradient(180deg,var(--pink2),var(--purple),var(--gold));
+  box-shadow:0 0 16px rgba(255,136,255,.58);
+}
+.achievement-toast.show{
+  animation:mineacleToast 3.2s cubic-bezier(.22,1,.36,1) forwards!important;
+}
+.achievement-icon{
+  position:relative;
+  z-index:1;
+  width:54px!important;
+  height:54px!important;
+  display:grid!important;
+  place-items:center!important;
+  border-radius:16px!important;
+  background:
+    linear-gradient(135deg,rgba(255,85,255,.25),rgba(125,60,255,.28)),
+    rgba(255,255,255,.06)!important;
+  border:1px solid rgba(255,255,255,.10)!important;
+  box-shadow:
+    0 0 22px rgba(255,85,255,.22),
+    inset 0 0 0 1px rgba(255,255,255,.05)!important;
+}
+.achievement-icon img{
+  width:24px!important;
+  height:24px!important;
+  min-width:24px!important;
+  min-height:24px!important;
+  max-width:24px!important;
+  max-height:24px!important;
+  object-fit:contain!important;
+  display:block!important;
+}
+.achievement-copy{
+  position:relative;
+  z-index:1;
+  min-width:0;
+}
+.achievement-copy small{
+  display:block!important;
+  color:var(--pink2)!important;
+  font-size:11px!important;
+  line-height:1!important;
+  font-weight:950!important;
+  letter-spacing:.08em!important;
+  text-transform:uppercase!important;
+  margin:0 0 6px!important;
+}
+.achievement-copy strong{
+  display:block!important;
+  color:white!important;
+  font-size:20px!important;
+  line-height:1.05!important;
+  font-weight:950!important;
+  letter-spacing:-.04em!important;
+}
+.achievement-copy span{
+  display:block!important;
+  color:var(--soft)!important;
+  font-size:13px!important;
+  line-height:1.35!important;
+  margin-top:5px!important;
+}
+.achievement-copy b{
+  color:var(--cyan)!important;
+  font-weight:950!important;
+}
+@keyframes mineacleToast{
+  0%{
+    opacity:0;
+    transform:translateY(-12px) scale(.96);
+  }
+  12%{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+  82%{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+  100%{
+    opacity:0;
+    transform:translateY(-10px) scale(.98);
+  }
+}
+@media(max-width:700px){
+  .achievement-toast{
+    top:10px!important;
+    right:10px!important;
+    width:calc(100vw - 20px)!important;
+  }
+}
+
