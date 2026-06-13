@@ -24,7 +24,7 @@ mineacle_page_head('Bans');
       <div class="hero-bg" aria-hidden="true"></div>
 
       <div class="hero-left">
-        <img class="hero-logo" src="assets/mineacle-logo.png?v=10" alt="Mineacle">
+        <img class="hero-logo" src="assets/mineacle-logo.png?v=10.1" alt="Mineacle">
         <a class="deal-card" href="<?= h($config['site']['store'] ?? 'https://store.mineacle.net') ?>">
           <span class="deal-icon"><img src="assets/basket.svg" alt=""></span>
           <span><small>Click here to</small><strong>Browse Mineacle Store</strong></span>

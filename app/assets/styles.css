@@ -375,3 +375,129 @@ img{max-width:100%}
 @media(prefers-reduced-motion:reduce){
   *{scroll-behavior:auto!important;transition:none!important;animation:none!important}
 }
+
+
+/* V10 icon size fix
+   These hard clamps prevent SVGs and other images from inheriting full-size image rules. */
+.nav-icon,
+.quick-icon,
+.deal-icon,
+.achievement-icon{
+  overflow:hidden;
+  flex:0 0 auto;
+}
+
+.nav-icon img,
+.copy-top .nav-icon img{
+  width:18px!important;
+  height:18px!important;
+  min-width:18px!important;
+  max-width:18px!important;
+  min-height:18px!important;
+  max-height:18px!important;
+  object-fit:contain!important;
+  display:block!important;
+}
+
+.quick-icon img,
+.quick-link .quick-icon img{
+  width:22px!important;
+  height:22px!important;
+  min-width:22px!important;
+  max-width:22px!important;
+  min-height:22px!important;
+  max-height:22px!important;
+  object-fit:contain!important;
+  display:block!important;
+}
+
+.deal-icon img,
+.deal-card .deal-icon img{
+  width:25px!important;
+  height:25px!important;
+  min-width:25px!important;
+  max-width:25px!important;
+  min-height:25px!important;
+  max-height:25px!important;
+  object-fit:contain!important;
+  display:block!important;
+}
+
+.info-btn img{
+  width:16px!important;
+  height:16px!important;
+  min-width:16px!important;
+  max-width:16px!important;
+  min-height:16px!important;
+  max-height:16px!important;
+  object-fit:contain!important;
+  display:block!important;
+}
+
+.searchbar img{
+  width:18px!important;
+  height:18px!important;
+  min-width:18px!important;
+  max-width:18px!important;
+  min-height:18px!important;
+  max-height:18px!important;
+  object-fit:contain!important;
+  display:block!important;
+}
+
+.rule-card > img{
+  width:30px!important;
+  height:30px!important;
+  min-width:30px!important;
+  max-width:30px!important;
+  min-height:30px!important;
+  max-height:30px!important;
+  object-fit:contain!important;
+  display:block!important;
+}
+
+.btn img,
+.pill img,
+.modal-actions img,
+.ban-action img{
+  width:18px!important;
+  height:18px!important;
+  min-width:18px!important;
+  max-width:18px!important;
+  min-height:18px!important;
+  max-height:18px!important;
+  object-fit:contain!important;
+  display:block!important;
+}
+
+.badge img,
+.modal-title .badge img{
+  width:13px!important;
+  height:13px!important;
+  min-width:13px!important;
+  max-width:13px!important;
+  min-height:13px!important;
+  max-height:13px!important;
+  object-fit:contain!important;
+  display:block!important;
+}
+
+.achievement-icon img{
+  width:22px!important;
+  height:22px!important;
+  min-width:22px!important;
+  max-width:22px!important;
+  min-height:22px!important;
+  max-height:22px!important;
+  object-fit:contain!important;
+  display:block!important;
+}
+
+/* Keep the actual Mineacle logo images separate from the generic icon clamps. */
+.hero-logo,
+.brand-logo,
+.ban-avatar,
+.modal-head > img{
+  max-width:100%;
+}
+
