@@ -27,7 +27,7 @@ mineacle_page_head('Bans');
 
         <a class="discord-panel" href="<?= h($config['site']['discord']) ?>" target="_blank" rel="noopener">
           <div class="discord-character-wrap">
-            <img class="discord-character" src="assets/discord-character.webp?v=foundation1.11" alt="">
+            <img class="discord-character" src="assets/discord-character.webp?v=foundation1.11.1" alt="">
           </div>
           <div>
             <span>Official Discord</span>
