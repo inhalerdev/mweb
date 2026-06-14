@@ -334,3 +334,134 @@ img{
   }
 }
 
+
+
+/* Foundation V1.3 icon replacement safety
+   Supports black 600x600 transparent PNG icons or SVG icons.
+   The layout controls the display size and this filter turns black icons white. */
+
+.icon-white,
+.main-nav .nav-icon,
+.hero-link > img,
+.discord-mark > img {
+  filter: brightness(0) invert(1) !important;
+  opacity: 1 !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+
+/* Active/hover header icon glow */
+.main-nav a.active .nav-icon,
+.main-nav a:hover .nav-icon {
+  filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(255, 136, 255, 0.55)) !important;
+}
+
+/* Prevent icon files from disappearing against dark backgrounds */
+.main-nav a,
+.hero-link,
+.discord-panel,
+.discord-mark {
+  color: #ffffff;
+}
+
+/* Important: these classes work for PNG, SVG, WEBP, and JPG as long as the path/file extension is correct. */
+
+
+/* Foundation V1.4 PNG-first icon loading
+   The HTML now loads PNG first:
+   assets/home.png, vote.png, hammer.png, store.png, discord.png, copy.png
+   If PNG is missing, inline onerror falls back to the matching SVG.
+*/
+
+.icon-white,
+.main-nav .nav-icon,
+.hero-link > img,
+.discord-mark > img {
+  filter: brightness(0) invert(1) !important;
+  opacity: 1 !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+
+/* If your replacement icons are already colored, remove "icon-white" from the HTML
+   or remove the filter rule above. For black icons, keep the filter. */
+
+.main-nav .nav-icon{
+  width: var(--icon-nav-size, 20px) !important;
+  height: var(--icon-nav-size, 20px) !important;
+  min-width: var(--icon-nav-size, 20px) !important;
+  min-height: var(--icon-nav-size, 20px) !important;
+  max-width: var(--icon-nav-size, 20px) !important;
+  max-height: var(--icon-nav-size, 20px) !important;
+}
+
+.store-link .nav-icon{
+  width: 21px !important;
+  height: 21px !important;
+  min-width: 21px !important;
+  min-height: 21px !important;
+  max-width: 21px !important;
+  max-height: 21px !important;
+}
+
+.hero-link > img{
+  width: var(--icon-button-size, 18px) !important;
+  height: var(--icon-button-size, 18px) !important;
+  min-width: var(--icon-button-size, 18px) !important;
+  min-height: var(--icon-button-size, 18px) !important;
+  max-width: var(--icon-button-size, 18px) !important;
+  max-height: var(--icon-button-size, 18px) !important;
+}
+
+
+/* Foundation V1.5 SVG-primary fix
+   The uploaded icons are valid SVGs containing embedded black PNG artwork.
+   This keeps SVG files as the primary source and turns black artwork white. */
+
+.main-nav .nav-icon,
+.hero-link > img,
+.discord-mark > img,
+.icon-white {
+  display: block !important;
+  object-fit: contain !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  filter: brightness(0) invert(1) !important;
+}
+
+.main-nav .nav-icon {
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  min-height: 22px !important;
+  max-width: 22px !important;
+  max-height: 22px !important;
+}
+
+.store-link .nav-icon {
+  width: 23px !important;
+  height: 23px !important;
+  min-width: 23px !important;
+  min-height: 23px !important;
+  max-width: 23px !important;
+  max-height: 23px !important;
+}
+
+.hero-link > img {
+  width: 19px !important;
+  height: 19px !important;
+  min-width: 19px !important;
+  min-height: 19px !important;
+  max-width: 19px !important;
+  max-height: 19px !important;
+}
+
+.main-nav a.active .nav-icon,
+.main-nav a:hover .nav-icon {
+  filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(255, 136, 255, 0.60)) !important;
+}
+
+/* Debug visibility guard: prevents icons from collapsing if a browser dislikes embedded SVG PNG natural sizing. */
+.main-nav a {
+  overflow: visible;
+}

@@ -1,3 +1,11 @@
+document.querySelectorAll("img[data-fallback]").forEach((image) => {
+  image.addEventListener("error", () => {
+    if (image.dataset.fallbackUsed === "true") return;
+    image.dataset.fallbackUsed = "true";
+    image.src = image.dataset.fallback;
+  });
+});
+
 const toast = document.getElementById("toast");
 const toastValue = document.getElementById("toastValue");
 const banList = document.getElementById("banList");

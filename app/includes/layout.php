@@ -15,7 +15,7 @@ function mineacle_page_head(string $title): void {
     echo '<meta name="viewport" content="width=device-width,initial-scale=1">';
     echo '<title>' . h($title) . ' | ' . $name . '</title>';
     echo '<meta name="description" content="Mineacle public bans portal">';
-    echo '<link rel="stylesheet" href="assets/styles.css?v=foundation1.2">';
+    echo '<link rel="stylesheet" href="assets/styles.css?v=foundation1.5">';
     echo '</head>';
 }
 
@@ -31,10 +31,10 @@ function mineacle_header(string $active = 'bans'): void {
     echo '<div class="header-inner">';
     echo '<button class="join-button copy-ip" type="button" data-copy="' . $ip . '">Join Now</button>';
     echo '<nav class="main-nav" aria-label="Primary navigation">';
-    echo '<a class="' . ($active === 'home' ? 'active' : '') . '" href="' . $home . '"><img class="nav-icon" src="assets/home.svg" alt=""><span>Home</span></a>';
-    echo '<a class="' . ($active === 'vote' ? 'active' : '') . '" href="' . $vote . '"><img class="nav-icon" src="assets/vote.svg" alt=""><span>Vote</span></a>';
-    echo '<a class="' . ($active === 'bans' ? 'active' : '') . '" href="/"><img class="nav-icon" src="assets/hammer.svg" alt=""><span>Bans</span></a>';
-    echo '<a class="store-link ' . ($active === 'store' ? 'active' : '') . '" href="' . $store . '"><img class="nav-icon" src="assets/store.svg" alt=""><span>Store</span></a>';
+    echo '<a class="' . ($active === 'home' ? 'active' : '') . '" href="' . $home . '"><img class="nav-icon icon-white" src="assets/home.svg?v=foundation1.5" alt=""><span>Home</span></a>';
+    echo '<a class="' . ($active === 'vote' ? 'active' : '') . '" href="' . $vote . '"><img class="nav-icon icon-white" src="assets/vote.svg?v=foundation1.5" alt=""><span>Vote</span></a>';
+    echo '<a class="' . ($active === 'bans' ? 'active' : '') . '" href="/"><img class="nav-icon icon-white" src="assets/hammer.svg?v=foundation1.5" alt=""><span>Bans</span></a>';
+    echo '<a class="store-link ' . ($active === 'store' ? 'active' : '') . '" href="' . $store . '"><img class="nav-icon icon-white" src="assets/store.svg?v=foundation1.5" alt=""><span>Store</span></a>';
     echo '</nav>';
     echo '</div>';
     echo '</header>';
@@ -54,5 +54,5 @@ function mineacle_footer(): void {
     echo '<div><small>Mineacle Network</small><strong>Server IP copied</strong><span>Join with <b id="toastValue">mineacle.net</b></span></div>';
     echo '</div>';
 
-    echo '<script src="assets/main.js?v=foundation1.2"></script>';
+    echo '<script src="assets/main.js?v=foundation1.5"></script>';
 }
