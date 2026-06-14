@@ -38,3 +38,173 @@ a{color:inherit;text-decoration:none}button,input{font:inherit}button{cursor:poi
 @media(max-width:1100px){.page-shell{width:min(100% - 20px,1500px);margin:16px auto 60px}.header-inner{grid-template-columns:1fr}.main-nav{justify-self:start;flex-wrap:wrap}.hero-shell{margin:24px 0 0}.hero-grid{grid-template-columns:1fr;gap:34px;padding:72px 28px 88px}.logo-placeholder{max-width:420px}.ban-toolbar{grid-template-columns:1fr}.ban-row{grid-template-columns:60px 1fr;align-items:start}.ban-reason,.ban-status,.ban-action{grid-column:2}.ban-action{justify-self:start}.info-grid,.footer-grid{grid-template-columns:1fr}}
 @media(max-width:700px){.hero-copy h1{font-size:clamp(38px,12vw,56px)}.hero-copy>p{font-size:18px}.logo-placeholder span{font-size:24px}.modal-head{grid-template-columns:56px 1fr 42px}.modal-head>img{width:56px!important;height:56px!important}.modal-title{align-items:flex-start;flex-direction:column;gap:8px}.modal-title h2{font-size:24px}.detail{grid-template-columns:1fr;gap:4px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+
+/* Foundation V1.1 header/icon + Discord hero panel */
+.main-nav a{
+  gap:9px;
+  padding:0 16px;
+}
+
+.nav-box{
+  display:none!important;
+}
+
+.nav-icon,
+.hero-link img,
+.discord-mark img{
+  width:19px!important;
+  height:19px!important;
+  min-width:19px!important;
+  min-height:19px!important;
+  max-width:19px!important;
+  max-height:19px!important;
+  object-fit:contain!important;
+  display:block!important;
+}
+
+.store-link .nav-icon{
+  width:20px!important;
+  height:20px!important;
+}
+
+.main-nav a.active .nav-icon{
+  filter:drop-shadow(0 0 10px rgba(255,136,255,.42));
+}
+
+.hero-background-copy,
+.eyebrow{
+  display:none!important;
+}
+
+.hero-copy h1{
+  margin-top:0;
+}
+
+.discord-panel{
+  margin-top:36px;
+  min-height:230px;
+  display:grid;
+  grid-template-columns:78px 1fr 44px;
+  gap:20px;
+  align-items:center;
+  padding:30px;
+  border-radius:24px;
+  border:1px solid rgba(88,101,242,.38);
+  background:
+    radial-gradient(circle at 12% 50%,rgba(88,101,242,.32),transparent 15rem),
+    linear-gradient(135deg,rgba(88,101,242,.24),rgba(140,60,255,.10)),
+    rgba(0,0,0,.18);
+  box-shadow:
+    0 22px 48px rgba(0,0,0,.22),
+    inset 0 0 0 1px rgba(255,255,255,.045);
+  transition:.16s ease;
+}
+
+.discord-panel:hover{
+  transform:translateY(-3px);
+  border-color:rgba(88,101,242,.64);
+  background:
+    radial-gradient(circle at 12% 50%,rgba(88,101,242,.40),transparent 15rem),
+    linear-gradient(135deg,rgba(88,101,242,.30),rgba(140,60,255,.14)),
+    rgba(0,0,0,.18);
+}
+
+.discord-mark{
+  width:78px;
+  height:78px;
+  display:grid;
+  place-items:center;
+  border-radius:22px;
+  background:#5865f2;
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow:0 16px 34px rgba(88,101,242,.28);
+}
+
+.discord-mark img{
+  width:34px!important;
+  height:34px!important;
+  color:white;
+  filter:none;
+}
+
+.discord-panel span{
+  display:block;
+  color:#dbe0ff;
+  font-size:12px;
+  font-weight:950;
+  text-transform:uppercase;
+  letter-spacing:.10em;
+  margin-bottom:8px;
+}
+
+.discord-panel strong{
+  display:block;
+  color:white;
+  font-size:30px;
+  line-height:1.05;
+  letter-spacing:-.045em;
+}
+
+.discord-panel p{
+  margin:10px 0 0;
+  color:var(--soft);
+  font-size:17px;
+  line-height:1.55;
+}
+
+.discord-arrow{
+  width:44px;
+  height:44px;
+  display:grid;
+  place-items:center;
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.10);
+  color:white;
+  font-size:26px;
+  font-weight:900;
+}
+
+.hero-link{
+  gap:10px;
+}
+
+.hero-link img{
+  width:18px!important;
+  height:18px!important;
+  color:white;
+}
+
+.discord-link{
+  border-color:rgba(88,101,242,.46);
+  background:rgba(88,101,242,.16);
+}
+
+.discord-link:hover{
+  background:rgba(88,101,242,.24);
+}
+
+@media(max-width:700px){
+  .discord-panel{
+    grid-template-columns:1fr;
+    min-height:auto;
+    padding:24px;
+  }
+
+  .discord-arrow{
+    display:none;
+  }
+
+  .discord-mark{
+    width:62px;
+    height:62px;
+    border-radius:18px;
+  }
+
+  .discord-mark img{
+    width:28px!important;
+    height:28px!important;
+  }
+}
+

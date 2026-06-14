@@ -16,27 +16,34 @@ mineacle_page_head('Bans');
   <?php mineacle_header('bans'); ?>
 
   <section class="hero-shell" aria-label="Mineacle public bans hero">
-    <div class="hero-background-copy">Background filler image</div>
-
     <div class="hero-grid">
       <div class="logo-placeholder" aria-label="Main logo placeholder">
         <span>Main Logo</span>
       </div>
 
       <div class="hero-copy">
-        <span class="eyebrow">Mineacle Safety</span>
         <h1>Public Ban List</h1>
         <p>Search active punishments, review public LiteBans records, and keep Mineacle safe for every player</p>
 
-        <div class="hero-card">
-          <span class="hero-card-label">Future page artwork</span>
-          <strong>Admin review / ban hammer scene</strong>
-          <p>This placeholder is where we can later add a clean generated render that fits the page without changing the layout</p>
-        </div>
+        <a class="discord-panel" href="<?= h($config['site']['discord']) ?>" target="_blank" rel="noopener">
+          <div class="discord-mark">
+            <img src="assets/discord.svg" alt="">
+          </div>
+          <div>
+            <span>Official Discord</span>
+            <strong>Appeals, updates, and support</strong>
+            <p>Join the Mineacle community for ban help, server news, event updates, and player support.</p>
+          </div>
+          <div class="discord-arrow">→</div>
+        </a>
 
         <div class="hero-actions">
-          <a class="hero-link" href="<?= h($config['site']['discord']) ?>" target="_blank" rel="noopener">Discord</a>
-          <button class="hero-link copy-ip" type="button" data-copy="<?= h($config['site']['ip']) ?>">Copy IP</button>
+          <a class="hero-link discord-link" href="<?= h($config['site']['discord']) ?>" target="_blank" rel="noopener">
+            <img src="assets/discord.svg" alt=""> Discord
+          </a>
+          <button class="hero-link copy-ip" type="button" data-copy="<?= h($config['site']['ip']) ?>">
+            <img src="assets/copy.svg" alt=""> Copy IP
+          </button>
         </div>
       </div>
     </div>
