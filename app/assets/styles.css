@@ -599,3 +599,84 @@ img{
     max-height:420px;
   }
 }
+
+
+/* Foundation V1.8 header logo link + stronger Store button */
+
+.header-logo-link{
+  width:60px!important;
+  height:60px!important;
+  min-width:60px!important;
+  display:grid!important;
+  place-items:center!important;
+  border-radius:16px!important;
+  border:1px solid rgba(255,255,255,.18)!important;
+  background:rgba(255,255,255,.045)!important;
+  transition:.16s ease!important;
+}
+
+.header-logo-link:hover{
+  transform:translateY(-2px)!important;
+  border-color:rgba(255,136,255,.40)!important;
+  background:rgba(255,136,255,.08)!important;
+}
+
+.header-logo-link img{
+  width:44px!important;
+  height:44px!important;
+  min-width:44px!important;
+  min-height:44px!important;
+  max-width:44px!important;
+  max-height:44px!important;
+  object-fit:contain!important;
+  display:block!important;
+  filter:none!important;
+}
+
+/* Keep old copy-button logo rules from affecting the new link only if old class appears somewhere */
+.logo-copy-button{
+  display:none;
+}
+
+/* Store should read as the primary commercial CTA, not another nav pill */
+.main-nav .store-link{
+  min-height:54px!important;
+  padding:0 22px!important;
+  border-radius:14px!important;
+  border:1px solid rgba(255,255,255,.18)!important;
+  background:linear-gradient(135deg,#9b36ff 0%,#d84dff 100%)!important;
+  color:#ffffff!important;
+  box-shadow:
+    0 14px 30px rgba(155,54,255,.32),
+    inset 0 0 0 1px rgba(255,255,255,.10)!important;
+}
+
+.main-nav .store-link:hover{
+  transform:translateY(-2px)!important;
+  background:linear-gradient(135deg,#a946ff 0%,#ff66ff 100%)!important;
+  border-color:rgba(255,255,255,.30)!important;
+  box-shadow:
+    0 18px 38px rgba(200,92,255,.38),
+    inset 0 0 0 1px rgba(255,255,255,.16)!important;
+}
+
+.main-nav .store-link .nav-icon{
+  filter:brightness(0) invert(1)!important;
+}
+
+@media(max-width:900px){
+  .header-logo-link{
+    width:54px!important;
+    height:54px!important;
+    min-width:54px!important;
+  }
+
+  .header-logo-link img{
+    width:38px!important;
+    height:38px!important;
+    min-width:38px!important;
+    min-height:38px!important;
+    max-width:38px!important;
+    max-height:38px!important;
+  }
+}
