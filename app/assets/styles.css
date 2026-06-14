@@ -516,3 +516,86 @@ img{
 .discord-mark{
   overflow:visible!important;
 }
+
+
+/* Foundation V1.7 main logo + square header logo */
+
+.sr-only{
+  position:absolute!important;
+  width:1px!important;
+  height:1px!important;
+  padding:0!important;
+  margin:-1px!important;
+  overflow:hidden!important;
+  clip:rect(0,0,0,0)!important;
+  white-space:nowrap!important;
+  border:0!important;
+}
+
+.logo-copy-button{
+  min-width:60px!important;
+  width:60px!important;
+  height:60px!important;
+  padding:6px!important;
+  display:grid!important;
+  place-items:center!important;
+  border-radius:16px!important;
+}
+
+.logo-copy-button img{
+  width:44px!important;
+  height:44px!important;
+  min-width:44px!important;
+  min-height:44px!important;
+  max-width:44px!important;
+  max-height:44px!important;
+  object-fit:contain!important;
+  display:block!important;
+  filter:none!important;
+}
+
+.hero-main-logo-wrap{
+  width:min(620px,100%);
+  justify-self:center;
+  display:grid;
+  place-items:center;
+}
+
+.hero-main-logo{
+  width:min(620px,100%);
+  max-height:560px;
+  object-fit:contain;
+  display:block;
+  filter:none!important;
+}
+
+.logo-placeholder{
+  display:none!important;
+}
+
+.scroll-down{
+  display:none!important;
+}
+
+@media (max-width: 900px){
+  .logo-copy-button{
+    width:54px!important;
+    height:54px!important;
+    min-width:54px!important;
+    padding:6px!important;
+  }
+
+  .logo-copy-button img{
+    width:38px!important;
+    height:38px!important;
+    min-width:38px!important;
+    min-height:38px!important;
+    max-width:38px!important;
+    max-height:38px!important;
+  }
+
+  .hero-main-logo{
+    width:min(500px,100%);
+    max-height:420px;
+  }
+}

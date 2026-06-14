@@ -17,8 +17,8 @@ mineacle_page_head('Bans');
 
   <section class="hero-shell" aria-label="Mineacle public bans hero">
     <div class="hero-grid">
-      <div class="logo-placeholder" aria-label="Main logo placeholder">
-        <span>Main Logo</span>
+      <div class="hero-main-logo-wrap" aria-label="Mineacle main logo">
+        <img class="hero-main-logo" src="assets/mineacle-main-logo.png?v=foundation1.7" alt="Mineacle">
       </div>
 
       <div class="hero-copy">
@@ -27,7 +27,7 @@ mineacle_page_head('Bans');
 
         <a class="discord-panel" href="<?= h($config['site']['discord']) ?>" target="_blank" rel="noopener">
           <div class="discord-mark">
-            <img class="action-icon icon-white" src="assets/discord.svg?v=foundation1.6" alt="">
+            <img class="action-icon icon-white" src="assets/discord.svg?v=foundation1.7" alt="">
           </div>
           <div>
             <span>Official Discord</span>
@@ -39,16 +39,15 @@ mineacle_page_head('Bans');
 
         <div class="hero-actions">
           <a class="hero-link discord-link" href="<?= h($config['site']['discord']) ?>" target="_blank" rel="noopener">
-            <img class="action-icon icon-white" src="assets/discord.svg?v=foundation1.6" alt=""> Discord
+            <img class="action-icon icon-white" src="assets/discord.svg?v=foundation1.7" alt=""> Discord
           </a>
           <button class="hero-link copy-ip" type="button" data-copy="<?= h($config['site']['ip']) ?>">
-            <img class="action-icon icon-white" src="assets/copy.svg?v=foundation1.6" alt=""> Copy IP
+            <img class="action-icon icon-white" src="assets/copy.svg?v=foundation1.7" alt=""> Copy IP
           </button>
         </div>
       </div>
     </div>
 
-    <a class="scroll-down" href="#bans" aria-label="Scroll to bans">⌄</a>
   </section>
 
   <section class="content-section">
