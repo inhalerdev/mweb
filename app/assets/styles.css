@@ -682,8 +682,192 @@ img{
 }
 
 
-/* Foundation V1.15 rollback + logo-only footer */
+/* Foundation V1.9 clean top-left logo link
+   Plain image only: no button border, no background, no frame. */
 
+.header-logo-link{
+  width:60px!important;
+  height:60px!important;
+  min-width:60px!important;
+  display:grid!important;
+  place-items:center!important;
+  padding:0!important;
+  border:none!important;
+  outline:none!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+  transition:.16s ease!important;
+}
+
+.header-logo-link:hover{
+  transform:translateY(-2px)!important;
+  border:none!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+.header-logo-link img{
+  width:54px!important;
+  height:54px!important;
+  min-width:54px!important;
+  min-height:54px!important;
+  max-width:54px!important;
+  max-height:54px!important;
+  object-fit:contain!important;
+  display:block!important;
+  filter:none!important;
+}
+
+@media(max-width:900px){
+  .header-logo-link{
+    width:54px!important;
+    height:54px!important;
+    min-width:54px!important;
+  }
+
+  .header-logo-link img{
+    width:48px!important;
+    height:48px!important;
+    min-width:48px!important;
+    min-height:48px!important;
+    max-width:48px!important;
+    max-height:48px!important;
+  }
+}
+
+
+/* Foundation V1.10 header scale + Discord character panel */
+
+/* Larger top-left image link */
+.header-logo-link{
+  width:72px!important;
+  height:72px!important;
+  min-width:72px!important;
+}
+
+.header-logo-link img{
+  width:66px!important;
+  height:66px!important;
+  min-width:66px!important;
+  min-height:66px!important;
+  max-width:66px!important;
+  max-height:66px!important;
+}
+
+/* Make Home / Vote / Bans closer to Store button scale */
+.main-nav a:not(.store-link){
+  min-height:54px!important;
+  padding:0 20px!important;
+  border-radius:14px!important;
+  font-size:19px!important;
+}
+
+.main-nav a:not(.store-link) .nav-icon{
+  width:23px!important;
+  height:23px!important;
+  min-width:23px!important;
+  min-height:23px!important;
+  max-width:23px!important;
+  max-height:23px!important;
+}
+
+/* Keep Store still slightly more prominent */
+.main-nav .store-link{
+  min-height:56px!important;
+  padding:0 24px!important;
+  font-size:19px!important;
+}
+
+/* Discord character replaces the Discord logo in the hero panel */
+.discord-character-wrap{
+  width:110px;
+  height:110px;
+  display:grid;
+  place-items:center;
+  border-radius:26px;
+  background:
+    radial-gradient(circle at 45% 35%, rgba(88,101,242,.22), transparent 64%),
+    rgba(88,101,242,.10);
+  border:1px solid rgba(88,101,242,.28);
+  overflow:visible;
+}
+
+.discord-character{
+  width:112px!important;
+  height:112px!important;
+  min-width:112px!important;
+  min-height:112px!important;
+  max-width:112px!important;
+  max-height:112px!important;
+  object-fit:contain!important;
+  display:block!important;
+  filter:none!important;
+}
+
+/* Discord panel layout after using character art */
+.discord-panel{
+  grid-template-columns:118px 1fr 44px!important;
+  min-height:210px!important;
+}
+
+/* Removed the extra buttons below the Discord hero panel */
+.hero-actions{
+  display:none!important;
+}
+
+@media(max-width:900px){
+  .header-logo-link{
+    width:62px!important;
+    height:62px!important;
+    min-width:62px!important;
+  }
+
+  .header-logo-link img{
+    width:56px!important;
+    height:56px!important;
+    min-width:56px!important;
+    min-height:56px!important;
+    max-width:56px!important;
+    max-height:56px!important;
+  }
+
+  .main-nav a:not(.store-link){
+    min-height:50px!important;
+    padding:0 16px!important;
+    font-size:17px!important;
+  }
+
+  .main-nav a:not(.store-link) .nav-icon{
+    width:21px!important;
+    height:21px!important;
+    min-width:21px!important;
+    min-height:21px!important;
+    max-width:21px!important;
+    max-height:21px!important;
+  }
+
+  .discord-panel{
+    grid-template-columns:1fr!important;
+  }
+
+  .discord-character-wrap{
+    width:92px;
+    height:92px;
+  }
+
+  .discord-character{
+    width:94px!important;
+    height:94px!important;
+    min-width:94px!important;
+    min-height:94px!important;
+    max-width:94px!important;
+    max-height:94px!important;
+  }
+}
+
+
+/* Foundation V1.17 hard repair: logo-only footer */
 .logo-only-footer{
   margin:34px 14px 0!important;
   min-height:180px!important;
@@ -697,15 +881,6 @@ img{
     linear-gradient(180deg, rgba(14,10,24,.88), rgba(10,7,18,.96))!important;
   overflow:hidden!important;
   position:relative!important;
-}
-
-.logo-only-footer .footer-grid,
-.logo-only-footer .footer-brand,
-.logo-only-footer .footer-brand-copy,
-.logo-only-footer .footer-links,
-.logo-only-footer .footer-actions,
-.logo-only-footer .footer-bg-logo{
-  display:none!important;
 }
 
 .footer-only-logo{
@@ -722,42 +897,4 @@ img{
 
 .error .error-help{
   display:none!important;
-}
-
-
-/* Foundation V1.16 emergency page-load hotfix footer */
-.logo-only-footer{
-  margin:34px 14px 0!important;
-  min-height:180px!important;
-  padding:0!important;
-  display:grid!important;
-  place-items:center!important;
-  border-radius:26px!important;
-  border:1px solid rgba(255,136,255,.16)!important;
-  background:
-    radial-gradient(circle at center, rgba(140,60,255,.10), transparent 58%),
-    linear-gradient(180deg, rgba(14,10,24,.88), rgba(10,7,18,.96))!important;
-  overflow:hidden!important;
-  position:relative!important;
-}
-
-.logo-only-footer .footer-grid,
-.logo-only-footer .footer-brand,
-.logo-only-footer .footer-brand-copy,
-.logo-only-footer .footer-links,
-.logo-only-footer .footer-actions,
-.logo-only-footer .footer-bg-logo{
-  display:none!important;
-}
-
-.footer-only-logo{
-  width:min(520px,72vw)!important;
-  height:auto!important;
-  max-height:150px!important;
-  object-fit:contain!important;
-  display:block!important;
-  opacity:.18!important;
-  filter:grayscale(1) brightness(1.35)!important;
-  pointer-events:none!important;
-  user-select:none!important;
 }
