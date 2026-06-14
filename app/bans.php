@@ -27,7 +27,7 @@ mineacle_page_head('Bans');
 
         <a class="discord-panel" href="<?= h($config['site']['discord']) ?>" target="_blank" rel="noopener">
           <div class="discord-mark">
-            <img class="icon-white" src="assets/discord.png?v=foundation1.5" onerror="this.onerror=null;this.src=\'assets/discord.svg?v=foundation1.5\'" alt="">
+            <img class="action-icon icon-white" src="assets/discord.svg?v=foundation1.6" alt="">
           </div>
           <div>
             <span>Official Discord</span>
@@ -39,10 +39,10 @@ mineacle_page_head('Bans');
 
         <div class="hero-actions">
           <a class="hero-link discord-link" href="<?= h($config['site']['discord']) ?>" target="_blank" rel="noopener">
-            <img class="icon-white" src="assets/discord.png?v=foundation1.5" onerror="this.onerror=null;this.src=\'assets/discord.svg?v=foundation1.5\'" alt=""> Discord
+            <img class="action-icon icon-white" src="assets/discord.svg?v=foundation1.6" alt=""> Discord
           </a>
           <button class="hero-link copy-ip" type="button" data-copy="<?= h($config['site']['ip']) ?>">
-            <img class="icon-white" src="assets/copy.png?v=foundation1.5" onerror="this.onerror=null;this.src=\'assets/copy.svg?v=foundation1.5\'" alt=""> Copy IP
+            <img class="action-icon icon-white" src="assets/copy.svg?v=foundation1.6" alt=""> Copy IP
           </button>
         </div>
       </div>

@@ -465,3 +465,54 @@ img{
 .main-nav a {
   overflow: visible;
 }
+
+
+/* Foundation V1.6 hero action icon fix */
+
+.header-copy-ip{
+  min-width:132px;
+  text-align:center;
+}
+
+.hero-link .action-icon,
+.discord-panel .action-icon,
+.hero-link img[src*="discord.svg"],
+.hero-link img[src*="copy.svg"],
+.discord-panel img[src*="discord.svg"]{
+  display:block!important;
+  opacity:1!important;
+  visibility:visible!important;
+  width:20px!important;
+  height:20px!important;
+  min-width:20px!important;
+  min-height:20px!important;
+  max-width:20px!important;
+  max-height:20px!important;
+  object-fit:contain!important;
+  filter:brightness(0) invert(1)!important;
+  flex:0 0 20px!important;
+}
+
+.discord-mark .action-icon,
+.discord-mark img[src*="discord.svg"]{
+  display:block!important;
+  opacity:1!important;
+  visibility:visible!important;
+  width:34px!important;
+  height:34px!important;
+  min-width:34px!important;
+  min-height:34px!important;
+  max-width:34px!important;
+  max-height:34px!important;
+  object-fit:contain!important;
+  filter:brightness(0) invert(1)!important;
+}
+
+.hero-link{
+  display:inline-flex!important;
+  align-items:center!important;
+}
+
+.discord-mark{
+  overflow:visible!important;
+}
