@@ -208,3 +208,129 @@ a{color:inherit;text-decoration:none}button,input{font:inherit}button{cursor:poi
   }
 }
 
+
+/* Foundation V1.2 image/icon sizing system
+   Replace image files freely while keeping the same filenames.
+   The layout controls size, not the image's natural dimensions. */
+
+:root{
+  --icon-nav-size: 20px;
+  --icon-button-size: 18px;
+  --icon-discord-mark-size: 34px;
+  --image-logo-box-size: min(520px, 100%);
+  --image-player-head-size: 56px;
+  --image-modal-head-size: 74px;
+}
+
+/* Global safety: local SVG/PNG icons never render at natural oversized dimensions. */
+img{
+  object-fit: contain;
+}
+
+/* Header icons: Home / Vote / Bans / Store */
+.main-nav .nav-icon{
+  width: var(--icon-nav-size) !important;
+  height: var(--icon-nav-size) !important;
+  min-width: var(--icon-nav-size) !important;
+  min-height: var(--icon-nav-size) !important;
+  max-width: var(--icon-nav-size) !important;
+  max-height: var(--icon-nav-size) !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+
+/* Store can be slightly stronger if the icon file has more detail. */
+.store-link .nav-icon{
+  width: 21px !important;
+  height: 21px !important;
+  min-width: 21px !important;
+  min-height: 21px !important;
+  max-width: 21px !important;
+  max-height: 21px !important;
+}
+
+/* Hero action icons: Discord and Copy IP buttons */
+.hero-link > img{
+  width: var(--icon-button-size) !important;
+  height: var(--icon-button-size) !important;
+  min-width: var(--icon-button-size) !important;
+  min-height: var(--icon-button-size) !important;
+  max-width: var(--icon-button-size) !important;
+  max-height: var(--icon-button-size) !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+
+/* Discord branded panel icon */
+.discord-mark > img{
+  width: var(--icon-discord-mark-size) !important;
+  height: var(--icon-discord-mark-size) !important;
+  min-width: var(--icon-discord-mark-size) !important;
+  min-height: var(--icon-discord-mark-size) !important;
+  max-width: var(--icon-discord-mark-size) !important;
+  max-height: var(--icon-discord-mark-size) !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+
+/* Future logo/art placeholders:
+   If you later replace the placeholder with an <img>, this keeps it contained. */
+.logo-placeholder img,
+.hero-card img,
+.future-art img{
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+
+/* Player heads from the ban API:
+   These are intentionally fixed and cropped so skins stay uniform. */
+.ban-avatar{
+  width: var(--image-player-head-size) !important;
+  height: var(--image-player-head-size) !important;
+  min-width: var(--image-player-head-size) !important;
+  min-height: var(--image-player-head-size) !important;
+  max-width: var(--image-player-head-size) !important;
+  max-height: var(--image-player-head-size) !important;
+  object-fit: cover !important;
+  image-rendering: pixelated;
+}
+
+/* Modal player head */
+.modal-head > img{
+  width: var(--image-modal-head-size) !important;
+  height: var(--image-modal-head-size) !important;
+  min-width: var(--image-modal-head-size) !important;
+  min-height: var(--image-modal-head-size) !important;
+  max-width: var(--image-modal-head-size) !important;
+  max-height: var(--image-modal-head-size) !important;
+  object-fit: cover !important;
+  image-rendering: pixelated;
+}
+
+/* Toast / popup icons */
+.mineacle-toast img,
+.toast-mark img{
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  min-height: 22px !important;
+  max-width: 22px !important;
+  max-height: 22px !important;
+  object-fit: contain !important;
+}
+
+/* Mobile keeps section image sizing consistent without needing smaller files. */
+@media(max-width:700px){
+  :root{
+    --icon-nav-size: 18px;
+    --icon-button-size: 18px;
+    --icon-discord-mark-size: 28px;
+    --image-player-head-size: 52px;
+    --image-modal-head-size: 56px;
+  }
+}
+

@@ -15,7 +15,7 @@ function mineacle_page_head(string $title): void {
     echo '<meta name="viewport" content="width=device-width,initial-scale=1">';
     echo '<title>' . h($title) . ' | ' . $name . '</title>';
     echo '<meta name="description" content="Mineacle public bans portal">';
-    echo '<link rel="stylesheet" href="assets/styles.css?v=foundation1.1">';
+    echo '<link rel="stylesheet" href="assets/styles.css?v=foundation1.2">';
     echo '</head>';
 }
 
@@ -54,5 +54,5 @@ function mineacle_footer(): void {
     echo '<div><small>Mineacle Network</small><strong>Server IP copied</strong><span>Join with <b id="toastValue">mineacle.net</b></span></div>';
     echo '</div>';
 
-    echo '<script src="assets/main.js?v=foundation1.1"></script>';
+    echo '<script src="assets/main.js?v=foundation1.2"></script>';
 }
