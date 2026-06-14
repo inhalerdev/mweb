@@ -1,10 +1,6 @@
 <?php
 declare(strict_types=1);
 
-/*
- * Public canonical route enforcement.
- * If someone manually visits /bans.php, redirect them to /
- */
 $requestPath = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH) ?: '';
 if (!defined('MINEACLE_INTERNAL_RENDER') && preg_match('~/bans\.php$~i', $requestPath)) {
     header('Location: /', true, 301);
@@ -16,57 +12,54 @@ $config = mineacle_config();
 mineacle_page_head('Bans');
 ?>
 <body>
-<?php mineacle_header('bans'); ?>
+<main class="page-shell">
+  <section class="web-panel" aria-label="Mineacle public bans hero">
+    <?php mineacle_header('bans'); ?>
 
-<main class="page">
-  <?php mineacle_shared_hero([
-      'eyebrow' => 'Mineacle moderation',
-      'kicker' => 'Mineacle safety systems',
-      'title' => 'Public Ban List',
-      'copy' => 'Mineacle is built to feel safe, clear, and easy to use. Search active bans, review public punishment records, and see how our safety systems help protect the community.',
-      'cta_text' => 'Browse public bans',
-      'cta_anchor' => '#bans'
-  ]); ?>
+    <section class="hero">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-shade" aria-hidden="true"></div>
 
-  <section class="shell trust-section">
-    <div class="section-heading">
-      <span class="section-kicker">Why Mineacle takes safety seriously</span>
-      <h2>Our protection flow</h2>
-      <p>We want Mineacle to stay welcoming, polished, and safe for all ages allowed on the server. These systems help us protect players, their experience, and the community as a whole.</p>
-    </div>
+      <div class="hero-content">
+        <img class="hero-logo" src="assets/mineacle-logo.png?v=12" alt="Mineacle">
 
-    <div class="trust-grid">
-      <article class="trust-card">
-        <div class="trust-icon"><img src="assets/shield.svg" alt=""></div>
-        <strong>1. Mineacle Security</strong>
-        <p>Commands, access, and public-facing systems are filtered and cleaned up to keep the server easier to use and safer to navigate.</p>
-      </article>
-      <article class="trust-card">
-        <div class="trust-icon"><img src="assets/lock.svg" alt=""></div>
-        <strong>2. MineacleClientGuard</strong>
-        <p>Allowed client checks and client-side protection help reduce unsafe connections and keep the gameplay environment more trustworthy.</p>
-      </article>
-      <article class="trust-card">
-        <div class="trust-icon"><img src="assets/hammer-ban.png" alt=""></div>
-        <strong>3. Serious moderation</strong>
-        <p>Ban records exist for transparency. Major offenses are handled seriously so players understand that Mineacle is meant to stay safe and fair.</p>
-      </article>
-    </div>
+        <h1>Public <span>Ban List</span></h1>
+
+        <div class="divider" aria-hidden="true">
+          <span></span><i></i><span></span>
+        </div>
+
+        <p>Search active punishments, review public records, and keep Mineacle safe for everyone</p>
+
+        <div class="hero-actions">
+          <a class="hero-action" href="<?= h($config['site']['discord']) ?>" target="_blank" rel="noopener">
+            <img src="assets/discord.svg" alt=""> Discord
+          </a>
+          <button class="hero-action copy-ip" type="button" data-copy="<?= h($config['site']['ip']) ?>">
+            <img src="assets/copy.svg" alt=""> Copy IP
+          </button>
+        </div>
+      </div>
+
+      <a class="scroll-down" href="#bans" aria-label="Scroll to bans">
+        <img src="assets/down.svg" alt="">
+      </a>
+    </section>
   </section>
 
-  <section class="shell bans-section" id="bans">
-    <div class="section-heading compact">
-      <span class="section-kicker">Public records</span>
+  <section class="bans-section" id="bans">
+    <div class="bans-heading">
+      <span>Public Records</span>
       <h2>Active Bans</h2>
-      <p>Sorted newest to oldest. Unbanned and expired players are removed automatically.</p>
+      <p>Newest punishments are shown first. Unbanned and expired players disappear automatically.</p>
     </div>
 
     <div class="ban-list-wrap">
       <div class="ban-toolbar">
         <div class="ban-title">
-          <span class="tag compact">25 per page</span>
+          <span class="tag">25 per page</span>
           <h3>Search the ban list</h3>
-          <p>Use a username to quickly find a player</p>
+          <p>Search by username</p>
         </div>
 
         <div class="searchbar">

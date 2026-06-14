@@ -1,5 +1,4 @@
 const toast = document.getElementById("toast");
-const toastTitle = document.getElementById("toastTitle");
 const toastValue = document.getElementById("toastValue");
 const banList = document.getElementById("banList");
 const banSearch = document.getElementById("banSearch");
@@ -32,7 +31,6 @@ function escapeHtml(value) {
 
 function showToast(serverIp) {
   if (!toast) return;
-  if (toastTitle) toastTitle.textContent = "Server IP copied";
   if (toastValue) toastValue.textContent = serverIp;
   toast.classList.remove("show");
   void toast.offsetWidth;
