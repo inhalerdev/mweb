@@ -26,8 +26,8 @@ mineacle_page_head('Bans');
         <p>Search active punishments, review public LiteBans records, and keep Mineacle safe for every player</p>
 
         <a class="discord-panel" href="<?= h($config['site']['discord']) ?>" target="_blank" rel="noopener">
-          <div class="discord-mark">
-            <img class="action-icon icon-white" src="assets/discord.svg?v=foundation1.7" alt="">
+          <div class="discord-character-wrap">
+            <img class="discord-character" src="assets/discord-character.webp?v=foundation1.10" alt="">
           </div>
           <div>
             <span>Official Discord</span>
@@ -36,15 +36,6 @@ mineacle_page_head('Bans');
           </div>
           <div class="discord-arrow">→</div>
         </a>
-
-        <div class="hero-actions">
-          <a class="hero-link discord-link" href="<?= h($config['site']['discord']) ?>" target="_blank" rel="noopener">
-            <img class="action-icon icon-white" src="assets/discord.svg?v=foundation1.7" alt=""> Discord
-          </a>
-          <button class="hero-link copy-ip" type="button" data-copy="<?= h($config['site']['ip']) ?>">
-            <img class="action-icon icon-white" src="assets/copy.svg?v=foundation1.7" alt=""> Copy IP
-          </button>
-        </div>
       </div>
     </div>
 

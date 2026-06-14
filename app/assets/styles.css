@@ -735,3 +735,133 @@ img{
     max-height:48px!important;
   }
 }
+
+
+/* Foundation V1.10 header scale + Discord character panel */
+
+/* Larger top-left image link */
+.header-logo-link{
+  width:72px!important;
+  height:72px!important;
+  min-width:72px!important;
+}
+
+.header-logo-link img{
+  width:66px!important;
+  height:66px!important;
+  min-width:66px!important;
+  min-height:66px!important;
+  max-width:66px!important;
+  max-height:66px!important;
+}
+
+/* Make Home / Vote / Bans closer to Store button scale */
+.main-nav a:not(.store-link){
+  min-height:54px!important;
+  padding:0 20px!important;
+  border-radius:14px!important;
+  font-size:19px!important;
+}
+
+.main-nav a:not(.store-link) .nav-icon{
+  width:23px!important;
+  height:23px!important;
+  min-width:23px!important;
+  min-height:23px!important;
+  max-width:23px!important;
+  max-height:23px!important;
+}
+
+/* Keep Store still slightly more prominent */
+.main-nav .store-link{
+  min-height:56px!important;
+  padding:0 24px!important;
+  font-size:19px!important;
+}
+
+/* Discord character replaces the Discord logo in the hero panel */
+.discord-character-wrap{
+  width:110px;
+  height:110px;
+  display:grid;
+  place-items:center;
+  border-radius:26px;
+  background:
+    radial-gradient(circle at 45% 35%, rgba(88,101,242,.22), transparent 64%),
+    rgba(88,101,242,.10);
+  border:1px solid rgba(88,101,242,.28);
+  overflow:visible;
+}
+
+.discord-character{
+  width:112px!important;
+  height:112px!important;
+  min-width:112px!important;
+  min-height:112px!important;
+  max-width:112px!important;
+  max-height:112px!important;
+  object-fit:contain!important;
+  display:block!important;
+  filter:none!important;
+}
+
+/* Discord panel layout after using character art */
+.discord-panel{
+  grid-template-columns:118px 1fr 44px!important;
+  min-height:210px!important;
+}
+
+/* Removed the extra buttons below the Discord hero panel */
+.hero-actions{
+  display:none!important;
+}
+
+@media(max-width:900px){
+  .header-logo-link{
+    width:62px!important;
+    height:62px!important;
+    min-width:62px!important;
+  }
+
+  .header-logo-link img{
+    width:56px!important;
+    height:56px!important;
+    min-width:56px!important;
+    min-height:56px!important;
+    max-width:56px!important;
+    max-height:56px!important;
+  }
+
+  .main-nav a:not(.store-link){
+    min-height:50px!important;
+    padding:0 16px!important;
+    font-size:17px!important;
+  }
+
+  .main-nav a:not(.store-link) .nav-icon{
+    width:21px!important;
+    height:21px!important;
+    min-width:21px!important;
+    min-height:21px!important;
+    max-width:21px!important;
+    max-height:21px!important;
+  }
+
+  .discord-panel{
+    grid-template-columns:1fr!important;
+  }
+
+  .discord-character-wrap{
+    width:92px;
+    height:92px;
+  }
+
+  .discord-character{
+    width:94px!important;
+    height:94px!important;
+    min-width:94px!important;
+    min-height:94px!important;
+    max-width:94px!important;
+    max-height:94px!important;
+  }
+}
