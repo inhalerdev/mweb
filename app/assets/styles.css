@@ -127,3 +127,35 @@ body:after{content:"";position:fixed;inset:0;pointer-events:none;background:repe
     padding-left:58px!important;
   }
 }
+
+
+/* Foundation V1.24 final search icon sizing */
+.search-icon{
+  width:28px!important;
+  height:28px!important;
+  min-width:28px!important;
+  min-height:28px!important;
+  max-width:28px!important;
+  max-height:28px!important;
+  left:29px!important;
+}
+
+.searchbar input{
+  padding-left:72px!important;
+}
+
+@media(max-width:700px){
+  .search-icon{
+    width:22px!important;
+    height:22px!important;
+    min-width:22px!important;
+    min-height:22px!important;
+    max-width:22px!important;
+    max-height:22px!important;
+    left:25px!important;
+  }
+
+  .searchbar input{
+    padding-left:58px!important;
+  }
+}

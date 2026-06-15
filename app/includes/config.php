@@ -31,4 +31,7 @@ return [
     'page' => [
         'limit' => (int) (getenv('BAN_PAGE_LIMIT') ?: 25),
     ],
+    'security' => [
+        'debug' => strtolower((string) getenv('APP_DEBUG')) === 'true',
+    ],
 ];
