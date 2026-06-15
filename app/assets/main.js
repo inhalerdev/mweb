@@ -29,10 +29,19 @@ function actionButton(ban) {
 
 function renderPagination() {
   if (!banPagination || !prevPageButton || !nextPageButton || !pageInfo) return;
-  banPagination.hidden = currentPagination.total_pages <= 1;
-  pageInfo.textContent = `Page ${currentPagination.page} of ${currentPagination.total_pages}`;
+
+  const totalPages = Number(currentPagination.total_pages || 1);
+  const shouldShow = totalPages > 1;
+
+  banPagination.hidden = !shouldShow;
+  banPagination.style.display = shouldShow ? "flex" : "none";
+
+  pageInfo.textContent = `Page ${currentPagination.page || 1} of ${totalPages}`;
   prevPageButton.disabled = !currentPagination.has_prev;
   nextPageButton.disabled = !currentPagination.has_next;
+
+  prevPageButton.classList.toggle("disabled", !currentPagination.has_prev);
+  nextPageButton.classList.toggle("disabled", !currentPagination.has_next);
 }
 
 function renderBans(rows) {
@@ -136,15 +145,28 @@ function openBanInfo(id) {
   }
 
   banModal.classList.add("show");
+  banModal.setAttribute("aria-hidden", "false");
 }
 
-function closeModal() { if (banModal) banModal.classList.remove("show"); }
+function closeModal() {
+  if (!banModal) return;
+  banModal.classList.remove("show");
+  banModal.setAttribute("aria-hidden", "true");
+}
 
 document.addEventListener("click", (event) => {
-  const infoButton = event.target.closest("[data-info]");
-  if (infoButton) {
+  const infoButton = event.target.closest(".info-btn, [data-info]");
+  if (infoButton && infoButton.dataset.info) {
     event.preventDefault();
+    event.stopPropagation();
     openBanInfo(infoButton.dataset.info);
+    return;
+  }
+
+  const modalClose = event.target.closest("[data-close-modal]");
+  if (modalClose) {
+    event.preventDefault();
+    closeModal();
   }
 });
 
