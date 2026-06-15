@@ -33,7 +33,7 @@ function badgeClass(ban) {
   return ban.status_type || "active";
 }
 
-function actionButton(ban) {
+function actionButton(ban, index) {
   if (ban.ipban) {
     return `<button class="btn soft disabled" type="button" disabled>No Action</button>`;
   }
@@ -42,7 +42,7 @@ function actionButton(ban) {
     return `<a class="btn red" href="${escapeHtml(ban.unban_url)}">${escapeHtml(ban.price)} Unban</a>`;
   }
 
-  return `<button class="btn soft" type="button" data-info="${escapeHtml(ban.id)}">View</button>`;
+  return `<button class="btn soft" type="button" data-info-index="${index}">View</button>`;
 }
 
 function resetPagination() {
@@ -126,14 +126,20 @@ function renderBans(rows) {
     return;
   }
 
-  banList.innerHTML = currentRows.map((ban) => `
+  banList.innerHTML = currentRows.map((ban, index) => `
     <article class="ban-row">
       <img class="ban-avatar" src="${escapeHtml(ban.skin)}" alt="${escapeHtml(ban.username)}">
 
       <div class="ban-player">
         <div class="ban-player-line">
           <span class="ban-name">${escapeHtml(ban.username)}</span>
-          <button class="info-btn" type="button" data-info="${escapeHtml(ban.id)}" aria-label="View ${escapeHtml(ban.username)} ban details">i</button>
+          <button
+            class="info-btn"
+            type="button"
+            data-info-index="${index}"
+            onclick="window.mineacleOpenBanInfoByIndex(${index}); return false;"
+            aria-label="View ${escapeHtml(ban.username)} ban details"
+          >i</button>
         </div>
         <span class="ban-date">${escapeHtml(ban.date)}</span>
       </div>
@@ -147,7 +153,7 @@ function renderBans(rows) {
         <span class="badge ${escapeHtml(badgeClass(ban))}">${escapeHtml(ban.status)}</span>
       </div>
 
-      <div class="ban-action">${actionButton(ban)}</div>
+      <div class="ban-action">${actionButton(ban, index)}</div>
     </article>
   `).join("");
 
@@ -225,8 +231,17 @@ function safeText(id, value) {
   }
 }
 
-function openBanInfo(id) {
-  const ban = currentRows.find((row) => String(row.id) === String(id));
+function openBanInfoByIndex(index) {
+  const numericIndex = Number(index);
+  if (!Number.isInteger(numericIndex) || numericIndex < 0) {
+    return;
+  }
+
+  const ban = currentRows[numericIndex];
+  openBanInfo(ban);
+}
+
+function openBanInfo(ban) {
   if (!ban || !banModal) {
     return;
   }
@@ -285,12 +300,14 @@ function closeModal() {
   document.body.classList.remove("modal-open");
 }
 
+window.mineacleOpenBanInfoByIndex = openBanInfoByIndex;
+
 document.addEventListener("click", (event) => {
-  const infoButton = event.target.closest(".info-btn, [data-info]");
-  if (infoButton && infoButton.dataset.info) {
+  const infoButton = event.target.closest(".info-btn, [data-info-index]");
+  if (infoButton && infoButton.dataset.infoIndex !== undefined) {
     event.preventDefault();
     event.stopPropagation();
-    openBanInfo(infoButton.dataset.info);
+    openBanInfoByIndex(infoButton.dataset.infoIndex);
     return;
   }
 
