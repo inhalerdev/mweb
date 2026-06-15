@@ -133,7 +133,7 @@ function renderBans(rows) {
       <div class="ban-player">
         <div class="ban-player-line">
           <span class="ban-name">${escapeHtml(ban.username)}</span>
-          <button class="info-btn" type="button" data-info="${escapeHtml(ban.id)}" aria-label="View ${escapeHtml(ban.username)} ban info">i</button>
+          <button class="info-btn" type="button" data-info="${escapeHtml(ban.id)}" aria-label="View ${escapeHtml(ban.username)} ban details">i</button>
         </div>
         <span class="ban-date">${escapeHtml(ban.date)}</span>
       </div>
@@ -218,43 +218,61 @@ function updateClearButton() {
   clearSearch.classList.toggle("show", banSearch.value.length > 0);
 }
 
+function safeText(id, value) {
+  const element = document.getElementById(id);
+  if (element) {
+    element.textContent = value ?? "";
+  }
+}
+
 function openBanInfo(id) {
   const ban = currentRows.find((row) => String(row.id) === String(id));
   if (!ban || !banModal) {
     return;
   }
 
-  document.getElementById("modalAvatar").src = ban.skin;
-  document.getElementById("modalName").textContent = ban.username;
-  document.getElementById("modalStatus").className = `badge ${badgeClass(ban)}`;
-  document.getElementById("modalStatus").textContent = ban.status;
-  document.getElementById("modalReason").textContent = ban.reason;
-  document.getElementById("modalType").textContent = ban.type;
-  document.getElementById("modalDuration").textContent = ban.duration;
-  document.getElementById("modalDate").textContent = ban.date;
-  document.getElementById("modalAppeal").textContent = ban.appeal_id;
-  document.getElementById("modalEmail").textContent = ban.support_email;
-  document.getElementById("modalDiscord").textContent = ban.discord;
+  const avatar = document.getElementById("modalAvatar");
+  if (avatar) {
+    avatar.src = ban.skin;
+  }
+
+  safeText("modalName", ban.username);
+  safeText("modalReason", ban.reason);
+  safeText("modalType", ban.type);
+  safeText("modalDuration", ban.duration);
+  safeText("modalDate", ban.date);
+  safeText("modalAppeal", ban.appeal_id);
+  safeText("modalEmail", ban.support_email);
+  safeText("modalDiscord", ban.discord);
+
+  const status = document.getElementById("modalStatus");
+  if (status) {
+    status.className = `badge ${badgeClass(ban)}`;
+    status.textContent = ban.status;
+  }
 
   const actions = document.getElementById("modalActions");
   const note = document.getElementById("modalNote");
 
-  if (ban.ipban) {
-    actions.innerHTML = `<button class="btn soft disabled" disabled>Permanent IP Ban</button>`;
-    note.textContent = "This is an IP ban. It has no public dispute or paid-unban option.";
-  } else if (ban.can_pay) {
-    actions.innerHTML = `
-      <a class="btn red" href="${escapeHtml(ban.unban_url)}">${escapeHtml(ban.price)} Pay to be unbanned</a>
-      <a class="btn soft" href="${escapeHtml(ban.discord)}" target="_blank" rel="noopener">Contact Discord</a>
-    `;
-    note.textContent = "Use the payment option for eligible bans, or contact support if you believe this punishment is incorrect.";
-  } else {
-    actions.innerHTML = `<a class="btn soft" href="${escapeHtml(ban.discord)}" target="_blank" rel="noopener">Contact Support</a>`;
-    note.textContent = "This punishment is not currently eligible for paid unban. Contact support if you need more information.";
+  if (actions && note) {
+    if (ban.ipban) {
+      actions.innerHTML = `<button class="btn soft disabled" type="button" disabled>Permanent IP Ban</button>`;
+      note.textContent = "This is an IP ban. It has no public dispute or paid-unban option.";
+    } else if (ban.can_pay) {
+      actions.innerHTML = `
+        <a class="btn red" href="${escapeHtml(ban.unban_url)}">${escapeHtml(ban.price)} Pay to be unbanned</a>
+        <a class="btn soft" href="${escapeHtml(ban.discord)}" target="_blank" rel="noopener">Contact Discord</a>
+      `;
+      note.textContent = "Use the payment option for eligible bans, or contact support if you believe this punishment is incorrect.";
+    } else {
+      actions.innerHTML = `<a class="btn soft" href="${escapeHtml(ban.discord)}" target="_blank" rel="noopener">Contact Support</a>`;
+      note.textContent = "This punishment is not currently eligible for paid unban. Contact support if you need more information.";
+    }
   }
 
   banModal.classList.add("show");
   banModal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("modal-open");
 }
 
 function closeModal() {
@@ -264,6 +282,7 @@ function closeModal() {
 
   banModal.classList.remove("show");
   banModal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("modal-open");
 }
 
 document.addEventListener("click", (event) => {
@@ -343,10 +362,6 @@ if (nextPageButton) {
     }
   });
 }
-
-document.querySelectorAll("[data-close-modal]").forEach((button) => {
-  button.addEventListener("click", closeModal);
-});
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
