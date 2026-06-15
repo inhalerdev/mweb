@@ -1,0 +1,21 @@
+{
+  "app/api/bans.php": "a2fc9b138a75005bc126e284258fcde11f39634e2c8294022e5803cb4c68c09b",
+  "app/assets/copy.svg": "a6855289895d63edc499cbd84764cd361351010260afeeff58b6c51baaef2c88",
+  "app/assets/discord-character.webp": "0354dd8189d5df55c44d8f973598e3f40f70d6e8108be82bfcc2a3143f1dfc53",
+  "app/assets/discord.svg": "6c13e4f908573d0857d12c101df236dbf25c01dd27b41c7819d8f1b408fa9baf",
+  "app/assets/hammer.svg": "dae690661094e640154458e30115ac49dd96230f78079d4d2fd4198d58afed52",
+  "app/assets/home.svg": "11e1be337c3261c648a214d076664d25389eab74bd82564d71cef45e2ca73560",
+  "app/assets/main.js": "20b5361262d22958fad0aa141de1ca7e29acd1815b58e3fbc55a9090aa249cb4",
+  "app/assets/mineacle-main-logo.png": "8fabe5d31e0eda5bf39fb302ac68b391ba0a09d0f50728e7e614ae2a49e000a8",
+  "app/assets/mineacle-square-logo.png": "ef8a89414cdfdf6ecbe5844ec53c7a574cdcc20be6e080c639d93f21bbadac7b",
+  "app/assets/search-icon.png": "a9e7d0e32f2ca22999e8e6993ab2c37ff154b617013fe8023b8e665204084f51",
+  "app/assets/store.svg": "04e8fb62aab4f0fe3b9132be9001664bff0a39558383fd9e4b6876eb6eb04c84",
+  "app/assets/styles.css": "50a274a6b569fb86a33a628b180872013c0ce89bb11de5ae3b265ca4fb65da45",
+  "app/assets/vote.svg": "a33c0a0ccb574cc98a1decd9c744a4d5187ff2fd722ce7dab6a4b5ef1bc6848b",
+  "app/bans.php": "0e67c002994e6fc8d50c6ccbb926c4e2d8ed78d73a862408f71e653882321a63",
+  "app/includes/bans-lib.php": "7f50f064239328dc0369af494b9b927d42b7271dc072ec20d47eccbad08c365f",
+  "app/includes/config.php": "74424f126c38f158d94b6e2c8460753e0579d803ab4db1e09d3c1df005afcf08",
+  "app/includes/db.php": "1108ec59f39b3e2214c82974ce9d9d61c636fd5e4b0d52d1b6145244c3584f94",
+  "app/includes/layout.php": "284f1f359b9907ae893a34d53182596c2d9b229d15259e022e58a1c93ce8ae63",
+  "app/index.php": "425e6d9c5a06f373ffe4e7f625c6ef2d6c7cef98f41c5f1f6da3a6b28bb98826"
+}

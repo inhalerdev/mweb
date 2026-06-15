@@ -1,0 +1,47 @@
+MINEACLE WEB V1.32 — CRITICAL INSTALL CHECKLIST
+
+The live GitHub repo currently contains rendered/corrupted text in key files.
+Do NOT copy/paste file content from ChatGPT messages.
+
+Correct install:
+1. Extract this ZIP locally
+2. In IntelliJ, delete the existing app/ folder from the repo
+3. Copy this ZIP's app/ folder into the repo root
+4. Commit and push
+5. Purge Wasmer/deployment cache
+6. Hard refresh browser
+
+After pushing, open these raw GitHub URLs and verify the FIRST line:
+
+app/bans.php
+EXPECTED FIRST LINE:
+<?php
+
+app/assets/main.js
+EXPECTED FIRST LINE:
+const banList = document.getElementById("banList");
+
+app/includes/layout.php
+EXPECTED FIRST LINE:
+<?php
+
+app/api/bans.php
+EXPECTED FIRST LINE:
+<?php
+
+app/includes/config.php
+EXPECTED FIRST LINE:
+<?php
+
+If any of those raw files show markdown, citations, Image:, # Public Ban List, or lines starting mid-file, the repo was not replaced correctly.
+
+Browser verification after deploy:
+1. Open website
+2. View source
+3. Confirm main.js URL contains foundation1.32
+4. Open DevTools Network
+5. Open assets/main.js
+6. Confirm it starts with:
+const banList = document.getElementById("banList");
+
+The info modal cannot work until the live browser is loading the clean main.js file.
