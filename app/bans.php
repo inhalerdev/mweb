@@ -19,7 +19,7 @@ mineacle_page_head('Bans');
   <section class="hero-shell" aria-label="Mineacle public bans hero">
     <div class="hero-grid">
       <div class="hero-main-logo-wrap" aria-label="Mineacle main logo">
-        <img class="hero-main-logo" src="assets/mineacle-main-logo.png?v=foundation1.30" alt="Mineacle">
+        <img class="hero-main-logo" src="assets/mineacle-main-logo.png?v=foundation1.31" alt="Mineacle">
       </div>
 
       <div class="hero-copy">
@@ -28,7 +28,7 @@ mineacle_page_head('Bans');
 
         <a class="discord-panel" href="<?= h($config['site']['discord']) ?>" target="_blank" rel="noopener">
           <div class="discord-character-wrap">
-            <img class="discord-character" src="assets/discord-character.webp?v=foundation1.30" alt="">
+            <img class="discord-character" src="assets/discord-character.webp?v=foundation1.31" alt="">
           </div>
           <div>
             <span>Official Discord</span>
@@ -57,7 +57,7 @@ mineacle_page_head('Bans');
         </div>
 
         <div class="searchbar">
-          <img class="search-icon" src="assets/search-icon.png?v=foundation1.30" alt="" aria-hidden="true">
+          <img class="search-icon" src="assets/search-icon.png?v=foundation1.31" alt="" aria-hidden="true">
           <input id="banSearch" type="search" placeholder="Search username..." autocomplete="off" maxlength="32">
           <button class="search-clear" id="clearSearch" type="button" aria-label="Clear search">×</button>
         </div>
@@ -82,29 +82,60 @@ mineacle_page_head('Bans');
 
 <div class="modal" id="banModal" aria-hidden="true">
   <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalName">
-    <div class="modal-head">
-      <img id="modalAvatar" src="" alt="">
+    <button class="modal-close" type="button" data-close-modal aria-label="Close">×</button>
+
+    <div class="modal-hero">
+      <div class="modal-avatar-wrap">
+        <img id="modalAvatar" src="" alt="">
+      </div>
+
       <div class="modal-title">
+        <span class="eyebrow">Ban Details</span>
         <h2 id="modalName">Player</h2>
-        <span id="modalStatus" class="badge active">Active</span>
+        <div class="modal-badges">
+          <span id="modalStatus" class="status-badge">Active</span>
+          <span id="modalTypeBadge" class="type-badge">Player Ban</span>
+        </div>
       </div>
-      <button class="close-modal" type="button" data-close-modal aria-label="Close">×</button>
     </div>
 
-    <div class="modal-body">
-      <div class="detail-grid">
-        <div class="detail"><span>Reason</span><span id="modalReason"></span></div>
-        <div class="detail"><span>Type</span><span id="modalType"></span></div>
-        <div class="detail"><span>Duration</span><span id="modalDuration"></span></div>
-        <div class="detail"><span>Date</span><span id="modalDate"></span></div>
-        <div class="detail"><span>Appeal ID</span><span id="modalAppeal"></span></div>
-        <div class="detail"><span>Email</span><span id="modalEmail"></span></div>
-        <div class="detail"><span>Discord</span><span id="modalDiscord"></span></div>
-      </div>
+    <div class="detail-grid">
+      <article class="detail-card reason-card">
+        <span>Reason</span>
+        <strong id="modalReason">No reason provided</strong>
+      </article>
 
-      <div class="modal-actions" id="modalActions"></div>
-      <div class="modal-note" id="modalNote"></div>
+      <article class="detail-card">
+        <span>Duration</span>
+        <strong id="modalDuration">Unknown</strong>
+      </article>
+
+      <article class="detail-card">
+        <span>Date</span>
+        <strong id="modalDate">Unknown</strong>
+      </article>
+
+      <article class="detail-card">
+        <span>Appeal ID</span>
+        <strong id="modalAppeal">MCL-000000</strong>
+      </article>
+
+      <article class="detail-card">
+        <span>Support Email</span>
+        <strong id="modalEmail">support@mineacle.net</strong>
+      </article>
+
+      <article class="detail-card">
+        <span>Discord</span>
+        <strong id="modalDiscord">discord.gg/4xrYFxdSWg</strong>
+      </article>
     </div>
+
+    <div class="modal-actions" id="modalActions"></div>
+
+    <p class="modal-note" id="modalNote">
+      Use the payment option for eligible bans, or contact support if you believe this punishment is incorrect.
+    </p>
   </div>
 </div>
 </body>

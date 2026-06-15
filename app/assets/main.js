@@ -249,11 +249,13 @@ function openBanInfo(ban) {
   const avatar = document.getElementById("modalAvatar");
   if (avatar) {
     avatar.src = ban.skin;
+    avatar.alt = ban.username;
   }
 
   safeText("modalName", ban.username);
+  safeText("modalStatus", ban.status);
+  safeText("modalTypeBadge", ban.type);
   safeText("modalReason", ban.reason);
-  safeText("modalType", ban.type);
   safeText("modalDuration", ban.duration);
   safeText("modalDate", ban.date);
   safeText("modalAppeal", ban.appeal_id);
@@ -262,8 +264,7 @@ function openBanInfo(ban) {
 
   const status = document.getElementById("modalStatus");
   if (status) {
-    status.className = `badge ${badgeClass(ban)}`;
-    status.textContent = ban.status;
+    status.className = `status-badge ${badgeClass(ban)}`;
   }
 
   const actions = document.getElementById("modalActions");
