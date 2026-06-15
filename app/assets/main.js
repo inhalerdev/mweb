@@ -268,7 +268,7 @@ function renderBans(rows) {
       </div>
 
       <div class="ban-reason">
-        ${escapeHtml(ban.reason)}
+        <strong class="ban-reason-title">${escapeHtml(ban.reason)}</strong>
         <div class="ban-meta">
           <span class="ban-mini-pill ${escapeHtml(typePillClass(ban))}">${escapeHtml(statusLabel(ban))}</span>
           <span class="ban-mini-pill duration">${escapeHtml(ban.duration)}</span>
