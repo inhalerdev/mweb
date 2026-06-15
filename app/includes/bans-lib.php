@@ -22,16 +22,17 @@ function mineacle_skin_url(string $value): string {
 
 function mineacle_epoch_seconds(mixed $value): int {
     $value = (int) $value;
+
     if ($value <= 0) {
         return 0;
     }
 
-    // LiteBans commonly stores milliseconds, but some imports/testing data may be seconds.
     return $value > 100000000000 ? (int) floor($value / 1000) : $value;
 }
 
 function mineacle_format_date(mixed $value): string {
     $seconds = mineacle_epoch_seconds($value);
+
     if ($seconds <= 0) {
         return 'Unknown';
     }
@@ -67,6 +68,16 @@ function mineacle_format_duration(mixed $until, mixed $time): string {
     return $minutes . ' minute' . ($minutes === 1 ? '' : 's');
 }
 
+function mineacle_bind(PDOStatement $stmt, array $params): void {
+    foreach ($params as $key => $value) {
+        if (is_int($value)) {
+            $stmt->bindValue(':' . $key, $value, PDO::PARAM_INT);
+        } else {
+            $stmt->bindValue(':' . $key, $value);
+        }
+    }
+}
+
 function fetch_litebans_bans_page(string $search = '', int $page = 1): array {
     $config = mineacle_config();
     $pdo = mineacle_db();
@@ -93,17 +104,22 @@ function fetch_litebans_bans_page(string $search = '', int $page = 1): array {
 
     $search = trim($search);
     if ($search !== '') {
+        $like = '%' . $search . '%';
+
         $where[] = '(
-            b.`uuid` LIKE :search
-            OR b.`reason` LIKE :search
+            b.`uuid` LIKE :search_uuid
+            OR b.`reason` LIKE :search_reason
             OR EXISTS (
                 SELECT 1
-                FROM `' . $historyTable . '` hsearch
-                WHERE hsearch.`uuid` = b.`uuid`
-                AND hsearch.`name` LIKE :search
+                FROM `' . $historyTable . '` hs
+                WHERE hs.`uuid` = b.`uuid`
+                AND hs.`name` LIKE :search_name
             )
         )';
-        $params['search'] = '%' . $search . '%';
+
+        $params['search_uuid'] = $like;
+        $params['search_reason'] = $like;
+        $params['search_name'] = $like;
     }
 
     $whereSql = 'WHERE ' . implode(' AND ', $where);
@@ -113,9 +129,7 @@ function fetch_litebans_bans_page(string $search = '', int $page = 1): array {
         ' . $whereSql;
 
     $countStmt = $pdo->prepare($countSql);
-    foreach ($params as $key => $value) {
-        $countStmt->bindValue(':' . $key, $value);
-    }
+    mineacle_bind($countStmt, $params);
     $countStmt->execute();
     $total = (int) $countStmt->fetchColumn();
 
@@ -127,27 +141,28 @@ function fetch_litebans_bans_page(string $search = '', int $page = 1): array {
             b.`until`,
             b.`active`,
             b.`ipban`,
-            (
+            COALESCE((
                 SELECT h.`name`
                 FROM `' . $historyTable . '` h
                 WHERE h.`uuid` = b.`uuid`
                 ORDER BY h.`date` DESC
                 LIMIT 1
-            ) AS player_name
+            ), \'\') AS player_name
         FROM `' . $bansTable . '` b
         ' . $whereSql . '
         ORDER BY b.`time` DESC
         LIMIT :limit OFFSET :offset';
 
+    $stmtParams = $params;
+    $stmtParams['limit'] = $limit;
+    $stmtParams['offset'] = $offset;
+
     $stmt = $pdo->prepare($sql);
-    foreach ($params as $key => $value) {
-        $stmt->bindValue(':' . $key, $value);
-    }
-    $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
-    $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+    mineacle_bind($stmt, $stmtParams);
     $stmt->execute();
 
     $bans = [];
+
     foreach ($stmt->fetchAll() as $row) {
         $uuid = trim((string) ($row['uuid'] ?? ''));
         $name = trim((string) ($row['player_name'] ?? ''));

@@ -292,3 +292,50 @@ body:after{content:"";position:fixed;inset:0;pointer-events:none;background:repe
     font-size:19px!important;
   }
 }
+
+
+/* Foundation V1.26 final UI enforcement */
+[hidden],
+.ban-pagination[hidden]{
+  display:none!important;
+}
+
+.ban-pagination[style*="display: none"]{
+  display:none!important;
+}
+
+.search-icon{
+  width:28px!important;
+  height:28px!important;
+  min-width:28px!important;
+  min-height:28px!important;
+  max-width:28px!important;
+  max-height:28px!important;
+}
+
+@media(max-width:700px){
+  .search-icon{
+    width:22px!important;
+    height:22px!important;
+    min-width:22px!important;
+    min-height:22px!important;
+    max-width:22px!important;
+    max-height:22px!important;
+  }
+}
+
+.info-btn{
+  pointer-events:auto!important;
+  cursor:pointer!important;
+  position:relative!important;
+  z-index:5!important;
+}
+
+.modal.show{
+  display:grid!important;
+  pointer-events:auto!important;
+}
+
+.modal-card{
+  pointer-events:auto!important;
+}

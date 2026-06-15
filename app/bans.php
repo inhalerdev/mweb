@@ -18,7 +18,7 @@ mineacle_page_head('Bans');
   <section class="hero-shell" aria-label="Mineacle public bans hero">
     <div class="hero-grid">
       <div class="hero-main-logo-wrap" aria-label="Mineacle main logo">
-        <img class="hero-main-logo" src="assets/mineacle-main-logo.png?v=foundation1.25" alt="Mineacle">
+        <img class="hero-main-logo" src="assets/mineacle-main-logo.png?v=foundation1.26" alt="Mineacle">
       </div>
 
       <div class="hero-copy">
@@ -27,7 +27,7 @@ mineacle_page_head('Bans');
 
         <a class="discord-panel" href="<?= h($config['site']['discord']) ?>" target="_blank" rel="noopener">
           <div class="discord-character-wrap">
-            <img class="discord-character" src="assets/discord-character.webp?v=foundation1.25" alt="">
+            <img class="discord-character" src="assets/discord-character.webp?v=foundation1.26" alt="">
           </div>
           <div>
             <span>Official Discord</span>
@@ -56,7 +56,7 @@ mineacle_page_head('Bans');
         </div>
 
         <div class="searchbar">
-          <img class="search-icon" src="assets/search-icon.png?v=foundation1.25" alt="" aria-hidden="true">
+          <img class="search-icon" src="assets/search-icon.png?v=foundation1.26" alt="" aria-hidden="true">
           <input id="banSearch" type="search" placeholder="Search username..." autocomplete="off" maxlength="32">
           <button class="search-clear" id="clearSearch" type="button" aria-label="Clear search">×</button>
         </div>
