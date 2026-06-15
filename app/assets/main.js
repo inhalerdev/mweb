@@ -665,5 +665,57 @@ async function updateDiscordCounts() {
 updateDiscordCounts();
 setInterval(updateDiscordCounts, 300000);
 
+
+
+function initMobileNavigation() {
+  const header = document.getElementById("siteHeader");
+  const toggle = document.querySelector(".mobile-nav-toggle");
+  const nav = document.getElementById("mainNav");
+
+  if (!header || !toggle || !nav) {
+    return;
+  }
+
+  const closeMenu = () => {
+    header.classList.remove("mobile-open");
+    document.body.classList.remove("mobile-nav-open");
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.setAttribute("aria-label", "Open navigation");
+  };
+
+  const openMenu = () => {
+    header.classList.add("mobile-open");
+    document.body.classList.add("mobile-nav-open");
+    toggle.setAttribute("aria-expanded", "true");
+    toggle.setAttribute("aria-label", "Close navigation");
+  };
+
+  toggle.addEventListener("click", () => {
+    if (header.classList.contains("mobile-open")) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  });
+
+  nav.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", closeMenu);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeMenu();
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 980) {
+      closeMenu();
+    }
+  });
+}
+
+initMobileNavigation();
+
 createBanModal();
 loadBans(1);

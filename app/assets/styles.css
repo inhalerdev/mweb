@@ -1365,203 +1365,544 @@ body.modal-open{
 }
 
 
-/* Foundation V1.39 temporary ban treatment */
-.badge.temporary,
-.status-badge.temporary{
-  background:rgba(255,184,77,.16)!important;
-  border-color:rgba(255,184,77,.48)!important;
-  color:#fff!important;
+/* Foundation V1.47 footer redesign */
+.site-footer.redesigned-footer{
+  width:100%!important;
+  padding:34px 22px 38px!important;
+  margin-top:58px!important;
+  border-top:1px solid rgba(255,255,255,.07)!important;
+  background:
+    radial-gradient(circle at 12% 20%, rgba(255,136,255,.10), transparent 24rem),
+    linear-gradient(180deg, rgba(12,6,22,.28), rgba(7,4,12,.72))!important;
 }
 
-.wait-btn{
-  background:rgba(255,184,77,.10)!important;
-  border:1px solid rgba(255,184,77,.26)!important;
-  color:rgba(255,255,255,.72)!important;
-}
-
-.ban-meta{
-  color:rgba(255,255,255,.62)!important;
-}
-
-
-/* Foundation V1.40 exact header logo/button height alignment */
-.header-inner{
-  height:70px!important;
-  min-height:70px!important;
+.footer-inner{
+  width:min(1180px, 100%)!important;
+  margin:0 auto!important;
+  display:flex!important;
   align-items:center!important;
+  justify-content:space-between!important;
+  gap:28px!important;
 }
 
-.header-logo-link,
-.main-nav a,
-.main-nav .store-link,
-.copy-ip-button{
-  height:58px!important;
-  min-height:58px!important;
-  max-height:58px!important;
-  box-sizing:border-box!important;
-  align-self:center!important;
+.footer-brand{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  min-width:220px!important;
 }
 
-/* Make the logo area read as the same button-height control, not a shorter floating image */
-.header-logo-link{
-  width:58px!important;
-  min-width:58px!important;
-  max-width:58px!important;
-  padding:0!important;
+.footer-brand-logo{
+  width:176px!important;
+  max-width:32vw!important;
+  height:auto!important;
+  display:block!important;
+  object-fit:contain!important;
+  filter:drop-shadow(0 12px 26px rgba(140,60,255,.20))!important;
+}
+
+.footer-legal{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-end!important;
+  text-align:right!important;
+  gap:7px!important;
+  color:rgba(255,255,255,.68)!important;
+}
+
+.footer-copy{
   margin:0!important;
-  display:inline-flex!important;
+  color:#fff!important;
+  font-size:14px!important;
+  font-weight:850!important;
+  line-height:1.35!important;
+}
+
+.footer-disclaimer{
+  margin:0!important;
+  color:rgba(255,255,255,.54)!important;
+  font-size:13px!important;
+  font-weight:650!important;
+  line-height:1.35!important;
+}
+
+.footer-socials{
+  display:flex!important;
   align-items:center!important;
-  justify-content:center!important;
-  border-radius:17px!important;
+  justify-content:flex-end!important;
+  gap:10px!important;
+  margin-top:8px!important;
+}
+
+.footer-social-link{
+  width:34px!important;
+  height:34px!important;
+  display:grid!important;
+  place-items:center!important;
+  border-radius:11px!important;
   border:1px solid rgba(255,255,255,.10)!important;
   background:rgba(255,255,255,.045)!important;
-  line-height:1!important;
-  overflow:hidden!important;
+  color:#fff!important;
+  transition:transform .16s ease, border-color .16s ease, background .16s ease, box-shadow .16s ease!important;
 }
 
-.header-logo-link:hover{
+.footer-social-link:hover{
   transform:translateY(-2px)!important;
-  background:rgba(255,136,255,.12)!important;
   border-color:rgba(255,136,255,.34)!important;
+  background:rgba(255,136,255,.12)!important;
   box-shadow:0 10px 22px rgba(140,60,255,.16)!important;
 }
 
-.header-logo-link img{
-  width:42px!important;
-  height:42px!important;
-  min-width:42px!important;
-  min-height:42px!important;
-  max-width:42px!important;
-  max-height:42px!important;
+.footer-social-link img,
+.footer-social-link svg{
+  width:18px!important;
+  height:18px!important;
   display:block!important;
   object-fit:contain!important;
-  margin:0!important;
-  padding:0!important;
 }
 
-@media(max-width:980px){
-  .header-inner{
-    height:auto!important;
-    min-height:70px!important;
+.footer-social-link[href*="x.com"] img{
+  filter:brightness(0) invert(1)!important;
+}
+
+@media(max-width:760px){
+  .footer-inner{
+    flex-direction:column!important;
+    align-items:center!important;
+    justify-content:center!important;
+    text-align:center!important;
+  }
+
+  .footer-brand{
+    justify-content:center!important;
+    min-width:0!important;
+  }
+
+  .footer-brand-logo{
+    width:160px!important;
+    max-width:70vw!important;
+  }
+
+  .footer-legal{
+    align-items:center!important;
+    text-align:center!important;
+  }
+
+  .footer-socials{
+    justify-content:center!important;
   }
 }
 
 
-/* Foundation V1.41 logo fills square, no wrapper border */
-.header-logo-link{
-  width:58px!important;
-  min-width:58px!important;
-  max-width:58px!important;
-  height:58px!important;
-  min-height:58px!important;
-  max-height:58px!important;
-  padding:0!important;
-  margin:0!important;
-  border:0!important;
-  outline:0!important;
-  background:transparent!important;
-  box-shadow:none!important;
-  display:inline-flex!important;
-  align-items:center!important;
-  justify-content:center!important;
-  overflow:visible!important;
-  border-radius:0!important;
+/* Foundation V1.48 mobile hamburger navigation + responsive container polish */
+
+/* Desktop default: hamburger hidden, nav remains centered */
+.mobile-nav-toggle{
+  display:none!important;
 }
 
-.header-logo-link:hover{
-  transform:translateY(-2px)!important;
-  background:transparent!important;
-  border-color:transparent!important;
-  box-shadow:none!important;
+.site-header{
+  position:sticky!important;
+  top:0!important;
+  z-index:9000!important;
 }
 
-.header-logo-link img{
-  width:58px!important;
-  height:58px!important;
-  min-width:58px!important;
-  min-height:58px!important;
-  max-width:58px!important;
-  max-height:58px!important;
-  display:block!important;
-  object-fit:cover!important;
-  margin:0!important;
-  padding:0!important;
-  border:0!important;
-  border-radius:16px!important;
-}
+/* Mobile / tablet header */
+@media(max-width:980px){
+  body.mobile-nav-open{
+    overflow-x:hidden!important;
+  }
 
+  .site-header{
+    padding:10px 12px!important;
+  }
 
-/* Foundation V1.42 live Discord member count */
-.discord-copy{
-  min-width:0!important;
-}
+  .header-inner{
+    width:100%!important;
+    min-height:64px!important;
+    height:auto!important;
+    display:grid!important;
+    grid-template-columns:58px 1fr 58px!important;
+    grid-template-areas:
+      "logo spacer menu"
+      "nav nav nav"
+      "copy copy copy"!important;
+    align-items:center!important;
+    gap:12px!important;
+    padding:0!important;
+  }
 
-.discord-counts{
-  display:flex!important;
-  align-items:center!important;
-  gap:10px!important;
-  margin-top:14px!important;
-  flex-wrap:wrap!important;
-}
+  .header-logo-link{
+    grid-area:logo!important;
+    justify-self:start!important;
+    width:58px!important;
+    height:58px!important;
+  }
 
-.discord-count-card{
-  min-width:104px!important;
-  padding:10px 12px!important;
-  border-radius:15px!important;
-  border:1px solid rgba(255,255,255,.09)!important;
-  background:rgba(255,255,255,.045)!important;
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.025)!important;
-}
+  .header-logo-link img{
+    width:58px!important;
+    height:58px!important;
+  }
 
-.discord-count-card small{
-  display:block!important;
-  margin:0 0 4px!important;
-  color:rgba(255,255,255,.55)!important;
-  font-size:10px!important;
-  font-weight:950!important;
-  letter-spacing:.11em!important;
-  text-transform:uppercase!important;
-}
+  .mobile-nav-toggle{
+    grid-area:menu!important;
+    justify-self:end!important;
+    width:52px!important;
+    height:52px!important;
+    display:inline-flex!important;
+    flex-direction:column!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:6px!important;
+    border:1px solid rgba(255,255,255,.10)!important;
+    border-radius:16px!important;
+    background:rgba(255,255,255,.045)!important;
+    color:#fff!important;
+    cursor:pointer!important;
+    transition:background .16s ease, border-color .16s ease, transform .16s ease, box-shadow .16s ease!important;
+  }
 
-.discord-count-card b{
-  display:block!important;
-  color:#fff!important;
-  font-size:18px!important;
-  font-weight:950!important;
-  line-height:1!important;
-  letter-spacing:-.025em!important;
-}
+  .mobile-nav-toggle:hover{
+    transform:translateY(-1px)!important;
+    background:rgba(255,136,255,.12)!important;
+    border-color:rgba(255,136,255,.34)!important;
+    box-shadow:0 10px 22px rgba(140,60,255,.14)!important;
+  }
 
-.discord-panel.discord-live .discord-count-card:first-child{
-  border-color:rgba(255,136,255,.28)!important;
-  background:rgba(255,136,255,.075)!important;
-}
+  .mobile-nav-toggle span{
+    width:22px!important;
+    height:2px!important;
+    border-radius:999px!important;
+    background:#fff!important;
+    display:block!important;
+    transition:transform .18s ease, opacity .18s ease!important;
+  }
 
-.discord-panel.discord-live .discord-count-card:last-child{
-  border-color:rgba(67,255,156,.24)!important;
-  background:rgba(67,255,156,.06)!important;
-}
+  .site-header.mobile-open .mobile-nav-toggle span:nth-child(1){
+    transform:translateY(8px) rotate(45deg)!important;
+  }
 
-.discord-panel.discord-live .discord-count-card:last-child b{
-  color:#43ff9c!important;
-}
+  .site-header.mobile-open .mobile-nav-toggle span:nth-child(2){
+    opacity:0!important;
+  }
 
-.discord-panel.discord-unavailable .discord-count-card b{
-  color:rgba(255,255,255,.76)!important;
-}
+  .site-header.mobile-open .mobile-nav-toggle span:nth-child(3){
+    transform:translateY(-8px) rotate(-45deg)!important;
+  }
 
-@media(max-width:700px){
+  .main-nav{
+    grid-area:nav!important;
+    width:100%!important;
+    max-height:0!important;
+    overflow:hidden!important;
+    opacity:0!important;
+    pointer-events:none!important;
+    display:grid!important;
+    grid-template-columns:1fr 1fr!important;
+    gap:10px!important;
+    justify-self:stretch!important;
+    transition:max-height .22s ease, opacity .18s ease, padding .18s ease!important;
+    padding:0!important;
+  }
+
+  .site-header.mobile-open .main-nav{
+    max-height:260px!important;
+    opacity:1!important;
+    pointer-events:auto!important;
+    padding-top:4px!important;
+  }
+
+  .main-nav a,
+  .main-nav .store-link{
+    width:100%!important;
+    min-width:0!important;
+    max-width:none!important;
+    height:52px!important;
+    min-height:52px!important;
+    max-height:52px!important;
+    padding:0 12px!important;
+    border-radius:16px!important;
+    justify-content:center!important;
+  }
+
+  .copy-ip-button{
+    grid-area:copy!important;
+    width:100%!important;
+    min-width:0!important;
+    max-width:none!important;
+    height:52px!important;
+    min-height:52px!important;
+    max-height:52px!important;
+    justify-self:stretch!important;
+    display:none!important;
+  }
+
+  .site-header.mobile-open .copy-ip-button{
+    display:inline-flex!important;
+  }
+
+  /* Mobile page container spacing */
+  main,
+  .page,
+  .site-main{
+    overflow-x:hidden!important;
+  }
+
+  .hero-shell,
+  .bans-section{
+    width:100%!important;
+    max-width:100%!important;
+    padding-left:14px!important;
+    padding-right:14px!important;
+    box-sizing:border-box!important;
+  }
+
+  .hero-grid{
+    width:100%!important;
+    max-width:100%!important;
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:22px!important;
+  }
+
+  .hero-main-logo-wrap{
+    width:100%!important;
+    max-width:100%!important;
+    display:flex!important;
+    justify-content:center!important;
+    padding-left:0!important;
+    padding-right:0!important;
+  }
+
+  .hero-main-logo{
+    width:min(92vw, 460px)!important;
+    max-width:100%!important;
+    height:auto!important;
+  }
+
+  .hero-copy{
+    width:100%!important;
+    max-width:100%!important;
+  }
+
+  .hero-copy h1{
+    font-size:clamp(34px, 10vw, 58px)!important;
+    line-height:.95!important;
+    max-width:100%!important;
+  }
+
+  .hero-copy p{
+    max-width:100%!important;
+  }
+
+  .discord-panel{
+    width:100%!important;
+    max-width:100%!important;
+    box-sizing:border-box!important;
+    padding:18px!important;
+    gap:14px!important;
+    grid-template-columns:auto 1fr auto!important;
+  }
+
+  .discord-character-wrap{
+    width:70px!important;
+    min-width:70px!important;
+  }
+
+  .discord-character{
+    max-width:70px!important;
+    height:auto!important;
+  }
+
   .discord-counts{
-    gap:8px!important;
-    margin-top:12px!important;
+    width:100%!important;
   }
 
   .discord-count-card{
-    min-width:96px!important;
-    padding:9px 10px!important;
+    flex:1 1 96px!important;
+    min-width:0!important;
   }
 
-  .discord-count-card b{
-    font-size:16px!important;
+  .ban-list-wrap,
+  .ban-toolbar,
+  .ban-list{
+    width:100%!important;
+    max-width:100%!important;
+    box-sizing:border-box!important;
+  }
+
+  .ban-toolbar{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:14px!important;
+    align-items:stretch!important;
+  }
+
+  .ban-title{
+    width:100%!important;
+  }
+
+  .ban-search{
+    width:100%!important;
+    max-width:100%!important;
+  }
+
+  .ban-search input,
+  #banSearch{
+    width:100%!important;
+    max-width:100%!important;
+    box-sizing:border-box!important;
+  }
+
+  .ban-row{
+    width:100%!important;
+    max-width:100%!important;
+    box-sizing:border-box!important;
+    grid-template-columns:52px 1fr!important;
+    grid-template-areas:
+      "avatar player"
+      "reason reason"
+      "status action"!important;
+    gap:12px!important;
+    padding:16px!important;
+  }
+
+  .ban-avatar{
+    grid-area:avatar!important;
+    width:52px!important;
+    height:52px!important;
+  }
+
+  .ban-player{
+    grid-area:player!important;
+    min-width:0!important;
+  }
+
+  .ban-reason{
+    grid-area:reason!important;
+    min-width:0!important;
+    width:100%!important;
+  }
+
+  .ban-status{
+    grid-area:status!important;
+    justify-self:start!important;
+  }
+
+  .ban-action{
+    grid-area:action!important;
+    justify-self:end!important;
+  }
+
+  .ban-action .btn,
+  .ban-action button,
+  .ban-action a{
+    min-width:118px!important;
+    height:42px!important;
+  }
+
+  .modal,
+  #banModal{
+    padding:14px!important;
+  }
+
+  #banModal .modal-card{
+    width:min(94vw, 760px)!important;
+    max-height:88vh!important;
+    overflow:auto!important;
+    border-radius:24px!important;
+  }
+
+  .detail-grid{
+    grid-template-columns:1fr!important;
+  }
+
+  .site-footer.redesigned-footer{
+    margin-top:42px!important;
+    padding-left:16px!important;
+    padding-right:16px!important;
+  }
+}
+
+@media(max-width:560px){
+  .header-inner{
+    grid-template-columns:54px 1fr 54px!important;
+    gap:10px!important;
+  }
+
+  .header-logo-link,
+  .header-logo-link img{
+    width:54px!important;
+    height:54px!important;
+  }
+
+  .mobile-nav-toggle{
+    width:50px!important;
+    height:50px!important;
+  }
+
+  .main-nav{
+    grid-template-columns:1fr!important;
+  }
+
+  .site-header.mobile-open .main-nav{
+    max-height:320px!important;
+  }
+
+  .hero-shell,
+  .bans-section{
+    padding-left:10px!important;
+    padding-right:10px!important;
+  }
+
+  .discord-panel{
+    grid-template-columns:1fr!important;
+    text-align:center!important;
+    justify-items:center!important;
+  }
+
+  .discord-arrow{
+    display:none!important;
+  }
+
+  .discord-counts{
+    justify-content:center!important;
+  }
+
+  .ban-row{
+    grid-template-columns:48px 1fr!important;
+    padding:14px!important;
+  }
+
+  .ban-avatar{
+    width:48px!important;
+    height:48px!important;
+  }
+
+  .ban-player-line{
+    gap:8px!important;
+  }
+
+  .ban-name{
+    max-width:100%!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+  }
+
+  .ban-status,
+  .ban-action{
+    justify-self:stretch!important;
+  }
+
+  .ban-action .btn,
+  .ban-action button,
+  .ban-action a{
+    width:100%!important;
+    min-width:0!important;
+  }
+
+  .mineacle-toast,
+  .mineacle-toast.center-popup{
+    width:min(92vw, 340px)!important;
   }
 }

@@ -9,6 +9,7 @@ return [
         'discord_invite_code' => getenv('DISCORD_INVITE_CODE') ?: 'VwbwWftefM',
         'home' => getenv('HOME_URL') ?: 'https://mineacle.net/home',
         'store' => getenv('STORE_URL') ?: 'https://store.mineacle.net',
+        'x' => getenv('X_URL') ?: 'https://x.com/mineaclenetwork',
         'vote' => getenv('VOTE_URL') ?: 'https://vote.mineacle.net',
         'support_email' => getenv('SUPPORT_EMAIL') ?: 'support@mineacle.net',        'server_online' => strtolower((string) getenv('SERVER_ONLINE')) !== 'false',
         'database_timezone' => getenv('DATABASE_TIMEZONE') ?: 'UTC',
