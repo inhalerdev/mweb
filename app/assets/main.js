@@ -213,12 +213,34 @@ document.querySelectorAll(".copy-ip").forEach(button => {
 
 if (banSearch) {
   let timer = null;
+
+  const runSearch = () => {
+    currentPage = 1;
+    loadBans(1);
+  };
+
   banSearch.addEventListener("input", () => {
     clearTimeout(timer);
-    timer = setTimeout(() => {
-      currentPage = 1;
-      loadBans(1);
-    }, 180);
+    timer = setTimeout(runSearch, 220);
+  });
+
+  banSearch.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      clearTimeout(timer);
+      runSearch();
+    }
+
+    if (event.key === "Escape") {
+      banSearch.value = "";
+      clearTimeout(timer);
+      runSearch();
+    }
+  });
+
+  banSearch.addEventListener("search", () => {
+    clearTimeout(timer);
+    runSearch();
   });
 }
 

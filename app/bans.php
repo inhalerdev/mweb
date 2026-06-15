@@ -18,7 +18,7 @@ mineacle_page_head('Bans');
   <section class="hero-shell" aria-label="Mineacle public bans hero">
     <div class="hero-grid">
       <div class="hero-main-logo-wrap" aria-label="Mineacle main logo">
-        <img class="hero-main-logo" src="assets/mineacle-main-logo.png?v=foundation1.17" alt="Mineacle">
+        <img class="hero-main-logo" src="assets/mineacle-main-logo.png?v=foundation1.18" alt="Mineacle">
       </div>
 
       <div class="hero-copy">
@@ -27,14 +27,14 @@ mineacle_page_head('Bans');
 
         <a class="discord-panel" href="<?= h($config['site']['discord']) ?>" target="_blank" rel="noopener">
           <div class="discord-character-wrap">
-            <img class="discord-character" src="assets/discord-character.webp?v=foundation1.17" alt="">
+            <img class="discord-character" src="assets/discord-character.webp?v=foundation1.18" alt="">
           </div>
           <div>
             <span>Official Discord</span>
             <strong>Appeals, updates, and support</strong>
             <p>Join the Mineacle community for ban help, server news, event updates, and player support.</p>
           </div>
-          <div class="discord-arrow">→</div>
+          <div class="discord-arrow"><img class="discord-arrow-icon icon-white" src="assets/arrow-right.svg?v=foundation1.18" alt=""></div>
         </a>
       </div>
     </div>
@@ -57,7 +57,7 @@ mineacle_page_head('Bans');
         </div>
 
         <div class="searchbar">
-          <span>⌕</span>
+          <img class="search-icon icon-white" src="assets/search.svg?v=foundation1.18" alt="">
           <input id="banSearch" type="search" placeholder="Search username..." autocomplete="off" maxlength="32">
         </div>
 
