@@ -1382,3 +1382,66 @@ body.modal-open{
 .ban-meta{
   color:rgba(255,255,255,.62)!important;
 }
+
+
+/* Foundation V1.40 exact header logo/button height alignment */
+.header-inner{
+  height:70px!important;
+  min-height:70px!important;
+  align-items:center!important;
+}
+
+.header-logo-link,
+.main-nav a,
+.main-nav .store-link,
+.copy-ip-button{
+  height:58px!important;
+  min-height:58px!important;
+  max-height:58px!important;
+  box-sizing:border-box!important;
+  align-self:center!important;
+}
+
+/* Make the logo area read as the same button-height control, not a shorter floating image */
+.header-logo-link{
+  width:58px!important;
+  min-width:58px!important;
+  max-width:58px!important;
+  padding:0!important;
+  margin:0!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  border-radius:17px!important;
+  border:1px solid rgba(255,255,255,.10)!important;
+  background:rgba(255,255,255,.045)!important;
+  line-height:1!important;
+  overflow:hidden!important;
+}
+
+.header-logo-link:hover{
+  transform:translateY(-2px)!important;
+  background:rgba(255,136,255,.12)!important;
+  border-color:rgba(255,136,255,.34)!important;
+  box-shadow:0 10px 22px rgba(140,60,255,.16)!important;
+}
+
+.header-logo-link img{
+  width:42px!important;
+  height:42px!important;
+  min-width:42px!important;
+  min-height:42px!important;
+  max-width:42px!important;
+  max-height:42px!important;
+  display:block!important;
+  object-fit:contain!important;
+  margin:0!important;
+  padding:0!important;
+}
+
+@media(max-width:980px){
+  .header-inner{
+    height:auto!important;
+    min-height:70px!important;
+  }
+}
