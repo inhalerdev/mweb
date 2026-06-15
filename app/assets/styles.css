@@ -1445,3 +1445,47 @@ body.modal-open{
     min-height:70px!important;
   }
 }
+
+
+/* Foundation V1.41 logo fills square, no wrapper border */
+.header-logo-link{
+  width:58px!important;
+  min-width:58px!important;
+  max-width:58px!important;
+  height:58px!important;
+  min-height:58px!important;
+  max-height:58px!important;
+  padding:0!important;
+  margin:0!important;
+  border:0!important;
+  outline:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  overflow:visible!important;
+  border-radius:0!important;
+}
+
+.header-logo-link:hover{
+  transform:translateY(-2px)!important;
+  background:transparent!important;
+  border-color:transparent!important;
+  box-shadow:none!important;
+}
+
+.header-logo-link img{
+  width:58px!important;
+  height:58px!important;
+  min-width:58px!important;
+  min-height:58px!important;
+  max-width:58px!important;
+  max-height:58px!important;
+  display:block!important;
+  object-fit:cover!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:16px!important;
+}
