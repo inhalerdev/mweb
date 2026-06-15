@@ -1906,3 +1906,116 @@ body.modal-open{
     width:min(92vw, 340px)!important;
   }
 }
+
+
+/* Foundation V1.49 footer side swap + social/logo polish */
+
+/* Swap sides: copyright/socials left, Mineacle logo right */
+.footer-inner{
+  flex-direction:row-reverse!important;
+}
+
+.footer-brand{
+  justify-content:flex-end!important;
+  min-width:120px!important;
+}
+
+/* Main footer logo is now smaller and muted gray */
+.footer-brand-logo{
+  width:88px!important;
+  max-width:18vw!important;
+  opacity:.42!important;
+  filter:grayscale(1) saturate(0) brightness(1.18) opacity(.72)!important;
+  transition:opacity .16s ease, filter .16s ease, transform .16s ease!important;
+}
+
+.footer-brand-logo:hover{
+  opacity:.68!important;
+  filter:grayscale(1) saturate(0) brightness(1.38) opacity(.9)!important;
+  transform:translateY(-1px)!important;
+}
+
+.footer-legal{
+  align-items:flex-start!important;
+  text-align:left!important;
+}
+
+/* Social links are logo-only, no button box */
+.footer-socials{
+  justify-content:flex-start!important;
+  gap:14px!important;
+}
+
+.footer-social-link{
+  width:auto!important;
+  height:auto!important;
+  min-width:0!important;
+  min-height:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:rgba(255,255,255,.68)!important;
+  opacity:1!important;
+  transition:color .16s ease, opacity .16s ease, transform .16s ease, filter .16s ease!important;
+}
+
+.footer-social-link:hover{
+  transform:translateY(-1px)!important;
+  border-color:transparent!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:#fff!important;
+  opacity:1!important;
+}
+
+.footer-social-link img,
+.footer-social-link svg{
+  width:20px!important;
+  height:20px!important;
+  display:block!important;
+  object-fit:contain!important;
+  opacity:.72!important;
+  filter:brightness(0) invert(1) opacity(.72)!important;
+  transition:opacity .16s ease, filter .16s ease, transform .16s ease!important;
+}
+
+.footer-social-link:hover img,
+.footer-social-link:hover svg{
+  opacity:1!important;
+  filter:brightness(0) invert(1) opacity(1)!important;
+}
+
+.footer-social-link[href*="x.com"] img{
+  filter:brightness(0) invert(1) opacity(.72)!important;
+}
+
+.footer-social-link[href*="x.com"]:hover img{
+  filter:brightness(0) invert(1) opacity(1)!important;
+}
+
+@media(max-width:760px){
+  .footer-inner{
+    flex-direction:column-reverse!important;
+  }
+
+  .footer-brand{
+    justify-content:center!important;
+    min-width:0!important;
+  }
+
+  .footer-brand-logo{
+    width:82px!important;
+    max-width:34vw!important;
+  }
+
+  .footer-legal{
+    align-items:center!important;
+    text-align:center!important;
+  }
+
+  .footer-socials{
+    justify-content:center!important;
+  }
+}
