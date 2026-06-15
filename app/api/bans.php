@@ -25,17 +25,8 @@ try {
     http_response_code(500);
     error_log('[MineacleBans] ' . $e->getMessage());
 
-    $config = [];
-    try {
-        $config = mineacle_config();
-    } catch (Throwable) {
-    }
-
-    $debug = (bool) (($config['security']['debug'] ?? false) === true);
-
     echo json_encode([
         'success' => false,
         'error' => 'Unable to load bans right now',
-        'debug' => $debug ? $e->getMessage() : null,
     ], JSON_UNESCAPED_SLASHES);
 }

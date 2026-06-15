@@ -45,8 +45,21 @@ function actionButton(ban) {
   return `<button class="btn soft" type="button" data-info="${escapeHtml(ban.id)}">View</button>`;
 }
 
+function resetPagination() {
+  currentPagination = {
+    page: 1,
+    per_page: 25,
+    total: 0,
+    total_pages: 1,
+    has_prev: false,
+    has_next: false
+  };
+}
+
 function renderPagination() {
-  if (!banPagination || !prevPageButton || !nextPageButton || !pageInfo) return;
+  if (!banPagination || !prevPageButton || !nextPageButton || !pageInfo) {
+    return;
+  }
 
   const totalPages = Number(currentPagination.total_pages || 1);
   const shouldShow = totalPages > 1;
@@ -61,20 +74,55 @@ function renderPagination() {
   nextPageButton.classList.toggle("disabled", !currentPagination.has_next);
 }
 
+function renderEmptyState() {
+  if (!banList) {
+    return;
+  }
+
+  banList.innerHTML = `
+    <div class="empty compact-state">
+      <strong>No matching active bans found</strong>
+      <span>Check the username spelling or clear the search</span>
+    </div>
+  `;
+
+  if (banCount) {
+    banCount.textContent = "0 shown";
+  }
+
+  renderPagination();
+}
+
+function renderLoadError() {
+  if (!banList) {
+    return;
+  }
+
+  currentRows = [];
+  resetPagination();
+
+  banList.innerHTML = `
+    <div class="error compact-state">
+      <strong>Unable to load bans right now</strong>
+    </div>
+  `;
+
+  if (banCount) {
+    banCount.textContent = "0 shown";
+  }
+
+  renderPagination();
+}
+
 function renderBans(rows) {
-  if (!banList) return;
+  if (!banList) {
+    return;
+  }
 
   currentRows = Array.isArray(rows) ? rows : [];
 
   if (!currentRows.length) {
-    banList.innerHTML = `
-      <div class="empty compact-state">
-        <strong>No matching active bans found</strong>
-        <span>Check the username spelling or clear the search</span>
-      </div>
-    `;
-    if (banCount) banCount.textContent = "0 shown";
-    renderPagination();
+    renderEmptyState();
     return;
   }
 
@@ -117,66 +165,64 @@ async function readJson(response) {
 
   try {
     return JSON.parse(text);
-  } catch {
-    throw new Error("Invalid API response");
+  } catch (error) {
+    console.error("Mineacle bans API returned invalid JSON", error);
+    return null;
   }
 }
 
 async function loadBans(page = currentPage) {
-  if (!banList) return;
+  if (!banList) {
+    return;
+  }
 
   currentPage = Math.max(1, page);
 
   const search = banSearch ? banSearch.value.trim() : "";
   const url = `api/bans.php?search=${encodeURIComponent(search)}&page=${encodeURIComponent(currentPage)}`;
 
+  let response;
+
   try {
-    const response = await fetch(url, {
+    response = await fetch(url, {
       headers: { "Accept": "application/json" },
       cache: "no-store"
     });
-
-    const payload = await readJson(response);
-
-    if (!response.ok || !payload.success) {
-      throw new Error(payload.error || "Unable to load bans right now");
-    }
-
-    currentPagination = payload.pagination || currentPagination;
-    currentPage = currentPagination.page || currentPage;
-    renderBans(payload.bans || []);
   } catch (error) {
-    console.error("Mineacle bans failed:", error);
-
-    currentRows = [];
-    currentPagination = {
-      page: 1,
-      per_page: 25,
-      total: 0,
-      total_pages: 1,
-      has_prev: false,
-      has_next: false
-    };
-
-    banList.innerHTML = `
-      <div class="error compact-state">
-        <strong>Unable to load bans right now</strong>
-      </div>
-    `;
-
-    if (banCount) banCount.textContent = "0 shown";
-    renderPagination();
+    console.error("Mineacle bans request failed", error);
+    renderLoadError();
+    return;
   }
+
+  const payload = await readJson(response);
+
+  if (!response.ok || !payload || !payload.success) {
+    console.error("Mineacle bans failed", {
+      status: response.status,
+      payload
+    });
+    renderLoadError();
+    return;
+  }
+
+  currentPagination = payload.pagination || currentPagination;
+  currentPage = currentPagination.page || currentPage;
+  renderBans(payload.bans || []);
 }
 
 function updateClearButton() {
-  if (!clearSearch || !banSearch) return;
+  if (!clearSearch || !banSearch) {
+    return;
+  }
+
   clearSearch.classList.toggle("show", banSearch.value.length > 0);
 }
 
 function openBanInfo(id) {
   const ban = currentRows.find((row) => String(row.id) === String(id));
-  if (!ban || !banModal) return;
+  if (!ban || !banModal) {
+    return;
+  }
 
   document.getElementById("modalAvatar").src = ban.skin;
   document.getElementById("modalName").textContent = ban.username;
@@ -212,7 +258,10 @@ function openBanInfo(id) {
 }
 
 function closeModal() {
-  if (!banModal) return;
+  if (!banModal) {
+    return;
+  }
+
   banModal.classList.remove("show");
   banModal.setAttribute("aria-hidden", "true");
 }
@@ -281,13 +330,17 @@ if (clearSearch && banSearch) {
 
 if (prevPageButton) {
   prevPageButton.addEventListener("click", () => {
-    if (currentPagination.has_prev) loadBans(currentPagination.page - 1);
+    if (currentPagination.has_prev) {
+      loadBans(currentPagination.page - 1);
+    }
   });
 }
 
 if (nextPageButton) {
   nextPageButton.addEventListener("click", () => {
-    if (currentPagination.has_next) loadBans(currentPagination.page + 1);
+    if (currentPagination.has_next) {
+      loadBans(currentPagination.page + 1);
+    }
   });
 }
 
@@ -296,12 +349,16 @@ document.querySelectorAll("[data-close-modal]").forEach((button) => {
 });
 
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") closeModal();
+  if (event.key === "Escape") {
+    closeModal();
+  }
 });
 
 if (banModal) {
   banModal.addEventListener("click", (event) => {
-    if (event.target === banModal) closeModal();
+    if (event.target === banModal) {
+      closeModal();
+    }
   });
 }
 
