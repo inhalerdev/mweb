@@ -3,41 +3,15 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/includes/layout.php';
 
-$config = mineacle_config();
-$discordUrl = (string) ($config['site']['discord'] ?? 'https://discord.gg/VwbwWftefM');
-$serverIp = (string) ($config['site']['ip'] ?? 'mineacle.net');
-
 mineacle_page_head('Bans | Mineacle Network');
 mineacle_header('bans');
 ?>
 
 <main class="bans-v3-page">
-  <section class="bans-v3-hero bans-v31-logo-fold" aria-label="Mineacle public ban list">
-    <div class="bans-v3-hero-overlay"></div>
-
-    <div class="bans-v31-logo-center">
-      <img src="assets/mineacle-hero-logo.png?v=bansfull3.1" alt="Mineacle">
+  <section class="bans-v3-hero bans-v32-logo-only-fold" aria-label="Mineacle bans">
+    <div class="bans-v32-logo-center">
+      <img src="assets/mineacle-bans-hero-logo.png?v=bansfull3.2" alt="Mineacle Bans">
     </div>
-
-    <a class="scroll-cue" href="#ban-results" aria-label="Go to ban results">
-      <span></span>
-      <em>Scroll</em>
-    </a>
-  </section>
-
-  <section class="bans-v31-info-strip" aria-label="Bans page information">
-    <article>
-      <strong>Active Records</strong>
-      <span>Expired punishments are filtered out automatically</span>
-    </article>
-    <article>
-      <strong>Appeals</strong>
-      <span>Use the info popup for Email or Discord appeal options</span>
-    </article>
-    <article>
-      <strong>Central Time</strong>
-      <span>Dates display in Arkansas server time</span>
-    </article>
   </section>
 
   <section class="bans-v3-results" id="ban-results" aria-label="Active ban results">
