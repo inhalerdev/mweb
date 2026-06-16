@@ -318,6 +318,8 @@ function fetch_litebans_bans_page(string $search = '', int $page = 1): array {
             'discord' => (string) ($config['site']['discord'] ?? 'https://discord.gg/4xrYFxdSWg'),
             'can_pay' => $canPay,
             'action_label' => $actionLabel,
+            'appeal_email' => (string) (($config['site']['appeal_email'] ?? 'support@mineacle.net')),
+            'appeal_discord' => (string) (($config['site']['appeal_discord'] ?? ($config['site']['discord'] ?? 'https://discord.gg/VwbwWftefM'))),
             'action_type' => $actionType,
             'price' => $canPay
                 ? (string) ($config['payments']['permanent_unban_price'] ?? '$19.99')

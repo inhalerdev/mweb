@@ -16,6 +16,8 @@ return [
         'server_online' => strtolower((string) getenv('SERVER_ONLINE')) !== 'false',
         'database_timezone' => getenv('DATABASE_TIMEZONE') ?: 'UTC',
         'display_timezone' => getenv('DISPLAY_TIMEZONE') ?: 'America/Chicago',
+        'appeal_email' => getenv('APPEAL_EMAIL') ?: 'support@mineacle.net',
+        'appeal_discord' => getenv('APPEAL_DISCORD') ?: (getenv('DISCORD_URL') ?: 'https://discord.gg/VwbwWftefM'),
         'unban_checkout_url' => getenv('UNBAN_CHECKOUT_URL') ?: 'https://store.mineacle.net/checkout/unban?ban={id}&uuid={uuid}&username={username}',
     ],
     'mysql' => [

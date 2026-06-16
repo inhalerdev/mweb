@@ -135,6 +135,30 @@ function getBanModal() {
   return document.getElementById("banModal") || createBanModal();
 }
 
+
+function buildAppealMailto(ban) {
+  const email = ban.appeal_email || "support@mineacle.net";
+  const name = ban.name || "Unknown";
+  const reason = ban.reason || "Not listed";
+  const subject = encodeURIComponent(`Mineacle Ban Appeal - ${name}`);
+  const body = encodeURIComponent(
+    `Minecraft username: ${name}\nPunishment ID: ${ban.id || "Unknown"}\nReason: ${reason}\n\nExplain your appeal here:\n`
+  );
+
+  return `mailto:${email}?subject=${subject}&body=${body}`;
+}
+
+function appealButtonsHtml(ban) {
+  const discord = ban.appeal_discord || "https://discord.gg/VwbwWftefM";
+
+  return `
+    <div class="appeal-button-row">
+      <a class="btn red appeal-contact-btn" href="${buildAppealMailto(ban)}">Email Appeal</a>
+      <a class="btn soft appeal-contact-btn" href="${escapeHtml(discord)}" target="_blank" rel="noopener">Discord Appeal</a>
+    </div>
+  `;
+}
+
 function actionButton(ban, index) {
   if (ban.ipban) {
     return "";

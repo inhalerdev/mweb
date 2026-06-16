@@ -3279,3 +3279,57 @@ body > *:last-child{
     padding-top:28px!important;
   }
 }
+
+
+/* Bans v1.7: action pill width + modal appeal buttons */
+.compact-action,
+.wait-btn.compact-action{
+  min-width:132px!important;
+  width:132px!important;
+  max-width:132px!important;
+  height:42px!important;
+  min-height:42px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  padding-left:16px!important;
+  padding-right:16px!important;
+  white-space:nowrap!important;
+  box-sizing:border-box!important;
+}
+
+.wait-btn.compact-action{
+  opacity:.92!important;
+}
+
+.appeal-button-row{
+  display:grid!important;
+  grid-template-columns:repeat(2, minmax(0, 1fr))!important;
+  gap:12px!important;
+  width:100%!important;
+  margin:16px 0 0!important;
+}
+
+.appeal-contact-btn{
+  width:100%!important;
+  min-height:46px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  white-space:nowrap!important;
+}
+
+@media(max-width:620px){
+  .appeal-button-row{
+    grid-template-columns:1fr!important;
+  }
+
+  .compact-action,
+  .wait-btn.compact-action{
+    width:124px!important;
+    min-width:124px!important;
+    max-width:124px!important;
+  }
+}
