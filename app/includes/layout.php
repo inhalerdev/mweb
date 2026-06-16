@@ -6,7 +6,7 @@ require_once __DIR__ . '/db.php';
 function mineacle_page_head(string $title): void {
     mineacle_security_headers(false);
     $config = mineacle_config();
-    $name = h($config['site']['name']);
+    $name = h($config['site']['name'] ?? 'Mineacle Network');
 
     echo '<!doctype html>';
     echo '<html lang="en">';
@@ -15,50 +15,50 @@ function mineacle_page_head(string $title): void {
     echo '<meta name="viewport" content="width=device-width,initial-scale=1">';
     echo '<title>' . h($title) . ' | ' . $name . '</title>';
     echo '<meta name="description" content="Mineacle public bans portal">';
-    echo '<link rel="icon" type="image/png" href="assets/favicon.png?v=9">';
-    echo '<link rel="stylesheet" href="assets/styles.css?v=9">';
+    echo '<link rel="icon" type="image/png" href="assets/mineacle-square-logo.png?v=bansfull1.6">';
+    echo '<link rel="stylesheet" href="assets/styles.css?v=bansfull1.6">';
     echo '</head>';
 }
 
-function mineacle_header(): void {
+function mineacle_header(string $active = 'bans'): void {
     $config = mineacle_config();
+    $vote = h((string) ($config['site']['vote'] ?? 'https://vote.mineacle.net'));
+    $bans = h((string) ($config['site']['bans'] ?? 'https://bans.mineacle.net'));
+    $store = h((string) ($config['site']['store'] ?? 'https://store.mineacle.net'));
+    $ip = h((string) ($config['site']['ip'] ?? 'mineacle.net'));
+    $online = (($config['site']['server_online'] ?? true) === true);
 
-    $ip = h($config['site']['ip']);
-    $discord = h($config['site']['discord']);
-    $store = h($config['site']['store'] ?? 'https://store.mineacle.net');
-    $vote = h($config['site']['vote'] ?? 'https://vote.mineacle.net');
-
-    echo '<header class="topbar">';
-    echo '<div class="shell nav">';
-    echo '<a class="brand" href="/" aria-label="Mineacle bans">';
-    echo '<img class="brand-logo" src="assets/mineacle-logo-small.png?v=9" alt="Mineacle" width="118" height="72">';
-    echo '</a>';
-
-    echo '<nav class="navlinks" aria-label="Primary">';
-    echo '<a href="' . $store . '"><img src="assets/basket.svg" alt=""> Store</a>';
-    echo '<a href="' . $vote . '"><img src="assets/vote.svg" alt=""> Vote</a>';
-    echo '<a class="active" href="/"><img src="assets/hammer.svg" alt=""> Bans</a>';
+    echo '<header class="site-header" id="siteHeader"><div class="header-inner">';
+    echo '<div class="header-logo-link header-logo-static" aria-label="Mineacle bans"><img src="assets/mineacle-square-logo.png?v=bansfull1.6" alt="Mineacle"></div>';
+    echo '<button class="mobile-nav-toggle" type="button" aria-label="Open navigation" aria-controls="mainNav" aria-expanded="false"><span></span><span></span><span></span></button>';
+    echo '<nav class="main-nav" id="mainNav" aria-label="Primary navigation">';
+    echo '<a class="' . ($active === 'vote' ? 'active' : '') . '" href="' . $vote . '"><img class="nav-icon icon-white" src="assets/vote.svg?v=bansfull1.6" alt=""><span>Vote</span></a>';
+    echo '<a class="' . ($active === 'bans' ? 'active' : '') . '" href="' . $bans . '"><img class="nav-icon icon-white" src="assets/hammer.svg?v=bansfull1.6" alt=""><span>Bans</span></a>';
+    echo '<a class="store-link ' . ($active === 'store' ? 'active' : '') . '" href="' . $store . '"><img class="nav-icon icon-white" src="assets/store.svg?v=bansfull1.6" alt=""><span>Store</span></a>';
     echo '</nav>';
-
-    echo '<div class="nav-actions">';
-    echo '<a class="pill discord" href="' . $discord . '" target="_blank" rel="noopener"><img src="assets/discord.svg" alt=""> Discord</a>';
-    echo '<button class="pill copy-ip" data-copy="' . $ip . '"><img src="assets/copy.svg" alt=""> ' . $ip . '</button>';
-    echo '</div>';
-
-    echo '</div>';
-    echo '</header>';
+    echo '<button class="copy-ip-button" type="button" data-copy-ip="' . $ip . '" aria-label="Copy server IP"><span class="status-dot ' . ($online ? 'online' : 'offline') . '"></span><span>Copy IP</span></button>';
+    echo '</div></header>';
 }
 
 function mineacle_footer(): void {
-    echo '<footer class="footer"><div class="shell footer-inner">';
-    echo '<span>Mineacle is not affiliated with Mojang Studios or Microsoft. All trademarks belong to their respective owners.</span>';
-    echo '<span>Public punishment records</span>';
-    echo '</div></footer>';
+    $config = mineacle_config();
+    $discord = h((string) ($config['site']['discord'] ?? 'https://discord.gg/VwbwWftefM'));
+    $x = h((string) ($config['site']['x'] ?? 'https://x.com/mineaclenetwork'));
 
-    echo '<div class="achievement-toast" id="toast" role="status" aria-live="polite">';
-    echo '<div class="achievement-icon"><img src="assets/copy.svg" alt=""></div>';
-    echo '<div><strong>Server IP copied</strong><span>mineacle.net</span></div>';
+    echo '<footer class="site-footer redesigned-footer">';
+    echo '<div class="footer-inner">';
+    echo '<div class="footer-brand"><img class="footer-brand-logo" src="assets/mineacle-main-logo.png?v=bansfull1.6" alt="Mineacle Network"></div>';
+    echo '<div class="footer-legal">';
+    echo '<p class="footer-copy">Copyright © Mineacle Network 2026. All Rights Reserved.</p>';
+    echo '<p class="footer-disclaimer">We are not affiliated with Microsoft or Mojang AB.</p>';
+    echo '<div class="footer-socials" aria-label="Mineacle social links">';
+    echo '<a class="footer-social-link" href="' . $discord . '" target="_blank" rel="noopener" aria-label="Join Mineacle Discord"><img src="assets/discord.svg?v=bansfull1.6" alt=""></a>';
+    echo '<a class="footer-social-link" href="' . $x . '" target="_blank" rel="noopener" aria-label="Follow Mineacle on X"><img src="assets/x.svg?v=bansfull1.6" alt=""></a>';
     echo '</div>';
+    echo '</div>';
+    echo '</div>';
+    echo '</footer>';
 
-    echo '<script src="assets/main.js?v=9"></script>';
+    echo '<div class="mineacle-toast" id="toast" role="status" aria-live="polite"><div class="toast-mark">✓</div><div><small>Mineacle Network</small><strong>Server IP copied</strong><span>Join with <b id="toastValue">mineacle.net</b></span></div></div>';
+    echo '<script src="assets/main.js?v=bansfull1.6"></script>';
 }

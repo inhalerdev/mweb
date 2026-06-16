@@ -1,10 +1,6 @@
 <?php
 declare(strict_types=1);
 
-/*
- * Public canonical route enforcement.
- * If someone manually visits /bans.php, redirect them to /
- */
 $requestPath = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH) ?: '';
 if (!defined('MINEACLE_INTERNAL_RENDER') && preg_match('~/bans\.php$~i', $requestPath)) {
     header('Location: /', true, 301);
@@ -12,69 +8,57 @@ if (!defined('MINEACLE_INTERNAL_RENDER') && preg_match('~/bans\.php$~i', $reques
 }
 
 require_once __DIR__ . '/includes/layout.php';
+
 $config = mineacle_config();
 mineacle_page_head('Bans');
 ?>
 <body>
-<?php mineacle_header(); ?>
+<main class="page-shell">
+  <?php mineacle_header('bans'); ?>
 
-<main class="page">
-  <section class="hero shell">
-    <div class="hero-banner">
-      <div class="hero-image" aria-hidden="true"></div>
-      <div class="hero-overlay" aria-hidden="true"></div>
+  <section class="hero-shell" aria-label="Mineacle public bans hero">
+    <div class="hero-grid">
+      <div class="hero-main-logo-wrap" aria-label="Mineacle main logo">
+        <img class="hero-main-logo" src="assets/mineacle-bans-logo.png?v=bansfull1.6" alt="Mineacle Bans">
+      </div>
 
-      <div class="hero-content">
-        <span class="tag">Mineacle Network</span>
-        <img class="hero-logo" src="assets/mineacle-logo.png?v=9" alt="Mineacle">
+      <div class="hero-copy">
         <h1>Public Ban List</h1>
-        <p>
-          Search active Mineacle punishments, copy the server IP, visit the store, vote for rewards,
-          or join Discord for help.
-        </p>
+        <p>Search active punishments, review public LiteBans records, and keep Mineacle safe for every player</p>
 
-        <div class="hero-link-grid" aria-label="Mineacle quick links">
-          <a class="hero-link store" href="<?= h($config['site']['store'] ?? 'https://store.mineacle.net') ?>">
-            <span class="hero-link-icon"><img src="assets/basket.svg" alt=""></span>
-            <span><strong>Store</strong><small>Ranks, perks, and support</small></span>
-          </a>
-
-          <a class="hero-link vote" href="<?= h($config['site']['vote'] ?? 'https://vote.mineacle.net') ?>">
-            <span class="hero-link-icon"><img src="assets/vote.svg" alt=""></span>
-            <span><strong>Vote</strong><small>Claim rewards and help Mineacle grow</small></span>
-          </a>
-
-          <a class="hero-link bans active" href="/">
-            <span class="hero-link-icon"><img src="assets/hammer.svg" alt=""></span>
-            <span><strong>Bans</strong><small>View public punishment records</small></span>
-          </a>
-
-          <a class="hero-link discord" href="<?= h($config['site']['discord']) ?>" target="_blank" rel="noopener">
-            <span class="hero-link-icon"><img src="assets/discord.svg" alt=""></span>
-            <span><strong>Discord</strong><small>Appeals, help, and updates</small></span>
-          </a>
-
-          <button class="hero-link copy copy-ip" type="button" data-copy="<?= h($config['site']['ip']) ?>">
-            <span class="hero-link-icon"><img src="assets/copy.svg" alt=""></span>
-            <span><strong>Copy IP</strong><small><?= h($config['site']['ip']) ?></small></span>
-          </button>
-        </div>
+        <a class="discord-panel" href="<?= h($config['site']['discord']) ?>" target="_blank" rel="noopener">
+          <div class="discord-character-wrap">
+            <img class="discord-character" src="assets/discord-character.webp?v=bansfull1.6" alt="">
+          </div>
+          <div>
+            <span>Official Discord</span>
+            <strong>Appeals, updates, and support</strong>
+            <p>Join the Mineacle community for ban help, server news, event updates, and player support.</p>
+          </div>
+          <div class="discord-arrow" aria-hidden="true">→</div>
+        </a>
       </div>
     </div>
   </section>
 
-  <section class="shell bans-section" id="bans">
+  <section class="bans-section" id="bans">
+    <div class="section-heading">
+      <span>Public Records</span>
+      <h2>Active Bans</h2>
+      <p>Newest punishments are shown first. Unbanned and expired players disappear automatically.</p>
+    </div>
+
     <div class="ban-list-wrap">
       <div class="ban-toolbar">
         <div class="ban-title">
-          <span class="tag compact">Newest First</span>
-          <h2>Active Bans</h2>
-          <p>Unbanned and expired players disappear automatically</p>
+          <h3>Search the ban list</h3>
+          <p>Search by username</p>
         </div>
 
         <div class="searchbar">
-          <img src="assets/search.svg" alt="">
+          <img class="search-icon" src="assets/search-icon.png?v=bansfull1.6" alt="" aria-hidden="true">
           <input id="banSearch" type="search" placeholder="Search username..." autocomplete="off" maxlength="32">
+          <button class="search-clear" id="clearSearch" type="button" aria-label="Clear search">×</button>
         </div>
 
         <div class="ban-count" id="banCount">Loading...</div>
@@ -90,53 +74,68 @@ mineacle_page_head('Bans');
         <button class="btn soft" type="button" id="nextPage">Next</button>
       </div>
     </div>
-
-    <div class="rule-grid">
-      <article class="rule-card">
-        <img src="assets/hammer.svg" alt="">
-        <strong>Player Bans</strong>
-        <span>Eligible active player bans may show an unban payment option</span>
-      </article>
-      <article class="rule-card">
-        <img src="assets/lock.svg" alt="">
-        <strong>IP Bans</strong>
-        <span>Shown as permanently banned with no public dispute or payment option</span>
-      </article>
-      <article class="rule-card">
-        <img src="assets/info.svg" alt="">
-        <strong>Info Popup</strong>
-        <span>Shows reason, duration, date, appeal ID, email, Discord, and action</span>
-      </article>
-    </div>
   </section>
+
+  <?php mineacle_footer(); ?>
 </main>
 
 <div class="modal" id="banModal" aria-hidden="true">
   <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalName">
-    <div class="modal-head">
-      <img id="modalAvatar" src="" alt="">
-      <div>
+    <button class="modal-close" type="button" data-close-modal aria-label="Close">×</button>
+
+    <div class="modal-hero">
+      <div class="modal-avatar-wrap">
+        <img id="modalAvatar" src="" alt="">
+      </div>
+
+      <div class="modal-title">
+        <span class="eyebrow">Ban Details</span>
         <h2 id="modalName">Player</h2>
-        <span id="modalStatus" class="badge active">Active</span>
+        <div class="modal-badges">
+          <span id="modalStatus" class="status-badge">Active</span>
+          <span id="modalTypeBadge" class="type-badge">Player Ban</span>
+        </div>
       </div>
-      <button class="close-modal" type="button" data-close-modal aria-label="Close">×</button>
     </div>
-    <div class="modal-body">
-      <div class="detail-grid">
-        <div class="detail"><span>Reason</span><span id="modalReason"></span></div>
-        <div class="detail"><span>Type</span><span id="modalType"></span></div>
-        <div class="detail"><span>Duration</span><span id="modalDuration"></span></div>
-        <div class="detail"><span>Date</span><span id="modalDate"></span></div>
-        <div class="detail"><span>Appeal ID</span><span id="modalAppeal"></span></div>
-        <div class="detail"><span>Email</span><span id="modalEmail"></span></div>
-        <div class="detail"><span>Discord</span><span id="modalDiscord"></span></div>
-      </div>
-      <div class="modal-actions" id="modalActions"></div>
-      <div class="modal-note" id="modalNote"></div>
+
+    <div class="detail-grid">
+      <article class="detail-card reason-card">
+        <span>Reason</span>
+        <strong id="modalReason">No reason provided</strong>
+      </article>
+
+      <article class="detail-card">
+        <span>Duration</span>
+        <strong id="modalDuration">Unknown</strong>
+      </article>
+
+      <article class="detail-card">
+        <span>Date</span>
+        <strong id="modalDate">Unknown</strong>
+      </article>
+
+      <article class="detail-card">
+        <span>Appeal ID</span>
+        <strong id="modalAppeal">MCL-000000</strong>
+      </article>
+
+      <article class="detail-card">
+        <span>Support Email</span>
+        <strong id="modalEmail">support@mineacle.net</strong>
+      </article>
+
+      <article class="detail-card">
+        <span>Discord</span>
+        <strong id="modalDiscord">discord.gg/4xrYFxdSWg</strong>
+      </article>
     </div>
+
+    <div class="modal-actions" id="modalActions"></div>
+
+    <p class="modal-note" id="modalNote">
+      Use the payment option for eligible bans, or contact support if you believe this punishment is incorrect.
+    </p>
   </div>
 </div>
-
-<?php mineacle_footer(); ?>
 </body>
 </html>
