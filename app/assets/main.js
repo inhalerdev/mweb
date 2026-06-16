@@ -852,3 +852,57 @@ if (document.readyState === "loading") {
 } else {
   mineacleIsolatedNavPlayCopy();
 }
+
+
+function mineacleMobileMenuFix() {
+  const header = document.getElementById("siteHeader");
+  const toggle = header ? header.querySelector(".mobile-nav-toggle") : null;
+  const menu = document.getElementById("mainNav");
+
+  if (!header || !toggle || !menu) {
+    return;
+  }
+
+  const closeMenu = () => {
+    header.classList.remove("mobile-open");
+    toggle.setAttribute("aria-expanded", "false");
+  };
+
+  const openMenu = () => {
+    header.classList.add("mobile-open");
+    toggle.setAttribute("aria-expanded", "true");
+  };
+
+  toggle.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (header.classList.contains("mobile-open")) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  });
+
+  menu.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => closeMenu());
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!header.contains(event.target)) {
+      closeMenu();
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 980) {
+      closeMenu();
+    }
+  });
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", mineacleMobileMenuFix);
+} else {
+  mineacleMobileMenuFix();
+}
