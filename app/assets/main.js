@@ -791,7 +791,7 @@ if (document.readyState === "loading") {
 
 function mineaclePlayCopyOnly() {
   document.querySelectorAll(".header-play-button[data-copy-ip]").forEach((button) => {
-    button.addEventListener("click", () => {
+    button.addEventListener("click", (event) => {
       const ip = button.getAttribute("data-copy-ip") || "mineacle.net";
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(ip).catch(() => {});
@@ -804,4 +804,22 @@ if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", mineaclePlayCopyOnly);
 } else {
   mineaclePlayCopyOnly();
+}
+
+
+function mineaclePlayCopyOnlyClean() {
+  document.querySelectorAll(".header-play-button[data-copy-ip]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const ip = button.getAttribute("data-copy-ip") || "mineacle.net";
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(ip).catch(() => {});
+      }
+    });
+  });
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", mineaclePlayCopyOnlyClean);
+} else {
+  mineaclePlayCopyOnlyClean();
 }
