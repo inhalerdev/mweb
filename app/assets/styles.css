@@ -1,0 +1,4814 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&display=swap');
+:root{--bg:#05020b;--panel:#12091d;--line:rgba(255,136,255,.22);--line2:rgba(255,255,255,.09);--pink:#ff88ff;--text:#fff;--soft:#ddd4e7;--muted:#a99ab7;--container:1440px;--gap:24px}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 50% 0%,rgba(91,24,135,.25),transparent 38rem),linear-gradient(180deg,#090212,#030106 58%,#020104);color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body:after{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.018),rgba(255,255,255,.018) 1px,transparent 1px,transparent 4px);opacity:.45}
+.page-shell{width:100%;padding:24px 0 46px}.site-header,.hero-shell,.bans-section,.logo-only-footer{width:min(calc(100% - (var(--gap) * 2)),var(--container))!important;margin-left:auto!important;margin-right:auto!important}
+.site-header{border:1px solid var(--line);background:rgba(15,9,24,.9);backdrop-filter:blur(18px);position:relative;z-index:5;overflow:hidden}.header-inner{height:96px;display:flex;align-items:center;justify-content:space-between;padding:0 28px}.header-logo-link{width:58px;height:58px;display:grid;place-items:center}.header-logo-link img{max-width:58px;max-height:58px;display:block}.main-nav{display:flex;align-items:center;gap:14px}.main-nav a{height:52px;display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:0 18px;border-radius:14px;color:#fff;text-decoration:none;text-transform:uppercase;font-size:15px;font-weight:950;border:1px solid transparent}.main-nav a.active{border-color:rgba(255,136,255,.28);background:rgba(255,136,255,.11)}.main-nav .store-link{background:linear-gradient(135deg,#873bff,#ef56ff);box-shadow:0 0 26px rgba(198,70,255,.35)}.nav-icon{width:18px;height:18px;object-fit:contain;filter:brightness(0) invert(1)}
+.hero-shell{margin-top:34px;min-height:620px;border:1px solid var(--line2);border-radius:24px;background:radial-gradient(circle at 40% 10%,rgba(255,136,255,.08),transparent 34rem),linear-gradient(135deg,rgba(28,16,41,.88),rgba(9,5,17,.92));overflow:hidden}.hero-grid{min-height:620px;display:grid;grid-template-columns:1fr 1fr;gap:42px;align-items:center;padding:68px 90px}.hero-main-logo{width:min(560px,100%);display:block;margin:auto;filter:drop-shadow(0 0 32px rgba(122,35,255,.25))}.hero-copy h1{margin:0;text-transform:uppercase;font-size:60px;line-height:.95;letter-spacing:-.055em}.hero-copy>p{max-width:610px;color:var(--soft);font-size:22px;line-height:1.35;margin:18px 0 34px}.discord-panel{min-height:210px;display:grid;grid-template-columns:112px 1fr 54px;gap:26px;align-items:center;padding:32px;border-radius:22px;background:linear-gradient(135deg,rgba(58,74,180,.5),rgba(45,22,79,.82));border:1px solid rgba(122,98,255,.44);color:#fff;text-decoration:none}.discord-character-wrap{width:112px;height:112px;display:grid;place-items:center;border-radius:22px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.08);overflow:hidden}.discord-character{width:100%;height:100%;object-fit:contain}.discord-panel span{display:block;color:#dcd3ff;font-size:12px;text-transform:uppercase;font-weight:950;letter-spacing:.11em}.discord-panel strong{display:block;margin-top:6px;font-size:26px;line-height:1.05}.discord-panel p{margin:12px 0 0;color:#efeaff;line-height:1.55}.discord-arrow{width:48px;height:48px;display:grid;place-items:center;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);font-size:28px;font-weight:900}
+.bans-section{margin-top:34px}.section-heading{margin-bottom:18px}.section-heading>span{display:block;color:var(--pink);text-transform:uppercase;font-weight:950;letter-spacing:.1em;font-size:13px}.section-heading h2{margin:8px 0 8px;font-size:40px;letter-spacing:-.055em}.section-heading p{margin:0;color:var(--soft);font-size:18px}.ban-list-wrap{border:1px solid var(--line);border-radius:24px;overflow:hidden;background:rgba(14,7,24,.84)}.ban-toolbar{display:grid;grid-template-columns:1fr minmax(430px,620px) auto;gap:26px;align-items:center;padding:24px;border-bottom:1px solid rgba(255,255,255,.08)}.tag{display:inline-flex;align-items:center;min-height:32px;padding:0 14px;border-radius:999px;background:rgba(255,136,255,.13);border:1px solid rgba(255,136,255,.28);color:var(--pink);font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:950}.ban-title h3{margin:14px 0 4px;font-size:28px;letter-spacing:-.05em}.ban-title p{margin:0;color:var(--soft)}
+.searchbar{position:relative;height:72px;display:flex;align-items:center}.search-icon{position:absolute;left:24px;top:50%;width:42px;height:42px;transform:translateY(-50%);object-fit:contain;pointer-events:none;opacity:.96;filter:drop-shadow(0 0 10px rgba(255,136,255,.2));z-index:2}.searchbar input{width:100%;height:72px;border-radius:999px;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.055);color:#fff;outline:none;padding:0 78px 0 84px;font:inherit;font-size:19px;font-weight:800}.searchbar input:focus{border-color:rgba(255,136,255,.45);box-shadow:0 0 0 4px rgba(255,136,255,.08)}.search-clear{position:absolute;right:18px;top:50%;transform:translateY(-50%);width:42px;height:42px;border:1px solid rgba(255,255,255,.12);border-radius:50%;display:none;place-items:center;background:rgba(255,255,255,.065);color:#9fb3ff;font-size:28px;font-weight:900;line-height:1;cursor:pointer;z-index:3}.search-clear.show{display:grid}.search-clear:hover{color:#ff88ff;background:rgba(255,136,255,.12)}.searchbar input::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none}.ban-count{white-space:nowrap;color:#e6dff0;font-size:20px;font-weight:950}
+.ban-row{display:grid;grid-template-columns:84px 1.2fr 1.8fr 220px 170px;gap:24px;align-items:center;padding:22px 24px;border-bottom:1px solid rgba(255,255,255,.07)}.ban-row:last-child{border-bottom:0}.ban-avatar{width:64px;height:64px;border-radius:18px;image-rendering:pixelated}.ban-player-line{display:flex;align-items:center;gap:12px}.ban-name{font-size:24px;font-weight:950}.info-btn{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);color:#fff;font:inherit;font-weight:950;cursor:pointer}.ban-date,.ban-meta{display:block;margin-top:8px;color:var(--muted);font-weight:800}.ban-reason{color:var(--soft);font-size:20px;font-weight:900}.badge{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 18px;border-radius:999px;background:rgba(255,82,118,.16);border:1px solid rgba(255,82,118,.45);color:#fff;font-weight:950}.btn{min-height:52px;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;border:0;padding:0 22px;font:inherit;font-weight:950;text-decoration:none;color:#fff}.btn.red{background:linear-gradient(135deg,#ff72bd,#a83cff)}.btn.soft{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09)}.btn.disabled{opacity:.5;cursor:not-allowed}.empty,.error,.compact-state{min-height:88px;padding:28px;display:grid;place-items:center;text-align:center;color:var(--soft)}.empty strong,.error strong{display:block;color:#fff;font-size:20px}.empty span{display:block;margin-top:5px;color:var(--muted)}.ban-pagination{display:flex;justify-content:center;gap:18px;padding:20px;border-top:1px solid rgba(255,255,255,.08)}
+.modal{position:fixed;inset:0;display:none;place-items:center;background:rgba(0,0,0,.72);z-index:100;padding:24px}.modal.show{display:grid}.modal-card{width:min(720px,100%);border-radius:28px;border:1px solid var(--line);background:#12091d;padding:24px}.modal-head{display:flex;align-items:center;gap:18px}.modal-head img{width:74px;height:74px;border-radius:18px;image-rendering:pixelated}.modal-title{flex:1}.modal-title h2{margin:0 0 8px}.close-modal{width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#fff;font-size:26px;cursor:pointer}.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0}.detail{padding:14px;border-radius:14px;background:rgba(255,255,255,.04)}.detail span:first-child{display:block;color:var(--pink);font-size:12px;font-weight:950;text-transform:uppercase;margin-bottom:5px}.modal-actions{display:flex;gap:12px;flex-wrap:wrap}.modal-note{color:var(--muted);margin-top:14px}.logo-only-footer{margin-top:36px;min-height:180px;border:1px solid var(--line);border-radius:24px;display:grid;place-items:center;background:radial-gradient(circle at center,rgba(140,60,255,.10),transparent 60%),linear-gradient(180deg,rgba(14,10,24,.88),rgba(10,7,18,.96))}.footer-only-logo{width:min(420px,64vw);opacity:.18;filter:grayscale(1) brightness(1.35)}.mineacle-toast{position:fixed;right:20px;bottom:20px;display:none}.mineacle-toast.show{display:block}
+@media(max-width:1100px){.hero-grid{grid-template-columns:1fr;padding:44px}.ban-toolbar{grid-template-columns:1fr}.ban-row{grid-template-columns:70px 1fr}.ban-reason,.ban-status,.ban-action{grid-column:2}}
+@media(max-width:700px){:root{--gap:14px}.header-inner{height:auto;padding:18px;flex-direction:column;gap:18px}.main-nav{flex-wrap:wrap;justify-content:center}.hero-copy h1{font-size:42px}.hero-grid{padding:28px}.discord-panel{grid-template-columns:1fr}.ban-toolbar{padding:18px}.searchbar,.searchbar input{height:64px}.search-icon{width:36px;height:36px;left:20px}.searchbar input{padding-left:70px}}
+
+
+/* Foundation V1.22 critical header/search overrides */
+
+/* Header top corners must be rounded too */
+.site-header{
+  border-radius:24px!important;
+}
+
+/* Header, hero, bans and footer must share the same container width */
+.site-header,
+.hero-shell,
+.bans-section,
+.logo-only-footer{
+  width:min(calc(100% - (var(--gap) * 2)), var(--container))!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+/* Search icon was 42x42 desktop / 36x36 mobile in V1.21.
+   V1.22 makes it slightly smaller but still clear. */
+.search-icon{
+  width:36px!important;
+  height:36px!important;
+  min-width:36px!important;
+  min-height:36px!important;
+  max-width:36px!important;
+  max-height:36px!important;
+  left:26px!important;
+}
+
+.searchbar input{
+  padding-left:78px!important;
+}
+
+/* Real clear X button */
+.search-clear{
+  width:42px!important;
+  height:42px!important;
+  right:18px!important;
+  border-radius:50%!important;
+  display:none;
+  align-items:center!important;
+  justify-content:center!important;
+}
+
+.search-clear.show{
+  display:grid!important;
+}
+
+@media(max-width:700px){
+  .search-icon{
+    width:32px!important;
+    height:32px!important;
+    min-width:32px!important;
+    min-height:32px!important;
+    max-width:32px!important;
+    max-height:32px!important;
+    left:21px!important;
+  }
+
+  .searchbar input{
+    padding-left:66px!important;
+  }
+}
+
+
+/* Foundation V1.23 critical override */
+
+/* Requested search icon size */
+.search-icon{
+  width:28px!important;
+  height:28px!important;
+  min-width:28px!important;
+  min-height:28px!important;
+  max-width:28px!important;
+  max-height:28px!important;
+  left:29px!important;
+}
+
+/* Keep the search text aligned after shrinking icon */
+.searchbar input{
+  padding-left:72px!important;
+}
+
+/* Header top corners rounded */
+.site-header{
+  border-radius:24px!important;
+}
+
+/* One shared container width */
+.site-header,
+.hero-shell,
+.bans-section,
+.logo-only-footer{
+  width:min(calc(100% - (var(--gap) * 2)), var(--container))!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+@media(max-width:700px){
+  .search-icon{
+    width:22px!important;
+    height:22px!important;
+    min-width:22px!important;
+    min-height:22px!important;
+    max-width:22px!important;
+    max-height:22px!important;
+    left:25px!important;
+  }
+
+  .searchbar input{
+    padding-left:58px!important;
+  }
+}
+
+
+/* Foundation V1.24 final search icon sizing */
+.search-icon{
+  width:28px!important;
+  height:28px!important;
+  min-width:28px!important;
+  min-height:28px!important;
+  max-width:28px!important;
+  max-height:28px!important;
+  left:29px!important;
+}
+
+.searchbar input{
+  padding-left:72px!important;
+}
+
+@media(max-width:700px){
+  .search-icon{
+    width:22px!important;
+    height:22px!important;
+    min-width:22px!important;
+    min-height:22px!important;
+    max-width:22px!important;
+    max-height:22px!important;
+    left:25px!important;
+  }
+
+  .searchbar input{
+    padding-left:58px!important;
+  }
+}
+
+
+/* Foundation V1.25 ban list UI fixes */
+
+/* Hidden must always win over existing flex rules */
+[hidden],
+.ban-pagination[hidden]{
+  display:none!important;
+}
+
+/* Hide pagination when JS marks it hidden, even if old CSS tried display:flex */
+.ban-pagination[style*="display: none"]{
+  display:none!important;
+}
+
+/* Slimmer ban rows for tighter website design */
+.ban-row{
+  padding-top:14px!important;
+  padding-bottom:14px!important;
+  min-height:84px!important;
+  grid-template-columns:68px 1.15fr 1.85fr 210px 160px!important;
+  gap:18px!important;
+}
+
+.ban-avatar{
+  width:50px!important;
+  height:50px!important;
+  border-radius:14px!important;
+}
+
+.ban-name{
+  font-size:21px!important;
+}
+
+.ban-date,
+.ban-meta{
+  margin-top:5px!important;
+  font-size:15px!important;
+}
+
+.ban-reason{
+  font-size:18px!important;
+}
+
+.badge{
+  min-height:42px!important;
+  padding-left:16px!important;
+  padding-right:16px!important;
+  font-size:15px!important;
+}
+
+.btn{
+  min-height:44px!important;
+  padding-left:18px!important;
+  padding-right:18px!important;
+  font-size:16px!important;
+}
+
+.info-btn{
+  width:36px!important;
+  height:36px!important;
+  min-width:36px!important;
+  min-height:36px!important;
+  display:grid!important;
+  place-items:center!important;
+  position:relative!important;
+  z-index:3!important;
+  cursor:pointer!important;
+  pointer-events:auto!important;
+}
+
+/* Modal must be clickable/visible when opened */
+.modal{
+  pointer-events:none!important;
+}
+
+.modal.show{
+  display:grid!important;
+  pointer-events:auto!important;
+}
+
+.modal-card{
+  pointer-events:auto!important;
+}
+
+/* Requested search icon size remains */
+.search-icon{
+  width:28px!important;
+  height:28px!important;
+  min-width:28px!important;
+  min-height:28px!important;
+  max-width:28px!important;
+  max-height:28px!important;
+}
+
+@media(max-width:1100px){
+  .ban-row{
+    grid-template-columns:58px 1fr!important;
+    gap:14px!important;
+    padding-top:14px!important;
+    padding-bottom:14px!important;
+  }
+
+  .ban-reason,
+  .ban-status,
+  .ban-action{
+    grid-column:2!important;
+  }
+
+  .ban-avatar{
+    width:48px!important;
+    height:48px!important;
+  }
+}
+
+@media(max-width:700px){
+  .search-icon{
+    width:22px!important;
+    height:22px!important;
+    min-width:22px!important;
+    min-height:22px!important;
+    max-width:22px!important;
+    max-height:22px!important;
+  }
+
+  .ban-row{
+    min-height:76px!important;
+  }
+
+  .ban-name{
+    font-size:19px!important;
+  }
+}
+
+
+/* Foundation V1.26 final UI enforcement */
+[hidden],
+.ban-pagination[hidden]{
+  display:none!important;
+}
+
+.ban-pagination[style*="display: none"]{
+  display:none!important;
+}
+
+.search-icon{
+  width:28px!important;
+  height:28px!important;
+  min-width:28px!important;
+  min-height:28px!important;
+  max-width:28px!important;
+  max-height:28px!important;
+}
+
+@media(max-width:700px){
+  .search-icon{
+    width:22px!important;
+    height:22px!important;
+    min-width:22px!important;
+    min-height:22px!important;
+    max-width:22px!important;
+    max-height:22px!important;
+  }
+}
+
+.info-btn{
+  pointer-events:auto!important;
+  cursor:pointer!important;
+  position:relative!important;
+  z-index:5!important;
+}
+
+.modal.show{
+  display:grid!important;
+  pointer-events:auto!important;
+}
+
+.modal-card{
+  pointer-events:auto!important;
+}
+
+
+/* Foundation V1.27 no-rendered-code modal/search enforcement */
+[hidden],
+.ban-pagination[hidden]{
+  display:none!important;
+}
+
+.ban-pagination[style*="display: none"]{
+  display:none!important;
+}
+
+.info-btn{
+  pointer-events:auto!important;
+  cursor:pointer!important;
+  position:relative!important;
+  z-index:10!important;
+}
+
+.modal{
+  pointer-events:none!important;
+}
+
+.modal.show{
+  display:grid!important;
+  pointer-events:auto!important;
+}
+
+.modal-card{
+  pointer-events:auto!important;
+}
+
+.search-icon{
+  width:28px!important;
+  height:28px!important;
+  min-width:28px!important;
+  min-height:28px!important;
+  max-width:28px!important;
+  max-height:28px!important;
+}
+
+@media(max-width:700px){
+  .search-icon{
+    width:22px!important;
+    height:22px!important;
+    min-width:22px!important;
+    min-height:22px!important;
+    max-width:22px!important;
+    max-height:22px!important;
+  }
+}
+
+
+/* Foundation V1.29 final header + modal enforcement */
+
+/* Header buttons: same size, aligned center, hover restored */
+.main-nav{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  gap:14px!important;
+}
+
+.main-nav a{
+  width:126px!important;
+  height:54px!important;
+  min-width:126px!important;
+  min-height:54px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:10px!important;
+  padding:0 18px!important;
+  border-radius:15px!important;
+  border:1px solid rgba(255,255,255,.08)!important;
+  background:rgba(255,255,255,.035)!important;
+  color:#fff!important;
+  text-decoration:none!important;
+  text-transform:uppercase!important;
+  font-size:15px!important;
+  font-weight:950!important;
+  letter-spacing:.01em!important;
+  line-height:1!important;
+  transform:translateY(0)!important;
+  transition:background .16s ease, border-color .16s ease, transform .16s ease, box-shadow .16s ease!important;
+}
+
+.main-nav a:hover{
+  background:rgba(255,136,255,.12)!important;
+  border-color:rgba(255,136,255,.34)!important;
+  transform:translateY(-2px)!important;
+  box-shadow:0 10px 22px rgba(140,60,255,.16)!important;
+}
+
+.main-nav a.active{
+  background:rgba(255,136,255,.14)!important;
+  border-color:rgba(255,136,255,.42)!important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.035),0 0 18px rgba(255,136,255,.10)!important;
+}
+
+.main-nav .store-link{
+  width:132px!important;
+  min-width:132px!important;
+  background:linear-gradient(135deg,#873bff,#ef56ff)!important;
+  border-color:rgba(255,255,255,.16)!important;
+  box-shadow:0 0 26px rgba(198,70,255,.35)!important;
+}
+
+.main-nav .store-link:hover{
+  background:linear-gradient(135deg,#9a55ff,#ff6cff)!important;
+  border-color:rgba(255,255,255,.22)!important;
+  box-shadow:0 12px 28px rgba(198,70,255,.42)!important;
+}
+
+.nav-icon{
+  width:18px!important;
+  height:18px!important;
+  min-width:18px!important;
+  object-fit:contain!important;
+}
+
+/* Info button clickable and obvious */
+.info-btn{
+  width:36px!important;
+  height:36px!important;
+  min-width:36px!important;
+  min-height:36px!important;
+  display:grid!important;
+  place-items:center!important;
+  position:relative!important;
+  z-index:25!important;
+  cursor:pointer!important;
+  pointer-events:auto!important;
+  border-radius:50%!important;
+}
+
+.info-btn:hover{
+  background:rgba(255,136,255,.14)!important;
+  border-color:rgba(255,136,255,.34)!important;
+}
+
+/* Modal must always appear above all page layers */
+.modal{
+  position:fixed!important;
+  inset:0!important;
+  display:none!important;
+  place-items:center!important;
+  z-index:9999!important;
+  pointer-events:none!important;
+  background:rgba(0,0,0,.72)!important;
+}
+
+.modal.show{
+  display:grid!important;
+  pointer-events:auto!important;
+}
+
+.modal-card{
+  pointer-events:auto!important;
+  position:relative!important;
+  z-index:10000!important;
+}
+
+/* Prevent duplicate/old CSS from forcing hidden pagination visible */
+[hidden],
+.ban-pagination[hidden],
+.ban-pagination[style*="display: none"]{
+  display:none!important;
+}
+
+/* Search icon remains requested size */
+.search-icon{
+  width:28px!important;
+  height:28px!important;
+  min-width:28px!important;
+  min-height:28px!important;
+  max-width:28px!important;
+  max-height:28px!important;
+}
+
+@media(max-width:900px){
+  .main-nav{
+    flex-wrap:wrap!important;
+    justify-content:center!important;
+  }
+
+  .main-nav a,
+  .main-nav .store-link{
+    width:120px!important;
+    min-width:120px!important;
+  }
+}
+
+@media(max-width:700px){
+  .search-icon{
+    width:22px!important;
+    height:22px!important;
+    min-width:22px!important;
+    min-height:22px!important;
+    max-width:22px!important;
+    max-height:22px!important;
+  }
+}
+
+
+/* Foundation V1.30 direct-index info button fix */
+.main-nav{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  gap:14px!important;
+}
+
+.main-nav a{
+  width:126px!important;
+  height:54px!important;
+  min-width:126px!important;
+  min-height:54px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:10px!important;
+  border-radius:15px!important;
+  border:1px solid rgba(255,255,255,.08)!important;
+  background:rgba(255,255,255,.035)!important;
+  transition:background .16s ease, border-color .16s ease, transform .16s ease, box-shadow .16s ease!important;
+}
+
+.main-nav a:hover{
+  background:rgba(255,136,255,.12)!important;
+  border-color:rgba(255,136,255,.34)!important;
+  transform:translateY(-2px)!important;
+  box-shadow:0 10px 22px rgba(140,60,255,.16)!important;
+}
+
+.main-nav a.active{
+  background:rgba(255,136,255,.14)!important;
+  border-color:rgba(255,136,255,.42)!important;
+}
+
+.main-nav .store-link{
+  width:132px!important;
+  min-width:132px!important;
+  background:linear-gradient(135deg,#873bff,#ef56ff)!important;
+}
+
+.info-btn{
+  width:36px!important;
+  height:36px!important;
+  min-width:36px!important;
+  min-height:36px!important;
+  display:grid!important;
+  place-items:center!important;
+  position:relative!important;
+  z-index:50!important;
+  cursor:pointer!important;
+  pointer-events:auto!important;
+  user-select:none!important;
+}
+
+.info-btn:hover{
+  background:rgba(255,136,255,.14)!important;
+  border-color:rgba(255,136,255,.34)!important;
+}
+
+.modal{
+  position:fixed!important;
+  inset:0!important;
+  display:none!important;
+  place-items:center!important;
+  z-index:999999!important;
+  pointer-events:none!important;
+  background:rgba(0,0,0,.72)!important;
+}
+
+.modal.show{
+  display:grid!important;
+  pointer-events:auto!important;
+}
+
+.modal-card{
+  pointer-events:auto!important;
+  position:relative!important;
+  z-index:1000000!important;
+}
+
+body.modal-open{
+  overflow:hidden;
+}
+
+[hidden],
+.ban-pagination[hidden],
+.ban-pagination[style*="display: none"]{
+  display:none!important;
+}
+
+.search-icon{
+  width:28px!important;
+  height:28px!important;
+  min-width:28px!important;
+  min-height:28px!important;
+  max-width:28px!important;
+  max-height:28px!important;
+}
+
+@media(max-width:700px){
+  .search-icon{
+    width:22px!important;
+    height:22px!important;
+    min-width:22px!important;
+    min-height:22px!important;
+    max-width:22px!important;
+    max-height:22px!important;
+  }
+}
+
+
+/* Foundation V1.31 approved ban info modal integration */
+.modal{
+  position:fixed!important;
+  inset:0!important;
+  z-index:999999!important;
+  display:none!important;
+  place-items:center!important;
+  padding:24px!important;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(140,60,255,.22), transparent 34rem),
+    rgba(0,0,0,.74)!important;
+  backdrop-filter:blur(10px)!important;
+  pointer-events:none!important;
+}
+
+.modal.show{
+  display:grid!important;
+  pointer-events:auto!important;
+}
+
+.modal-card{
+  position:relative!important;
+  z-index:1000000!important;
+  width:min(760px, 100%)!important;
+  border-radius:30px!important;
+  border:1px solid rgba(255,136,255,.28)!important;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(255,136,255,.10), transparent 24rem),
+    linear-gradient(180deg, rgba(24,13,38,.98), rgba(12,6,22,.98))!important;
+  box-shadow:
+    0 24px 80px rgba(0,0,0,.52),
+    0 0 0 1px rgba(255,255,255,.035) inset!important;
+  overflow:hidden!important;
+  pointer-events:auto!important;
+}
+
+.modal-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(90deg, transparent, rgba(255,136,255,.07), transparent);
+  opacity:.65;
+}
+
+.modal-close{
+  position:absolute!important;
+  top:20px!important;
+  right:20px!important;
+  z-index:2!important;
+  width:42px!important;
+  height:42px!important;
+  display:grid!important;
+  place-items:center!important;
+  border-radius:50%!important;
+  border:1px solid rgba(255,255,255,.14)!important;
+  background:rgba(255,255,255,.06)!important;
+  color:#fff!important;
+  font-size:28px!important;
+  font-weight:900!important;
+  cursor:pointer!important;
+  transition:.16s ease!important;
+}
+
+.modal-close:hover{
+  background:rgba(255,136,255,.14)!important;
+  border-color:rgba(255,136,255,.34)!important;
+}
+
+.modal-hero{
+  display:grid!important;
+  grid-template-columns:104px 1fr!important;
+  gap:22px!important;
+  align-items:center!important;
+  padding:30px 78px 24px 30px!important;
+  border-bottom:1px solid rgba(255,255,255,.08)!important;
+}
+
+.modal-avatar-wrap{
+  width:104px!important;
+  height:104px!important;
+  display:grid!important;
+  place-items:center!important;
+  border-radius:24px!important;
+  background:rgba(255,255,255,.06)!important;
+  border:1px solid rgba(255,255,255,.10)!important;
+  box-shadow:0 0 28px rgba(140,60,255,.16)!important;
+  overflow:hidden!important;
+}
+
+.modal-avatar-wrap img{
+  width:86px!important;
+  height:86px!important;
+  border-radius:18px!important;
+  image-rendering:pixelated!important;
+}
+
+.eyebrow{
+  display:block!important;
+  color:var(--pink)!important;
+  font-size:12px!important;
+  font-weight:950!important;
+  letter-spacing:.11em!important;
+  text-transform:uppercase!important;
+}
+
+.modal-title h2{
+  margin:7px 0 12px!important;
+  font-size:42px!important;
+  line-height:1!important;
+  letter-spacing:-.05em!important;
+}
+
+.modal-badges{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  gap:10px!important;
+}
+
+.status-badge,
+.type-badge{
+  min-height:34px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  padding:0 13px!important;
+  border-radius:999px!important;
+  font-size:13px!important;
+  font-weight:950!important;
+}
+
+.status-badge{
+  background:rgba(255,82,118,.16)!important;
+  border:1px solid rgba(255,82,118,.46)!important;
+  color:#fff!important;
+}
+
+.type-badge{
+  background:rgba(255,255,255,.06)!important;
+  border:1px solid rgba(255,255,255,.10)!important;
+  color:var(--soft)!important;
+}
+
+.detail-grid{
+  display:grid!important;
+  grid-template-columns:1.25fr 1fr!important;
+  gap:12px!important;
+  padding:22px 30px!important;
+}
+
+.detail-card{
+  min-height:86px!important;
+  padding:15px!important;
+  border-radius:16px!important;
+  background:rgba(255,255,255,.045)!important;
+  border:1px solid rgba(255,255,255,.07)!important;
+}
+
+.detail-card.reason-card{
+  grid-column:1 / -1!important;
+  background:rgba(255,136,255,.07)!important;
+  border-color:rgba(255,136,255,.16)!important;
+}
+
+.detail-card span{
+  display:block!important;
+  margin-bottom:7px!important;
+  color:var(--pink)!important;
+  font-size:11px!important;
+  font-weight:950!important;
+  letter-spacing:.10em!important;
+  text-transform:uppercase!important;
+}
+
+.detail-card strong{
+  color:#fff!important;
+  font-size:17px!important;
+  line-height:1.3!important;
+}
+
+.modal-actions{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  gap:12px!important;
+  padding:0 30px 18px!important;
+}
+
+.modal-note{
+  margin:0!important;
+  padding:0 30px 30px!important;
+  color:var(--muted)!important;
+  line-height:1.55!important;
+  font-weight:800!important;
+}
+
+body.modal-open{
+  overflow:hidden!important;
+}
+
+.info-btn{
+  pointer-events:auto!important;
+  cursor:pointer!important;
+  position:relative!important;
+  z-index:50!important;
+}
+
+.info-btn:hover{
+  background:rgba(255,136,255,.14)!important;
+  border-color:rgba(255,136,255,.34)!important;
+}
+
+@media(max-width:700px){
+  .modal-hero{
+    grid-template-columns:1fr!important;
+    padding-right:30px!important;
+  }
+
+  .detail-grid{
+    grid-template-columns:1fr!important;
+  }
+
+  .modal-title h2{
+    font-size:34px!important;
+  }
+}
+
+
+/* Foundation V1.33 JS-owned modal final fix */
+.mineacle-js-modal,
+#banModal{
+  position:fixed!important;
+  inset:0!important;
+  z-index:999999!important;
+  display:none;
+  place-items:center!important;
+  padding:24px!important;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(140,60,255,.22), transparent 34rem),
+    rgba(0,0,0,.74)!important;
+  backdrop-filter:blur(10px)!important;
+}
+
+.mineacle-js-modal.show,
+#banModal.show{
+  display:grid!important;
+  pointer-events:auto!important;
+}
+
+#banModal .modal-card{
+  position:relative!important;
+  z-index:1000000!important;
+  pointer-events:auto!important;
+}
+
+.info-btn,
+.js-info-button{
+  pointer-events:auto!important;
+  cursor:pointer!important;
+  position:relative!important;
+  z-index:50!important;
+}
+
+body.modal-open{
+  overflow:hidden!important;
+}
+
+
+/* Foundation V1.34 bulletproof modal click/open path */
+.mineacle-js-modal,
+#banModal{
+  position:fixed!important;
+  inset:0!important;
+  z-index:2147483000!important;
+  display:none;
+  place-items:center!important;
+  padding:24px!important;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(140,60,255,.22), transparent 34rem),
+    rgba(0,0,0,.74)!important;
+  backdrop-filter:blur(10px)!important;
+}
+
+.mineacle-js-modal.show,
+#banModal.show{
+  display:grid!important;
+  pointer-events:auto!important;
+}
+
+#banModal .modal-card{
+  position:relative!important;
+  z-index:2147483001!important;
+  pointer-events:auto!important;
+}
+
+.info-btn,
+.js-info-button,
+[data-info-index]{
+  pointer-events:auto!important;
+  cursor:pointer!important;
+  position:relative!important;
+  z-index:214748!important;
+  user-select:none!important;
+}
+
+body.modal-open{
+  overflow:hidden!important;
+}
+
+
+/* Foundation V1.35 header, copy IP, Discord hover, and date UI polish */
+
+.site-header{
+  height:auto!important;
+  padding:10px 14px!important;
+}
+
+.header-inner{
+  min-height:70px!important;
+  display:grid!important;
+  grid-template-columns:88px 1fr 166px!important;
+  align-items:center!important;
+  gap:22px!important;
+}
+
+.header-logo-link{
+  width:58px!important;
+  height:58px!important;
+  display:grid!important;
+  place-items:center!important;
+  justify-self:start!important;
+  border-radius:18px!important;
+}
+
+.header-logo-link img{
+  width:44px!important;
+  height:44px!important;
+  display:block!important;
+  object-fit:contain!important;
+}
+
+.main-nav{
+  justify-self:center!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:22px!important;
+  width:auto!important;
+}
+
+.main-nav a{
+  width:124px!important;
+  min-width:124px!important;
+  height:52px!important;
+  min-height:52px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:10px!important;
+  padding:0 16px!important;
+  line-height:1!important;
+  border-radius:16px!important;
+}
+
+.main-nav .store-link{
+  width:124px!important;
+  min-width:124px!important;
+  height:52px!important;
+  min-height:52px!important;
+}
+
+.nav-icon{
+  width:18px!important;
+  height:18px!important;
+  min-width:18px!important;
+  display:block!important;
+}
+
+.copy-ip-button{
+  justify-self:end!important;
+  width:154px!important;
+  min-width:154px!important;
+  height:52px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:10px!important;
+  border:1px solid rgba(255,255,255,.10)!important;
+  border-radius:16px!important;
+  background:rgba(255,255,255,.045)!important;
+  color:#fff!important;
+  font:inherit!important;
+  font-size:14px!important;
+  font-weight:950!important;
+  text-transform:uppercase!important;
+  letter-spacing:.02em!important;
+  cursor:pointer!important;
+  transition:background .16s ease, border-color .16s ease, transform .16s ease, box-shadow .16s ease!important;
+}
+
+.copy-ip-button:hover{
+  transform:translateY(-2px)!important;
+  background:rgba(255,136,255,.12)!important;
+  border-color:rgba(255,136,255,.34)!important;
+  box-shadow:0 10px 22px rgba(140,60,255,.16)!important;
+}
+
+.copy-ip-button.copied{
+  background:rgba(67,255,156,.11)!important;
+  border-color:rgba(67,255,156,.34)!important;
+}
+
+.status-dot{
+  width:10px!important;
+  height:10px!important;
+  min-width:10px!important;
+  border-radius:50%!important;
+  display:inline-block!important;
+  background:#ff4568!important;
+  box-shadow:0 0 12px rgba(255,69,104,.62)!important;
+}
+
+.status-dot.online{
+  background:#43ff9c!important;
+  box-shadow:0 0 12px rgba(67,255,156,.70)!important;
+}
+
+.status-dot.offline{
+  background:#ff4568!important;
+  box-shadow:0 0 12px rgba(255,69,104,.62)!important;
+}
+
+.discord-panel{
+  transition:transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease!important;
+  will-change:transform!important;
+}
+
+.discord-panel:hover{
+  transform:translateY(-4px) scale(1.012)!important;
+  border-color:rgba(255,136,255,.34)!important;
+  background:rgba(255,255,255,.07)!important;
+  box-shadow:0 18px 48px rgba(140,60,255,.22)!important;
+}
+
+.discord-panel:hover .discord-character{
+  transform:translateY(-5px) rotate(-2deg)!important;
+}
+
+.discord-character{
+  transition:transform .18s ease!important;
+}
+
+.ban-date{
+  white-space:normal!important;
+}
+
+@media(max-width:980px){
+  .header-inner{
+    grid-template-columns:1fr!important;
+    justify-items:center!important;
+    gap:14px!important;
+  }
+
+  .header-logo-link,
+  .copy-ip-button{
+    justify-self:center!important;
+  }
+
+  .main-nav{
+    flex-wrap:wrap!important;
+    gap:12px!important;
+  }
+}
+
+@media(max-width:700px){
+  .main-nav a,
+  .main-nav .store-link{
+    width:112px!important;
+    min-width:112px!important;
+    height:48px!important;
+    min-height:48px!important;
+  }
+
+  .copy-ip-button{
+    width:148px!important;
+    min-width:148px!important;
+    height:48px!important;
+  }
+}
+
+
+/* Foundation V1.36 header button height, centered copy popup, and date display polish */
+
+/* Keep navbar/header size stable */
+.site-header{
+  padding-top:8px!important;
+  padding-bottom:8px!important;
+}
+
+.header-inner{
+  min-height:70px!important;
+  height:70px!important;
+  align-items:center!important;
+}
+
+/* Slightly taller buttons inside the same header height */
+.main-nav a,
+.main-nav .store-link,
+.copy-ip-button{
+  height:58px!important;
+  min-height:58px!important;
+  border-radius:17px!important;
+}
+
+/* Keep logo visually inline with taller controls */
+.header-logo-link{
+  width:58px!important;
+  height:58px!important;
+  align-self:center!important;
+}
+
+.header-logo-link img{
+  width:44px!important;
+  height:44px!important;
+}
+
+/* Copy IP success popup in middle of screen */
+.mineacle-toast{
+  position:fixed!important;
+  left:50%!important;
+  top:50%!important;
+  right:auto!important;
+  bottom:auto!important;
+  transform:translate(-50%, -50%) scale(.94)!important;
+  z-index:2147483500!important;
+  min-width:330px!important;
+  max-width:min(92vw, 430px)!important;
+  opacity:0!important;
+  pointer-events:none!important;
+  transition:opacity .18s ease, transform .18s ease!important;
+}
+
+.mineacle-toast.show,
+.mineacle-toast.center-popup.show{
+  opacity:1!important;
+  transform:translate(-50%, -50%) scale(1)!important;
+}
+
+.mineacle-toast strong::after{
+  content:""!important;
+}
+
+.mineacle-toast .toast-mark{
+  box-shadow:0 0 22px rgba(67,255,156,.34)!important;
+}
+
+.ban-date{
+  color:var(--muted)!important;
+  font-size:14px!important;
+  line-height:1.25!important;
+  max-width:260px!important;
+}
+
+@media(max-width:980px){
+  .header-inner{
+    height:auto!important;
+    min-height:70px!important;
+  }
+}
+
+@media(max-width:700px){
+  .main-nav a,
+  .main-nav .store-link,
+  .copy-ip-button{
+    height:52px!important;
+    min-height:52px!important;
+  }
+
+  .mineacle-toast{
+    min-width:280px!important;
+  }
+}
+
+
+/* Foundation V1.37 Copy IP card popup */
+
+/* Centered popup styled like a small Mineacle modal card */
+.mineacle-toast,
+.mineacle-toast.center-popup{
+  position:fixed!important;
+  left:50%!important;
+  top:50%!important;
+  right:auto!important;
+  bottom:auto!important;
+  transform:translate(-50%, -50%) scale(.92)!important;
+  z-index:2147483500!important;
+  width:min(92vw, 390px)!important;
+  min-width:0!important;
+  min-height:118px!important;
+  display:grid!important;
+  grid-template-columns:64px 1fr!important;
+  align-items:center!important;
+  gap:18px!important;
+  padding:24px 26px!important;
+  border-radius:28px!important;
+  border:1px solid rgba(255,136,255,.28)!important;
+  background:
+    radial-gradient(circle at 14% 0%, rgba(255,136,255,.14), transparent 18rem),
+    linear-gradient(180deg, rgba(24,13,38,.98), rgba(12,6,22,.98))!important;
+  box-shadow:
+    0 24px 80px rgba(0,0,0,.50),
+    0 0 0 1px rgba(255,255,255,.035) inset,
+    0 0 40px rgba(140,60,255,.18)!important;
+  opacity:0!important;
+  pointer-events:none!important;
+  overflow:hidden!important;
+  transition:opacity .18s ease, transform .18s ease!important;
+}
+
+.mineacle-toast::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(90deg, transparent, rgba(255,136,255,.07), transparent);
+  opacity:.62;
+}
+
+.mineacle-toast.show,
+.mineacle-toast.center-popup.show{
+  opacity:1!important;
+  transform:translate(-50%, -50%) scale(1)!important;
+}
+
+.mineacle-toast .toast-mark{
+  width:58px!important;
+  height:58px!important;
+  min-width:58px!important;
+  display:grid!important;
+  place-items:center!important;
+  border-radius:18px!important;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(67,255,156,.28), rgba(67,255,156,.12))!important;
+  border:1px solid rgba(67,255,156,.42)!important;
+  color:#43ff9c!important;
+  font-size:32px!important;
+  font-weight:950!important;
+  line-height:1!important;
+  box-shadow:
+    0 0 30px rgba(67,255,156,.24),
+    inset 0 0 0 1px rgba(255,255,255,.05)!important;
+}
+
+.mineacle-toast small{
+  display:block!important;
+  margin-bottom:5px!important;
+  color:var(--pink)!important;
+  font-size:11px!important;
+  font-weight:950!important;
+  letter-spacing:.12em!important;
+  text-transform:uppercase!important;
+}
+
+.mineacle-toast strong{
+  display:block!important;
+  margin:0!important;
+  color:#fff!important;
+  font-size:24px!important;
+  font-weight:950!important;
+  line-height:1.05!important;
+  letter-spacing:-.035em!important;
+}
+
+.mineacle-toast span{
+  display:block!important;
+  margin-top:7px!important;
+  color:var(--muted)!important;
+  font-size:14px!important;
+  font-weight:850!important;
+  line-height:1.35!important;
+}
+
+.mineacle-toast b{
+  color:#fff!important;
+  font-weight:950!important;
+}
+
+@media(max-width:700px){
+  .mineacle-toast,
+  .mineacle-toast.center-popup{
+    width:min(90vw, 340px)!important;
+    grid-template-columns:54px 1fr!important;
+    gap:14px!important;
+    padding:20px!important;
+    border-radius:24px!important;
+  }
+
+  .mineacle-toast .toast-mark{
+    width:52px!important;
+    height:52px!important;
+    min-width:52px!important;
+    border-radius:16px!important;
+    font-size:28px!important;
+  }
+
+  .mineacle-toast strong{
+    font-size:21px!important;
+  }
+}
+
+
+/* Foundation V1.47 footer redesign */
+.site-footer.redesigned-footer{
+  width:100%!important;
+  padding:34px 22px 38px!important;
+  margin-top:58px!important;
+  border-top:1px solid rgba(255,255,255,.07)!important;
+  background:
+    radial-gradient(circle at 12% 20%, rgba(255,136,255,.10), transparent 24rem),
+    linear-gradient(180deg, rgba(12,6,22,.28), rgba(7,4,12,.72))!important;
+}
+
+.footer-inner{
+  width:min(1180px, 100%)!important;
+  margin:0 auto!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:28px!important;
+}
+
+.footer-brand{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  min-width:220px!important;
+}
+
+.footer-brand-logo{
+  width:176px!important;
+  max-width:32vw!important;
+  height:auto!important;
+  display:block!important;
+  object-fit:contain!important;
+  filter:drop-shadow(0 12px 26px rgba(140,60,255,.20))!important;
+}
+
+.footer-legal{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-end!important;
+  text-align:right!important;
+  gap:7px!important;
+  color:rgba(255,255,255,.68)!important;
+}
+
+.footer-copy{
+  margin:0!important;
+  color:#fff!important;
+  font-size:14px!important;
+  font-weight:850!important;
+  line-height:1.35!important;
+}
+
+.footer-disclaimer{
+  margin:0!important;
+  color:rgba(255,255,255,.54)!important;
+  font-size:13px!important;
+  font-weight:650!important;
+  line-height:1.35!important;
+}
+
+.footer-socials{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  gap:10px!important;
+  margin-top:8px!important;
+}
+
+.footer-social-link{
+  width:34px!important;
+  height:34px!important;
+  display:grid!important;
+  place-items:center!important;
+  border-radius:11px!important;
+  border:1px solid rgba(255,255,255,.10)!important;
+  background:rgba(255,255,255,.045)!important;
+  color:#fff!important;
+  transition:transform .16s ease, border-color .16s ease, background .16s ease, box-shadow .16s ease!important;
+}
+
+.footer-social-link:hover{
+  transform:translateY(-2px)!important;
+  border-color:rgba(255,136,255,.34)!important;
+  background:rgba(255,136,255,.12)!important;
+  box-shadow:0 10px 22px rgba(140,60,255,.16)!important;
+}
+
+.footer-social-link img,
+.footer-social-link svg{
+  width:18px!important;
+  height:18px!important;
+  display:block!important;
+  object-fit:contain!important;
+}
+
+.footer-social-link[href*="x.com"] img{
+  filter:brightness(0) invert(1)!important;
+}
+
+@media(max-width:760px){
+  .footer-inner{
+    flex-direction:column!important;
+    align-items:center!important;
+    justify-content:center!important;
+    text-align:center!important;
+  }
+
+  .footer-brand{
+    justify-content:center!important;
+    min-width:0!important;
+  }
+
+  .footer-brand-logo{
+    width:160px!important;
+    max-width:70vw!important;
+  }
+
+  .footer-legal{
+    align-items:center!important;
+    text-align:center!important;
+  }
+
+  .footer-socials{
+    justify-content:center!important;
+  }
+}
+
+
+/* Foundation V1.48 mobile hamburger navigation + responsive container polish */
+
+/* Desktop default: hamburger hidden, nav remains centered */
+.mobile-nav-toggle{
+  display:none!important;
+}
+
+.site-header{
+  position:sticky!important;
+  top:0!important;
+  z-index:9000!important;
+}
+
+/* Mobile / tablet header */
+@media(max-width:980px){
+  body.mobile-nav-open{
+    overflow-x:hidden!important;
+  }
+
+  .site-header{
+    padding:10px 12px!important;
+  }
+
+  .header-inner{
+    width:100%!important;
+    min-height:64px!important;
+    height:auto!important;
+    display:grid!important;
+    grid-template-columns:58px 1fr 58px!important;
+    grid-template-areas:
+      "logo spacer menu"
+      "nav nav nav"
+      "copy copy copy"!important;
+    align-items:center!important;
+    gap:12px!important;
+    padding:0!important;
+  }
+
+  .header-logo-link{
+    grid-area:logo!important;
+    justify-self:start!important;
+    width:58px!important;
+    height:58px!important;
+  }
+
+  .header-logo-link img{
+    width:58px!important;
+    height:58px!important;
+  }
+
+  .mobile-nav-toggle{
+    grid-area:menu!important;
+    justify-self:end!important;
+    width:52px!important;
+    height:52px!important;
+    display:inline-flex!important;
+    flex-direction:column!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:6px!important;
+    border:1px solid rgba(255,255,255,.10)!important;
+    border-radius:16px!important;
+    background:rgba(255,255,255,.045)!important;
+    color:#fff!important;
+    cursor:pointer!important;
+    transition:background .16s ease, border-color .16s ease, transform .16s ease, box-shadow .16s ease!important;
+  }
+
+  .mobile-nav-toggle:hover{
+    transform:translateY(-1px)!important;
+    background:rgba(255,136,255,.12)!important;
+    border-color:rgba(255,136,255,.34)!important;
+    box-shadow:0 10px 22px rgba(140,60,255,.14)!important;
+  }
+
+  .mobile-nav-toggle span{
+    width:22px!important;
+    height:2px!important;
+    border-radius:999px!important;
+    background:#fff!important;
+    display:block!important;
+    transition:transform .18s ease, opacity .18s ease!important;
+  }
+
+  .site-header.mobile-open .mobile-nav-toggle span:nth-child(1){
+    transform:translateY(8px) rotate(45deg)!important;
+  }
+
+  .site-header.mobile-open .mobile-nav-toggle span:nth-child(2){
+    opacity:0!important;
+  }
+
+  .site-header.mobile-open .mobile-nav-toggle span:nth-child(3){
+    transform:translateY(-8px) rotate(-45deg)!important;
+  }
+
+  .main-nav{
+    grid-area:nav!important;
+    width:100%!important;
+    max-height:0!important;
+    overflow:hidden!important;
+    opacity:0!important;
+    pointer-events:none!important;
+    display:grid!important;
+    grid-template-columns:1fr 1fr!important;
+    gap:10px!important;
+    justify-self:stretch!important;
+    transition:max-height .22s ease, opacity .18s ease, padding .18s ease!important;
+    padding:0!important;
+  }
+
+  .site-header.mobile-open .main-nav{
+    max-height:260px!important;
+    opacity:1!important;
+    pointer-events:auto!important;
+    padding-top:4px!important;
+  }
+
+  .main-nav a,
+  .main-nav .store-link{
+    width:100%!important;
+    min-width:0!important;
+    max-width:none!important;
+    height:52px!important;
+    min-height:52px!important;
+    max-height:52px!important;
+    padding:0 12px!important;
+    border-radius:16px!important;
+    justify-content:center!important;
+  }
+
+  .copy-ip-button{
+    grid-area:copy!important;
+    width:100%!important;
+    min-width:0!important;
+    max-width:none!important;
+    height:52px!important;
+    min-height:52px!important;
+    max-height:52px!important;
+    justify-self:stretch!important;
+    display:none!important;
+  }
+
+  .site-header.mobile-open .copy-ip-button{
+    display:inline-flex!important;
+  }
+
+  /* Mobile page container spacing */
+  main,
+  .page,
+  .site-main{
+    overflow-x:hidden!important;
+  }
+
+  .hero-shell,
+  .bans-section{
+    width:100%!important;
+    max-width:100%!important;
+    padding-left:14px!important;
+    padding-right:14px!important;
+    box-sizing:border-box!important;
+  }
+
+  .hero-grid{
+    width:100%!important;
+    max-width:100%!important;
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:22px!important;
+  }
+
+  .hero-main-logo-wrap{
+    width:100%!important;
+    max-width:100%!important;
+    display:flex!important;
+    justify-content:center!important;
+    padding-left:0!important;
+    padding-right:0!important;
+  }
+
+  .hero-main-logo{
+    width:min(92vw, 460px)!important;
+    max-width:100%!important;
+    height:auto!important;
+  }
+
+  .hero-copy{
+    width:100%!important;
+    max-width:100%!important;
+  }
+
+  .hero-copy h1{
+    font-size:clamp(34px, 10vw, 58px)!important;
+    line-height:.95!important;
+    max-width:100%!important;
+  }
+
+  .hero-copy p{
+    max-width:100%!important;
+  }
+
+  .discord-panel{
+    width:100%!important;
+    max-width:100%!important;
+    box-sizing:border-box!important;
+    padding:18px!important;
+    gap:14px!important;
+    grid-template-columns:auto 1fr auto!important;
+  }
+
+  .discord-character-wrap{
+    width:70px!important;
+    min-width:70px!important;
+  }
+
+  .discord-character{
+    max-width:70px!important;
+    height:auto!important;
+  }
+
+  .discord-counts{
+    width:100%!important;
+  }
+
+  .discord-count-card{
+    flex:1 1 96px!important;
+    min-width:0!important;
+  }
+
+  .ban-list-wrap,
+  .ban-toolbar,
+  .ban-list{
+    width:100%!important;
+    max-width:100%!important;
+    box-sizing:border-box!important;
+  }
+
+  .ban-toolbar{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:14px!important;
+    align-items:stretch!important;
+  }
+
+  .ban-title{
+    width:100%!important;
+  }
+
+  .ban-search{
+    width:100%!important;
+    max-width:100%!important;
+  }
+
+  .ban-search input,
+  #banSearch{
+    width:100%!important;
+    max-width:100%!important;
+    box-sizing:border-box!important;
+  }
+
+  .ban-row{
+    width:100%!important;
+    max-width:100%!important;
+    box-sizing:border-box!important;
+    grid-template-columns:52px 1fr!important;
+    grid-template-areas:
+      "avatar player"
+      "reason reason"
+      "status action"!important;
+    gap:12px!important;
+    padding:16px!important;
+  }
+
+  .ban-avatar{
+    grid-area:avatar!important;
+    width:52px!important;
+    height:52px!important;
+  }
+
+  .ban-player{
+    grid-area:player!important;
+    min-width:0!important;
+  }
+
+  .ban-reason{
+    grid-area:reason!important;
+    min-width:0!important;
+    width:100%!important;
+  }
+
+  .ban-status{
+    grid-area:status!important;
+    justify-self:start!important;
+  }
+
+  .ban-action{
+    grid-area:action!important;
+    justify-self:end!important;
+  }
+
+  .ban-action .btn,
+  .ban-action button,
+  .ban-action a{
+    min-width:118px!important;
+    height:42px!important;
+  }
+
+  .modal,
+  #banModal{
+    padding:14px!important;
+  }
+
+  #banModal .modal-card{
+    width:min(94vw, 760px)!important;
+    max-height:88vh!important;
+    overflow:auto!important;
+    border-radius:24px!important;
+  }
+
+  .detail-grid{
+    grid-template-columns:1fr!important;
+  }
+
+  .site-footer.redesigned-footer{
+    margin-top:42px!important;
+    padding-left:16px!important;
+    padding-right:16px!important;
+  }
+}
+
+@media(max-width:560px){
+  .header-inner{
+    grid-template-columns:54px 1fr 54px!important;
+    gap:10px!important;
+  }
+
+  .header-logo-link,
+  .header-logo-link img{
+    width:54px!important;
+    height:54px!important;
+  }
+
+  .mobile-nav-toggle{
+    width:50px!important;
+    height:50px!important;
+  }
+
+  .main-nav{
+    grid-template-columns:1fr!important;
+  }
+
+  .site-header.mobile-open .main-nav{
+    max-height:320px!important;
+  }
+
+  .hero-shell,
+  .bans-section{
+    padding-left:10px!important;
+    padding-right:10px!important;
+  }
+
+  .discord-panel{
+    grid-template-columns:1fr!important;
+    text-align:center!important;
+    justify-items:center!important;
+  }
+
+  .discord-arrow{
+    display:none!important;
+  }
+
+  .discord-counts{
+    justify-content:center!important;
+  }
+
+  .ban-row{
+    grid-template-columns:48px 1fr!important;
+    padding:14px!important;
+  }
+
+  .ban-avatar{
+    width:48px!important;
+    height:48px!important;
+  }
+
+  .ban-player-line{
+    gap:8px!important;
+  }
+
+  .ban-name{
+    max-width:100%!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+  }
+
+  .ban-status,
+  .ban-action{
+    justify-self:stretch!important;
+  }
+
+  .ban-action .btn,
+  .ban-action button,
+  .ban-action a{
+    width:100%!important;
+    min-width:0!important;
+  }
+
+  .mineacle-toast,
+  .mineacle-toast.center-popup{
+    width:min(92vw, 340px)!important;
+  }
+}
+
+
+/* Foundation V1.49 footer side swap + social/logo polish */
+
+/* Swap sides: copyright/socials left, Mineacle logo right */
+.footer-inner{
+  flex-direction:row-reverse!important;
+}
+
+.footer-brand{
+  justify-content:flex-end!important;
+  min-width:120px!important;
+}
+
+/* Main footer logo is now smaller and muted gray */
+.footer-brand-logo{
+  width:88px!important;
+  max-width:18vw!important;
+  opacity:.42!important;
+  filter:grayscale(1) saturate(0) brightness(1.18) opacity(.72)!important;
+  transition:opacity .16s ease, filter .16s ease, transform .16s ease!important;
+}
+
+.footer-brand-logo:hover{
+  opacity:.68!important;
+  filter:grayscale(1) saturate(0) brightness(1.38) opacity(.9)!important;
+  transform:translateY(-1px)!important;
+}
+
+.footer-legal{
+  align-items:flex-start!important;
+  text-align:left!important;
+}
+
+/* Social links are logo-only, no button box */
+.footer-socials{
+  justify-content:flex-start!important;
+  gap:14px!important;
+}
+
+.footer-social-link{
+  width:auto!important;
+  height:auto!important;
+  min-width:0!important;
+  min-height:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:rgba(255,255,255,.68)!important;
+  opacity:1!important;
+  transition:color .16s ease, opacity .16s ease, transform .16s ease, filter .16s ease!important;
+}
+
+.footer-social-link:hover{
+  transform:translateY(-1px)!important;
+  border-color:transparent!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:#fff!important;
+  opacity:1!important;
+}
+
+.footer-social-link img,
+.footer-social-link svg{
+  width:20px!important;
+  height:20px!important;
+  display:block!important;
+  object-fit:contain!important;
+  opacity:.72!important;
+  filter:brightness(0) invert(1) opacity(.72)!important;
+  transition:opacity .16s ease, filter .16s ease, transform .16s ease!important;
+}
+
+.footer-social-link:hover img,
+.footer-social-link:hover svg{
+  opacity:1!important;
+  filter:brightness(0) invert(1) opacity(1)!important;
+}
+
+.footer-social-link[href*="x.com"] img{
+  filter:brightness(0) invert(1) opacity(.72)!important;
+}
+
+.footer-social-link[href*="x.com"]:hover img{
+  filter:brightness(0) invert(1) opacity(1)!important;
+}
+
+@media(max-width:760px){
+  .footer-inner{
+    flex-direction:column-reverse!important;
+  }
+
+  .footer-brand{
+    justify-content:center!important;
+    min-width:0!important;
+  }
+
+  .footer-brand-logo{
+    width:82px!important;
+    max-width:34vw!important;
+  }
+
+  .footer-legal{
+    align-items:center!important;
+    text-align:center!important;
+  }
+
+  .footer-socials{
+    justify-content:center!important;
+  }
+}
+
+
+/* Foundation V1.50 desktop logo, mobile nav, Discord mobile, ban pills, footer bottom polish */
+
+/* Desktop navbar logo: make it visually match the nav button height */
+@media(min-width:981px){
+  .header-inner{
+    height:74px!important;
+    min-height:74px!important;
+    align-items:center!important;
+  }
+
+  .header-logo-link{
+    width:66px!important;
+    min-width:66px!important;
+    max-width:66px!important;
+    height:66px!important;
+    min-height:66px!important;
+    max-height:66px!important;
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    overflow:visible!important;
+  }
+
+  .header-logo-link img{
+    width:66px!important;
+    height:66px!important;
+    min-width:66px!important;
+    min-height:66px!important;
+    max-width:66px!important;
+    max-height:66px!important;
+    object-fit:cover!important;
+  }
+}
+
+/* Ban labels/pills */
+.ban-status{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+}
+
+.badge{
+  min-height:34px!important;
+  height:34px!important;
+  width:auto!important;
+  min-width:0!important;
+  max-width:max-content!important;
+  padding:0 13px!important;
+  white-space:nowrap!important;
+  line-height:1!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  border-radius:999px!important;
+  font-size:12px!important;
+  font-weight:950!important;
+  letter-spacing:.04em!important;
+  text-transform:uppercase!important;
+}
+
+.badge.active,
+.status-badge.active{
+  background:rgba(255,82,118,.16)!important;
+  border-color:rgba(255,82,118,.48)!important;
+  color:#fff!important;
+}
+
+.badge.temporary,
+.status-badge.temporary{
+  background:rgba(255,184,77,.17)!important;
+  border-color:rgba(255,184,77,.50)!important;
+  color:#fff!important;
+}
+
+.badge.ip,
+.status-badge.ip{
+  background:rgba(255,82,118,.16)!important;
+  border-color:rgba(255,82,118,.48)!important;
+  color:#fff!important;
+}
+
+.ban-meta{
+  display:flex!important;
+  align-items:center!important;
+  flex-wrap:wrap!important;
+  gap:7px!important;
+  margin-top:10px!important;
+}
+
+.ban-mini-pill{
+  min-height:28px!important;
+  height:28px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:auto!important;
+  max-width:max-content!important;
+  padding:0 10px!important;
+  border-radius:999px!important;
+  white-space:nowrap!important;
+  line-height:1!important;
+  font-size:11px!important;
+  font-weight:950!important;
+  text-transform:uppercase!important;
+  letter-spacing:.035em!important;
+}
+
+.ban-mini-pill.perm,
+.ban-mini-pill.ip{
+  background:rgba(255,82,118,.13)!important;
+  border:1px solid rgba(255,82,118,.32)!important;
+  color:#fff!important;
+}
+
+.ban-mini-pill.temp{
+  background:rgba(255,184,77,.14)!important;
+  border:1px solid rgba(255,184,77,.34)!important;
+  color:#fff!important;
+}
+
+.ban-mini-pill.duration{
+  background:rgba(255,255,255,.055)!important;
+  border:1px solid rgba(255,255,255,.09)!important;
+  color:rgba(255,255,255,.74)!important;
+}
+
+.ban-action:empty{
+  display:none!important;
+}
+
+.ban-action{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+}
+
+.compact-action,
+.ban-action .btn,
+.ban-action button,
+.ban-action a{
+  width:auto!important;
+  min-width:0!important;
+  max-width:max-content!important;
+  min-height:40px!important;
+  height:40px!important;
+  padding:0 15px!important;
+  white-space:nowrap!important;
+  line-height:1!important;
+  font-size:13px!important;
+}
+
+/* Remove footer bottom strip */
+html,
+body{
+  padding-bottom:0!important;
+  margin-bottom:0!important;
+  overflow-x:hidden!important;
+}
+
+body{
+  background-color:#050208!important;
+}
+
+.site-footer.redesigned-footer{
+  margin-bottom:0!important;
+  border-bottom:0!important;
+}
+
+/* Mobile header should wrap tightly around logo + hamburger when closed */
+@media(max-width:980px){
+  .site-header{
+    padding:6px 10px!important;
+  }
+
+  .header-inner{
+    width:100%!important;
+    min-height:52px!important;
+    height:auto!important;
+    display:grid!important;
+    grid-template-columns:52px 1fr 52px!important;
+    grid-template-areas:"logo spacer menu"!important;
+    align-items:center!important;
+    gap:8px!important;
+    padding:0!important;
+  }
+
+  .site-header.mobile-open .header-inner{
+    grid-template-areas:
+      "logo spacer menu"
+      "nav nav nav"
+      "copy copy copy"!important;
+    gap:10px!important;
+  }
+
+  .header-logo-link,
+  .header-logo-link img{
+    width:52px!important;
+    height:52px!important;
+    min-width:52px!important;
+    min-height:52px!important;
+    max-width:52px!important;
+    max-height:52px!important;
+  }
+
+  .mobile-nav-toggle{
+    width:50px!important;
+    height:50px!important;
+    min-width:50px!important;
+    min-height:50px!important;
+    border-radius:15px!important;
+  }
+
+  .main-nav{
+    grid-area:nav!important;
+    width:100%!important;
+    max-height:0!important;
+    overflow:hidden!important;
+    opacity:0!important;
+    pointer-events:none!important;
+    padding:0!important;
+    margin:0!important;
+  }
+
+  .site-header.mobile-open .main-nav{
+    max-height:270px!important;
+    opacity:1!important;
+    pointer-events:auto!important;
+    padding-top:4px!important;
+  }
+
+  .copy-ip-button{
+    grid-area:copy!important;
+    display:none!important;
+  }
+
+  .site-header.mobile-open .copy-ip-button{
+    display:inline-flex!important;
+  }
+
+  /* Mobile Discord redesign: character is no longer boxed and floats in the corner */
+  .discord-panel{
+    position:relative!important;
+    display:block!important;
+    width:100%!important;
+    max-width:100%!important;
+    min-height:0!important;
+    padding:20px 18px 18px!important;
+    overflow:hidden!important;
+    text-align:left!important;
+  }
+
+  .discord-character-wrap{
+    float:right!important;
+    width:92px!important;
+    height:92px!important;
+    min-width:92px!important;
+    margin:8px -2px 8px 14px!important;
+    display:block!important;
+    border:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
+    border-radius:0!important;
+    overflow:visible!important;
+    shape-outside:inset(0 round 18px)!important;
+  }
+
+  .discord-character{
+    width:92px!important;
+    height:92px!important;
+    max-width:92px!important;
+    object-fit:contain!important;
+    filter:drop-shadow(0 14px 22px rgba(0,0,0,.28))!important;
+  }
+
+  .discord-copy{
+    display:block!important;
+    min-width:0!important;
+  }
+
+  .discord-panel p{
+    max-width:none!important;
+  }
+
+  .discord-arrow{
+    display:none!important;
+  }
+
+  .discord-counts{
+    clear:both!important;
+    justify-content:flex-start!important;
+    margin-top:14px!important;
+  }
+
+  .ban-row{
+    grid-template-columns:52px 1fr!important;
+    grid-template-areas:
+      "avatar player"
+      "reason reason"
+      "status action"!important;
+    gap:12px!important;
+    padding:15px!important;
+  }
+
+  .ban-status{
+    grid-area:status!important;
+    justify-self:start!important;
+    align-self:center!important;
+  }
+
+  .ban-action{
+    grid-area:action!important;
+    justify-self:end!important;
+    align-self:center!important;
+  }
+
+  .badge{
+    height:32px!important;
+    min-height:32px!important;
+    padding:0 11px!important;
+    font-size:11px!important;
+  }
+
+  .ban-meta{
+    gap:6px!important;
+  }
+
+  .ban-mini-pill{
+    height:26px!important;
+    min-height:26px!important;
+    padding:0 9px!important;
+    font-size:10px!important;
+  }
+
+  .compact-action,
+  .ban-action .btn,
+  .ban-action button,
+  .ban-action a{
+    width:auto!important;
+    min-width:0!important;
+    max-width:max-content!important;
+    height:36px!important;
+    min-height:36px!important;
+    padding:0 12px!important;
+    font-size:12px!important;
+  }
+
+  .site-footer.redesigned-footer{
+    padding-bottom:28px!important;
+    margin-bottom:0!important;
+  }
+}
+
+@media(max-width:560px){
+  .site-header{
+    padding:5px 8px!important;
+  }
+
+  .header-inner{
+    grid-template-columns:50px 1fr 50px!important;
+    min-height:50px!important;
+  }
+
+  .header-logo-link,
+  .header-logo-link img{
+    width:50px!important;
+    height:50px!important;
+    min-width:50px!important;
+    min-height:50px!important;
+    max-width:50px!important;
+    max-height:50px!important;
+  }
+
+  .mobile-nav-toggle{
+    width:48px!important;
+    height:48px!important;
+    min-width:48px!important;
+    min-height:48px!important;
+  }
+
+  .discord-character-wrap{
+    width:82px!important;
+    height:82px!important;
+    min-width:82px!important;
+    margin:6px -6px 8px 12px!important;
+  }
+
+  .discord-character{
+    width:82px!important;
+    height:82px!important;
+    max-width:82px!important;
+  }
+
+  .discord-panel strong{
+    font-size:22px!important;
+  }
+
+  .discord-counts{
+    display:grid!important;
+    grid-template-columns:1fr 1fr!important;
+    gap:8px!important;
+  }
+
+  .ban-row{
+    grid-template-columns:48px 1fr!important;
+    grid-template-areas:
+      "avatar player"
+      "reason reason"
+      "status status"
+      "action action"!important;
+  }
+
+  .ban-status,
+  .ban-action{
+    justify-self:start!important;
+  }
+
+  .ban-action:empty{
+    display:none!important;
+  }
+}
+
+
+/* Foundation V1.51 mobile nav alignment, single ban label row, full footer cleanup */
+
+/* Global bottom cleanup: footer becomes the page end */
+html{
+  min-height:100%!important;
+  background:#11081a!important;
+  margin:0!important;
+  padding:0!important;
+  overflow-x:hidden!important;
+}
+
+body{
+  min-height:100vh!important;
+  margin:0!important;
+  padding:0!important;
+  overflow-x:hidden!important;
+  background:
+    linear-gradient(180deg, #050208 0%, #07030d 66%, #11081a 100%)!important;
+}
+
+body::after,
+main::after,
+.site-main::after{
+  display:none!important;
+  content:none!important;
+}
+
+/* Mobile nav: logo pinned left, hamburger pinned right, no centered menu button */
+@media(max-width:980px){
+  .site-header{
+    padding:6px 10px!important;
+  }
+
+  .header-inner{
+    width:100%!important;
+    max-width:100%!important;
+    min-height:56px!important;
+    height:56px!important;
+    display:grid!important;
+    grid-template-columns:56px minmax(0, 1fr) 56px!important;
+    grid-template-areas:"logo spacer menu"!important;
+    align-items:center!important;
+    justify-items:stretch!important;
+    gap:0!important;
+    padding:0 4px!important;
+    box-sizing:border-box!important;
+  }
+
+  .header-logo-link{
+    grid-area:logo!important;
+    justify-self:start!important;
+    align-self:center!important;
+    width:54px!important;
+    height:54px!important;
+    min-width:54px!important;
+    min-height:54px!important;
+    max-width:54px!important;
+    max-height:54px!important;
+  }
+
+  .header-logo-link img{
+    width:54px!important;
+    height:54px!important;
+    min-width:54px!important;
+    min-height:54px!important;
+    max-width:54px!important;
+    max-height:54px!important;
+  }
+
+  .mobile-nav-toggle{
+    grid-area:menu!important;
+    justify-self:end!important;
+    align-self:center!important;
+    width:54px!important;
+    height:54px!important;
+    min-width:54px!important;
+    min-height:54px!important;
+    max-width:54px!important;
+    max-height:54px!important;
+    margin:0!important;
+  }
+
+  .site-header.mobile-open .header-inner{
+    height:auto!important;
+    min-height:56px!important;
+    grid-template-areas:
+      "logo spacer menu"
+      "nav nav nav"
+      "copy copy copy"!important;
+    gap:10px!important;
+  }
+
+  .main-nav{
+    grid-area:nav!important;
+    grid-column:1 / -1!important;
+  }
+
+  .copy-ip-button{
+    grid-area:copy!important;
+    grid-column:1 / -1!important;
+  }
+}
+
+@media(max-width:560px){
+  .site-header{
+    padding:5px 8px!important;
+  }
+
+  .header-inner{
+    height:52px!important;
+    min-height:52px!important;
+    grid-template-columns:52px minmax(0, 1fr) 52px!important;
+    padding:0 2px!important;
+  }
+
+  .header-logo-link,
+  .header-logo-link img{
+    width:50px!important;
+    height:50px!important;
+    min-width:50px!important;
+    min-height:50px!important;
+    max-width:50px!important;
+    max-height:50px!important;
+  }
+
+  .mobile-nav-toggle{
+    width:50px!important;
+    height:50px!important;
+    min-width:50px!important;
+    min-height:50px!important;
+    max-width:50px!important;
+    max-height:50px!important;
+  }
+}
+
+/* Remove duplicate status column entirely; one pill row only */
+.ban-status{
+  display:none!important;
+}
+
+.ban-meta{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  flex-wrap:wrap!important;
+  gap:8px!important;
+  margin-top:10px!important;
+}
+
+.ban-mini-pill{
+  height:30px!important;
+  min-height:30px!important;
+  max-height:30px!important;
+  width:auto!important;
+  min-width:0!important;
+  max-width:max-content!important;
+  padding:0 12px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  line-height:1!important;
+  white-space:nowrap!important;
+  border-radius:999px!important;
+  font-size:11px!important;
+  font-weight:950!important;
+  letter-spacing:.035em!important;
+  text-transform:uppercase!important;
+}
+
+.ban-mini-pill.perm,
+.ban-mini-pill.ip{
+  background:rgba(255,82,118,.14)!important;
+  border:1px solid rgba(255,82,118,.36)!important;
+  color:#fff!important;
+}
+
+.ban-mini-pill.temp{
+  background:rgba(255,184,77,.15)!important;
+  border:1px solid rgba(255,184,77,.38)!important;
+  color:#fff!important;
+}
+
+.ban-mini-pill.duration{
+  background:rgba(255,255,255,.055)!important;
+  border:1px solid rgba(255,255,255,.09)!important;
+  color:rgba(255,255,255,.76)!important;
+}
+
+.ban-row{
+  grid-template-columns:64px 1fr auto!important;
+  grid-template-areas:"avatar player action" "avatar reason action"!important;
+}
+
+.ban-action:empty{
+  display:none!important;
+}
+
+/* Full-width footer, smoother gradient, no black underneath */
+.site-footer.redesigned-footer{
+  width:100vw!important;
+  max-width:none!important;
+  margin-left:calc(50% - 50vw)!important;
+  margin-right:calc(50% - 50vw)!important;
+  margin-top:64px!important;
+  margin-bottom:0!important;
+  padding:42px max(22px, calc((100vw - 1180px) / 2)) 54px!important;
+  border-top:1px solid rgba(255,255,255,.055)!important;
+  border-bottom:0!important;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255,136,255,.075), transparent 30rem),
+    radial-gradient(circle at 82% 0%, rgba(130,69,255,.055), transparent 28rem),
+    linear-gradient(180deg, rgba(16,8,25,.12) 0%, rgba(18,9,28,.92) 38%, #11081a 100%)!important;
+  box-shadow:none!important;
+}
+
+.footer-inner{
+  width:min(1180px, 100%)!important;
+  max-width:1180px!important;
+  margin:0 auto!important;
+}
+
+.footer-brand-logo{
+  width:82px!important;
+  max-width:14vw!important;
+}
+
+/* Mobile footer becomes full page end with no extra black area */
+@media(max-width:980px){
+  .site-footer.redesigned-footer{
+    width:100vw!important;
+    max-width:none!important;
+    margin-left:calc(50% - 50vw)!important;
+    margin-right:calc(50% - 50vw)!important;
+    margin-bottom:0!important;
+    padding:40px 18px max(42px, env(safe-area-inset-bottom))!important;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(255,136,255,.08), transparent 24rem),
+      linear-gradient(180deg, rgba(16,8,25,.06) 0%, rgba(18,9,28,.96) 34%, #11081a 100%)!important;
+  }
+
+  .ban-row{
+    grid-template-columns:52px 1fr!important;
+    grid-template-areas:
+      "avatar player"
+      "reason reason"
+      "action action"!important;
+  }
+
+  .ban-action{
+    justify-self:start!important;
+  }
+
+  .ban-meta{
+    gap:7px!important;
+  }
+
+  .ban-mini-pill{
+    height:28px!important;
+    min-height:28px!important;
+    max-height:28px!important;
+    padding:0 10px!important;
+    font-size:10px!important;
+  }
+}
+
+@media(max-width:560px){
+  .footer-brand-logo{
+    width:76px!important;
+    max-width:28vw!important;
+  }
+
+  .site-footer.redesigned-footer{
+    padding-bottom:max(48px, env(safe-area-inset-bottom))!important;
+  }
+
+  .ban-row{
+    grid-template-areas:
+      "avatar player"
+      "reason reason"
+      "action action"!important;
+  }
+}
+
+
+/* Foundation V1.52 footer pinned to page bottom + desktop ban row alignment */
+
+/* True full-height page: footer is the visual bottom of the website */
+html{
+  min-height:100%!important;
+  height:100%!important;
+  margin:0!important;
+  padding:0!important;
+  background:#11081a!important;
+  overflow-x:hidden!important;
+}
+
+body.mineacle-page,
+body{
+  min-height:100vh!important;
+  margin:0!important;
+  padding:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  background:
+    linear-gradient(180deg, #050208 0%, #07030d 58%, #11081a 100%)!important;
+  overflow-x:hidden!important;
+}
+
+.site-main,
+main{
+  flex:1 0 auto!important;
+  display:block!important;
+  margin-bottom:0!important;
+  padding-bottom:0!important;
+}
+
+.site-footer.redesigned-footer{
+  flex-shrink:0!important;
+  width:100vw!important;
+  max-width:none!important;
+  margin-left:calc(50% - 50vw)!important;
+  margin-right:calc(50% - 50vw)!important;
+  margin-top:72px!important;
+  margin-bottom:0!important;
+  padding:44px max(22px, calc((100vw - 1180px) / 2)) max(56px, env(safe-area-inset-bottom))!important;
+  border-top:1px solid rgba(255,255,255,.06)!important;
+  border-bottom:0!important;
+  border-radius:0!important;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255,136,255,.070), transparent 30rem),
+    radial-gradient(circle at 82% 0%, rgba(130,69,255,.055), transparent 28rem),
+    linear-gradient(180deg, rgba(16,8,25,.04) 0%, rgba(18,9,28,.90) 32%, #11081a 100%)!important;
+  box-shadow:none!important;
+  overflow:hidden!important;
+}
+
+/* Kill any previous island/rounded/footer-bottom gap effects */
+.site-footer.redesigned-footer::before,
+.site-footer.redesigned-footer::after,
+.footer-inner::before,
+.footer-inner::after{
+  display:none!important;
+  content:none!important;
+}
+
+body > *:last-child{
+  margin-bottom:0!important;
+}
+
+/* Desktop ban row cleanup */
+@media(min-width:981px){
+  .ban-row{
+    grid-template-columns:76px minmax(280px, 1fr) minmax(260px, auto)!important;
+    grid-template-areas:"avatar player reason"!important;
+    align-items:center!important;
+    column-gap:26px!important;
+    min-height:116px!important;
+  }
+
+  .ban-avatar{
+    grid-area:avatar!important;
+    width:58px!important;
+    height:58px!important;
+    justify-self:start!important;
+  }
+
+  .ban-player{
+    grid-area:player!important;
+    min-width:0!important;
+    display:block!important;
+  }
+
+  .ban-player-line{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-start!important;
+    gap:12px!important;
+  }
+
+  .info-btn{
+    width:34px!important;
+    height:34px!important;
+    min-width:34px!important;
+    min-height:34px!important;
+    max-width:34px!important;
+    max-height:34px!important;
+    padding:0!important;
+    border-radius:50%!important;
+    font-size:16px!important;
+    line-height:1!important;
+  }
+
+  .ban-date{
+    display:block!important;
+    margin-top:6px!important;
+  }
+
+  .ban-reason{
+    grid-area:reason!important;
+    justify-self:end!important;
+    align-self:center!important;
+    min-width:260px!important;
+    max-width:380px!important;
+    width:max-content!important;
+    text-align:left!important;
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:flex-start!important;
+  }
+
+  .ban-reason-title{
+    display:block!important;
+    width:100%!important;
+    margin:0 0 12px!important;
+    color:#fff!important;
+    font-size:18px!important;
+    font-weight:950!important;
+    line-height:1.15!important;
+    text-align:left!important;
+  }
+
+  .ban-meta{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-start!important;
+    gap:8px!important;
+    margin:0!important;
+  }
+
+  .ban-mini-pill{
+    height:30px!important;
+    min-height:30px!important;
+    max-height:30px!important;
+    padding:0 12px!important;
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    white-space:nowrap!important;
+    line-height:1!important;
+  }
+
+  .ban-status,
+  .ban-action:empty{
+    display:none!important;
+  }
+}
+
+/* Mobile footer still reaches bottom; no black strip under it */
+@media(max-width:980px){
+  .site-main,
+  main{
+    flex:1 0 auto!important;
+    padding-bottom:0!important;
+    margin-bottom:0!important;
+  }
+
+  .site-footer.redesigned-footer{
+    margin-top:52px!important;
+    margin-bottom:0!important;
+    padding:40px 18px max(52px, env(safe-area-inset-bottom))!important;
+    border-radius:0!important;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(255,136,255,.075), transparent 24rem),
+      linear-gradient(180deg, rgba(16,8,25,.04) 0%, rgba(18,9,28,.94) 30%, #11081a 100%)!important;
+  }
+
+  .ban-reason-title{
+    display:block!important;
+    margin:0 0 10px!important;
+    color:#fff!important;
+    font-size:20px!important;
+    font-weight:950!important;
+    line-height:1.12!important;
+  }
+
+  .ban-reason{
+    display:block!important;
+  }
+
+  .ban-meta{
+    margin-top:0!important;
+  }
+
+  .info-btn{
+    width:38px!important;
+    height:38px!important;
+    min-width:38px!important;
+    min-height:38px!important;
+  }
+}
+
+@media(max-width:560px){
+  .site-footer.redesigned-footer{
+    padding-bottom:max(58px, env(safe-area-inset-bottom))!important;
+  }
+}
+
+
+/* Foundation V1.53 info icon + ban detail avatar polish */
+
+/* Info icon next to player name: 75% of previous desktop size and truly inline */
+.ban-player-line{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:9px!important;
+  line-height:1!important;
+}
+
+.info-btn,
+.js-info-button{
+  width:26px!important;
+  height:26px!important;
+  min-width:26px!important;
+  min-height:26px!important;
+  max-width:26px!important;
+  max-height:26px!important;
+  padding:0!important;
+  margin:0!important;
+  border-radius:50%!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  align-self:center!important;
+  font-size:13px!important;
+  line-height:1!important;
+  font-weight:950!important;
+  vertical-align:middle!important;
+  transform:none!important;
+}
+
+.info-btn:hover,
+.js-info-button:hover{
+  transform:translateY(-1px)!important;
+}
+
+.ban-name{
+  display:inline-flex!important;
+  align-items:center!important;
+  line-height:1!important;
+}
+
+/* Player head inside info modal: no button/card border container, clean top alignment */
+#banModal .modal-hero{
+  align-items:flex-start!important;
+}
+
+#banModal .modal-avatar-wrap,
+.modal-avatar-wrap{
+  width:92px!important;
+  height:92px!important;
+  min-width:92px!important;
+  min-height:92px!important;
+  max-width:92px!important;
+  max-height:92px!important;
+  padding:0!important;
+  margin:0!important;
+  border:0!important;
+  outline:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  border-radius:18px!important;
+  display:block!important;
+  overflow:hidden!important;
+  align-self:flex-start!important;
+}
+
+#banModal .modal-avatar-wrap::before,
+#banModal .modal-avatar-wrap::after,
+.modal-avatar-wrap::before,
+.modal-avatar-wrap::after{
+  display:none!important;
+  content:none!important;
+}
+
+#modalAvatar,
+#banModal #modalAvatar{
+  width:92px!important;
+  height:92px!important;
+  min-width:92px!important;
+  min-height:92px!important;
+  max-width:92px!important;
+  max-height:92px!important;
+  display:block!important;
+  object-fit:cover!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  background:transparent!important;
+  border-radius:18px!important;
+}
+
+#banModal .modal-title{
+  padding-top:3px!important;
+  align-self:flex-start!important;
+}
+
+@media(max-width:980px){
+  .info-btn,
+  .js-info-button{
+    width:28px!important;
+    height:28px!important;
+    min-width:28px!important;
+    min-height:28px!important;
+    max-width:28px!important;
+    max-height:28px!important;
+    font-size:13px!important;
+  }
+
+  #banModal .modal-avatar-wrap,
+  .modal-avatar-wrap,
+  #modalAvatar,
+  #banModal #modalAvatar{
+    width:82px!important;
+    height:82px!important;
+    min-width:82px!important;
+    min-height:82px!important;
+    max-width:82px!important;
+    max-height:82px!important;
+    border-radius:16px!important;
+  }
+}
+
+@media(max-width:560px){
+  .ban-player-line{
+    gap:8px!important;
+  }
+
+  .info-btn,
+  .js-info-button{
+    width:26px!important;
+    height:26px!important;
+    min-width:26px!important;
+    min-height:26px!important;
+    max-width:26px!important;
+    max-height:26px!important;
+    font-size:12px!important;
+  }
+}
+
+
+/* Dedicated Bans full build: nav has Vote / Bans / Store only */
+@media(min-width:981px){
+  .main-nav{
+    grid-template-columns:repeat(3, auto)!important;
+  }
+}
+
+@media(max-width:980px){
+  .main-nav{
+    grid-template-columns:1fr 1fr 1fr!important;
+  }
+}
+
+@media(max-width:560px){
+  .main-nav{
+    grid-template-columns:1fr!important;
+  }
+}
+
+
+/* Dedicated Bans full build v1.1: static nav logo + guaranteed bans logo asset */
+.header-logo-static{
+  cursor:default!important;
+  pointer-events:none!important;
+}
+
+.header-logo-static:hover{
+  transform:none!important;
+  filter:none!important;
+}
+
+
+/* Full-width top header: 25% taller, starts at top of website */
+.site-header{
+  position:sticky!important;
+  top:0!important;
+  left:0!important;
+  right:0!important;
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  padding:0!important;
+  z-index:9000!important;
+  border-radius:0!important;
+  background:rgba(5,2,8,.94)!important;
+  border-bottom:1px solid rgba(255,136,255,.16)!important;
+  box-shadow:0 18px 54px rgba(0,0,0,.28)!important;
+  backdrop-filter:blur(14px)!important;
+}
+
+.header-inner{
+  width:100%!important;
+  max-width:none!important;
+  min-height:94px!important;
+  height:94px!important;
+  margin:0!important;
+  padding:0 max(22px, calc((100vw - 1180px) / 2))!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  box-sizing:border-box!important;
+}
+
+.header-logo-link{
+  width:82px!important;
+  height:82px!important;
+  min-width:82px!important;
+  min-height:82px!important;
+  max-width:82px!important;
+  max-height:82px!important;
+}
+
+.header-logo-link img{
+  width:82px!important;
+  height:82px!important;
+  min-width:82px!important;
+  min-height:82px!important;
+  max-width:82px!important;
+  max-height:82px!important;
+}
+
+.main-nav a,
+.copy-ip-button{
+  height:63px!important;
+  min-height:63px!important;
+  border-radius:18px!important;
+  padding-left:22px!important;
+  padding-right:22px!important;
+}
+
+.nav-icon{
+  width:20px!important;
+  height:20px!important;
+}
+
+/* First content spacing after the now-flush header */
+.hero-shell,
+.vote-middle-shell,
+.vote-content-shell{
+  padding-top:54px!important;
+}
+
+@media(max-width:980px){
+  .site-header{
+    padding:0!important;
+  }
+
+  .header-inner{
+    width:100%!important;
+    max-width:none!important;
+    min-height:72px!important;
+    height:72px!important;
+    grid-template-columns:70px minmax(0, 1fr) 70px!important;
+    padding:0 14px!important;
+  }
+
+  .site-header.mobile-open .header-inner{
+    height:auto!important;
+    min-height:72px!important;
+    padding-top:8px!important;
+    padding-bottom:12px!important;
+  }
+
+  .header-logo-link,
+  .header-logo-link img{
+    width:66px!important;
+    height:66px!important;
+    min-width:66px!important;
+    min-height:66px!important;
+    max-width:66px!important;
+    max-height:66px!important;
+  }
+
+  .mobile-nav-toggle{
+    width:64px!important;
+    height:64px!important;
+    min-width:64px!important;
+    min-height:64px!important;
+    max-width:64px!important;
+    max-height:64px!important;
+    border-radius:18px!important;
+  }
+
+  .main-nav a,
+  .copy-ip-button{
+    height:58px!important;
+    min-height:58px!important;
+  }
+
+  .hero-shell,
+  .vote-middle-shell,
+  .vote-content-shell{
+    padding-top:34px!important;
+  }
+}
+
+@media(max-width:560px){
+  .header-inner{
+    min-height:68px!important;
+    height:68px!important;
+    grid-template-columns:66px minmax(0, 1fr) 66px!important;
+    padding:0 10px!important;
+  }
+
+  .site-header.mobile-open .header-inner{
+    height:auto!important;
+    min-height:68px!important;
+  }
+
+  .header-logo-link,
+  .header-logo-link img{
+    width:62px!important;
+    height:62px!important;
+    min-width:62px!important;
+    min-height:62px!important;
+    max-width:62px!important;
+    max-height:62px!important;
+  }
+
+  .mobile-nav-toggle{
+    width:60px!important;
+    height:60px!important;
+    min-width:60px!important;
+    min-height:60px!important;
+    max-width:60px!important;
+    max-height:60px!important;
+  }
+
+  .hero-shell,
+  .vote-middle-shell,
+  .vote-content-shell{
+    padding-top:28px!important;
+  }
+}
+
+
+/* Bans v1.7: action pill width + modal appeal buttons */
+.compact-action,
+.wait-btn.compact-action{
+  min-width:132px!important;
+  width:132px!important;
+  max-width:132px!important;
+  height:42px!important;
+  min-height:42px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  padding-left:16px!important;
+  padding-right:16px!important;
+  white-space:nowrap!important;
+  box-sizing:border-box!important;
+}
+
+.wait-btn.compact-action{
+  opacity:.92!important;
+}
+
+.appeal-button-row{
+  display:grid!important;
+  grid-template-columns:repeat(2, minmax(0, 1fr))!important;
+  gap:12px!important;
+  width:100%!important;
+  margin:16px 0 0!important;
+}
+
+.appeal-contact-btn{
+  width:100%!important;
+  min-height:46px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  white-space:nowrap!important;
+}
+
+@media(max-width:620px){
+  .appeal-button-row{
+    grid-template-columns:1fr!important;
+  }
+
+  .compact-action,
+  .wait-btn.compact-action{
+    width:124px!important;
+    min-width:124px!important;
+    max-width:124px!important;
+  }
+}
+
+
+/* Mineacle Bans v3.0: full hero website redesign inspired by supplied layout */
+:root{
+  --v3-header-height:54px;
+  --v3-max-width:1180px;
+  --v3-radius:22px;
+  --v3-purple:#b33cff;
+  --v3-purple-dark:#6d19ff;
+  --v3-yellow:#ffb326;
+  --v3-bg:#080711;
+  --v3-panel:rgba(13,10,24,.82);
+  --v3-border:rgba(255,255,255,.10);
+}
+
+html,
+body{
+  margin:0!important;
+  padding:0!important;
+  background:#080711!important;
+  min-height:100%!important;
+}
+
+body{
+  overflow-x:hidden!important;
+}
+
+.site-header.blocaria-style-header{
+  position:fixed!important;
+  top:0!important;
+  left:0!important;
+  right:0!important;
+  width:100%!important;
+  height:var(--v3-header-height)!important;
+  min-height:var(--v3-header-height)!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:rgba(19,20,35,.92)!important;
+  box-shadow:0 10px 28px rgba(0,0,0,.28)!important;
+  backdrop-filter:blur(16px)!important;
+  z-index:10000!important;
+}
+
+.blocaria-nav-inner{
+  width:min(var(--v3-max-width), calc(100% - 32px))!important;
+  height:var(--v3-header-height)!important;
+  margin:0 auto!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:22px!important;
+}
+
+.blocaria-nav-left,
+.blocaria-nav-right{
+  height:100%!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:18px!important;
+}
+
+.blocaria-nav-left a{
+  height:100%!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  color:rgba(255,255,255,.88)!important;
+  text-decoration:none!important;
+  text-transform:uppercase!important;
+  font-size:14px!important;
+  font-weight:950!important;
+  letter-spacing:.02em!important;
+  border-bottom:3px solid transparent!important;
+  transition:color .16s ease, border-color .16s ease, text-shadow .16s ease!important;
+}
+
+.blocaria-nav-left a:hover,
+.blocaria-nav-left a.active{
+  color:#fff!important;
+  border-bottom-color:var(--v3-purple)!important;
+  text-shadow:0 0 18px rgba(179,60,255,.42)!important;
+}
+
+.discord-square,
+.play-copy-button,
+.store-button{
+  height:36px!important;
+  min-height:36px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  border-radius:8px!important;
+  color:#fff!important;
+  text-decoration:none!important;
+  border:0!important;
+  box-shadow:0 4px 0 rgba(0,0,0,.26), 0 10px 22px rgba(0,0,0,.24)!important;
+  transition:transform .14s ease, filter .14s ease, box-shadow .14s ease!important;
+  cursor:pointer!important;
+  font-weight:950!important;
+  text-transform:uppercase!important;
+}
+
+.discord-square:hover,
+.play-copy-button:hover,
+.store-button:hover{
+  transform:translateY(-1px)!important;
+  filter:brightness(1.08)!important;
+}
+
+.discord-square{
+  width:38px!important;
+  background:#5865f2!important;
+}
+
+.discord-square img{
+  width:21px!important;
+  height:21px!important;
+  filter:brightness(0) invert(1)!important;
+}
+
+.play-copy-button{
+  padding:0 20px!important;
+  background:linear-gradient(180deg, var(--v3-purple), var(--v3-purple-dark))!important;
+  font-size:13px!important;
+}
+
+.store-button{
+  padding:0 20px!important;
+  background:linear-gradient(180deg, #ffc740, #ffa91f)!important;
+  color:#fff!important;
+  font-size:13px!important;
+}
+
+.blocaria-style-header .main-nav,
+.blocaria-style-header .mobile-nav-toggle{
+  display:none!important;
+}
+
+.bans-v3-page{
+  min-height:100vh!important;
+  background:#080711!important;
+}
+
+.bans-v3-hero{
+  position:relative!important;
+  min-height:760px!important;
+  height:86vh!important;
+  display:grid!important;
+  place-items:center!important;
+  padding:calc(var(--v3-header-height) + 56px) 20px 84px!important;
+  box-sizing:border-box!important;
+  overflow:hidden!important;
+  background:
+    linear-gradient(180deg, rgba(10,8,18,.28), rgba(8,7,17,.94)),
+    radial-gradient(circle at 50% 48%, rgba(179,60,255,.26), transparent 28rem),
+    url("bans-hero-background.png?v=bansfull3.5") center / cover no-repeat!important;
+}
+
+.bans-v3-hero::before{
+  content:""!important;
+  position:absolute!important;
+  inset:0!important;
+  background:
+    linear-gradient(90deg, rgba(8,7,17,.78), rgba(8,7,17,.52), rgba(8,7,17,.78)),
+    rgba(8,7,17,.34)!important;
+  backdrop-filter:blur(1px)!important;
+}
+
+.bans-v3-hero-overlay{
+  position:absolute!important;
+  inset:0!important;
+  background:radial-gradient(circle at 50% 42%, transparent 0 16rem, rgba(0,0,0,.34) 38rem)!important;
+  pointer-events:none!important;
+}
+
+.bans-v3-center{
+  position:relative!important;
+  z-index:2!important;
+  width:min(820px, 100%)!important;
+  margin:0 auto!important;
+  text-align:center!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+}
+
+.bans-v3-kicker{
+  color:#ff88ff!important;
+  font-size:13px!important;
+  font-weight:950!important;
+  letter-spacing:.18em!important;
+  text-transform:uppercase!important;
+  text-shadow:0 0 18px rgba(255,136,255,.36)!important;
+}
+
+.bans-v3-center h1{
+  margin:18px 0 14px!important;
+  color:#fff!important;
+  font-size:clamp(62px, 8vw, 118px)!important;
+  line-height:.86!important;
+  letter-spacing:-.075em!important;
+  text-transform:uppercase!important;
+  font-weight:950!important;
+  text-shadow:
+    0 6px 0 rgba(95,38,190,.55),
+    0 0 34px rgba(179,60,255,.38)!important;
+}
+
+.bans-v3-center p{
+  max-width:670px!important;
+  margin:0 auto 28px!important;
+  color:rgba(255,255,255,.78)!important;
+  font-size:18px!important;
+  line-height:1.48!important;
+  font-weight:760!important;
+}
+
+.bans-v3-search{
+  width:min(600px, 100%)!important;
+  display:grid!important;
+  grid-template-columns:minmax(0, 1fr) auto auto!important;
+  align-items:center!important;
+  gap:8px!important;
+  padding:8px!important;
+  border-radius:10px!important;
+  background:rgba(255,255,255,.08)!important;
+  border:1px solid rgba(255,255,255,.12)!important;
+  box-shadow:0 18px 44px rgba(0,0,0,.30)!important;
+}
+
+.bans-v3-search input{
+  width:100%!important;
+  min-width:0!important;
+  height:44px!important;
+  border:0!important;
+  border-radius:7px!important;
+  outline:0!important;
+  padding:0 14px!important;
+  color:#fff!important;
+  background:rgba(0,0,0,.34)!important;
+  font:inherit!important;
+  font-weight:850!important;
+  box-sizing:border-box!important;
+}
+
+.bans-v3-search input::placeholder{
+  color:rgba(255,255,255,.48)!important;
+}
+
+.bans-v3-search .btn{
+  min-height:44px!important;
+  height:44px!important;
+  border-radius:7px!important;
+}
+
+.bans-v3-actions{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:10px!important;
+  flex-wrap:wrap!important;
+  margin-top:14px!important;
+}
+
+.bans-v3-quick-info{
+  display:grid!important;
+  grid-template-columns:repeat(3, minmax(0, 1fr))!important;
+  gap:10px!important;
+  width:min(620px, 100%)!important;
+  margin-top:34px!important;
+}
+
+.bans-v3-quick-info div{
+  min-height:78px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:4px!important;
+  border-radius:12px!important;
+  background:rgba(255,255,255,.07)!important;
+  border:1px solid rgba(255,255,255,.11)!important;
+  backdrop-filter:blur(14px)!important;
+}
+
+.bans-v3-quick-info strong{
+  color:#fff!important;
+  font-size:18px!important;
+  font-weight:950!important;
+  text-transform:uppercase!important;
+}
+
+.bans-v3-quick-info span{
+  color:rgba(255,255,255,.68)!important;
+  font-size:12px!important;
+  font-weight:800!important;
+  text-transform:uppercase!important;
+}
+
+.scroll-cue{
+  position:absolute!important;
+  left:50%!important;
+  bottom:28px!important;
+  transform:translateX(-50%)!important;
+  z-index:3!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  gap:8px!important;
+  color:#fff!important;
+  text-decoration:none!important;
+  opacity:.78!important;
+}
+
+.scroll-cue span{
+  width:18px!important;
+  height:30px!important;
+  border:2px solid rgba(255,255,255,.82)!important;
+  border-radius:999px!important;
+}
+
+.scroll-cue em{
+  font-style:normal!important;
+  font-size:11px!important;
+  font-weight:950!important;
+  text-transform:uppercase!important;
+  letter-spacing:.12em!important;
+}
+
+.bans-v3-results{
+  width:min(var(--v3-max-width), calc(100% - 32px))!important;
+  margin:0 auto!important;
+  padding:62px 0 76px!important;
+}
+
+.bans-v3-results-head{
+  display:flex!important;
+  align-items:flex-end!important;
+  justify-content:space-between!important;
+  gap:20px!important;
+  margin-bottom:22px!important;
+}
+
+.bans-v3-results-head h2{
+  margin:8px 0 0!important;
+  color:#fff!important;
+  font-size:44px!important;
+  line-height:1!important;
+  letter-spacing:-.05em!important;
+  font-weight:950!important;
+}
+
+.bans-list-meta{
+  color:rgba(255,255,255,.62)!important;
+  font-size:13px!important;
+  font-weight:950!important;
+  text-transform:uppercase!important;
+  letter-spacing:.08em!important;
+}
+
+.ban-table-shell{
+  border-radius:18px!important;
+  overflow:hidden!important;
+  border:1px solid rgba(255,255,255,.10)!important;
+  background:rgba(14,11,24,.86)!important;
+  box-shadow:0 22px 70px rgba(0,0,0,.28)!important;
+}
+
+.pagination-row{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:12px!important;
+  margin-top:22px!important;
+}
+
+.page-indicator{
+  min-width:92px!important;
+  text-align:center!important;
+  color:#fff!important;
+  font-weight:950!important;
+}
+
+.compact-action,
+.wait-btn.compact-action{
+  min-width:132px!important;
+  width:132px!important;
+  max-width:132px!important;
+  height:42px!important;
+  min-height:42px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  white-space:nowrap!important;
+  box-sizing:border-box!important;
+}
+
+.appeal-button-row{
+  display:grid!important;
+  grid-template-columns:repeat(2, minmax(0, 1fr))!important;
+  gap:12px!important;
+  width:100%!important;
+  margin:16px 0 0!important;
+}
+
+.appeal-contact-btn{
+  width:100%!important;
+  min-height:46px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+
+.btn,
+.blocaria-nav-left a,
+.discord-square,
+.play-copy-button,
+.store-button,
+.compact-action{
+  transition:transform .14s ease, filter .14s ease, box-shadow .14s ease, background .14s ease, color .14s ease, border-color .14s ease!important;
+}
+
+.btn:hover,
+.compact-action:hover{
+  transform:translateY(-1px)!important;
+}
+
+@media(max-width:980px){
+  .blocaria-nav-inner{
+    width:100%!important;
+    padding:0 12px!important;
+  }
+
+  .blocaria-nav-left a{
+    font-size:12px!important;
+  }
+
+  .blocaria-nav-right{
+    gap:8px!important;
+  }
+
+  .store-button,
+  .play-copy-button{
+    padding:0 12px!important;
+  }
+
+  .bans-v3-hero{
+    min-height:720px!important;
+    height:auto!important;
+  }
+
+  .bans-v3-search{
+    grid-template-columns:1fr!important;
+  }
+
+  .bans-v3-quick-info{
+    grid-template-columns:1fr!important;
+  }
+
+  .bans-v3-results-head{
+    align-items:flex-start!important;
+    flex-direction:column!important;
+  }
+}
+
+@media(max-width:640px){
+  .blocaria-nav-left{
+    gap:10px!important;
+  }
+
+  .discord-square{
+    display:none!important;
+  }
+
+  .bans-v3-center h1{
+    font-size:clamp(46px, 15vw, 72px)!important;
+  }
+
+  .bans-v3-center p{
+    font-size:15px!important;
+  }
+
+  .bans-v3-actions .btn{
+    width:100%!important;
+    justify-content:center!important;
+  }
+
+  .bans-v3-results{
+    width:calc(100% - 20px)!important;
+  }
+
+  .appeal-button-row{
+    grid-template-columns:1fr!important;
+  }
+}
+
+
+/* Mineacle Bans v3.1: nav store placement + logo-only top fold */
+.blocaria-nav-inner{
+  width:min(1240px, calc(100% - 32px))!important;
+}
+
+.blocaria-nav-left{
+  gap:20px!important;
+}
+
+.blocaria-nav-left .nav-store-button{
+  margin-left:8px!important;
+  height:36px!important;
+  padding:0 20px!important;
+  border-bottom:0!important;
+}
+
+.blocaria-nav-left .nav-store-button.active,
+.blocaria-nav-left .nav-store-button:hover{
+  border-bottom:0!important;
+  color:#fff!important;
+}
+
+.players-online-copy{
+  color:#fff!important;
+  text-transform:uppercase!important;
+  font-size:14px!important;
+  line-height:1.05!important;
+  font-weight:950!important;
+  letter-spacing:.01em!important;
+  white-space:nowrap!important;
+  margin-left:2px!important;
+}
+
+.players-online-copy strong{
+  color:#ff88ff!important;
+}
+
+.bans-v31-logo-fold{
+  min-height:760px!important;
+  height:86vh!important;
+  padding:calc(var(--v3-header-height) + 34px) 20px 84px!important;
+}
+
+.bans-v31-logo-fold::before{
+  background:
+    linear-gradient(90deg, rgba(8,7,17,.82), rgba(8,7,17,.48), rgba(8,7,17,.82)),
+    rgba(8,7,17,.28)!important;
+}
+
+.bans-v31-logo-center{
+  position:relative!important;
+  z-index:3!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:min(620px, 78vw)!important;
+  margin:0 auto!important;
+  animation:mineacle-v31-logo-float 4.6s ease-in-out infinite!important;
+  filter:drop-shadow(0 22px 48px rgba(142, 38, 255, .52))!important;
+}
+
+.bans-v31-logo-center img{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  object-fit:contain!important;
+}
+
+@keyframes mineacle-v31-logo-float{
+  0%, 100%{ transform:translateY(0); }
+  50%{ transform:translateY(-7px); }
+}
+
+.bans-v31-info-strip{
+  width:min(var(--v3-max-width), calc(100% - 32px))!important;
+  margin:-42px auto 0!important;
+  position:relative!important;
+  z-index:4!important;
+  display:grid!important;
+  grid-template-columns:repeat(3, minmax(0, 1fr))!important;
+  gap:14px!important;
+}
+
+.bans-v31-info-strip article{
+  min-height:96px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+  gap:6px!important;
+  padding:20px 22px!important;
+  border-radius:16px!important;
+  background:rgba(14,11,24,.88)!important;
+  border:1px solid rgba(255,255,255,.10)!important;
+  box-shadow:0 18px 48px rgba(0,0,0,.30)!important;
+}
+
+.bans-v31-info-strip strong{
+  color:#fff!important;
+  font-size:17px!important;
+  font-weight:950!important;
+  text-transform:uppercase!important;
+  letter-spacing:.02em!important;
+}
+
+.bans-v31-info-strip span{
+  color:rgba(255,255,255,.66)!important;
+  font-size:13px!important;
+  font-weight:760!important;
+  line-height:1.35!important;
+}
+
+.bans-v31-results-search{
+  width:100%!important;
+  margin:0 0 18px!important;
+}
+
+.bans-v31-results-search input{
+  height:46px!important;
+}
+
+@media(max-width:980px){
+  .blocaria-nav-left .nav-store-button{
+    padding:0 12px!important;
+    margin-left:0!important;
+  }
+
+  .players-online-copy{
+    display:none!important;
+  }
+
+  .bans-v31-info-strip{
+    grid-template-columns:1fr!important;
+    margin-top:18px!important;
+  }
+
+  .bans-v31-logo-fold{
+    min-height:680px!important;
+    height:auto!important;
+  }
+
+  .bans-v31-logo-center{
+    width:min(520px, 84vw)!important;
+  }
+}
+
+@media(max-width:640px){
+  .blocaria-nav-left{
+    gap:10px!important;
+  }
+
+  .blocaria-nav-left .nav-store-button{
+    height:32px!important;
+    padding:0 10px!important;
+  }
+
+  .bans-v31-logo-center{
+    width:min(420px, 88vw)!important;
+  }
+}
+
+
+/* Mineacle Bans v3.2: new Bans logo + purple Minecraft-style nav buttons */
+.blocaria-style-header{
+  background:rgba(18,15,34,.94)!important;
+  border-bottom:1px solid rgba(255,136,255,.15)!important;
+}
+
+.blocaria-nav-inner{
+  width:min(1240px, calc(100% - 32px))!important;
+}
+
+.blocaria-nav-left,
+.blocaria-nav-right{
+  gap:12px!important;
+}
+
+.blocaria-nav-left a,
+.nav-mc-button,
+.play-copy-button,
+.store-button{
+  font-size:18px!important;
+  font-weight:950!important;
+  letter-spacing:.01em!important;
+}
+
+.nav-mc-button{
+  position:relative!important;
+  min-width:104px!important;
+  height:40px!important;
+  min-height:40px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding:0 18px!important;
+  color:#fff!important;
+  text-decoration:none!important;
+  text-transform:uppercase!important;
+  border-radius:4px!important;
+  border:2px solid rgba(255,202,255,.40)!important;
+  background:linear-gradient(180deg, #cb58ff 0%, #9e16ff 50%, #6f00c8 100%)!important;
+  box-shadow:inset 0 3px 0 rgba(255,255,255,.22), inset 0 -4px 0 rgba(35,0,75,.42), 0 5px 0 rgba(28,0,56,.70), 0 12px 24px rgba(124,0,255,.24)!important;
+  text-shadow:0 2px 0 rgba(40,0,80,.65)!important;
+  transition:transform .12s ease, filter .12s ease, box-shadow .12s ease, background .12s ease!important;
+  box-sizing:border-box!important;
+  cursor:pointer!important;
+}
+
+.nav-mc-button:hover{
+  transform:translateY(-2px)!important;
+  filter:brightness(1.10)!important;
+  box-shadow:inset 0 3px 0 rgba(255,255,255,.25), inset 0 -4px 0 rgba(35,0,75,.42), 0 7px 0 rgba(28,0,56,.70), 0 18px 30px rgba(174,38,255,.34)!important;
+}
+
+.nav-mc-button:active{
+  transform:translateY(3px)!important;
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.16), inset 0 -2px 0 rgba(35,0,75,.45), 0 2px 0 rgba(28,0,56,.70), 0 9px 18px rgba(124,0,255,.24)!important;
+}
+
+.nav-mc-button.active{
+  background:linear-gradient(180deg, #e27dff 0%, #b83cff 50%, #7a00da 100%)!important;
+  border-color:rgba(255,230,255,.62)!important;
+  box-shadow:inset 0 3px 0 rgba(255,255,255,.26), inset 0 -4px 0 rgba(35,0,75,.42), 0 5px 0 rgba(28,0,56,.70), 0 0 28px rgba(255,88,255,.42)!important;
+}
+
+.blocaria-nav-left a,
+.blocaria-nav-left a:hover,
+.blocaria-nav-left a.active{
+  border-bottom:0!important;
+}
+
+.blocaria-nav-left .nav-store-button{
+  margin-left:0!important;
+  height:40px!important;
+  padding:0 18px!important;
+}
+
+.nav-mc-icon-button{
+  width:42px!important;
+  height:40px!important;
+  min-width:42px!important;
+  border-radius:4px!important;
+  border:2px solid rgba(255,202,255,.40)!important;
+  background:linear-gradient(180deg, #8d76ff 0%, #5865f2 55%, #3425b5 100%)!important;
+  box-shadow:inset 0 3px 0 rgba(255,255,255,.20), inset 0 -4px 0 rgba(0,0,80,.36), 0 5px 0 rgba(15,10,72,.70), 0 12px 24px rgba(88,101,242,.22)!important;
+}
+
+.nav-mc-icon-button img{
+  width:23px!important;
+  height:23px!important;
+}
+
+.players-online-copy{
+  color:#fff!important;
+  text-transform:uppercase!important;
+  font-size:16px!important;
+  line-height:1.05!important;
+  font-weight:950!important;
+  letter-spacing:.01em!important;
+  white-space:nowrap!important;
+  margin-left:6px!important;
+}
+
+.players-online-copy strong{
+  color:#ff88ff!important;
+}
+
+.bans-v32-logo-only-fold{
+  min-height:760px!important;
+  height:86vh!important;
+  display:grid!important;
+  place-items:center!important;
+  padding:calc(var(--v3-header-height) + 48px) 20px 72px!important;
+  background:linear-gradient(180deg, rgba(8,7,17,.25), rgba(8,7,17,.82)), radial-gradient(circle at 50% 46%, rgba(160,49,255,.25), transparent 30rem), url("bans-hero-background.png?v=bansfull3.5") center / cover no-repeat!important;
+}
+
+.bans-v32-logo-only-fold::before{
+  content:""!important;
+  position:absolute!important;
+  inset:0!important;
+  background:linear-gradient(90deg, rgba(8,7,17,.82), rgba(8,7,17,.50), rgba(8,7,17,.82)), rgba(8,7,17,.26)!important;
+  pointer-events:none!important;
+}
+
+.bans-v32-logo-center{
+  position:relative!important;
+  z-index:3!important;
+  width:min(760px, 84vw)!important;
+  margin:0 auto!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  animation:mineacle-bans-logo-float 4.6s ease-in-out infinite!important;
+  filter:drop-shadow(0 24px 58px rgba(140, 30, 255, .58))!important;
+}
+
+.bans-v32-logo-center img{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  object-fit:contain!important;
+}
+
+@keyframes mineacle-bans-logo-float{
+  0%,100%{ transform:translateY(0); }
+  50%{ transform:translateY(-8px); }
+}
+
+.bans-v31-info-strip,
+.bans-v3-quick-info,
+.bans-v3-actions,
+.scroll-cue{
+  display:none!important;
+}
+
+.bans-v3-results{
+  margin-top:0!important;
+}
+
+@media(max-width:980px){
+  .blocaria-nav-left,
+  .blocaria-nav-right{
+    gap:8px!important;
+  }
+
+  .blocaria-nav-left a,
+  .nav-mc-button,
+  .play-copy-button,
+  .store-button{
+    font-size:15px!important;
+  }
+
+  .nav-mc-button{
+    min-width:82px!important;
+    padding:0 12px!important;
+  }
+
+  .players-online-copy{
+    display:none!important;
+  }
+
+  .bans-v32-logo-only-fold{
+    min-height:680px!important;
+    height:auto!important;
+  }
+
+  .bans-v32-logo-center{
+    width:min(620px, 88vw)!important;
+  }
+}
+
+@media(max-width:640px){
+  .discord-square{
+    display:none!important;
+  }
+
+  .nav-mc-button{
+    min-width:70px!important;
+    height:36px!important;
+    min-height:36px!important;
+    padding:0 9px!important;
+    font-size:13px!important;
+  }
+
+  .bans-v32-logo-center{
+    width:min(520px, 92vw)!important;
+  }
+}
+
+
+/* Mineacle Bans v3.3: nav/text/logo polish */
+:root{
+  --v3-header-height:76px!important;
+}
+
+/* Taller header with room above and below nav controls */
+.site-header.blocaria-style-header,
+.blocaria-style-header{
+  height:76px!important;
+  min-height:76px!important;
+  background:rgba(18,15,34,.94)!important;
+  border-bottom:1px solid rgba(255,136,255,.15)!important;
+}
+
+.blocaria-nav-inner{
+  width:min(1240px, calc(100% - 32px))!important;
+  height:76px!important;
+  min-height:76px!important;
+  padding-top:10px!important;
+  padding-bottom:10px!important;
+  box-sizing:border-box!important;
+}
+
+.blocaria-nav-left,
+.blocaria-nav-right{
+  gap:16px!important;
+  height:100%!important;
+}
+
+/* Vote/Bans are professional text links, not buttons */
+.blocaria-nav-left .nav-text-link{
+  position:relative!important;
+  height:44px!important;
+  min-width:78px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding:0 8px!important;
+  color:rgba(255,255,255,.82)!important;
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  text-decoration:none!important;
+  text-transform:uppercase!important;
+  font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif!important;
+  font-size:17px!important;
+  line-height:1!important;
+  font-weight:900!important;
+  letter-spacing:.045em!important;
+  text-shadow:none!important;
+  transition:color .16s ease, text-shadow .16s ease, transform .16s ease!important;
+}
+
+.blocaria-nav-left .nav-text-link::after{
+  content:""!important;
+  position:absolute!important;
+  left:8px!important;
+  right:8px!important;
+  bottom:2px!important;
+  height:3px!important;
+  border-radius:999px!important;
+  background:linear-gradient(90deg, #ff2458, #b33cff, #6d19ff)!important;
+  opacity:0!important;
+  transform:scaleX(.68)!important;
+  transition:opacity .16s ease, transform .16s ease!important;
+  box-shadow:0 0 16px rgba(179,60,255,.55)!important;
+}
+
+.blocaria-nav-left .nav-text-link:hover{
+  color:#fff!important;
+  transform:translateY(-1px)!important;
+  text-shadow:0 0 16px rgba(255,136,255,.30)!important;
+}
+
+.blocaria-nav-left .nav-text-link.active{
+  color:#fff!important;
+  text-shadow:0 0 18px rgba(179,60,255,.38)!important;
+}
+
+.blocaria-nav-left .nav-text-link.active::after{
+  opacity:1!important;
+  transform:scaleX(1)!important;
+}
+
+/* Keep Store and Play as Minecraft-style purple effect buttons */
+.nav-mc-button,
+.play-copy-button,
+.blocaria-nav-left .nav-store-button{
+  height:44px!important;
+  min-height:44px!important;
+  font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif!important;
+  font-size:17px!important;
+  font-weight:950!important;
+  letter-spacing:.025em!important;
+}
+
+.blocaria-nav-left .nav-store-button{
+  margin-left:2px!important;
+  min-width:108px!important;
+}
+
+/* Discord icon follows button height */
+.nav-mc-icon-button,
+.discord-square{
+  width:46px!important;
+  height:44px!important;
+  min-width:46px!important;
+  min-height:44px!important;
+}
+
+/* Player count stays right side, professional bold */
+.players-online-copy{
+  font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif!important;
+  font-size:15px!important;
+  line-height:1.08!important;
+  font-weight:900!important;
+  letter-spacing:.025em!important;
+}
+
+/* Logo: no float, 25% smaller, red-to-purple glow */
+.bans-v32-logo-center{
+  width:min(570px, 63vw)!important;
+  animation:none!important;
+  transform:none!important;
+  filter:
+    drop-shadow(0 0 18px rgba(255, 24, 70, .62))
+    drop-shadow(0 0 34px rgba(179, 60, 255, .52))
+    drop-shadow(0 20px 54px rgba(109, 25, 255, .42))!important;
+}
+
+.bans-v32-logo-center img{
+  width:100%!important;
+  height:auto!important;
+}
+
+/* Adjust top fold for taller header */
+.bans-v32-logo-only-fold{
+  padding-top:calc(76px + 48px)!important;
+}
+
+@media(max-width:980px){
+  :root{
+    --v3-header-height:72px!important;
+  }
+
+  .site-header.blocaria-style-header,
+  .blocaria-style-header{
+    height:72px!important;
+    min-height:72px!important;
+  }
+
+  .blocaria-nav-inner{
+    height:72px!important;
+    min-height:72px!important;
+    padding-top:8px!important;
+    padding-bottom:8px!important;
+  }
+
+  .blocaria-nav-left,
+  .blocaria-nav-right{
+    gap:8px!important;
+  }
+
+  .blocaria-nav-left .nav-text-link{
+    min-width:58px!important;
+    font-size:14px!important;
+    letter-spacing:.035em!important;
+  }
+
+  .nav-mc-button,
+  .play-copy-button,
+  .blocaria-nav-left .nav-store-button{
+    height:40px!important;
+    min-height:40px!important;
+    min-width:82px!important;
+    padding:0 12px!important;
+    font-size:14px!important;
+  }
+
+  .nav-mc-icon-button,
+  .discord-square{
+    width:42px!important;
+    height:40px!important;
+    min-width:42px!important;
+    min-height:40px!important;
+  }
+
+  .bans-v32-logo-center{
+    width:min(465px, 66vw)!important;
+  }
+
+  .bans-v32-logo-only-fold{
+    padding-top:calc(72px + 42px)!important;
+  }
+}
+
+@media(max-width:640px){
+  .blocaria-nav-left .nav-text-link{
+    min-width:48px!important;
+    font-size:13px!important;
+    padding:0 4px!important;
+  }
+
+  .nav-mc-button,
+  .play-copy-button,
+  .blocaria-nav-left .nav-store-button{
+    min-width:70px!important;
+    height:36px!important;
+    min-height:36px!important;
+    padding:0 9px!important;
+    font-size:13px!important;
+  }
+
+  .bans-v32-logo-center{
+    width:min(390px, 72vw)!important;
+  }
+}
+
+
+/* Mineacle Bans v3.4: floating header -> full-width on scroll + centered Bans logo */
+:root{
+  --v34-header-height:92px!important;
+  --v34-header-shell-width:1240px;
+}
+
+/* Header starts as a floating rounded island */
+.site-header.blocaria-style-header.mineacle-floating-header,
+.blocaria-style-header.mineacle-floating-header{
+  position:fixed!important;
+  top:22px!important;
+  left:50%!important;
+  right:auto!important;
+  width:min(var(--v34-header-shell-width), calc(100% - 48px))!important;
+  height:var(--v34-header-height)!important;
+  min-height:var(--v34-header-height)!important;
+  transform:translateX(-50%)!important;
+  margin:0!important;
+  padding:0!important;
+  border-radius:22px!important;
+  background:rgba(18,15,34,.90)!important;
+  border:1px solid rgba(255,136,255,.18)!important;
+  box-shadow:0 18px 48px rgba(0,0,0,.34), inset 0 0 0 1px rgba(255,255,255,.035)!important;
+  backdrop-filter:blur(18px)!important;
+  transition:top .22s ease, width .22s ease, border-radius .22s ease, background .22s ease, border-color .22s ease, box-shadow .22s ease!important;
+  overflow:visible!important;
+  z-index:10000!important;
+}
+
+/* On scroll, it expands full width */
+.site-header.blocaria-style-header.mineacle-floating-header.is-scrolled{
+  top:0!important;
+  width:100%!important;
+  max-width:none!important;
+  border-radius:0!important;
+  border-left:0!important;
+  border-right:0!important;
+  border-top:0!important;
+  background:rgba(18,15,34,.96)!important;
+  box-shadow:0 14px 38px rgba(0,0,0,.30)!important;
+}
+
+.mineacle-floating-header .blocaria-nav-inner{
+  position:relative!important;
+  width:100%!important;
+  height:var(--v34-header-height)!important;
+  min-height:var(--v34-header-height)!important;
+  display:grid!important;
+  grid-template-columns:minmax(320px, 1fr) minmax(260px, 360px) minmax(320px, 1fr)!important;
+  align-items:center!important;
+  padding:18px 36px 20px!important;
+  margin:0!important;
+  box-sizing:border-box!important;
+}
+
+.mineacle-floating-header.is-scrolled .blocaria-nav-inner{
+  width:min(var(--v34-header-shell-width), calc(100% - 32px))!important;
+  margin:0 auto!important;
+  padding-left:0!important;
+  padding-right:0!important;
+}
+
+.mineacle-floating-header .blocaria-nav-left,
+.mineacle-floating-header .blocaria-nav-right{
+  height:100%!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:16px!important;
+}
+
+.mineacle-floating-header .blocaria-nav-left{
+  justify-content:flex-start!important;
+}
+
+.mineacle-floating-header .blocaria-nav-right{
+  justify-content:flex-end!important;
+}
+
+/* Center logo sits between sides; nav bottom aligns around logo middle */
+.header-bans-logo{
+  position:absolute!important;
+  left:50%!important;
+  top:50%!important;
+  transform:translate(-50%, -28%)!important;
+  width:min(428px, 34vw)!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-decoration:none!important;
+  z-index:4!important;
+  filter:none!important;
+  transition:transform .16s ease, opacity .16s ease!important;
+}
+
+.header-bans-logo:hover{
+  transform:translate(-50%, -30%) scale(1.012)!important;
+}
+
+.header-bans-logo img{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  object-fit:contain!important;
+  filter:none!important;
+}
+
+/* Remove old top-fold logo glow completely */
+.bans-v32-logo-center,
+.bans-v32-logo-center img{
+  display:none!important;
+  animation:none!important;
+  filter:none!important;
+}
+
+/* Text links remain clean with selected underline */
+.mineacle-floating-header .nav-text-link{
+  height:44px!important;
+  font-size:17px!important;
+  font-weight:900!important;
+  letter-spacing:.045em!important;
+  font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif!important;
+}
+
+/* Buttons keep room inside the taller header */
+.mineacle-floating-header .nav-mc-button,
+.mineacle-floating-header .play-copy-button,
+.mineacle-floating-header .nav-store-button{
+  height:44px!important;
+  min-height:44px!important;
+}
+
+.mineacle-floating-header .discord-square,
+.mineacle-floating-header .nav-mc-icon-button{
+  height:44px!important;
+  min-height:44px!important;
+  width:46px!important;
+  min-width:46px!important;
+}
+
+/* Top fold now just background behind header logo */
+.bans-v34-background-fold{
+  min-height:760px!important;
+  height:86vh!important;
+  padding-top:calc(var(--v34-header-height) + 70px)!important;
+}
+
+.bans-v34-background-fold::after{
+  content:""!important;
+  position:absolute!important;
+  inset:0!important;
+  background:radial-gradient(circle at 50% 34%, rgba(179,60,255,.16), transparent 28rem)!important;
+  pointer-events:none!important;
+}
+
+/* Remove the previous gradient glow definition from logo fold */
+.bans-v32-logo-only-fold{
+  display:grid!important;
+  place-items:center!important;
+}
+
+@media(max-width:980px){
+  .site-header.blocaria-style-header.mineacle-floating-header,
+  .blocaria-style-header.mineacle-floating-header{
+    top:0!important;
+    left:0!important;
+    width:100%!important;
+    transform:none!important;
+    border-radius:0!important;
+    border-left:0!important;
+    border-right:0!important;
+  }
+
+  .mineacle-floating-header .blocaria-nav-inner,
+  .mineacle-floating-header.is-scrolled .blocaria-nav-inner{
+    width:100%!important;
+    height:76px!important;
+    min-height:76px!important;
+    grid-template-columns:1fr auto 1fr!important;
+    padding:8px 14px!important;
+  }
+
+  .header-bans-logo{
+    width:min(280px, 42vw)!important;
+    transform:translate(-50%, -18%)!important;
+  }
+
+  .header-bans-logo:hover{
+    transform:translate(-50%, -20%) scale(1.01)!important;
+  }
+
+  .mineacle-floating-header .blocaria-nav-left,
+  .mineacle-floating-header .blocaria-nav-right{
+    gap:8px!important;
+  }
+
+  .bans-v34-background-fold{
+    padding-top:calc(76px + 52px)!important;
+  }
+}
+
+@media(max-width:640px){
+  .header-bans-logo{
+    width:min(220px, 44vw)!important;
+  }
+
+  .mineacle-floating-header .nav-text-link{
+    font-size:13px!important;
+    min-width:46px!important;
+  }
+}
+
+
+/* Mineacle Bans v3.5: restore right nav, shrink logo, fix full-width edge glitch */
+html,
+body{
+  margin:0!important;
+  padding:0!important;
+  overflow-x:hidden!important;
+  background:#080711!important;
+}
+
+/* Avoid white side-edge glitch during animated width/left changes */
+.site-header.blocaria-style-header.mineacle-floating-header,
+.blocaria-style-header.mineacle-floating-header{
+  box-sizing:border-box!important;
+  background-clip:padding-box!important;
+  will-change:top,width,border-radius,transform!important;
+}
+
+/* Floating state keeps true island. */
+.site-header.blocaria-style-header.mineacle-floating-header:not(.is-scrolled),
+.blocaria-style-header.mineacle-floating-header:not(.is-scrolled){
+  left:50%!important;
+  right:auto!important;
+  width:min(var(--v34-header-shell-width), calc(100vw - 48px))!important;
+  max-width:min(var(--v34-header-shell-width), calc(100vw - 48px))!important;
+  transform:translateX(-50%)!important;
+  border-left:1px solid rgba(255,136,255,.18)!important;
+  border-right:1px solid rgba(255,136,255,.18)!important;
+  overflow:visible!important;
+}
+
+/* Scrolled state goes true full viewport width and removes all outer border artifacts. */
+.site-header.blocaria-style-header.mineacle-floating-header.is-scrolled,
+.blocaria-style-header.mineacle-floating-header.is-scrolled{
+  left:0!important;
+  right:0!important;
+  width:100vw!important;
+  max-width:100vw!important;
+  transform:none!important;
+  border-radius:0!important;
+  border-left:0!important;
+  border-right:0!important;
+  border-top:0!important;
+  margin:0!important;
+  overflow:hidden!important;
+  box-shadow:0 14px 38px rgba(0,0,0,.30)!important;
+}
+
+/* Keep inner content centered after full-width expansion. */
+.mineacle-floating-header.is-scrolled .blocaria-nav-inner{
+  width:min(var(--v34-header-shell-width), calc(100vw - 32px))!important;
+  max-width:var(--v34-header-shell-width)!important;
+  margin:0 auto!important;
+  padding-left:0!important;
+  padding-right:0!important;
+}
+
+/* Restore right side visibility on desktop. */
+.mineacle-floating-header .blocaria-nav-right{
+  display:flex!important;
+  visibility:visible!important;
+  opacity:1!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  gap:14px!important;
+  min-width:0!important;
+}
+
+.mineacle-floating-header .header-discord-button,
+.mineacle-floating-header .header-play-button,
+.mineacle-floating-header .header-player-count{
+  display:inline-flex!important;
+  visibility:visible!important;
+  opacity:1!important;
+}
+
+.mineacle-floating-header .header-player-count{
+  display:block!important;
+}
+
+/* Main header logo: 50% smaller than v3.4 and no glow. */
+.header-bans-logo{
+  width:min(214px, 17vw)!important;
+  filter:none!important;
+  opacity:1!important;
+  transform:translate(-50%, -28%)!important;
+}
+
+.header-bans-logo:hover{
+  transform:translate(-50%, -30%) scale(1.01)!important;
+  filter:none!important;
+}
+
+.header-bans-logo img{
+  filter:none!important;
+}
+
+/* Give the right side enough room so it doesn't disappear behind the centered logo. */
+.mineacle-floating-header .blocaria-nav-inner{
+  grid-template-columns:minmax(290px, 1fr) minmax(180px, 260px) minmax(390px, 1fr)!important;
+}
+
+/* Make player count slightly tighter so it fits reliably. */
+.players-online-copy.header-player-count{
+  font-size:14px!important;
+  line-height:1.04!important;
+  margin-left:2px!important;
+  white-space:nowrap!important;
+}
+
+@media(max-width:1180px){
+  .mineacle-floating-header .blocaria-nav-inner{
+    grid-template-columns:minmax(250px, 1fr) minmax(150px, 210px) minmax(310px, 1fr)!important;
+  }
+
+  .header-bans-logo{
+    width:min(180px, 18vw)!important;
+  }
+
+  .players-online-copy.header-player-count{
+    font-size:12px!important;
+  }
+}
+
+@media(max-width:980px){
+  .site-header.blocaria-style-header.mineacle-floating-header,
+  .blocaria-style-header.mineacle-floating-header,
+  .site-header.blocaria-style-header.mineacle-floating-header:not(.is-scrolled),
+  .blocaria-style-header.mineacle-floating-header:not(.is-scrolled),
+  .site-header.blocaria-style-header.mineacle-floating-header.is-scrolled,
+  .blocaria-style-header.mineacle-floating-header.is-scrolled{
+    left:0!important;
+    right:0!important;
+    width:100vw!important;
+    max-width:100vw!important;
+    transform:none!important;
+    border-radius:0!important;
+    border-left:0!important;
+    border-right:0!important;
+    overflow:hidden!important;
+  }
+
+  .mineacle-floating-header .blocaria-nav-inner,
+  .mineacle-floating-header.is-scrolled .blocaria-nav-inner{
+    width:100%!important;
+    max-width:100%!important;
+    grid-template-columns:1fr auto 1fr!important;
+    padding-left:14px!important;
+    padding-right:14px!important;
+  }
+
+  .header-bans-logo{
+    width:min(140px, 26vw)!important;
+    transform:translate(-50%, -18%)!important;
+  }
+
+  .header-bans-logo:hover{
+    transform:translate(-50%, -20%) scale(1.01)!important;
+  }
+
+  .mineacle-floating-header .header-player-count{
+    display:none!important;
+  }
+
+  .mineacle-floating-header .header-discord-button,
+  .mineacle-floating-header .header-play-button{
+    display:inline-flex!important;
+  }
+}
+
+@media(max-width:640px){
+  .header-bans-logo{
+    width:min(116px, 28vw)!important;
+  }
+
+  .mineacle-floating-header .header-discord-button{
+    display:none!important;
+  }
+}
