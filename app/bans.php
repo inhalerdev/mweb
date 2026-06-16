@@ -14,9 +14,7 @@ mineacle_header('bans');
 
 <main class="bans-page-shell">
   <section class="bans-hero-redesign" aria-label="Mineacle punishments information">
-    <div class="bans-hero-bg" aria-hidden="true"></div>
-
-    <div class="bans-hero-left">
+        <div class="bans-hero-left">
       <span class="eyebrow">Mineacle Safety Center</span>
       <h1>Public Ban List</h1>
       <p>Search active punishments, review LiteBans records, and find the right appeal option without digging through Discord messages.</p>
@@ -58,14 +56,14 @@ mineacle_header('bans');
       <p>Search by Minecraft username, then open the info button for reason, date, duration, appeal links, and status.</p>
     </div>
 
-    <form class="search-card js-ban-search-form" role="search">
+    <form class="search-card bans-search-form js-ban-search-form" role="search">
       <label class="sr-only" for="ban-search">Search bans</label>
       <div class="search-input-wrap">
-        <img src="assets/search-icon.png?v=bansfull2.0" alt="" aria-hidden="true">
-        <input id="ban-search" class="js-ban-search" type="search" name="q" autocomplete="off" placeholder="Search a Minecraft username">
+        <img src="assets/search-icon.png?v=bansfull2.2" alt="" aria-hidden="true">
+        <input id="ban-search" class="ban-search-input js-ban-search" type="search" name="q" autocomplete="off" placeholder="Search a Minecraft username">
       </div>
       <button class="btn red" type="submit">Search</button>
-      <button class="btn soft js-ban-clear" type="button">Clear</button>
+      <button class="btn soft ban-search-clear js-ban-clear" type="button">Clear</button>
     </form>
   </section>
 
@@ -75,19 +73,19 @@ mineacle_header('bans');
         <span class="eyebrow">Results</span>
         <h2>Ban records</h2>
       </div>
-      <div class="bans-list-meta js-ban-meta">Loading records</div>
+      <div class="bans-list-meta bans-result-count js-ban-meta">Loading records</div>
     </div>
 
-    <div class="ban-table-shell">
-      <div class="ban-table js-ban-table" aria-live="polite">
+    <div class="ban-table bans-table js-ban-table">
+      <div class="ban-table bans-table js-ban-table" aria-live="polite">
         <div class="ban-loading">Loading active bans</div>
       </div>
     </div>
 
     <div class="pagination-row">
-      <button class="btn soft js-ban-prev" type="button">Previous</button>
-      <span class="page-indicator js-ban-page">Page 1</span>
-      <button class="btn soft js-ban-next" type="button">Next</button>
+      <button class="btn soft bans-prev js-ban-prev" type="button">Previous</button>
+      <span class="page-indicator bans-page-label js-ban-page">Page 1</span>
+      <button class="btn soft bans-next js-ban-next" type="button">Next</button>
     </div>
   </section>
 </main>

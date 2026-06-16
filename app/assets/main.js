@@ -1,3 +1,20 @@
+
+function mineacleQueryAny(selectors) {
+  for (const selector of selectors) {
+    const found = document.querySelector(selector);
+    if (found) return found;
+  }
+  return null;
+}
+
+function mineacleQueryAllAny(selectors) {
+  for (const selector of selectors) {
+    const found = document.querySelectorAll(selector);
+    if (found && found.length) return found;
+  }
+  return [];
+}
+
 const banList = document.getElementById("banList");
 const banSearch = document.getElementById("banSearch");
 const clearSearch = document.getElementById("clearSearch");
