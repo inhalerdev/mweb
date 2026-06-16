@@ -3489,7 +3489,7 @@ body{
   background:
     linear-gradient(180deg, rgba(10,8,18,.28), rgba(8,7,17,.94)),
     radial-gradient(circle at 50% 48%, rgba(179,60,255,.26), transparent 28rem),
-    url("bans-hero-background.png?v=bansfull3.8.8.8.7.6.5.4.3.2") center / cover no-repeat!important;
+    url("bans-hero-background.png?v=bansfull3.8.9.9.8.7.6.5.4.3.2") center / cover no-repeat!important;
 }
 
 .bans-v3-hero::before{
@@ -4104,7 +4104,7 @@ body{
   display:grid!important;
   place-items:center!important;
   padding:calc(var(--v3-header-height) + 48px) 20px 72px!important;
-  background:linear-gradient(180deg, rgba(8,7,17,.25), rgba(8,7,17,.82)), radial-gradient(circle at 50% 46%, rgba(160,49,255,.25), transparent 30rem), url("bans-hero-background.png?v=bansfull3.8.8.8.7.6.5.4.3.2") center / cover no-repeat!important;
+  background:linear-gradient(180deg, rgba(8,7,17,.25), rgba(8,7,17,.82)), radial-gradient(circle at 50% 46%, rgba(160,49,255,.25), transparent 30rem), url("bans-hero-background.png?v=bansfull3.8.9.9.8.7.6.5.4.3.2") center / cover no-repeat!important;
 }
 
 .bans-v32-logo-only-fold::before{
@@ -6523,4 +6523,151 @@ body,
     --nav-item-height:36px;
     --nav-logo-width:126px;
   }
+}
+
+
+/* Mineacle Bans v3.8.9: restore nav click + hover while preserving v3.8.8 true box centering */
+
+/* Nav groups must receive clicks above background/logo layers. */
+.mineacle-floating-header .blocaria-nav-left,
+.mineacle-floating-header.is-scrolled .blocaria-nav-left,
+.mineacle-floating-header .blocaria-nav-right,
+.mineacle-floating-header.is-scrolled .blocaria-nav-right{
+  z-index:40!important;
+  pointer-events:auto!important;
+}
+
+.mineacle-floating-header .blocaria-nav-left > *,
+.mineacle-floating-header.is-scrolled .blocaria-nav-left > *,
+.mineacle-floating-header .blocaria-nav-right > *,
+.mineacle-floating-header.is-scrolled .blocaria-nav-right > *{
+  pointer-events:auto!important;
+  cursor:pointer!important;
+  z-index:41!important;
+}
+
+/* Keep logo clickable but never let it block left/right nav groups. */
+.header-bans-logo,
+.mineacle-floating-header.is-scrolled .header-bans-logo{
+  z-index:30!important;
+  pointer-events:auto!important;
+}
+
+/* Restore Vote/Bans link interaction without changing centering geometry. */
+.mineacle-floating-header .nav-text-link,
+.mineacle-floating-header.is-scrolled .nav-text-link{
+  color:rgba(255,255,255,.84)!important;
+  text-decoration:none!important;
+  cursor:pointer!important;
+  transition:color .14s ease, text-shadow .14s ease, filter .14s ease!important;
+}
+
+.mineacle-floating-header .nav-text-link:hover,
+.mineacle-floating-header.is-scrolled .nav-text-link:hover{
+  color:#fff!important;
+  text-shadow:0 0 16px rgba(255,136,255,.34)!important;
+  filter:brightness(1.10)!important;
+}
+
+.mineacle-floating-header .nav-text-link:active,
+.mineacle-floating-header.is-scrolled .nav-text-link:active{
+  color:#ff88ff!important;
+  filter:brightness(.96)!important;
+}
+
+.mineacle-floating-header .nav-text-link.active,
+.mineacle-floating-header.is-scrolled .nav-text-link.active{
+  color:#fff!important;
+  text-shadow:0 0 14px rgba(255,136,255,.24)!important;
+}
+
+/* Store/Play/Discord: restore effects by applying visual movement to an inner visual layer effect via filter/shadow only.
+   Actual item box remains centered; transform is only on hover state and returns cleanly. */
+.mineacle-floating-header .nav-store-button,
+.mineacle-floating-header.is-scrolled .nav-store-button,
+.mineacle-floating-header .header-play-button,
+.mineacle-floating-header.is-scrolled .header-play-button,
+.mineacle-floating-header .header-discord-button,
+.mineacle-floating-header.is-scrolled .header-discord-button{
+  cursor:pointer!important;
+  pointer-events:auto!important;
+  transition:filter .12s ease, box-shadow .12s ease, background .12s ease, border-color .12s ease!important;
+}
+
+/* Do not use translate for normal hover; this keeps centered boxes correct.
+   Increase brightness/shadow instead so hover is visible but alignment stays fixed. */
+.mineacle-floating-header .nav-store-button:hover,
+.mineacle-floating-header.is-scrolled .nav-store-button:hover,
+.mineacle-floating-header .header-play-button:hover,
+.mineacle-floating-header.is-scrolled .header-play-button:hover{
+  filter:brightness(1.12)!important;
+  border-color:rgba(255,230,255,.62)!important;
+  box-shadow:
+    inset 0 3px 0 rgba(255,255,255,.28),
+    inset 0 -4px 0 rgba(35,0,75,.42),
+    0 5px 0 rgba(28,0,56,.70),
+    0 0 28px rgba(174,38,255,.38),
+    0 18px 30px rgba(174,38,255,.28)!important;
+}
+
+.mineacle-floating-header .header-discord-button:hover,
+.mineacle-floating-header.is-scrolled .header-discord-button:hover{
+  filter:brightness(1.12)!important;
+  border-color:rgba(220,226,255,.72)!important;
+  box-shadow:
+    inset 0 3px 0 rgba(255,255,255,.28),
+    inset 0 -4px 0 rgba(0,0,80,.38),
+    0 5px 0 rgba(15,10,72,.70),
+    0 0 24px rgba(88,101,242,.42),
+    0 18px 30px rgba(88,101,242,.28)!important;
+}
+
+.mineacle-floating-header .nav-store-button:active,
+.mineacle-floating-header.is-scrolled .nav-store-button:active,
+.mineacle-floating-header .header-play-button:active,
+.mineacle-floating-header.is-scrolled .header-play-button:active{
+  filter:brightness(.92)!important;
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,.16),
+    inset 0 -2px 0 rgba(35,0,75,.45),
+    0 2px 0 rgba(28,0,56,.70),
+    0 8px 18px rgba(124,0,255,.22)!important;
+}
+
+.mineacle-floating-header .header-discord-button:active,
+.mineacle-floating-header.is-scrolled .header-discord-button:active{
+  filter:brightness(.92)!important;
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,.16),
+    inset 0 -2px 0 rgba(0,0,80,.42),
+    0 2px 0 rgba(15,10,72,.70),
+    0 8px 18px rgba(88,101,242,.22)!important;
+}
+
+/* Guard against older rules disabling interaction or transforming buttons off clickable area. */
+.mineacle-floating-header .nav-store-button,
+.mineacle-floating-header.is-scrolled .nav-store-button,
+.mineacle-floating-header .header-play-button,
+.mineacle-floating-header.is-scrolled .header-play-button,
+.mineacle-floating-header .header-discord-button,
+.mineacle-floating-header.is-scrolled .header-discord-button{
+  transform:none!important;
+}
+
+.mineacle-floating-header .nav-store-button:hover,
+.mineacle-floating-header.is-scrolled .nav-store-button:hover,
+.mineacle-floating-header .header-play-button:hover,
+.mineacle-floating-header.is-scrolled .header-play-button:hover,
+.mineacle-floating-header .header-discord-button:hover,
+.mineacle-floating-header.is-scrolled .header-discord-button:hover{
+  transform:none!important;
+}
+
+.mineacle-floating-header .nav-store-button:active,
+.mineacle-floating-header.is-scrolled .nav-store-button:active,
+.mineacle-floating-header .header-play-button:active,
+.mineacle-floating-header.is-scrolled .header-play-button:active,
+.mineacle-floating-header .header-discord-button:active,
+.mineacle-floating-header.is-scrolled .header-discord-button:active{
+  transform:none!important;
 }
