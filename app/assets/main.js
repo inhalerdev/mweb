@@ -789,7 +789,7 @@ if (document.readyState === "loading") {
 }
 
 
-function mineacleNavClickFallback() {
+function mineacleNavClickFallback_DISABLED() {
   const nav = document.getElementById("siteHeader");
   if (!nav) {
     return;
@@ -812,13 +812,13 @@ function mineacleNavClickFallback() {
 }
 
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", mineacleNavClickFallback);
+  document.addEventListener("DOMContentLoaded", mineacleNavClickFallback_DISABLED);
 } else {
-  mineacleNavClickFallback();
+  mineacleNavClickFallback_DISABLED();
 }
 
 
-function mineacleHardNavLinkFix() {
+function mineacleHardNavLinkFix_DISABLED() {
   const header = document.getElementById("siteHeader");
   if (!header) {
     return;
@@ -852,7 +852,33 @@ function mineacleHardNavLinkFix() {
 }
 
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", mineacleHardNavLinkFix);
+  document.addEventListener("DOMContentLoaded", mineacleHardNavLinkFix_DISABLED);
 } else {
-  mineacleHardNavLinkFix();
+  mineacleHardNavLinkFix_DISABLED();
+}
+
+
+function mineacleSafeNavRepair() {
+  const header = document.getElementById("siteHeader");
+  if (!header) {
+    return;
+  }
+
+  header.querySelectorAll(".blocaria-nav-left a[href]").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const href = link.getAttribute("href");
+      if (!href) {
+        return;
+      }
+
+      event.stopPropagation();
+      window.location.href = href;
+    });
+  });
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", mineacleSafeNavRepair);
+} else {
+  mineacleSafeNavRepair();
 }
