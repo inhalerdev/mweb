@@ -3489,7 +3489,7 @@ body{
   background:
     linear-gradient(180deg, rgba(10,8,18,.28), rgba(8,7,17,.94)),
     radial-gradient(circle at 50% 48%, rgba(179,60,255,.26), transparent 28rem),
-    url("bans-hero-background.png?v=bansfull3.8.13.133.122.111.100.9.8.7.6.5.4.3.2") center / cover no-repeat!important;
+    url("bans-hero-background.png?v=bansfull3.8.14.144.8.7.6.5.4.3.2") center / cover no-repeat!important;
 }
 
 .bans-v3-hero::before{
@@ -4104,7 +4104,7 @@ body{
   display:grid!important;
   place-items:center!important;
   padding:calc(var(--v3-header-height) + 48px) 20px 72px!important;
-  background:linear-gradient(180deg, rgba(8,7,17,.25), rgba(8,7,17,.82)), radial-gradient(circle at 50% 46%, rgba(160,49,255,.25), transparent 30rem), url("bans-hero-background.png?v=bansfull3.8.13.133.122.111.100.9.8.7.6.5.4.3.2") center / cover no-repeat!important;
+  background:linear-gradient(180deg, rgba(8,7,17,.25), rgba(8,7,17,.82)), radial-gradient(circle at 50% 46%, rgba(160,49,255,.25), transparent 30rem), url("bans-hero-background.png?v=bansfull3.8.14.144.8.7.6.5.4.3.2") center / cover no-repeat!important;
 }
 
 .bans-v32-logo-only-fold::before{
@@ -6526,460 +6526,9 @@ body,
 }
 
 
-/* Mineacle Bans v3.8.9: restore nav click + hover while preserving v3.8.8 true box centering */
+/* Mineacle Bans v3.8.14: functional nav rebuild from 3.8.8 centering */
 
-/* Nav groups must receive clicks above background/logo layers. */
-.mineacle-floating-header .blocaria-nav-left,
-.mineacle-floating-header.is-scrolled .blocaria-nav-left,
-.mineacle-floating-header .blocaria-nav-right,
-.mineacle-floating-header.is-scrolled .blocaria-nav-right{
-  z-index:40!important;
-  pointer-events:auto!important;
-}
-
-.mineacle-floating-header .blocaria-nav-left > *,
-.mineacle-floating-header.is-scrolled .blocaria-nav-left > *,
-.mineacle-floating-header .blocaria-nav-right > *,
-.mineacle-floating-header.is-scrolled .blocaria-nav-right > *{
-  pointer-events:auto!important;
-  cursor:pointer!important;
-  z-index:41!important;
-}
-
-/* Keep logo clickable but never let it block left/right nav groups. */
-.header-bans-logo,
-.mineacle-floating-header.is-scrolled .header-bans-logo{
-  z-index:30!important;
-  pointer-events:auto!important;
-}
-
-/* Restore Vote/Bans link interaction without changing centering geometry. */
-.mineacle-floating-header .nav-text-link,
-.mineacle-floating-header.is-scrolled .nav-text-link{
-  color:rgba(255,255,255,.84)!important;
-  text-decoration:none!important;
-  cursor:pointer!important;
-  transition:color .14s ease, text-shadow .14s ease, filter .14s ease!important;
-}
-
-.mineacle-floating-header .nav-text-link:hover,
-.mineacle-floating-header.is-scrolled .nav-text-link:hover{
-  color:#fff!important;
-  text-shadow:0 0 16px rgba(255,136,255,.34)!important;
-  filter:brightness(1.10)!important;
-}
-
-.mineacle-floating-header .nav-text-link:active,
-.mineacle-floating-header.is-scrolled .nav-text-link:active{
-  color:#ff88ff!important;
-  filter:brightness(.96)!important;
-}
-
-.mineacle-floating-header .nav-text-link.active,
-.mineacle-floating-header.is-scrolled .nav-text-link.active{
-  color:#fff!important;
-  text-shadow:0 0 14px rgba(255,136,255,.24)!important;
-}
-
-/* Store/Play/Discord: restore effects by applying visual movement to an inner visual layer effect via filter/shadow only.
-   Actual item box remains centered; transform is only on hover state and returns cleanly. */
-.mineacle-floating-header .nav-store-button,
-.mineacle-floating-header.is-scrolled .nav-store-button,
-.mineacle-floating-header .header-play-button,
-.mineacle-floating-header.is-scrolled .header-play-button,
-.mineacle-floating-header .header-discord-button,
-.mineacle-floating-header.is-scrolled .header-discord-button{
-  cursor:pointer!important;
-  pointer-events:auto!important;
-  transition:filter .12s ease, box-shadow .12s ease, background .12s ease, border-color .12s ease!important;
-}
-
-/* Do not use translate for normal hover; this keeps centered boxes correct.
-   Increase brightness/shadow instead so hover is visible but alignment stays fixed. */
-.mineacle-floating-header .nav-store-button:hover,
-.mineacle-floating-header.is-scrolled .nav-store-button:hover,
-.mineacle-floating-header .header-play-button:hover,
-.mineacle-floating-header.is-scrolled .header-play-button:hover{
-  filter:brightness(1.12)!important;
-  border-color:rgba(255,230,255,.62)!important;
-  box-shadow:
-    inset 0 3px 0 rgba(255,255,255,.28),
-    inset 0 -4px 0 rgba(35,0,75,.42),
-    0 5px 0 rgba(28,0,56,.70),
-    0 0 28px rgba(174,38,255,.38),
-    0 18px 30px rgba(174,38,255,.28)!important;
-}
-
-.mineacle-floating-header .header-discord-button:hover,
-.mineacle-floating-header.is-scrolled .header-discord-button:hover{
-  filter:brightness(1.12)!important;
-  border-color:rgba(220,226,255,.72)!important;
-  box-shadow:
-    inset 0 3px 0 rgba(255,255,255,.28),
-    inset 0 -4px 0 rgba(0,0,80,.38),
-    0 5px 0 rgba(15,10,72,.70),
-    0 0 24px rgba(88,101,242,.42),
-    0 18px 30px rgba(88,101,242,.28)!important;
-}
-
-.mineacle-floating-header .nav-store-button:active,
-.mineacle-floating-header.is-scrolled .nav-store-button:active,
-.mineacle-floating-header .header-play-button:active,
-.mineacle-floating-header.is-scrolled .header-play-button:active{
-  filter:brightness(.92)!important;
-  box-shadow:
-    inset 0 2px 0 rgba(255,255,255,.16),
-    inset 0 -2px 0 rgba(35,0,75,.45),
-    0 2px 0 rgba(28,0,56,.70),
-    0 8px 18px rgba(124,0,255,.22)!important;
-}
-
-.mineacle-floating-header .header-discord-button:active,
-.mineacle-floating-header.is-scrolled .header-discord-button:active{
-  filter:brightness(.92)!important;
-  box-shadow:
-    inset 0 2px 0 rgba(255,255,255,.16),
-    inset 0 -2px 0 rgba(0,0,80,.42),
-    0 2px 0 rgba(15,10,72,.70),
-    0 8px 18px rgba(88,101,242,.22)!important;
-}
-
-/* Guard against older rules disabling interaction or transforming buttons off clickable area. */
-.mineacle-floating-header .nav-store-button,
-.mineacle-floating-header.is-scrolled .nav-store-button,
-.mineacle-floating-header .header-play-button,
-.mineacle-floating-header.is-scrolled .header-play-button,
-.mineacle-floating-header .header-discord-button,
-.mineacle-floating-header.is-scrolled .header-discord-button{
-  transform:none!important;
-}
-
-.mineacle-floating-header .nav-store-button:hover,
-.mineacle-floating-header.is-scrolled .nav-store-button:hover,
-.mineacle-floating-header .header-play-button:hover,
-.mineacle-floating-header.is-scrolled .header-play-button:hover,
-.mineacle-floating-header .header-discord-button:hover,
-.mineacle-floating-header.is-scrolled .header-discord-button:hover{
-  transform:none!important;
-}
-
-.mineacle-floating-header .nav-store-button:active,
-.mineacle-floating-header.is-scrolled .nav-store-button:active,
-.mineacle-floating-header .header-play-button:active,
-.mineacle-floating-header.is-scrolled .header-play-button:active,
-.mineacle-floating-header .header-discord-button:active,
-.mineacle-floating-header.is-scrolled .header-discord-button:active{
-  transform:none!important;
-}
-
-
-/* Mineacle Bans v3.8.10: green Minecraft-style Play button */
-.mineacle-floating-header .header-play-button,
-.mineacle-floating-header.is-scrolled .header-play-button,
-.play-copy-button.nav-mc-button{
-  color:#fff!important;
-  background:
-    linear-gradient(180deg, #4fa638 0%, #3b8b2a 50%, #2e6f20 100%)!important;
-  border:2px solid rgba(190,255,164,.46)!important;
-  box-shadow:
-    inset 0 3px 0 rgba(255,255,255,.22),
-    inset 0 -4px 0 rgba(18,68,14,.48),
-    0 5px 0 rgba(16,51,12,.78),
-    0 12px 24px rgba(58,139,42,.24)!important;
-  text-shadow:0 2px 0 rgba(12,54,10,.72)!important;
-}
-
-/* Play hover keeps our font/geometry but uses green Minecraft depth/glow */
-.mineacle-floating-header .header-play-button:hover,
-.mineacle-floating-header.is-scrolled .header-play-button:hover,
-.play-copy-button.nav-mc-button:hover{
-  filter:brightness(1.10)!important;
-  border-color:rgba(221,255,202,.68)!important;
-  background:
-    linear-gradient(180deg, #5dbb43 0%, #429c2f 50%, #327a24 100%)!important;
-  box-shadow:
-    inset 0 3px 0 rgba(255,255,255,.28),
-    inset 0 -4px 0 rgba(18,68,14,.48),
-    0 5px 0 rgba(16,51,12,.78),
-    0 0 26px rgba(83,190,61,.36),
-    0 18px 30px rgba(58,139,42,.28)!important;
-}
-
-/* Play pressed state matches green Minecraft button feel */
-.mineacle-floating-header .header-play-button:active,
-.mineacle-floating-header.is-scrolled .header-play-button:active,
-.play-copy-button.nav-mc-button:active{
-  filter:brightness(.94)!important;
-  background:
-    linear-gradient(180deg, #3f9430 0%, #327a24 54%, #265e1b 100%)!important;
-  box-shadow:
-    inset 0 2px 0 rgba(255,255,255,.16),
-    inset 0 -2px 0 rgba(18,68,14,.52),
-    0 2px 0 rgba(16,51,12,.78),
-    0 8px 18px rgba(58,139,42,.22)!important;
-}
-
-
-/* Mineacle Bans v3.8.11: nav click/layer hard fix + logo vertical restore */
-
-/* All visual overlays must be passive. */
-.site-header.blocaria-style-header.mineacle-floating-header::before,
-.site-header.blocaria-style-header.mineacle-floating-header::after,
-.blocaria-style-header.mineacle-floating-header::before,
-.blocaria-style-header.mineacle-floating-header::after,
-.bans-v32-logo-only-fold::before,
-.bans-v32-logo-only-fold::after,
-.bans-v34-background-fold::before,
-.bans-v34-background-fold::after{
-  pointer-events:none!important;
-}
-
-/* Header should allow interaction, but not create an invisible blocking layer. */
-.site-header.blocaria-style-header.mineacle-floating-header,
-.blocaria-style-header.mineacle-floating-header{
-  pointer-events:auto!important;
-  overflow:visible!important;
-}
-
-/* Nav controls must be the top clickable layer, above logo and all effects. */
-.mineacle-floating-header .blocaria-nav-left,
-.mineacle-floating-header.is-scrolled .blocaria-nav-left,
-.mineacle-floating-header .blocaria-nav-right,
-.mineacle-floating-header.is-scrolled .blocaria-nav-right{
-  z-index:900!important;
-  pointer-events:auto!important;
-}
-
-.mineacle-floating-header .blocaria-nav-left a,
-.mineacle-floating-header.is-scrolled .blocaria-nav-left a,
-.mineacle-floating-header .blocaria-nav-right a,
-.mineacle-floating-header.is-scrolled .blocaria-nav-right a,
-.mineacle-floating-header .blocaria-nav-right button,
-.mineacle-floating-header.is-scrolled .blocaria-nav-right button,
-.mineacle-floating-header .nav-text-link,
-.mineacle-floating-header.is-scrolled .nav-text-link,
-.mineacle-floating-header .nav-store-button,
-.mineacle-floating-header.is-scrolled .nav-store-button,
-.mineacle-floating-header .header-discord-button,
-.mineacle-floating-header.is-scrolled .header-discord-button,
-.mineacle-floating-header .header-play-button,
-.mineacle-floating-header.is-scrolled .header-play-button{
-  position:relative!important;
-  z-index:910!important;
-  pointer-events:auto!important;
-  cursor:pointer!important;
-  user-select:none!important;
-}
-
-/* Logo vertical restored to the 3.8.9 visual placement and kept behind controls. */
-.header-bans-logo,
-.mineacle-floating-header.is-scrolled .header-bans-logo{
-  z-index:500!important;
-  pointer-events:auto!important;
-  transform:translate(-50%, 23px)!important;
-}
-
-.header-bans-logo:hover,
-.mineacle-floating-header.is-scrolled .header-bans-logo:hover{
-  transform:translate(-50%, 21px) scale(1.01)!important;
-}
-
-/* Restore visible hover feedback without moving the true centered box. */
-.mineacle-floating-header .nav-text-link:hover,
-.mineacle-floating-header.is-scrolled .nav-text-link:hover{
-  color:#fff!important;
-  text-shadow:0 0 16px rgba(255,136,255,.34)!important;
-  filter:brightness(1.10)!important;
-}
-
-.mineacle-floating-header .nav-store-button:hover,
-.mineacle-floating-header.is-scrolled .nav-store-button:hover{
-  filter:brightness(1.12)!important;
-  border-color:rgba(255,230,255,.62)!important;
-  box-shadow:
-    inset 0 3px 0 rgba(255,255,255,.28),
-    inset 0 -4px 0 rgba(35,0,75,.42),
-    0 5px 0 rgba(28,0,56,.70),
-    0 0 28px rgba(174,38,255,.38),
-    0 18px 30px rgba(174,38,255,.28)!important;
-}
-
-.mineacle-floating-header .header-discord-button:hover,
-.mineacle-floating-header.is-scrolled .header-discord-button:hover{
-  filter:brightness(1.12)!important;
-  border-color:rgba(220,226,255,.72)!important;
-  box-shadow:
-    inset 0 3px 0 rgba(255,255,255,.28),
-    inset 0 -4px 0 rgba(0,0,80,.38),
-    0 5px 0 rgba(15,10,72,.70),
-    0 0 24px rgba(88,101,242,.42),
-    0 18px 30px rgba(88,101,242,.28)!important;
-}
-
-/* Green play hover. */
-.mineacle-floating-header .header-play-button:hover,
-.mineacle-floating-header.is-scrolled .header-play-button:hover,
-.play-copy-button.nav-mc-button:hover{
-  filter:brightness(1.10)!important;
-  border-color:rgba(221,255,202,.68)!important;
-  background:
-    linear-gradient(180deg, #5dbb43 0%, #429c2f 50%, #327a24 100%)!important;
-  box-shadow:
-    inset 0 3px 0 rgba(255,255,255,.28),
-    inset 0 -4px 0 rgba(18,68,14,.48),
-    0 5px 0 rgba(16,51,12,.78),
-    0 0 26px rgba(83,190,61,.36),
-    0 18px 30px rgba(58,139,42,.28)!important;
-}
-
-/* Never let global transform-none rules erase hover visibility; hover is visual only. */
-.mineacle-floating-header .nav-store-button,
-.mineacle-floating-header.is-scrolled .nav-store-button,
-.mineacle-floating-header .header-play-button,
-.mineacle-floating-header.is-scrolled .header-play-button,
-.mineacle-floating-header .header-discord-button,
-.mineacle-floating-header.is-scrolled .header-discord-button{
-  pointer-events:auto!important;
-}
-
-/* Maintain true box centering while restoring interaction. */
-.mineacle-floating-header .blocaria-nav-left,
-.mineacle-floating-header.is-scrolled .blocaria-nav-left{
-  top:50%!important;
-}
-
-.mineacle-floating-header .blocaria-nav-right,
-.mineacle-floating-header.is-scrolled .blocaria-nav-right{
-  top:50%!important;
-}
-
-
-/* Mineacle Bans v3.8.12: hard anchor click layer + logo pinned to content-box bottom */
-
-/* Header geometry: content box is the real nav bar, stroke/glow ignored. */
-:root{
-  --nav-height:104px;
-  --nav-item-height:44px;
-  --nav-logo-width:246px;
-  --nav-logo-bottom-anchor:104px; /* actual nav content-box bottom, not border/glow */
-}
-
-/* Header decorative layers must never block the top nav anchors. */
-.site-header.blocaria-style-header.mineacle-floating-header::before,
-.site-header.blocaria-style-header.mineacle-floating-header::after,
-.blocaria-style-header.mineacle-floating-header::before,
-.blocaria-style-header.mineacle-floating-header::after,
-.mineacle-floating-header .blocaria-nav-inner::before,
-.mineacle-floating-header .blocaria-nav-inner::after{
-  pointer-events:none!important;
-  z-index:0!important;
-}
-
-/* Nav groups and anchors are always the highest clickable layer. */
-.mineacle-floating-header .blocaria-nav-left,
-.mineacle-floating-header.is-scrolled .blocaria-nav-left,
-.mineacle-floating-header .blocaria-nav-right,
-.mineacle-floating-header.is-scrolled .blocaria-nav-right{
-  z-index:5000!important;
-  pointer-events:auto!important;
-  isolation:isolate!important;
-}
-
-.mineacle-floating-header .nav-text-link,
-.mineacle-floating-header.is-scrolled .nav-text-link,
-.mineacle-floating-header .nav-store-button,
-.mineacle-floating-header.is-scrolled .nav-store-button,
-.mineacle-floating-header .header-discord-button,
-.mineacle-floating-header.is-scrolled .header-discord-button,
-.mineacle-floating-header .header-play-button,
-.mineacle-floating-header.is-scrolled .header-play-button{
-  position:relative!important;
-  z-index:5010!important;
-  pointer-events:auto!important;
-  cursor:pointer!important;
-  touch-action:manipulation!important;
-}
-
-/* Text anchors get a visible hover but no movement, so centering stays correct. */
-.mineacle-floating-header .nav-text-link,
-.mineacle-floating-header.is-scrolled .nav-text-link{
-  color:rgba(255,255,255,.84)!important;
-  text-decoration:none!important;
-  transition:color .14s ease, text-shadow .14s ease, filter .14s ease!important;
-}
-
-.mineacle-floating-header .nav-text-link:hover,
-.mineacle-floating-header.is-scrolled .nav-text-link:hover{
-  color:#fff!important;
-  text-shadow:0 0 16px rgba(255,136,255,.34)!important;
-  filter:brightness(1.10)!important;
-}
-
-/* Logo is behind nav controls and pinned by its visual center to the bottom of the nav content box.
-   Formula: top = nav content bottom. translateY(-50%) means logo center is exactly at nav bottom. */
-.header-bans-logo,
-.mineacle-floating-header.is-scrolled .header-bans-logo{
-  position:absolute!important;
-  left:50%!important;
-  top:var(--nav-logo-bottom-anchor)!important;
-  width:var(--nav-logo-width)!important;
-  max-width:var(--nav-logo-width)!important;
-  transform:translate(-50%, -50%)!important;
-  margin:0!important;
-  padding:0!important;
-  z-index:1000!important;
-  pointer-events:auto!important;
-  filter:none!important;
-}
-
-.header-bans-logo:hover,
-.mineacle-floating-header.is-scrolled .header-bans-logo:hover{
-  transform:translate(-50%, -50%) scale(1.01)!important;
-  filter:none!important;
-}
-
-/* The logo image itself should not have hidden offsets. */
-.header-bans-logo img,
-.mineacle-floating-header.is-scrolled .header-bans-logo img{
-  display:block!important;
-  width:100%!important;
-  height:auto!important;
-  max-height:none!important;
-  object-fit:contain!important;
-  transform:none!important;
-  filter:none!important;
-}
-
-/* Ensure the anchor box does not stretch over left/right nav zones. */
-.header-bans-logo{
-  overflow:visible!important;
-}
-
-/* Normal and scrolled header use the same logo anchor math. */
-.site-header.blocaria-style-header.mineacle-floating-header,
-.site-header.blocaria-style-header.mineacle-floating-header.is-scrolled{
-  overflow:visible!important;
-}
-
-/* Responsive logo anchor: same rule, smaller nav height. */
-@media(max-width:980px){
-  :root{
-    --nav-height:76px;
-    --nav-logo-width:150px;
-    --nav-logo-bottom-anchor:76px;
-  }
-}
-
-@media(max-width:640px){
-  :root{
-    --nav-logo-width:126px;
-  }
-}
-
-
-/* Mineacle Bans v3.8.13: hard repair top nav links/clicks/hover */
-
-/* Decorative and logo layers cannot intercept link hover/click. */
+/* All decorative layers are passive and cannot eat hover/click. */
 .site-header.blocaria-style-header.mineacle-floating-header::before,
 .site-header.blocaria-style-header.mineacle-floating-header::after,
 .blocaria-style-header.mineacle-floating-header::before,
@@ -6993,7 +6542,31 @@ body,
   pointer-events:none!important;
 }
 
-/* Logo is visual only now so it cannot block Vote/Bans/Store at all. */
+/* Keep 3.8.8 true box-centering but make the nav groups the highest layers. */
+.mineacle-floating-header .blocaria-nav-left,
+.mineacle-floating-header.is-scrolled .blocaria-nav-left,
+.mineacle-floating-header .blocaria-nav-right,
+.mineacle-floating-header.is-scrolled .blocaria-nav-right{
+  z-index:5000!important;
+  pointer-events:auto!important;
+}
+
+/* Actual anchors/buttons have the click target. */
+.mineacle-floating-header .blocaria-nav-left a,
+.mineacle-floating-header.is-scrolled .blocaria-nav-left a,
+.mineacle-floating-header .blocaria-nav-right a,
+.mineacle-floating-header.is-scrolled .blocaria-nav-right a,
+.mineacle-floating-header .blocaria-nav-right button,
+.mineacle-floating-header.is-scrolled .blocaria-nav-right button{
+  position:relative!important;
+  z-index:5010!important;
+  pointer-events:auto!important;
+  cursor:pointer!important;
+  user-select:none!important;
+  touch-action:manipulation!important;
+}
+
+/* Logo is visual only so it can never block Vote/Bans/Store. */
 .header-bans-logo,
 .mineacle-floating-header.is-scrolled .header-bans-logo,
 .header-bans-logo img,
@@ -7001,7 +6574,7 @@ body,
   pointer-events:none!important;
 }
 
-/* Restore correct logo position from v3.8.12. */
+/* Logo stays in the corrected position: center of logo fixed to nav content-box bottom. */
 .header-bans-logo,
 .mineacle-floating-header.is-scrolled .header-bans-logo{
   position:absolute!important;
@@ -7010,45 +6583,20 @@ body,
   width:246px!important;
   max-width:246px!important;
   transform:translate(-50%, -50%)!important;
-  z-index:100!important;
   margin:0!important;
   padding:0!important;
+  z-index:1000!important;
   filter:none!important;
 }
 
-/* Nav groups are now above every layer and own the mouse hitbox. */
-.mineacle-floating-header .blocaria-nav-left,
-.mineacle-floating-header.is-scrolled .blocaria-nav-left,
-.mineacle-floating-header .blocaria-nav-right,
-.mineacle-floating-header.is-scrolled .blocaria-nav-right{
-  z-index:10000!important;
-  pointer-events:auto!important;
-  isolation:isolate!important;
-}
-
-/* Actual left nav anchors are guaranteed clickable/hoverable. */
-.mineacle-floating-header .blocaria-nav-left a,
-.mineacle-floating-header.is-scrolled .blocaria-nav-left a,
-.mineacle-floating-header .nav-text-link,
-.mineacle-floating-header.is-scrolled .nav-text-link,
-.mineacle-floating-header .nav-store-button,
-.mineacle-floating-header.is-scrolled .nav-store-button{
-  position:relative!important;
-  z-index:10010!important;
-  pointer-events:auto!important;
-  cursor:pointer!important;
-  user-select:none!important;
-  text-decoration:none!important;
-  touch-action:manipulation!important;
-}
-
-/* Vote/Bans hover effect restored directly on the true anchor box. */
+/* Vote/Bans text hover and active feedback. */
 .mineacle-floating-header .nav-text-link,
 .mineacle-floating-header.is-scrolled .nav-text-link{
   color:rgba(255,255,255,.84)!important;
   background:transparent!important;
   border:0!important;
   box-shadow:none!important;
+  text-decoration:none!important;
   transition:color .14s ease, text-shadow .14s ease, filter .14s ease!important;
 }
 
@@ -7062,12 +6610,19 @@ body,
 .mineacle-floating-header .nav-text-link:active,
 .mineacle-floating-header.is-scrolled .nav-text-link:active{
   color:#ff88ff!important;
-  filter:brightness(.92)!important;
+  filter:brightness(.94)!important;
 }
 
-/* Store button hover restored and matched to its purple style without moving the box. */
+/* Store purple hover/active, no movement so centering remains true. */
+.mineacle-floating-header .nav-store-button,
+.mineacle-floating-header.is-scrolled .nav-store-button{
+  transform:none!important;
+  transition:filter .12s ease, box-shadow .12s ease, background .12s ease, border-color .12s ease!important;
+}
+
 .mineacle-floating-header .nav-store-button:hover,
 .mineacle-floating-header.is-scrolled .nav-store-button:hover{
+  transform:none!important;
   filter:brightness(1.12)!important;
   border-color:rgba(255,230,255,.62)!important;
   box-shadow:
@@ -7080,6 +6635,7 @@ body,
 
 .mineacle-floating-header .nav-store-button:active,
 .mineacle-floating-header.is-scrolled .nav-store-button:active{
+  transform:none!important;
   filter:brightness(.92)!important;
   box-shadow:
     inset 0 2px 0 rgba(255,255,255,.16),
@@ -7088,29 +6644,74 @@ body,
     0 8px 18px rgba(124,0,255,.22)!important;
 }
 
-/* Right controls stay as already working. */
-.mineacle-floating-header .blocaria-nav-right a,
-.mineacle-floating-header.is-scrolled .blocaria-nav-right a,
-.mineacle-floating-header .blocaria-nav-right button,
-.mineacle-floating-header.is-scrolled .blocaria-nav-right button{
-  z-index:10010!important;
-  pointer-events:auto!important;
-  cursor:pointer!important;
+/* Preserve current Discord animation/style. */
+.mineacle-floating-header .header-discord-button,
+.mineacle-floating-header.is-scrolled .header-discord-button{
+  transition:filter .12s ease, box-shadow .12s ease, background .12s ease, border-color .12s ease!important;
 }
 
-/* Keep true box centering from v3.8.8. */
-.mineacle-floating-header .blocaria-nav-left,
-.mineacle-floating-header.is-scrolled .blocaria-nav-left{
-  top:50%!important;
-  transform:translateY(-50%)!important;
+.mineacle-floating-header .header-discord-button:hover,
+.mineacle-floating-header.is-scrolled .header-discord-button:hover{
+  transform:none!important;
+  filter:brightness(1.12)!important;
+  border-color:rgba(220,226,255,.72)!important;
+  box-shadow:
+    inset 0 3px 0 rgba(255,255,255,.28),
+    inset 0 -4px 0 rgba(0,0,80,.38),
+    0 5px 0 rgba(15,10,72,.70),
+    0 0 24px rgba(88,101,242,.42),
+    0 18px 30px rgba(88,101,242,.28)!important;
 }
 
-.mineacle-floating-header .blocaria-nav-right,
-.mineacle-floating-header.is-scrolled .blocaria-nav-right{
-  top:50%!important;
-  transform:translateY(-50%)!important;
+/* Preserve current green Play animation/style. */
+.mineacle-floating-header .header-play-button,
+.mineacle-floating-header.is-scrolled .header-play-button,
+.play-copy-button.nav-mc-button{
+  color:#fff!important;
+  background:
+    linear-gradient(180deg, #4fa638 0%, #3b8b2a 50%, #2e6f20 100%)!important;
+  border:2px solid rgba(190,255,164,.46)!important;
+  box-shadow:
+    inset 0 3px 0 rgba(255,255,255,.22),
+    inset 0 -4px 0 rgba(18,68,14,.48),
+    0 5px 0 rgba(16,51,12,.78),
+    0 12px 24px rgba(58,139,42,.24)!important;
+  text-shadow:0 2px 0 rgba(12,54,10,.72)!important;
+  transition:filter .12s ease, box-shadow .12s ease, background .12s ease, border-color .12s ease!important;
+  transform:none!important;
 }
 
+.mineacle-floating-header .header-play-button:hover,
+.mineacle-floating-header.is-scrolled .header-play-button:hover,
+.play-copy-button.nav-mc-button:hover{
+  transform:none!important;
+  filter:brightness(1.10)!important;
+  border-color:rgba(221,255,202,.68)!important;
+  background:
+    linear-gradient(180deg, #5dbb43 0%, #429c2f 50%, #327a24 100%)!important;
+  box-shadow:
+    inset 0 3px 0 rgba(255,255,255,.28),
+    inset 0 -4px 0 rgba(18,68,14,.48),
+    0 5px 0 rgba(16,51,12,.78),
+    0 0 26px rgba(83,190,61,.36),
+    0 18px 30px rgba(58,139,42,.28)!important;
+}
+
+.mineacle-floating-header .header-play-button:active,
+.mineacle-floating-header.is-scrolled .header-play-button:active,
+.play-copy-button.nav-mc-button:active{
+  transform:none!important;
+  filter:brightness(.94)!important;
+  background:
+    linear-gradient(180deg, #3f9430 0%, #327a24 54%, #265e1b 100%)!important;
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,.16),
+    inset 0 -2px 0 rgba(18,68,14,.52),
+    0 2px 0 rgba(16,51,12,.78),
+    0 8px 18px rgba(58,139,42,.22)!important;
+}
+
+/* On responsive headers, same logo bottom anchor logic. */
 @media(max-width:980px){
   .header-bans-logo,
   .mineacle-floating-header.is-scrolled .header-bans-logo{
