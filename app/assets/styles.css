@@ -3489,7 +3489,7 @@ body{
   background:
     linear-gradient(180deg, rgba(10,8,18,.28), rgba(8,7,17,.94)),
     radial-gradient(circle at 50% 48%, rgba(179,60,255,.26), transparent 28rem),
-    url("bans-hero-background.png?v=bansfull3.8.11.111.100.9.8.7.6.5.4.3.2") center / cover no-repeat!important;
+    url("bans-hero-background.png?v=bansfull3.8.12.122.111.100.9.8.7.6.5.4.3.2") center / cover no-repeat!important;
 }
 
 .bans-v3-hero::before{
@@ -4104,7 +4104,7 @@ body{
   display:grid!important;
   place-items:center!important;
   padding:calc(var(--v3-header-height) + 48px) 20px 72px!important;
-  background:linear-gradient(180deg, rgba(8,7,17,.25), rgba(8,7,17,.82)), radial-gradient(circle at 50% 46%, rgba(160,49,255,.25), transparent 30rem), url("bans-hero-background.png?v=bansfull3.8.11.111.100.9.8.7.6.5.4.3.2") center / cover no-repeat!important;
+  background:linear-gradient(180deg, rgba(8,7,17,.25), rgba(8,7,17,.82)), radial-gradient(circle at 50% 46%, rgba(160,49,255,.25), transparent 30rem), url("bans-hero-background.png?v=bansfull3.8.12.122.111.100.9.8.7.6.5.4.3.2") center / cover no-repeat!important;
 }
 
 .bans-v32-logo-only-fold::before{
@@ -6851,4 +6851,127 @@ body,
 .mineacle-floating-header .blocaria-nav-right,
 .mineacle-floating-header.is-scrolled .blocaria-nav-right{
   top:50%!important;
+}
+
+
+/* Mineacle Bans v3.8.12: hard anchor click layer + logo pinned to content-box bottom */
+
+/* Header geometry: content box is the real nav bar, stroke/glow ignored. */
+:root{
+  --nav-height:104px;
+  --nav-item-height:44px;
+  --nav-logo-width:246px;
+  --nav-logo-bottom-anchor:104px; /* actual nav content-box bottom, not border/glow */
+}
+
+/* Header decorative layers must never block the top nav anchors. */
+.site-header.blocaria-style-header.mineacle-floating-header::before,
+.site-header.blocaria-style-header.mineacle-floating-header::after,
+.blocaria-style-header.mineacle-floating-header::before,
+.blocaria-style-header.mineacle-floating-header::after,
+.mineacle-floating-header .blocaria-nav-inner::before,
+.mineacle-floating-header .blocaria-nav-inner::after{
+  pointer-events:none!important;
+  z-index:0!important;
+}
+
+/* Nav groups and anchors are always the highest clickable layer. */
+.mineacle-floating-header .blocaria-nav-left,
+.mineacle-floating-header.is-scrolled .blocaria-nav-left,
+.mineacle-floating-header .blocaria-nav-right,
+.mineacle-floating-header.is-scrolled .blocaria-nav-right{
+  z-index:5000!important;
+  pointer-events:auto!important;
+  isolation:isolate!important;
+}
+
+.mineacle-floating-header .nav-text-link,
+.mineacle-floating-header.is-scrolled .nav-text-link,
+.mineacle-floating-header .nav-store-button,
+.mineacle-floating-header.is-scrolled .nav-store-button,
+.mineacle-floating-header .header-discord-button,
+.mineacle-floating-header.is-scrolled .header-discord-button,
+.mineacle-floating-header .header-play-button,
+.mineacle-floating-header.is-scrolled .header-play-button{
+  position:relative!important;
+  z-index:5010!important;
+  pointer-events:auto!important;
+  cursor:pointer!important;
+  touch-action:manipulation!important;
+}
+
+/* Text anchors get a visible hover but no movement, so centering stays correct. */
+.mineacle-floating-header .nav-text-link,
+.mineacle-floating-header.is-scrolled .nav-text-link{
+  color:rgba(255,255,255,.84)!important;
+  text-decoration:none!important;
+  transition:color .14s ease, text-shadow .14s ease, filter .14s ease!important;
+}
+
+.mineacle-floating-header .nav-text-link:hover,
+.mineacle-floating-header.is-scrolled .nav-text-link:hover{
+  color:#fff!important;
+  text-shadow:0 0 16px rgba(255,136,255,.34)!important;
+  filter:brightness(1.10)!important;
+}
+
+/* Logo is behind nav controls and pinned by its visual center to the bottom of the nav content box.
+   Formula: top = nav content bottom. translateY(-50%) means logo center is exactly at nav bottom. */
+.header-bans-logo,
+.mineacle-floating-header.is-scrolled .header-bans-logo{
+  position:absolute!important;
+  left:50%!important;
+  top:var(--nav-logo-bottom-anchor)!important;
+  width:var(--nav-logo-width)!important;
+  max-width:var(--nav-logo-width)!important;
+  transform:translate(-50%, -50%)!important;
+  margin:0!important;
+  padding:0!important;
+  z-index:1000!important;
+  pointer-events:auto!important;
+  filter:none!important;
+}
+
+.header-bans-logo:hover,
+.mineacle-floating-header.is-scrolled .header-bans-logo:hover{
+  transform:translate(-50%, -50%) scale(1.01)!important;
+  filter:none!important;
+}
+
+/* The logo image itself should not have hidden offsets. */
+.header-bans-logo img,
+.mineacle-floating-header.is-scrolled .header-bans-logo img{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  max-height:none!important;
+  object-fit:contain!important;
+  transform:none!important;
+  filter:none!important;
+}
+
+/* Ensure the anchor box does not stretch over left/right nav zones. */
+.header-bans-logo{
+  overflow:visible!important;
+}
+
+/* Normal and scrolled header use the same logo anchor math. */
+.site-header.blocaria-style-header.mineacle-floating-header,
+.site-header.blocaria-style-header.mineacle-floating-header.is-scrolled{
+  overflow:visible!important;
+}
+
+/* Responsive logo anchor: same rule, smaller nav height. */
+@media(max-width:980px){
+  :root{
+    --nav-height:76px;
+    --nav-logo-width:150px;
+    --nav-logo-bottom-anchor:76px;
+  }
+}
+
+@media(max-width:640px){
+  :root{
+    --nav-logo-width:126px;
+  }
 }

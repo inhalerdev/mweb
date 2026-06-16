@@ -816,3 +816,43 @@ if (document.readyState === "loading") {
 } else {
   mineacleNavClickFallback();
 }
+
+
+function mineacleHardNavLinkFix() {
+  const header = document.getElementById("siteHeader");
+  if (!header) {
+    return;
+  }
+
+  header.addEventListener("click", (event) => {
+    const navLink = event.target.closest(".blocaria-nav-left a[data-nav-href], .blocaria-nav-left a[href]");
+    if (navLink) {
+      const target = navLink.getAttribute("data-nav-href") || navLink.getAttribute("href");
+      if (target) {
+        event.preventDefault();
+        event.stopPropagation();
+        window.location.href = target;
+      }
+      return;
+    }
+
+    const rightLink = event.target.closest(".blocaria-nav-right a[href]");
+    if (rightLink && rightLink.href) {
+      return;
+    }
+
+    const playButton = event.target.closest(".header-play-button");
+    if (playButton) {
+      const ip = playButton.getAttribute("data-copy-ip") || "mineacle.net";
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(ip).catch(() => {});
+      }
+    }
+  }, true);
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", mineacleHardNavLinkFix);
+} else {
+  mineacleHardNavLinkFix();
+}
