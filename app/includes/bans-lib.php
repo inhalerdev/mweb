@@ -21,27 +21,47 @@ function mineacle_skin_url(string $value): string {
 }
 
 function mineacle_epoch_seconds(mixed $value): int {
-    $value = (int) $value;
+    /*
+     * LiteBans stores punishment timestamps as Java milliseconds.
+     * Some PHP hosts/environments can clamp a direct `(int)` cast of a 13-digit
+     * millisecond timestamp to 2147483647, which displays as Jan 19, 2038.
+     * Keep the raw value as a string first, choose the unit by digit length,
+     * then divide before casting to int.
+     */
+    $raw = trim((string) $value);
 
-    if ($value <= 0) {
+    if ($raw === '' || $raw === '0') {
         return 0;
     }
 
-    // LiteBans/MySQL timestamp storage may be seconds, milliseconds,
-    // microseconds, or nanoseconds depending on version/import path.
-    if ($value >= 100000000000000000) {
-        return (int) floor($value / 1000000000);
+    if (!preg_match('/^-?\d+$/', $raw)) {
+        return 0;
     }
 
-    if ($value >= 100000000000000) {
-        return (int) floor($value / 1000000);
+    if ($raw[0] === '-') {
+        return 0;
     }
 
-    if ($value >= 100000000000) {
-        return (int) floor($value / 1000);
+    $digits = strlen(ltrim($raw, '0'));
+    if ($digits === 0) {
+        return 0;
     }
 
-    return $value;
+    $number = (float) $raw;
+
+    if ($digits >= 18) {
+        return (int) floor($number / 1000000000);
+    }
+
+    if ($digits >= 15) {
+        return (int) floor($number / 1000000);
+    }
+
+    if ($digits >= 13) {
+        return (int) floor($number / 1000);
+    }
+
+    return (int) $number;
 }
 
 
@@ -54,16 +74,19 @@ function mineacle_litebans_until_seconds_sql(string $field): string {
     END)';
 }
 
-function mineacle_litebans_is_2038_sentinel(mixed $until): bool {
-    $seconds = mineacle_epoch_seconds($until);
-
-    return $seconds >= 2147480000 && $seconds <= 2147483647;
-}
-
 function mineacle_litebans_is_permanent(mixed $until): bool {
-    $seconds = mineacle_epoch_seconds($until);
+    $raw = trim((string) $until);
 
-    return $seconds <= 0 || mineacle_litebans_is_2038_sentinel($until);
+    if ($raw === '' || $raw === '0') {
+        return true;
+    }
+
+    /*
+     * LiteBans permanent punishments normally use until <= 0.
+     * Treat exact 2038 sentinel forms as permanent only when the raw database
+     * value is actually a 2038 sentinel, not when PHP overflow created one.
+     */
+    return in_array($raw, ['2147483647', '2147483647000'], true);
 }
 
 
@@ -158,7 +181,7 @@ function fetch_litebans_bans_page(string $search = '', int $page = 1): array {
         '(
             b.`until` <= 0
             OR ' . $untilSecondsSql . ' > :now_seconds
-            OR ' . $untilSecondsSql . ' >= 2147480000
+            OR b.`until` IN (2147483647, 2147483647000)
         )',
     ];
 
@@ -232,8 +255,8 @@ function fetch_litebans_bans_page(string $search = '', int $page = 1): array {
         }
 
         $isIpBan = ((int) ($row['ipban'] ?? 0)) === 1;
-        $until = (int) ($row['until'] ?? 0);
-        $time = (int) ($row['time'] ?? 0);
+        $until = (string) ($row['until'] ?? '0');
+        $time = (string) ($row['time'] ?? '0');
         $untilSeconds = mineacle_epoch_seconds($until);
         $timeSeconds = mineacle_epoch_seconds($time);
         $permanent = mineacle_litebans_is_permanent($until);

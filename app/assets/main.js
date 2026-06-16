@@ -18,45 +18,6 @@ let currentPagination = {
   has_next: false
 };
 
-
-function isLiteBans2038Sentinel(value) {
-  const raw = Number(value);
-  if (!Number.isFinite(raw)) {
-    return false;
-  }
-
-  let seconds = raw;
-  if (raw >= 100000000000000000) {
-    seconds = Math.floor(raw / 1000000000);
-  } else if (raw >= 100000000000000) {
-    seconds = Math.floor(raw / 1000000);
-  } else if (raw >= 100000000000) {
-    seconds = Math.floor(raw / 1000);
-  }
-
-  return seconds >= 2147480000 && seconds <= 2147483647;
-}
-
-function normalizeLiteBansSentinelBan(ban) {
-  const until = ban?.until_raw ?? ban?.until_seconds ?? ban?.until;
-
-  if (!isLiteBans2038Sentinel(until)) {
-    return ban;
-  }
-
-  return {
-    ...ban,
-    temporary: false,
-    permanent: true,
-    type: ban.ipban ? "IP Ban" : "Player Ban",
-    status: "Permanently Banned",
-    status_type: ban.ipban ? "ip" : "active",
-    duration: "Permanent",
-    expires: "Never",
-    action_type: ban.ipban ? "ip" : "pay"
-  };
-}
-
 function escapeHtml(value) {
   return String(value ?? "").replace(/[&<>"']/g, (char) => ({
     "&": "&amp;",
@@ -179,11 +140,11 @@ function actionButton(ban, index) {
     return "";
   }
 
-  if (ban.temporary) {
+  if (ban.temporary || ban.action_type === "wait") {
     return `<button class="btn soft disabled wait-btn compact-action" type="button" disabled>Wait It Out</button>`;
   }
 
-  if (ban.can_pay) {
+  if (ban.can_pay && ban.action_type === "pay") {
     return `<a class="btn red compact-action" href="${escapeHtml(ban.unban_url)}">${escapeHtml(ban.price)} Unban</a>`;
   }
 
