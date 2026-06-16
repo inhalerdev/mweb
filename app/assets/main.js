@@ -791,7 +791,7 @@ if (document.readyState === "loading") {
 
 function mineaclePlayCopyOnly() {
   document.querySelectorAll(".header-play-button[data-copy-ip]").forEach((button) => {
-    button.addEventListener("click", (event) => {
+    button.addEventListener("click", () => {
       const ip = button.getAttribute("data-copy-ip") || "mineacle.net";
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(ip).catch(() => {});
