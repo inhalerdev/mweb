@@ -61,7 +61,7 @@ mineacle_header('bans');
     <form class="search-card js-ban-search-form" role="search">
       <label class="sr-only" for="ban-search">Search bans</label>
       <div class="search-input-wrap">
-        <img src="assets/search-icon.png?v=bansfull2.0" alt="" aria-hidden="true">
+        <img src="assets/search-icon.png?v=bansfull2.1" alt="" aria-hidden="true">
         <input id="ban-search" class="js-ban-search" type="search" name="q" autocomplete="off" placeholder="Search a Minecraft username">
       </div>
       <button class="btn red" type="submit">Search</button>

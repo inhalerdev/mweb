@@ -3738,7 +3738,7 @@ body{
   inset:0!important;
   background:
     linear-gradient(90deg, rgba(6,2,12,.97), rgba(6,2,12,.70) 52%, rgba(6,2,12,.90)),
-    url("mineacle-hero-banner.png?v=bansfull2.0") center / cover no-repeat!important;
+    url("mineacle-hero-banner.png?v=bansfull2.1") center / cover no-repeat!important;
   opacity:.42!important;
   filter:saturate(1.12) contrast(1.05)!important;
 }
@@ -4073,5 +4073,275 @@ body{
 
   .appeal-button-row{
     grid-template-columns:1fr!important;
+  }
+}
+
+
+/* Mineacle Bans v2.1: reference-style rounded nav + centered wordmark */
+.site-header.reference-header{
+  position:relative!important;
+  top:auto!important;
+  width:min(1520px, calc(100% - 72px))!important;
+  max-width:1520px!important;
+  height:112px!important;
+  min-height:112px!important;
+  margin:38px auto 0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:999px!important;
+  background:linear-gradient(180deg, rgba(97,79,143,.78), rgba(74,56,118,.74))!important;
+  box-shadow:
+    0 24px 80px rgba(0,0,0,.34),
+    inset 0 0 0 1px rgba(255,255,255,.13),
+    inset 0 -1px 0 rgba(125,65,255,.35)!important;
+  backdrop-filter:blur(18px)!important;
+  overflow:visible!important;
+}
+
+.reference-header-inner{
+  position:relative!important;
+  width:100%!important;
+  height:112px!important;
+  min-height:112px!important;
+  max-width:none!important;
+  display:grid!important;
+  grid-template-columns:minmax(390px, 1fr) auto minmax(410px, 1fr)!important;
+  align-items:center!important;
+  gap:28px!important;
+  padding:0 46px!important;
+  margin:0!important;
+  border:0!important;
+  border-radius:999px!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  box-sizing:border-box!important;
+}
+
+.reference-nav-left,
+.reference-nav-right{
+  display:flex!important;
+  align-items:center!important;
+  gap:28px!important;
+  min-width:0!important;
+}
+
+.reference-nav-left{
+  justify-content:flex-start!important;
+}
+
+.reference-nav-right{
+  justify-content:flex-end!important;
+  gap:18px!important;
+}
+
+.reference-nav-left a{
+  color:#fff!important;
+  text-decoration:none!important;
+  text-transform:uppercase!important;
+  font-size:20px!important;
+  line-height:1!important;
+  font-weight:950!important;
+  letter-spacing:.02em!important;
+  text-shadow:0 2px 14px rgba(0,0,0,.45)!important;
+  transition:transform .16s ease, color .16s ease, background .16s ease!important;
+}
+
+.reference-nav-left a:not(.store-tab){
+  padding:18px 0!important;
+}
+
+.reference-nav-left a:hover{
+  transform:translateY(-1px)!important;
+  color:#fff!important;
+}
+
+.reference-nav-left .store-tab{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  height:54px!important;
+  padding:0 22px!important;
+  border-radius:0!important;
+  background:linear-gradient(180deg, #b713ff, #8700ff)!important;
+  box-shadow:0 14px 30px rgba(155,0,255,.34)!important;
+}
+
+.reference-nav-left a.active:not(.store-tab){
+  color:#fff!important;
+}
+
+.reference-nav-left a.active:not(.store-tab)::after{
+  content:""!important;
+  display:block!important;
+  width:100%!important;
+  height:3px!important;
+  margin-top:8px!important;
+  border-radius:999px!important;
+  background:#b800ff!important;
+  box-shadow:0 0 18px rgba(184,0,255,.7)!important;
+}
+
+.reference-logo-center{
+  position:absolute!important;
+  left:50%!important;
+  top:50%!important;
+  transform:translate(-50%, -18%)!important;
+  z-index:4!important;
+  width:360px!important;
+  pointer-events:none!important;
+  display:flex!important;
+  justify-content:center!important;
+  align-items:center!important;
+  filter:drop-shadow(0 16px 34px rgba(99,0,255,.44))!important;
+}
+
+.reference-logo-center img{
+  display:block!important;
+  width:360px!important;
+  height:auto!important;
+  max-height:142px!important;
+  object-fit:contain!important;
+}
+
+.reference-discord-btn{
+  width:56px!important;
+  height:56px!important;
+  min-width:56px!important;
+  display:grid!important;
+  place-items:center!important;
+  border-radius:10px!important;
+  background:#5865f2!important;
+  box-shadow:0 14px 24px rgba(88,101,242,.28)!important;
+}
+
+.reference-discord-btn img{
+  width:30px!important;
+  height:30px!important;
+  filter:brightness(0) invert(1)!important;
+}
+
+.reference-play-btn{
+  height:56px!important;
+  min-width:100px!important;
+  padding:0 26px!important;
+  border:0!important;
+  border-radius:0!important;
+  color:#fff!important;
+  background:linear-gradient(180deg, #b000ff, #8700ff)!important;
+  box-shadow:0 14px 30px rgba(155,0,255,.36)!important;
+  text-transform:uppercase!important;
+  font-size:20px!important;
+  font-weight:950!important;
+  cursor:pointer!important;
+}
+
+.reference-player-copy{
+  color:#fff!important;
+  text-transform:uppercase!important;
+  font-size:18px!important;
+  line-height:1.08!important;
+  font-weight:950!important;
+  letter-spacing:.01em!important;
+  white-space:nowrap!important;
+}
+
+.reference-player-copy strong{
+  color:#d95cff!important;
+}
+
+.reference-copy-ip{
+  display:none!important;
+}
+
+.reference-header .main-nav{
+  display:none!important;
+}
+
+/* Reference-style hero sits tight under the logo/nav like the sketch */
+.bans-page-shell{
+  width:min(1520px, calc(100% - 72px))!important;
+  max-width:1520px!important;
+  padding-top:42px!important;
+}
+
+.bans-hero-redesign{
+  min-height:610px!important;
+  border-radius:48px!important;
+  padding:76px 72px!important;
+  border-color:rgba(255,255,255,.10)!important;
+  background:
+    linear-gradient(120deg, rgba(35,29,75,.72), rgba(96,55,152,.78) 52%, rgba(92,51,75,.70)),
+    radial-gradient(circle at 56% 42%, rgba(210,91,255,.26), transparent 26rem)!important;
+}
+
+.bans-hero-bg{
+  opacity:.26!important;
+}
+
+@media(max-width:1180px){
+  .site-header.reference-header{
+    width:100%!important;
+    margin-top:0!important;
+    border-radius:0!important;
+  }
+
+  .reference-header-inner{
+    grid-template-columns:70px minmax(0, 1fr) 70px!important;
+    border-radius:0!important;
+    padding:0 14px!important;
+  }
+
+  .reference-nav-left,
+  .reference-nav-right .reference-discord-btn,
+  .reference-nav-right .reference-play-btn,
+  .reference-player-copy{
+    display:none!important;
+  }
+
+  .reference-logo-center{
+    position:static!important;
+    transform:none!important;
+    width:230px!important;
+    pointer-events:auto!important;
+    justify-self:center!important;
+  }
+
+  .reference-logo-center img{
+    width:230px!important;
+    max-height:92px!important;
+  }
+
+  .reference-header .main-nav{
+    display:flex!important;
+  }
+
+  .reference-header .mobile-nav-toggle{
+    display:flex!important;
+  }
+
+  .bans-page-shell{
+    width:100%!important;
+    padding:28px 14px 0!important;
+  }
+
+  .bans-hero-redesign{
+    min-height:430px!important;
+    border-radius:36px!important;
+    padding:34px 22px!important;
+  }
+}
+
+@media(max-width:560px){
+  .reference-logo-center{
+    width:190px!important;
+  }
+
+  .reference-logo-center img{
+    width:190px!important;
+  }
+
+  .bans-page-shell{
+    padding-left:10px!important;
+    padding-right:10px!important;
   }
 }
