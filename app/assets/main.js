@@ -37,7 +37,7 @@ function statusLabel(ban) {
     return "IP Ban";
   }
 
-  if (ban.temporary) {
+  if (ban.temporary && !isLiteBansPermanentSentinel(ban.until_raw ?? ban.until_seconds ?? ban.until)) {
     return "Temp Ban";
   }
 
@@ -49,7 +49,7 @@ function typePillClass(ban) {
     return "ip";
   }
 
-  if (ban.temporary) {
+  if (ban.temporary && !isLiteBansPermanentSentinel(ban.until_raw ?? ban.until_seconds ?? ban.until)) {
     return "temp";
   }
 
@@ -140,7 +140,7 @@ function actionButton(ban, index) {
     return "";
   }
 
-  if (ban.temporary) {
+  if (ban.temporary && !isLiteBansPermanentSentinel(ban.until_raw ?? ban.until_seconds ?? ban.until)) {
     return `<button class="btn soft disabled wait-btn compact-action" type="button" disabled>Wait It Out</button>`;
   }
 
@@ -408,7 +408,7 @@ function openBanInfo(ban) {
     if (ban.ipban) {
       actions.innerHTML = `<button class="btn soft disabled" type="button" disabled>Permanent IP Ban</button>`;
       note.textContent = "This is an IP ban. It has no public dispute or paid-unban option.";
-    } else if (ban.temporary) {
+    } else if (ban.temporary && !isLiteBansPermanentSentinel(ban.until_raw ?? ban.until_seconds ?? ban.until)) {
       actions.innerHTML = `<button class="btn soft disabled wait-btn" type="button" disabled>Wait It Out</button>`;
       note.textContent = `Temporary bans cannot be paid for. This punishment expires on ${ban.expires || "the listed expiration date"}.`;
     } else if (ban.can_pay) {
@@ -742,3 +742,28 @@ initMobileNavigation();
 
 createBanModal();
 loadBans(1);
+
+
+function normalizeLiteBans2038SentinelBans() {
+  if (!Array.isArray(window.mineacleCurrentBans)) {
+    return;
+  }
+
+  window.mineacleCurrentBans = window.mineacleCurrentBans.map((ban) => {
+    const untilRaw = ban.until_raw ?? ban.until_seconds ?? ban.until;
+
+    if (!isLiteBansPermanentSentinel(untilRaw)) {
+      return ban;
+    }
+
+    return {
+      ...ban,
+      temporary: false,
+      type: ban.ipban ? "IP Ban" : "Permanent Ban",
+      status: ban.ipban ? "IP Ban" : "Permanently Banned",
+      status_type: ban.ipban ? "ip" : "active",
+      duration: "Permanent",
+      expires: "Permanent",
+    };
+  });
+}

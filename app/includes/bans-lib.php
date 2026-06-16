@@ -70,6 +70,38 @@ function mineacle_database_timezone(): DateTimeZone {
     }
 }
 
+
+
+function mineacle_is_litebans_permanent_until(mixed $until): bool {
+    if ($until === null || $until === '') {
+        return true;
+    }
+
+    $seconds = mineacle_normalize_litebans_timestamp($until);
+
+    if ($seconds <= 0) {
+        return true;
+    }
+
+    /*
+     * LiteBans / Java-era permanent or max-time sentinel values can normalize to
+     * 2147483647 seconds, which renders as Jan 19, 2038 03:14:07 UTC.
+     * That is not a real temporary-ban expiration and must never be displayed
+     * as a temporary ban date.
+     */
+    return $seconds >= 2147480000;
+}
+
+function mineacle_has_real_temporary_until(mixed $until, int $databaseNow): bool {
+    if (mineacle_is_litebans_permanent_until($until)) {
+        return false;
+    }
+
+    $seconds = mineacle_normalize_litebans_timestamp($until);
+
+    return $seconds > $databaseNow;
+}
+
 function mineacle_format_date(mixed $value): string {
     $seconds = mineacle_epoch_seconds($value);
 
@@ -223,6 +255,7 @@ function fetch_litebans_bans_page(string $search = '', int $page = 1): array {
         $permanent = $until <= 0 || $untilSeconds <= 0;
         $temporary = !$isIpBan && !$permanent;
 
+        if (mineacle_is_litebans_permanent_until($row['until'] ?? null)) { $temporary = false; }
         if ($isIpBan) {
             $type = 'IP Ban';
             $status = 'Permanently Banned';
