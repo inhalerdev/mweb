@@ -15,8 +15,8 @@ function mineacle_page_head(string $title): void {
     echo '<meta name="viewport" content="width=device-width,initial-scale=1">';
     echo '<title>' . h($title) . ' | ' . $name . '</title>';
     echo '<meta name="description" content="Mineacle public bans portal">';
-    echo '<link rel="icon" type="image/png" href="assets/mineacle-square-logo.png?v=bansfull3.8.21.211.200.199.188.177.166.144.8.7.6.5.4.3.2">';
-    echo '<link rel="stylesheet" href="assets/styles.css?v=bansfull3.8.21.211.200.199.188.177.166.144.8.7.6.5.4.3.2">';
+    echo '<link rel="icon" type="image/png" href="assets/mineacle-square-logo.png?v=bansfull3.8.23.233.222.211.200.199.188.177.166.144.8.7.6.5.4.3.2">';
+    echo '<link rel="stylesheet" href="assets/styles.css?v=bansfull3.8.23.233.222.211.200.199.188.177.166.144.8.7.6.5.4.3.2">';
     echo '</head>';
 }
 
@@ -36,11 +36,11 @@ function mineacle_header(string $active = 'bans'): void {
     echo '<a class="mcx-button mcx-store ' . ($active === 'store' ? 'is-active' : '') . '" href="' . $store . '">Store</a>';
 
     echo '<a class="mcx-logo" href="' . $bans . '" aria-label="Refresh Mineacle Bans">';
-    echo '<img src="assets/mineacle-bans-hero-logo.png?v=bansfull3.8.21.211.200.199" alt="Mineacle Bans">';
+    echo '<img src="assets/mineacle-bans-hero-logo.png?v=bansfull3.8.23.233.222.211.200.199" alt="Mineacle Bans">';
     echo '</a>';
 
     echo '<a class="mcx-discord" href="' . $discord . '" target="_blank" rel="noopener" aria-label="Join Discord">';
-    echo '<img src="assets/discord.svg?v=bansfull3.8.21.211.200.199" alt="">';
+    echo '<img src="assets/discord.svg?v=bansfull3.8.23.233.222.211.200.199" alt="">';
     echo '</a>';
     echo '<button class="mcx-play" type="button" data-copy-ip="' . $ip . '">Play</button>';
 
@@ -50,7 +50,7 @@ function mineacle_header(string $active = 'bans'): void {
     echo '<a class="mcx-mobile-link ' . ($active === 'vote' ? 'active' : '') . '" href="' . $vote . '">Vote</a>';
     echo '<a class="mcx-mobile-link ' . ($active === 'bans' ? 'active' : '') . '" href="' . $bans . '">Bans</a>';
     echo '<a class="mcx-mobile-store ' . ($active === 'store' ? 'active' : '') . '" href="' . $store . '">Store</a>';
-    echo '<a class="mcx-mobile-discord" href="' . $discord . '" target="_blank" rel="noopener"><img src="assets/discord.svg?v=bansfull3.8.21" alt=""><span>Discord</span></a>';
+    echo '<a class="mcx-mobile-discord" href="' . $discord . '" target="_blank" rel="noopener"><img src="assets/discord.svg?v=bansfull3.8.23.233.222" alt=""><span>Discord</span></a>';
     echo '</nav>';
 
     echo '</div>';
@@ -64,18 +64,18 @@ function mineacle_footer(): void {
 
     echo '<footer class="site-footer redesigned-footer">';
     echo '<div class="footer-inner">';
-    echo '<div class="footer-brand"><img class="footer-brand-logo" src="assets/mineacle-main-logo.png?v=bansfull3.8.21.211.200.199.188.177.166.144.8.7.6.5.4.3.2" alt="Mineacle Network"></div>';
+    echo '<div class="footer-brand"><img class="footer-brand-logo" src="assets/mineacle-main-logo.png?v=bansfull3.8.23.233.222.211.200.199.188.177.166.144.8.7.6.5.4.3.2" alt="Mineacle Network"></div>';
     echo '<div class="footer-legal">';
     echo '<p class="footer-copy">Copyright © Mineacle Network 2026. All Rights Reserved.</p>';
     echo '<p class="footer-disclaimer">We are not affiliated with Microsoft or Mojang AB.</p>';
     echo '<div class="footer-socials" aria-label="Mineacle social links">';
-    echo '<a class="footer-social-link" href="' . $discord . '" target="_blank" rel="noopener" aria-label="Join Mineacle Discord"><img src="assets/discord.svg?v=bansfull3.8.21.211.200.199.188.177.166.144.8.7.6.5.4.3.2" alt=""></a>';
-    echo '<a class="footer-social-link" href="' . $x . '" target="_blank" rel="noopener" aria-label="Follow Mineacle on X"><img src="assets/x.svg?v=bansfull3.8.21.211.200.199.188.177.166.144.8.7.6.5.4.3.2" alt=""></a>';
+    echo '<a class="footer-social-link" href="' . $discord . '" target="_blank" rel="noopener" aria-label="Join Mineacle Discord"><img src="assets/discord.svg?v=bansfull3.8.23.233.222.211.200.199.188.177.166.144.8.7.6.5.4.3.2" alt=""></a>';
+    echo '<a class="footer-social-link" href="' . $x . '" target="_blank" rel="noopener" aria-label="Follow Mineacle on X"><img src="assets/x.svg?v=bansfull3.8.23.233.222.211.200.199.188.177.166.144.8.7.6.5.4.3.2" alt=""></a>';
     echo '</div>';
     echo '</div>';
     echo '</div>';
     echo '</footer>';
 
     echo '<div class="mineacle-toast" id="toast" role="status" aria-live="polite"><div class="toast-mark">✓</div><div><small>Mineacle Network</small><strong>Server IP copied</strong><span>Join with <b id="toastValue">mineacle.net</b></span></div></div>';
-    echo '<script src="assets/main.js?v=bansfull3.8.21.211.200.199.188.177.166.144.8.7.6.5.4.3.2"></script>';
+    echo '<script src="assets/main.js?v=bansfull3.8.23.233.222.211.200.199.188.177.166.144.8.7.6.5.4.3.2"></script>';
 }

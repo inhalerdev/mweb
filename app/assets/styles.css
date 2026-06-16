@@ -3489,7 +3489,7 @@ body{
   background:
     linear-gradient(180deg, rgba(10,8,18,.28), rgba(8,7,17,.94)),
     radial-gradient(circle at 50% 48%, rgba(179,60,255,.26), transparent 28rem),
-    url("bans-hero-background.png?v=bansfull3.8.21.211.200.199.188.177.166.144.8.7.6.5.4.3.2") center / cover no-repeat!important;
+    url("bans-hero-background.png?v=bansfull3.8.23.233.222.211.200.199.188.177.166.144.8.7.6.5.4.3.2") center / cover no-repeat!important;
 }
 
 .bans-v3-hero::before{
@@ -4104,7 +4104,7 @@ body{
   display:grid!important;
   place-items:center!important;
   padding:calc(var(--v3-header-height) + 48px) 20px 72px!important;
-  background:linear-gradient(180deg, rgba(8,7,17,.25), rgba(8,7,17,.82)), radial-gradient(circle at 50% 46%, rgba(160,49,255,.25), transparent 30rem), url("bans-hero-background.png?v=bansfull3.8.21.211.200.199.188.177.166.144.8.7.6.5.4.3.2") center / cover no-repeat!important;
+  background:linear-gradient(180deg, rgba(8,7,17,.25), rgba(8,7,17,.82)), radial-gradient(circle at 50% 46%, rgba(160,49,255,.25), transparent 30rem), url("bans-hero-background.png?v=bansfull3.8.23.233.222.211.200.199.188.177.166.144.8.7.6.5.4.3.2") center / cover no-repeat!important;
 }
 
 .bans-v32-logo-only-fold::before{
@@ -7823,6 +7823,280 @@ body,
 @media(max-width:640px){
   .mcx-logo{
     width:150px!important;
+  }
+
+  .main-nav.mcx-mobile-menu{
+    left:10px!important;
+    right:10px!important;
+    padding:12px!important;
+  }
+}
+
+
+/* Mineacle Bans v3.8.22: mobile fixed full-width header + logo hang rule
+   Mobile only. Desktop stays untouched. */
+@media(max-width:980px){
+  :root{
+    --mcx-mobile-nav-h:76px;
+    --mcx-mobile-logo-w:172px;
+    /* 10% of nav bar above logo center = 7.6px from top */
+    --mcx-mobile-logo-center-y:calc(var(--mcx-mobile-nav-h) * .10);
+  }
+
+  /* Mobile header is now fixed/sticky full-width. */
+  .mcx-header.site-header.mineacle-floating-header,
+  .mcx-header.site-header.mineacle-floating-header.is-scrolled{
+    position:fixed!important;
+    top:0!important;
+    left:0!important;
+    right:0!important;
+    width:100%!important;
+    max-width:100%!important;
+    height:var(--mcx-mobile-nav-h)!important;
+    min-height:var(--mcx-mobile-nav-h)!important;
+    transform:none!important;
+    border-radius:0!important;
+    border-left:0!important;
+    border-right:0!important;
+    border-top:0!important;
+    overflow:visible!important;
+    background:rgba(18,15,34,.94)!important;
+    box-shadow:0 10px 28px rgba(0,0,0,.32)!important;
+    z-index:10000!important;
+  }
+
+  .mcx-nav-shell{
+    width:100%!important;
+    max-width:100%!important;
+    height:var(--mcx-mobile-nav-h)!important;
+    min-height:var(--mcx-mobile-nav-h)!important;
+    margin:0!important;
+    padding:0 14px!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:space-between!important;
+    box-sizing:border-box!important;
+    overflow:visible!important;
+    pointer-events:auto!important;
+  }
+
+  /* Prevent the fixed mobile header from covering the hero content. */
+  body{
+    padding-top:var(--mcx-mobile-nav-h)!important;
+  }
+
+  /* Logo centered. 25% of logo hangs below nav:
+     Logo bottom = nav height + 25% logo height.
+     With transform(-50%), center = nav height - 25% logo height.
+     We approximate using the logo box height via 54% of width based on current asset shape. */
+  .mcx-logo{
+    display:flex!important;
+    position:absolute!important;
+    left:50%!important;
+    top:calc(var(--mcx-mobile-nav-h) - (var(--mcx-mobile-logo-w) * .54 * .25))!important;
+    width:var(--mcx-mobile-logo-w)!important;
+    max-width:var(--mcx-mobile-logo-w)!important;
+    transform:translate(-50%, -50%)!important;
+    z-index:20!important;
+    pointer-events:auto!important;
+  }
+
+  .mcx-logo:hover{
+    transform:translate(-50%, -50%) scale(1.015)!important;
+  }
+
+  .mcx-logo img{
+    display:block!important;
+    width:100%!important;
+    height:auto!important;
+  }
+
+  /* Hamburger stays aligned to the fixed header center. */
+  .mobile-nav-toggle{
+    right:14px!important;
+    top:50%!important;
+    transform:translateY(-50%)!important;
+  }
+
+  /* Dropdown opens below the fixed header. */
+  .main-nav.mcx-mobile-menu{
+    top:calc(100% + 12px)!important;
+  }
+}
+
+@media(max-width:640px){
+  :root{
+    --mcx-mobile-logo-w:150px;
+  }
+}
+
+
+/* Mineacle Bans v3.8.23: mobile fixed header + centered logo + left hamburger
+   Mobile only. Desktop remains untouched. */
+@media(max-width:980px){
+  :root{
+    --mcx-mobile-nav-h:76px;
+    --mcx-mobile-logo-w:172px;
+  }
+
+  /* Fixed, full-width mobile header. */
+  .mcx-header.site-header.mineacle-floating-header,
+  .mcx-header.site-header.mineacle-floating-header.is-scrolled{
+    position:fixed!important;
+    top:0!important;
+    left:0!important;
+    right:0!important;
+    width:100%!important;
+    max-width:100%!important;
+    height:var(--mcx-mobile-nav-h)!important;
+    min-height:var(--mcx-mobile-nav-h)!important;
+    transform:none!important;
+    border-radius:0!important;
+    border-left:0!important;
+    border-right:0!important;
+    border-top:0!important;
+    overflow:visible!important;
+    background:rgba(18,15,34,.94)!important;
+    box-shadow:0 10px 28px rgba(0,0,0,.32)!important;
+    z-index:10000!important;
+  }
+
+  .mcx-nav-shell{
+    width:100%!important;
+    max-width:100%!important;
+    height:var(--mcx-mobile-nav-h)!important;
+    min-height:var(--mcx-mobile-nav-h)!important;
+    margin:0!important;
+    padding:0 14px!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    box-sizing:border-box!important;
+    overflow:visible!important;
+    pointer-events:auto!important;
+  }
+
+  body{
+    padding-top:var(--mcx-mobile-nav-h)!important;
+  }
+
+  /* Logo centered. Roughly 25% hangs below the nav bar. */
+  .mcx-logo{
+    display:flex!important;
+    position:absolute!important;
+    left:50%!important;
+    top:calc(var(--mcx-mobile-nav-h) - (var(--mcx-mobile-logo-w) * .54 * .25))!important;
+    width:var(--mcx-mobile-logo-w)!important;
+    max-width:var(--mcx-mobile-logo-w)!important;
+    transform:translate(-50%, -50%)!important;
+    z-index:20!important;
+    pointer-events:auto!important;
+  }
+
+  .mcx-logo:hover{
+    transform:translate(-50%, -50%) scale(1.015)!important;
+  }
+
+  .mcx-logo img{
+    display:block!important;
+    width:100%!important;
+    height:auto!important;
+  }
+
+  /* Hamburger menu on the LEFT side. */
+  .mobile-nav-toggle{
+    display:inline-flex!important;
+    position:absolute!important;
+    left:14px!important;
+    right:auto!important;
+    top:50%!important;
+    width:46px!important;
+    height:40px!important;
+    min-width:46px!important;
+    min-height:40px!important;
+    transform:translateY(-50%)!important;
+    align-items:center!important;
+    justify-content:center!important;
+    flex-direction:column!important;
+    gap:5px!important;
+    padding:0!important;
+    margin:0!important;
+    border-radius:4px!important;
+    border:2px solid rgba(255,202,255,.40)!important;
+    background:linear-gradient(180deg, #cb58ff 0%, #9e16ff 50%, #6f00c8 100%)!important;
+    box-shadow:
+      inset 0 3px 0 rgba(255,255,255,.22),
+      inset 0 -4px 0 rgba(35,0,75,.42),
+      0 5px 0 rgba(28,0,56,.70),
+      0 12px 24px rgba(124,0,255,.24)!important;
+    cursor:pointer!important;
+    z-index:80!important;
+    box-sizing:border-box!important;
+  }
+
+  .mobile-nav-toggle span{
+    display:block!important;
+    width:20px!important;
+    height:2px!important;
+    border-radius:999px!important;
+    background:#fff!important;
+    box-shadow:0 1px 0 rgba(40,0,80,.65)!important;
+    transition:transform .16s ease, opacity .16s ease!important;
+  }
+
+  .mcx-header.mobile-open .mobile-nav-toggle span:nth-child(1){
+    transform:translateY(7px) rotate(45deg)!important;
+  }
+
+  .mcx-header.mobile-open .mobile-nav-toggle span:nth-child(2){
+    opacity:0!important;
+  }
+
+  .mcx-header.mobile-open .mobile-nav-toggle span:nth-child(3){
+    transform:translateY(-7px) rotate(-45deg)!important;
+  }
+
+  /* Dropdown opens under fixed header and aligns from left/right screen gutters. */
+  .main-nav.mcx-mobile-menu{
+    position:absolute!important;
+    top:calc(100% + 12px)!important;
+    left:14px!important;
+    right:14px!important;
+    width:auto!important;
+    height:auto!important;
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:10px!important;
+    padding:14px!important;
+    margin:0!important;
+    border-radius:14px!important;
+    border:2px solid rgba(203,88,255,.34)!important;
+    background:rgba(18,15,34,.96)!important;
+    box-shadow:
+      0 18px 48px rgba(0,0,0,.38),
+      inset 0 2px 0 rgba(255,255,255,.07),
+      inset 0 -2px 0 rgba(77,0,145,.18)!important;
+    backdrop-filter:blur(18px)!important;
+    opacity:0!important;
+    visibility:hidden!important;
+    pointer-events:none!important;
+    transform:translateY(-8px)!important;
+    transition:opacity .16s ease, transform .16s ease, visibility .16s ease!important;
+    z-index:70!important;
+    box-sizing:border-box!important;
+  }
+
+  .mcx-header.mobile-open .main-nav.mcx-mobile-menu{
+    opacity:1!important;
+    visibility:visible!important;
+    pointer-events:auto!important;
+    transform:translateY(0)!important;
+  }
+}
+
+@media(max-width:640px){
+  :root{
+    --mcx-mobile-logo-w:150px;
   }
 
   .main-nav.mcx-mobile-menu{
