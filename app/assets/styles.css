@@ -3489,7 +3489,7 @@ body{
   background:
     linear-gradient(180deg, rgba(10,8,18,.28), rgba(8,7,17,.94)),
     radial-gradient(circle at 50% 48%, rgba(179,60,255,.26), transparent 28rem),
-    url("bans-hero-background.png?v=bansfull3.8.9.9.8.7.6.5.4.3.2") center / cover no-repeat!important;
+    url("bans-hero-background.png?v=bansfull3.8.10.100.9.8.7.6.5.4.3.2") center / cover no-repeat!important;
 }
 
 .bans-v3-hero::before{
@@ -4104,7 +4104,7 @@ body{
   display:grid!important;
   place-items:center!important;
   padding:calc(var(--v3-header-height) + 48px) 20px 72px!important;
-  background:linear-gradient(180deg, rgba(8,7,17,.25), rgba(8,7,17,.82)), radial-gradient(circle at 50% 46%, rgba(160,49,255,.25), transparent 30rem), url("bans-hero-background.png?v=bansfull3.8.9.9.8.7.6.5.4.3.2") center / cover no-repeat!important;
+  background:linear-gradient(180deg, rgba(8,7,17,.25), rgba(8,7,17,.82)), radial-gradient(circle at 50% 46%, rgba(160,49,255,.25), transparent 30rem), url("bans-hero-background.png?v=bansfull3.8.10.100.9.8.7.6.5.4.3.2") center / cover no-repeat!important;
 }
 
 .bans-v32-logo-only-fold::before{
@@ -6670,4 +6670,51 @@ body,
 .mineacle-floating-header .header-discord-button:active,
 .mineacle-floating-header.is-scrolled .header-discord-button:active{
   transform:none!important;
+}
+
+
+/* Mineacle Bans v3.8.10: green Minecraft-style Play button */
+.mineacle-floating-header .header-play-button,
+.mineacle-floating-header.is-scrolled .header-play-button,
+.play-copy-button.nav-mc-button{
+  color:#fff!important;
+  background:
+    linear-gradient(180deg, #4fa638 0%, #3b8b2a 50%, #2e6f20 100%)!important;
+  border:2px solid rgba(190,255,164,.46)!important;
+  box-shadow:
+    inset 0 3px 0 rgba(255,255,255,.22),
+    inset 0 -4px 0 rgba(18,68,14,.48),
+    0 5px 0 rgba(16,51,12,.78),
+    0 12px 24px rgba(58,139,42,.24)!important;
+  text-shadow:0 2px 0 rgba(12,54,10,.72)!important;
+}
+
+/* Play hover keeps our font/geometry but uses green Minecraft depth/glow */
+.mineacle-floating-header .header-play-button:hover,
+.mineacle-floating-header.is-scrolled .header-play-button:hover,
+.play-copy-button.nav-mc-button:hover{
+  filter:brightness(1.10)!important;
+  border-color:rgba(221,255,202,.68)!important;
+  background:
+    linear-gradient(180deg, #5dbb43 0%, #429c2f 50%, #327a24 100%)!important;
+  box-shadow:
+    inset 0 3px 0 rgba(255,255,255,.28),
+    inset 0 -4px 0 rgba(18,68,14,.48),
+    0 5px 0 rgba(16,51,12,.78),
+    0 0 26px rgba(83,190,61,.36),
+    0 18px 30px rgba(58,139,42,.28)!important;
+}
+
+/* Play pressed state matches green Minecraft button feel */
+.mineacle-floating-header .header-play-button:active,
+.mineacle-floating-header.is-scrolled .header-play-button:active,
+.play-copy-button.nav-mc-button:active{
+  filter:brightness(.94)!important;
+  background:
+    linear-gradient(180deg, #3f9430 0%, #327a24 54%, #265e1b 100%)!important;
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,.16),
+    inset 0 -2px 0 rgba(18,68,14,.52),
+    0 2px 0 rgba(16,51,12,.78),
+    0 8px 18px rgba(58,139,42,.22)!important;
 }
