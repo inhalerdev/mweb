@@ -3333,3 +3333,256 @@ body > *:last-child{
     max-width:124px!important;
   }
 }
+
+/* Shared Mineacle nav + hero contract v1
+   Bans and Vote use the same nav bar and hero banner dimensions. */
+:root{
+  --mineacle-shell-width:1180px;
+  --mineacle-page-gutter:44px;
+  --mineacle-header-height:94px;
+  --mineacle-header-mobile-height:72px;
+  --mineacle-hero-height:430px;
+  --mineacle-hero-radius:36px;
+  --mineacle-hero-padding:52px;
+  --mineacle-hero-top-gap:54px;
+  --mineacle-section-gap:60px;
+}
+
+.site-header{
+  position:sticky!important;
+  top:0!important;
+  left:0!important;
+  right:0!important;
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  padding:0!important;
+  z-index:9000!important;
+  border-radius:0!important;
+  background:rgba(5,2,8,.94)!important;
+  border-bottom:1px solid rgba(255,136,255,.16)!important;
+  box-shadow:0 18px 54px rgba(0,0,0,.28)!important;
+  backdrop-filter:blur(14px)!important;
+}
+
+.header-inner{
+  width:100%!important;
+  max-width:none!important;
+  min-height:var(--mineacle-header-height)!important;
+  height:var(--mineacle-header-height)!important;
+  margin:0!important;
+  padding:0 max(22px, calc((100vw - var(--mineacle-shell-width)) / 2))!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  box-sizing:border-box!important;
+}
+
+.header-logo-link,
+.header-logo-link img{
+  width:82px!important;
+  height:82px!important;
+  min-width:82px!important;
+  min-height:82px!important;
+  max-width:82px!important;
+  max-height:82px!important;
+}
+
+.main-nav a,
+.copy-ip-button{
+  height:63px!important;
+  min-height:63px!important;
+  border-radius:18px!important;
+  padding-left:22px!important;
+  padding-right:22px!important;
+}
+
+.nav-icon{
+  width:20px!important;
+  height:20px!important;
+}
+
+.hero-shell,
+.vote-middle-shell,
+.vote-content-shell{
+  width:min(var(--mineacle-shell-width), calc(100% - var(--mineacle-page-gutter)))!important;
+  max-width:var(--mineacle-shell-width)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  padding-top:var(--mineacle-hero-top-gap)!important;
+  padding-left:0!important;
+  padding-right:0!important;
+  box-sizing:border-box!important;
+}
+
+.hero-card,
+.hero-panel,
+.bans-hero,
+.vote-middle-hero,
+.vote-content-hero{
+  width:100%!important;
+  max-width:100%!important;
+  min-height:var(--mineacle-hero-height)!important;
+  border-radius:var(--mineacle-hero-radius)!important;
+  padding:var(--mineacle-hero-padding)!important;
+  box-sizing:border-box!important;
+  overflow:hidden!important;
+  display:grid!important;
+  grid-template-columns:minmax(0, 1.08fr) minmax(320px, .92fr)!important;
+  align-items:center!important;
+  gap:34px!important;
+}
+
+.bans-shell,
+.bans-content-shell,
+.bans-list-shell,
+.vote-middle-section,
+.vote-content-section{
+  width:min(var(--mineacle-shell-width), calc(100% - var(--mineacle-page-gutter)))!important;
+  max-width:var(--mineacle-shell-width)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  box-sizing:border-box!important;
+  margin-top:var(--mineacle-section-gap)!important;
+}
+
+.vote-link-grid{
+  width:100%!important;
+  max-width:100%!important;
+  grid-template-columns:repeat(3, minmax(0, 1fr))!important;
+  align-items:stretch!important;
+}
+
+.vote-link-card{
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+}
+
+@media(max-width:980px){
+  :root{
+    --mineacle-page-gutter:28px;
+    --mineacle-header-height:72px;
+    --mineacle-hero-height:auto;
+    --mineacle-hero-padding:34px 22px;
+    --mineacle-hero-top-gap:34px;
+    --mineacle-section-gap:38px;
+  }
+
+  .header-inner{
+    width:100%!important;
+    max-width:none!important;
+    min-height:var(--mineacle-header-mobile-height)!important;
+    height:var(--mineacle-header-mobile-height)!important;
+    grid-template-columns:70px minmax(0, 1fr) 70px!important;
+    padding:0 14px!important;
+  }
+
+  .site-header.mobile-open .header-inner{
+    height:auto!important;
+    min-height:var(--mineacle-header-mobile-height)!important;
+    padding-top:8px!important;
+    padding-bottom:12px!important;
+  }
+
+  .header-logo-link,
+  .header-logo-link img{
+    width:66px!important;
+    height:66px!important;
+    min-width:66px!important;
+    min-height:66px!important;
+    max-width:66px!important;
+    max-height:66px!important;
+  }
+
+  .mobile-nav-toggle{
+    width:64px!important;
+    height:64px!important;
+    min-width:64px!important;
+    min-height:64px!important;
+    max-width:64px!important;
+    max-height:64px!important;
+    border-radius:18px!important;
+  }
+
+  .main-nav a,
+  .copy-ip-button{
+    height:58px!important;
+    min-height:58px!important;
+  }
+
+  .hero-shell,
+  .vote-middle-shell,
+  .vote-content-shell,
+  .bans-shell,
+  .bans-content-shell,
+  .bans-list-shell,
+  .vote-middle-section,
+  .vote-content-section{
+    width:100%!important;
+    max-width:100%!important;
+    padding-left:14px!important;
+    padding-right:14px!important;
+  }
+
+  .hero-card,
+  .hero-panel,
+  .bans-hero,
+  .vote-middle-hero,
+  .vote-content-hero{
+    grid-template-columns:1fr!important;
+    min-height:0!important;
+    text-align:center!important;
+  }
+
+  .vote-link-grid{
+    grid-template-columns:1fr!important;
+  }
+}
+
+@media(max-width:560px){
+  :root{
+    --mineacle-page-gutter:20px;
+    --mineacle-header-height:68px;
+    --mineacle-header-mobile-height:68px;
+    --mineacle-hero-padding:28px 20px;
+    --mineacle-hero-top-gap:28px;
+  }
+
+  .header-inner{
+    grid-template-columns:66px minmax(0, 1fr) 66px!important;
+    padding:0 10px!important;
+  }
+
+  .header-logo-link,
+  .header-logo-link img{
+    width:62px!important;
+    height:62px!important;
+    min-width:62px!important;
+    min-height:62px!important;
+    max-width:62px!important;
+    max-height:62px!important;
+  }
+
+  .mobile-nav-toggle{
+    width:60px!important;
+    height:60px!important;
+    min-width:60px!important;
+    min-height:60px!important;
+    max-width:60px!important;
+    max-height:60px!important;
+  }
+
+  .hero-shell,
+  .vote-middle-shell,
+  .vote-content-shell,
+  .bans-shell,
+  .bans-content-shell,
+  .bans-list-shell,
+  .vote-middle-section,
+  .vote-content-section{
+    padding-left:10px!important;
+    padding-right:10px!important;
+  }
+}
