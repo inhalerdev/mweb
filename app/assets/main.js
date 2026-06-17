@@ -32,6 +32,7 @@
     has_prev: false,
     has_next: false
   };
+  let discordOnlineMembersText = "Online members";
 
   function escapeHtml(value) {
     return String(value ?? "").replace(/[&<>"']/g, (char) => ({
@@ -239,7 +240,7 @@
           <img id="modalAvatar" src="" alt="">
           <div class="modal-title">
             <h2 id="modalName">Player</h2>
-            <span class="status-badge" id="modalStatus">Active Player Ban</span>
+            <span class="status-badge ban-type-pill" id="modalStatus">Ban</span>
           </div>
           <button class="close-modal" type="button" data-close-modal aria-label="Close ban details">×</button>
         </div>
@@ -250,10 +251,16 @@
           <article class="detail"><span>Date</span><strong id="modalDate">Unknown</strong></article>
           <article class="detail"><span>Appeal ID</span><strong id="modalAppeal">MCL-000000</strong></article>
           <article class="detail"><span>Support Email</span><strong id="modalEmail">support@mineacle.net</strong></article>
-          <article class="detail"><span>Discord</span><strong id="modalDiscord">discord.gg/4xrYFxdSWg</strong></article>
+        </div>
+        <div class="modal-appeal-wrap">
+          <a class="modal-appeal-button" id="modalAppealButton" href="https://discord.gg/VwbwWftefM" target="_blank" rel="noopener">
+            <span class="modal-appeal-art"><img src="" id="modalAppealMascot" alt=""></span>
+            <span class="modal-appeal-copy"><small>Appeal support</small><strong>Join Discord to appeal</strong></span>
+            <span class="modal-appeal-count" id="modalDiscordCount">Online members</span>
+          </a>
         </div>
         <div class="modal-actions" id="modalActions"></div>
-        <p class="modal-note" id="modalNote">Use the payment option for eligible bans, or contact support if you believe this punishment is incorrect.</p>
+        <p class="modal-note" id="modalNote">Use the appeal button if you believe this punishment should be reviewed.</p>
       </div>
     `;
     document.body.appendChild(modal);
@@ -262,6 +269,12 @@
     if (fallbackAvatar) {
       fallbackAvatar.src = assetUrl("mineacle-square-logo.png");
       fallbackAvatar.alt = "Mineacle";
+    }
+
+    const appealMascot = modal.querySelector("#modalAppealMascot");
+    if (appealMascot) {
+      appealMascot.src = assetUrl("appeal-wumpus.webp");
+      appealMascot.alt = "Discord appeal support";
     }
 
     return modal;
@@ -280,6 +293,52 @@
     openBanInfo(ban);
   }
 
+
+  function extractDiscordCount(payload) {
+    if (!payload || typeof payload !== "object") return null;
+    const candidates = [
+      payload.online_members,
+      payload.online,
+      payload.presence_count,
+      payload.presenceCount,
+      payload.approximate_presence_count,
+      payload.member_count,
+      payload.members,
+      payload.approximate_member_count,
+      payload.count,
+      payload.data && payload.data.online_members,
+      payload.data && payload.data.online,
+      payload.data && payload.data.presence_count,
+      payload.data && payload.data.member_count,
+      payload.data && payload.data.members
+    ];
+    for (const value of candidates) {
+      const number = Number(value);
+      if (Number.isFinite(number) && number > 0) return Math.round(number);
+    }
+    return null;
+  }
+
+  function formatDiscordCount(count) {
+    if (!count) return "Online members";
+    return `${count.toLocaleString()} online members`;
+  }
+
+  async function loadDiscordMemberCount() {
+    try {
+      const response = await fetch("api/discord.php", { headers: { "Accept": "application/json" }, cache: "no-store" });
+      if (!response.ok) return;
+      const payload = await readJson(response);
+      const count = extractDiscordCount(payload);
+      if (!count) return;
+      discordOnlineMembersText = formatDiscordCount(count);
+      const liveCounter = document.getElementById("modalDiscordCount");
+      if (liveCounter) liveCounter.textContent = discordOnlineMembersText;
+    } catch (error) {
+      console.error("Mineacle Discord count failed", error);
+    }
+  }
+
   function openBanInfo(rawBan) {
     const ban = normalizeBan(rawBan);
     const modal = createBanModal();
@@ -291,37 +350,36 @@
     }
 
     safeText("modalName", ban.username);
-    safeText("modalStatus", ban.status);
+    safeText("modalStatus", statusLabel(ban));
     safeText("modalTypeBadge", ban.type);
     safeText("modalReason", ban.reason);
     safeText("modalDuration", ban.duration);
     safeText("modalDate", ban.date);
     safeText("modalAppeal", ban.appeal_id);
     safeText("modalEmail", ban.support_email);
-    safeText("modalDiscord", ban.discord);
 
     const status = document.getElementById("modalStatus");
-    if (status) status.className = `status-badge ${ban.status_type}`;
+    if (status) status.className = `status-badge ban-type-pill ${ban.status_type}`;
+
+    const appealButton = document.getElementById("modalAppealButton");
+    if (appealButton) appealButton.href = ban.discord;
+    const discordCount = document.getElementById("modalDiscordCount");
+    if (discordCount) discordCount.textContent = discordOnlineMembersText;
 
     const actions = document.getElementById("modalActions");
     const note = document.getElementById("modalNote");
 
     if (actions && note) {
+      actions.innerHTML = "";
       if (ban.ipban) {
-        actions.innerHTML = `<button class="btn soft disabled" type="button" disabled>Permanent IP Ban</button>`;
-        note.textContent = "This is an IP ban. It has no public dispute or paid-unban option.";
+        note.textContent = "This is an IP ban. Use Discord if you need staff to review the punishment.";
       } else if (ban.temporary) {
-        actions.innerHTML = `<button class="btn soft disabled wait-btn" type="button" disabled>Wait It Out</button>`;
         note.textContent = `Temporary bans cannot be paid for. This punishment expires on ${ban.expires || "the listed expiration date"}.`;
       } else if (ban.can_pay) {
-        actions.innerHTML = `
-          <a class="btn red" href="${escapeHtml(ban.unban_url)}">${escapeHtml(ban.price)} Pay to be unbanned</a>
-          <a class="btn soft" href="${escapeHtml(ban.discord)}" target="_blank" rel="noopener">Contact Discord</a>
-        `;
-        note.textContent = "Use the payment option for eligible permanent bans, or contact support if you believe this punishment is incorrect.";
+        actions.innerHTML = `<a class="btn red" href="${escapeHtml(ban.unban_url)}">${escapeHtml(ban.price)} Pay to be unbanned</a>`;
+        note.textContent = "Eligible permanent bans may use the payment option, or Discord if the punishment should be reviewed.";
       } else {
-        actions.innerHTML = `<a class="btn soft" href="${escapeHtml(ban.discord)}" target="_blank" rel="noopener">Contact Support</a>`;
-        note.textContent = "This punishment is not currently eligible for paid unban. Contact support if you need more information.";
+        note.textContent = "This punishment is not currently eligible for paid unban. Use Discord if you need more information.";
       }
     }
 
@@ -494,6 +552,7 @@
 
   function init() {
     createBanModal();
+    loadDiscordMemberCount();
     bindBanUi();
     bindCopyIpButtons();
     bindMobileNavigation();

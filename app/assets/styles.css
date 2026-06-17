@@ -14280,3 +14280,356 @@ main,
     max-width:30vw!important;
   }
 }
+
+/* Mineacle Bans v3.8.55: modal/header-footer parity + appeal Discord action */
+#banModal.mineacle-js-modal{
+  background:rgba(3,2,8,.72)!important;
+  backdrop-filter:blur(18px) saturate(112%)!important;
+  -webkit-backdrop-filter:blur(18px) saturate(112%)!important;
+  padding:28px!important;
+}
+
+#banModal .modal-card{
+  width:min(1120px, calc(100vw - 64px))!important;
+  max-height:calc(100svh - 56px)!important;
+  overflow:auto!important;
+  border-radius:32px!important;
+  border:1.5px solid rgba(203,88,255,.34)!important;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(255,136,255,.10), transparent 28rem),
+    linear-gradient(180deg, rgba(22,15,35,.82) 0%, rgba(12,7,22,.92) 100%)!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    inset 0 0 18px rgba(203,88,255,.08),
+    0 0 0 1px rgba(255,255,255,.025),
+    0 0 34px rgba(203,88,255,.18),
+    0 28px 80px rgba(0,0,0,.58)!important;
+  color:#fff!important;
+  padding:34px 38px!important;
+  font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif!important;
+}
+
+#banModal .modal-head{
+  align-items:flex-start!important;
+  gap:22px!important;
+  margin-bottom:30px!important;
+}
+
+#banModal #modalAvatar{
+  width:92px!important;
+  height:92px!important;
+  border-radius:20px!important;
+  box-shadow:0 14px 28px rgba(0,0,0,.30)!important;
+}
+
+#banModal .modal-title h2{
+  margin:4px 0 10px!important;
+  font-size:clamp(38px, 5vw, 64px)!important;
+  line-height:.96!important;
+  letter-spacing:-.045em!important;
+  font-weight:900!important;
+  text-shadow:0 4px 18px rgba(0,0,0,.22)!important;
+}
+
+#banModal .status-badge,
+#banModal .status-badge.ban-type-pill{
+  display:inline-flex!important;
+  width:auto!important;
+  min-height:38px!important;
+  height:38px!important;
+  padding:0 18px!important;
+  border-radius:999px!important;
+  font-size:14px!important;
+  font-weight:900!important;
+  letter-spacing:.01em!important;
+  text-transform:none!important;
+  color:#fff!important;
+  background:linear-gradient(180deg, rgba(255,105,170,.24), rgba(126,38,105,.22))!important;
+  border:1px solid rgba(255,105,170,.58)!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.12),
+    0 0 18px rgba(255,105,170,.12)!important;
+  pointer-events:none!important;
+}
+
+#banModal .close-modal{
+  width:46px!important;
+  height:46px!important;
+  min-width:46px!important;
+  border-radius:13px!important;
+  border:1.5px solid rgba(255,255,255,.13)!important;
+  background:linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.035))!important;
+  color:#fff!important;
+  font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif!important;
+  font-size:30px!important;
+  font-weight:800!important;
+  line-height:1!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.14),
+    inset 0 -2px 0 rgba(0,0,0,.26),
+    0 8px 18px rgba(0,0,0,.22)!important;
+  text-shadow:0 2px 0 rgba(0,0,0,.40)!important;
+  transform:none!important;
+  transition:filter .12s ease, border-color .12s ease, box-shadow .12s ease, background .12s ease, transform .08s ease!important;
+}
+
+#banModal .close-modal:hover,
+#banModal .close-modal:focus-visible{
+  filter:brightness(1.10)!important;
+  border-color:rgba(255,230,255,.32)!important;
+  background:linear-gradient(180deg, rgba(255,255,255,.11), rgba(255,255,255,.045))!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.18),
+    inset 0 -2px 0 rgba(0,0,0,.26),
+    0 10px 20px rgba(0,0,0,.24),
+    0 0 20px rgba(203,88,255,.14)!important;
+}
+
+#banModal .close-modal:active{
+  filter:brightness(.94)!important;
+  transform:translateY(1px)!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.10),
+    inset 0 -1px 0 rgba(0,0,0,.30),
+    0 4px 12px rgba(0,0,0,.20)!important;
+}
+
+#banModal .detail-grid{
+  display:grid!important;
+  grid-template-columns:repeat(2, minmax(0, 1fr))!important;
+  gap:18px!important;
+  margin:0 52px 22px!important;
+}
+
+#banModal .detail{
+  min-height:78px!important;
+  padding:18px 20px!important;
+  border-radius:18px!important;
+  border:1px solid rgba(255,255,255,.035)!important;
+  background:rgba(255,255,255,.035)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.03)!important;
+}
+
+#banModal .detail span:first-child{
+  color:#ff88ff!important;
+  font-size:14px!important;
+  font-weight:900!important;
+  letter-spacing:.02em!important;
+  margin-bottom:8px!important;
+}
+
+#banModal .detail strong{
+  font-size:22px!important;
+  line-height:1.2!important;
+  font-weight:850!important;
+}
+
+#banModal .modal-appeal-wrap{
+  margin:22px 52px 22px!important;
+}
+
+#banModal .modal-appeal-button{
+  position:relative!important;
+  min-height:104px!important;
+  display:grid!important;
+  grid-template-columns:82px 1fr auto!important;
+  align-items:center!important;
+  gap:18px!important;
+  padding:16px 20px!important;
+  overflow:hidden!important;
+  border-radius:20px!important;
+  text-decoration:none!important;
+  color:#fff!important;
+  border:2px solid rgba(202,210,255,.46)!important;
+  background:linear-gradient(180deg, #8d76ff 0%, #5865f2 54%, #3425b5 100%)!important;
+  box-shadow:
+    inset 0 3px 0 rgba(255,255,255,.20),
+    inset 0 -4px 0 rgba(0,0,80,.36),
+    0 5px 0 rgba(15,10,72,.70),
+    0 16px 28px rgba(88,101,242,.24)!important;
+  font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif!important;
+  transition:filter .12s ease, border-color .12s ease, box-shadow .12s ease, transform .08s ease!important;
+}
+
+#banModal .modal-appeal-button::after{
+  content:""!important;
+  position:absolute!important;
+  inset:-40% auto -40% -32%!important;
+  width:32%!important;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent)!important;
+  transform:skewX(-18deg)!important;
+  animation:mineacle-appeal-sheen 4.2s ease-in-out infinite!important;
+  pointer-events:none!important;
+}
+
+@keyframes mineacle-appeal-sheen{
+  0%, 64%{left:-38%; opacity:0;}
+  72%{opacity:.9;}
+  100%{left:118%; opacity:0;}
+}
+
+#banModal .modal-appeal-button:hover,
+#banModal .modal-appeal-button:focus-visible{
+  filter:brightness(1.12)!important;
+  border-color:rgba(235,240,255,.68)!important;
+  box-shadow:
+    inset 0 3px 0 rgba(255,255,255,.26),
+    inset 0 -4px 0 rgba(0,0,80,.36),
+    0 5px 0 rgba(15,10,72,.70),
+    0 0 28px rgba(88,101,242,.36),
+    0 18px 34px rgba(88,101,242,.30)!important;
+}
+
+#banModal .modal-appeal-button:active{
+  filter:brightness(.94)!important;
+  transform:translateY(2px)!important;
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,.18),
+    inset 0 -2px 0 rgba(0,0,80,.38),
+    0 2px 0 rgba(15,10,72,.70),
+    0 10px 20px rgba(88,101,242,.22)!important;
+}
+
+#banModal .modal-appeal-art{
+  width:74px!important;
+  height:74px!important;
+  display:flex!important;
+  align-items:flex-end!important;
+  justify-content:center!important;
+  border-radius:18px!important;
+  background:rgba(255,255,255,.10)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12)!important;
+  overflow:hidden!important;
+}
+
+#banModal .modal-appeal-art img{
+  width:70px!important;
+  height:76px!important;
+  object-fit:contain!important;
+  transform:translateY(4px)!important;
+  animation:mineacle-wumpus-bob 3.2s ease-in-out infinite!important;
+}
+
+@keyframes mineacle-wumpus-bob{
+  0%,100%{transform:translateY(4px);}
+  50%{transform:translateY(0);}
+}
+
+#banModal .modal-appeal-copy small{
+  display:block!important;
+  margin-bottom:4px!important;
+  color:rgba(255,255,255,.78)!important;
+  font-size:12px!important;
+  font-weight:900!important;
+  letter-spacing:.10em!important;
+  text-transform:uppercase!important;
+}
+
+#banModal .modal-appeal-copy strong{
+  display:block!important;
+  font-size:23px!important;
+  line-height:1.05!important;
+  font-weight:950!important;
+  text-transform:uppercase!important;
+  letter-spacing:.018em!important;
+  text-shadow:0 2px 0 rgba(0,0,80,.42)!important;
+}
+
+#banModal .modal-appeal-count{
+  min-height:38px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding:0 14px!important;
+  border-radius:999px!important;
+  border:1px solid rgba(255,255,255,.22)!important;
+  background:rgba(13,12,70,.28)!important;
+  color:rgba(255,255,255,.92)!important;
+  font-size:13px!important;
+  font-weight:900!important;
+  white-space:nowrap!important;
+  text-transform:uppercase!important;
+  letter-spacing:.035em!important;
+}
+
+#banModal .modal-actions{
+  margin:0 52px!important;
+}
+
+#banModal .modal-note{
+  margin:22px 52px 0!important;
+  color:rgba(216,204,230,.82)!important;
+  font-size:18px!important;
+  line-height:1.45!important;
+  font-weight:750!important;
+}
+
+@media(max-width:760px){
+  #banModal.mineacle-js-modal{
+    padding:14px!important;
+  }
+
+  #banModal .modal-card{
+    width:calc(100vw - 28px)!important;
+    max-height:calc(100svh - 28px)!important;
+    border-radius:24px!important;
+    padding:22px!important;
+  }
+
+  #banModal .modal-head{
+    gap:14px!important;
+  }
+
+  #banModal #modalAvatar{
+    width:70px!important;
+    height:70px!important;
+    border-radius:16px!important;
+  }
+
+  #banModal .modal-title h2{
+    font-size:36px!important;
+  }
+
+  #banModal .detail-grid,
+  #banModal .modal-appeal-wrap,
+  #banModal .modal-actions,
+  #banModal .modal-note{
+    margin-left:0!important;
+    margin-right:0!important;
+  }
+
+  #banModal .detail-grid{
+    grid-template-columns:1fr!important;
+    gap:12px!important;
+  }
+
+  #banModal .modal-appeal-button{
+    grid-template-columns:64px 1fr!important;
+    min-height:96px!important;
+    gap:14px!important;
+  }
+
+  #banModal .modal-appeal-count{
+    grid-column:2!important;
+    width:max-content!important;
+    margin-top:2px!important;
+  }
+
+  #banModal .modal-appeal-art{
+    width:62px!important;
+    height:62px!important;
+    grid-row:1 / span 2!important;
+  }
+
+  #banModal .modal-appeal-art img{
+    width:58px!important;
+    height:66px!important;
+  }
+
+  #banModal .modal-appeal-copy strong{
+    font-size:18px!important;
+  }
+}
