@@ -15947,3 +15947,77 @@ html body #banModal.ban-popup-v70 .close-modal{
     max-width:100%!important;
   }
 }
+
+
+/* v3.8.72 — square player head + header content aligned inward with detail tiles */
+
+/* Keep the popup rail stable, but give the header its own inset so player head/name/label sit inward.
+   The Discord button remains excluded from this inset and keeps its existing full rail behavior. */
+html body #banModal.ban-popup-v70{
+  --ban-popup-detail-inset:32px;
+}
+
+/* Header starts on the same visual column as the detail tile group, but inset from the modal shell. */
+html body #banModal.ban-popup-v70 .ban-popup-header-v70{
+  width:calc(100% - (var(--ban-popup-detail-inset) * 2))!important;
+  max-width:calc(100% - (var(--ban-popup-detail-inset) * 2))!important;
+  margin:0 var(--ban-popup-detail-inset) 16px!important;
+  display:grid!important;
+  grid-template-columns:minmax(0, 1fr) 48px!important;
+  align-items:start!important;
+  gap:18px!important;
+}
+
+/* Move only the player identity block inward. Discord CTA is intentionally not touched here. */
+html body #banModal.ban-popup-v70 .ban-popup-player-v70{
+  width:100%!important;
+  max-width:100%!important;
+  justify-self:start!important;
+  display:grid!important;
+  grid-template-columns:58px minmax(0, 1fr)!important;
+  align-items:center!important;
+  gap:14px!important;
+}
+
+/* Square player head. */
+html body #banModal.ban-popup-v70 #modalAvatar{
+  width:58px!important;
+  height:58px!important;
+  min-width:58px!important;
+  border-radius:0!important;
+  object-fit:cover!important;
+  image-rendering:auto!important;
+}
+
+/* Detail tiles use the same inset as the player identity header so the head lines up with Type/Duration/Appeal ID. */
+html body #banModal.ban-popup-v70 .ban-popup-details-v70,
+html body #banModal.ban-popup-v70 .detail-grid{
+  width:calc(100% - (var(--ban-popup-detail-inset) * 2))!important;
+  max-width:calc(100% - (var(--ban-popup-detail-inset) * 2))!important;
+  margin:0 var(--ban-popup-detail-inset)!important;
+  justify-self:stretch!important;
+}
+
+/* Bottom note follows the detail tile column. Discord button stays outside this alignment rule by request. */
+html body #banModal.ban-popup-v70 .ban-popup-note-v70,
+html body #banModal.ban-popup-v70 .modal-note{
+  width:calc(100% - (var(--ban-popup-detail-inset) * 2))!important;
+  max-width:calc(100% - (var(--ban-popup-detail-inset) * 2))!important;
+  margin:0 var(--ban-popup-detail-inset)!important;
+}
+
+/* Keep the close button on the right side of the header row after the inset shift. */
+html body #banModal.ban-popup-v70 .ban-popup-close-v70,
+html body #banModal.ban-popup-v70 .close-modal{
+  justify-self:end!important;
+}
+
+@media(max-width:900px){
+  html body #banModal.ban-popup-v70{
+    --ban-popup-detail-inset:0px;
+  }
+
+  html body #banModal.ban-popup-v70 #modalAvatar{
+    border-radius:0!important;
+  }
+}
