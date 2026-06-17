@@ -231,36 +231,42 @@
     if (existing) return existing;
 
     const modal = document.createElement("div");
-    modal.className = "modal mineacle-js-modal modal-grid-v68";
+    modal.className = "modal mineacle-js-modal ban-info-modal-v69";
     modal.id = "banModal";
     modal.setAttribute("aria-hidden", "true");
     modal.innerHTML = `
-      <div class="modal-card modal-card-v68" role="dialog" aria-modal="true" aria-labelledby="modalName">
-        <div class="modal-head">
-          <img id="modalAvatar" src="" alt="">
-          <div class="modal-title">
-            <h2 id="modalName">Player</h2>
-            <span class="status-badge ban-type-pill" id="modalStatus">Ban</span>
+      <div class="modal-card ban-info-card-v69" role="dialog" aria-modal="true" aria-labelledby="modalName">
+        <button class="close-modal ban-info-close-v69" type="button" data-close-modal aria-label="Close ban details">×</button>
+
+        <div class="ban-info-rail-v69">
+          <section class="modal-head ban-info-player-v69">
+            <img id="modalAvatar" src="" alt="">
+            <div class="modal-title ban-info-title-v69">
+              <h2 id="modalName">Player</h2>
+              <span class="status-badge ban-type-pill" id="modalStatus">Ban</span>
+            </div>
+          </section>
+
+          <section class="detail-grid ban-info-grid-v69">
+            <article class="detail"><span>Type</span><strong id="modalTypeBadge">Ban</strong></article>
+            <article class="detail"><span>Reason</span><strong id="modalReason">No reason provided</strong></article>
+            <article class="detail"><span>Duration</span><strong id="modalDuration">Unknown</strong></article>
+            <article class="detail"><span>Date</span><strong id="modalDate">Unknown</strong></article>
+            <article class="detail"><span>Appeal ID</span><strong id="modalAppeal">MCL-000000</strong></article>
+            <article class="detail"><span>Support Email</span><strong id="modalEmail">support@mineacle.net</strong></article>
+          </section>
+
+          <div class="modal-appeal-wrap ban-info-appeal-wrap-v69">
+            <a class="modal-appeal-button ban-info-appeal-v69" id="modalAppealButton" href="https://discord.gg/VwbwWftefM" target="_blank" rel="noopener">
+              <span class="modal-appeal-art"><img src="" id="modalAppealMascot" alt=""></span>
+              <span class="modal-appeal-copy"><small>Appeal support</small><strong>Join Discord to appeal</strong></span>
+              <span class="modal-appeal-count" id="modalDiscordCount">Online members</span>
+            </a>
           </div>
-          <button class="close-modal" type="button" data-close-modal aria-label="Close ban details">×</button>
+
+          <div class="modal-actions" id="modalActions"></div>
+          <p class="modal-note ban-info-note-v69" id="modalNote">Use Discord if you need staff to review the punishment.</p>
         </div>
-        <div class="detail-grid">
-          <article class="detail"><span>Type</span><strong id="modalTypeBadge">Ban</strong></article>
-          <article class="detail"><span>Reason</span><strong id="modalReason">No reason provided</strong></article>
-          <article class="detail"><span>Duration</span><strong id="modalDuration">Unknown</strong></article>
-          <article class="detail"><span>Date</span><strong id="modalDate">Unknown</strong></article>
-          <article class="detail"><span>Appeal ID</span><strong id="modalAppeal">MCL-000000</strong></article>
-          <article class="detail"><span>Support Email</span><strong id="modalEmail">support@mineacle.net</strong></article>
-        </div>
-        <div class="modal-appeal-wrap">
-          <a class="modal-appeal-button" id="modalAppealButton" href="https://discord.gg/VwbwWftefM" target="_blank" rel="noopener">
-            <span class="modal-appeal-art"><img src="" id="modalAppealMascot" alt=""></span>
-            <span class="modal-appeal-copy"><small>Appeal support</small><strong>Join Discord to appeal</strong></span>
-            <span class="modal-appeal-count" id="modalDiscordCount">Online members</span>
-          </a>
-        </div>
-        <div class="modal-actions" id="modalActions"></div>
-        <p class="modal-note" id="modalNote">Use Discord if you need staff to review the punishment.</p>
       </div>
     `;
     document.body.appendChild(modal);

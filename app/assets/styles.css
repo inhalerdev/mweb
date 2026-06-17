@@ -15481,3 +15481,356 @@ html body #banModal.modal-grid-v68 .modal-note{
     justify-self:start!important;
   }
 }
+
+
+/* v3.8.69 compact ban info modal rebuild
+   Actual modal HTML is rebuilt in main.js and targeted by unique v69 classes.
+   Goal: 10-20% smaller horizontally/vertically, tighter grid, smaller head/title, compact CTA. */
+
+html body #banModal.ban-info-modal-v69{
+  padding:16px!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+
+html body #banModal.ban-info-modal-v69 .modal-card.ban-info-card-v69{
+  width:min(70vw, 900px)!important;
+  max-width:900px!important;
+  min-width:0!important;
+  max-height:84svh!important;
+  overflow:auto!important;
+  padding:26px 30px!important;
+  border-radius:23px!important;
+  border:1px solid rgba(203,88,255,.34)!important;
+  background:
+    radial-gradient(circle at 14% 0%, rgba(255,136,255,.052), transparent 21rem),
+    linear-gradient(180deg, rgba(18,15,34,.79), rgba(10,6,18,.90))!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.06),
+    inset 0 0 10px rgba(203,88,255,.06),
+    inset 0 -1px 0 rgba(42,10,70,.32),
+    0 24px 62px rgba(0,0,0,.44)!important;
+  position:relative!important;
+  box-sizing:border-box!important;
+}
+
+html body #banModal.ban-info-modal-v69 .modal-card.ban-info-card-v69,
+html body #banModal.ban-info-modal-v69 .modal-card.ban-info-card-v69 *{
+  box-sizing:border-box!important;
+}
+
+html body #banModal.ban-info-modal-v69 .ban-info-rail-v69{
+  width:min(100%, 740px)!important;
+  max-width:740px!important;
+  margin:0 auto!important;
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:11px!important;
+}
+
+html body #banModal.ban-info-modal-v69 .ban-info-close-v69,
+html body #banModal.ban-info-modal-v69 .close-modal{
+  position:absolute!important;
+  top:26px!important;
+  right:30px!important;
+  width:42px!important;
+  height:42px!important;
+  min-width:42px!important;
+  border-radius:11px!important;
+  margin:0!important;
+  border:1px solid rgba(255,255,255,.15)!important;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.035)),
+    rgba(18,15,34,.72)!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.16),
+    inset 0 -2px 0 rgba(0,0,0,.28),
+    0 9px 20px rgba(0,0,0,.20),
+    0 0 16px rgba(203,88,255,.10)!important;
+  color:#fff!important;
+  font-size:25px!important;
+  line-height:1!important;
+  font-weight:850!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  transition:filter .12s ease, transform .08s ease, border-color .12s ease, box-shadow .12s ease!important;
+}
+
+html body #banModal.ban-info-modal-v69 .ban-info-close-v69:hover,
+html body #banModal.ban-info-modal-v69 .close-modal:hover{
+  filter:brightness(1.10)!important;
+  transform:translateY(-1px)!important;
+  border-color:rgba(255,210,255,.28)!important;
+}
+
+html body #banModal.ban-info-modal-v69 .ban-info-close-v69:active,
+html body #banModal.ban-info-modal-v69 .close-modal:active{
+  filter:brightness(.94)!important;
+  transform:translateY(1px)!important;
+}
+
+html body #banModal.ban-info-modal-v69 .ban-info-player-v69,
+html body #banModal.ban-info-modal-v69 .modal-head{
+  width:100%!important;
+  max-width:calc(100% - 58px)!important;
+  min-height:58px!important;
+  margin:0 0 8px!important;
+  display:grid!important;
+  grid-template-columns:58px minmax(0, 1fr)!important;
+  align-items:center!important;
+  gap:13px!important;
+}
+
+html body #banModal.ban-info-modal-v69 #modalAvatar{
+  width:58px!important;
+  height:58px!important;
+  min-width:58px!important;
+  border-radius:12px!important;
+  object-fit:cover!important;
+  box-shadow:0 8px 18px rgba(0,0,0,.24)!important;
+}
+
+html body #banModal.ban-info-modal-v69 .ban-info-title-v69,
+html body #banModal.ban-info-modal-v69 .modal-title{
+  min-width:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  gap:7px!important;
+}
+
+html body #banModal.ban-info-modal-v69 #modalName{
+  margin:0!important;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif!important;
+  font-size:clamp(30px, 3vw, 42px)!important;
+  line-height:.96!important;
+  font-weight:900!important;
+  letter-spacing:-.045em!important;
+  color:#fff!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  max-width:100%!important;
+}
+
+html body #banModal.ban-info-modal-v69 #modalStatus{
+  width:auto!important;
+  min-width:70px!important;
+  height:30px!important;
+  min-height:30px!important;
+  max-height:30px!important;
+  padding:0 16px!important;
+  border-radius:8px!important;
+  border:1px solid rgba(255,136,255,.28)!important;
+  background:
+    linear-gradient(180deg, rgba(255,136,255,.13), rgba(118,41,177,.11)),
+    rgba(18,15,34,.46)!important;
+  box-shadow:
+    inset 0 0 8px rgba(203,88,255,.07),
+    inset 0 1px 0 rgba(255,255,255,.05)!important;
+  color:#ffd8ff!important;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif!important;
+  font-size:11.5px!important;
+  font-weight:900!important;
+  letter-spacing:.055em!important;
+  line-height:1!important;
+  text-transform:uppercase!important;
+  text-shadow:0 1px 0 rgba(0,0,0,.55)!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+
+html body #banModal.ban-info-modal-v69 .ban-info-grid-v69,
+html body #banModal.ban-info-modal-v69 .detail-grid{
+  width:100%!important;
+  margin:0!important;
+  display:grid!important;
+  grid-template-columns:repeat(2, minmax(0, 1fr))!important;
+  gap:9px 12px!important;
+}
+
+html body #banModal.ban-info-modal-v69 .detail{
+  min-height:60px!important;
+  padding:12px 15px!important;
+  border-radius:13px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+  gap:5px!important;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.032), rgba(255,255,255,.016)),
+    rgba(18,15,34,.46)!important;
+  border:1px solid rgba(255,255,255,.036)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.028)!important;
+}
+
+html body #banModal.ban-info-modal-v69 .detail span{
+  margin:0!important;
+  color:#ff88ff!important;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif!important;
+  font-size:11.5px!important;
+  line-height:1!important;
+  font-weight:900!important;
+  letter-spacing:.06em!important;
+  text-transform:uppercase!important;
+}
+
+html body #banModal.ban-info-modal-v69 .detail strong{
+  color:#fff!important;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif!important;
+  font-size:clamp(15px, 1.12vw, 19px)!important;
+  line-height:1.12!important;
+  font-weight:800!important;
+  letter-spacing:-.012em!important;
+  overflow-wrap:anywhere!important;
+}
+
+html body #banModal.ban-info-modal-v69 .ban-info-appeal-wrap-v69,
+html body #banModal.ban-info-modal-v69 .modal-appeal-wrap{
+  width:100%!important;
+  max-width:100%!important;
+  margin:11px 0 0!important;
+  display:block!important;
+}
+
+html body #banModal.ban-info-modal-v69 .ban-info-appeal-v69,
+html body #banModal.ban-info-modal-v69 .modal-appeal-button{
+  width:80%!important;
+  max-width:592px!important;
+  min-width:0!important;
+  height:72px!important;
+  min-height:72px!important;
+  margin:0!important;
+  display:grid!important;
+  grid-template-columns:54px minmax(0, 1fr) auto!important;
+  align-items:center!important;
+  gap:11px!important;
+  padding:8px 13px 8px 8px!important;
+  border-radius:12px!important;
+}
+
+html body #banModal.ban-info-modal-v69 .modal-appeal-art{
+  width:46px!important;
+  height:46px!important;
+  border-radius:10px!important;
+  display:grid!important;
+  place-items:center!important;
+}
+
+html body #banModal.ban-info-modal-v69 .modal-appeal-art img{
+  width:42px!important;
+  height:48px!important;
+  object-fit:contain!important;
+}
+
+html body #banModal.ban-info-modal-v69 .modal-appeal-copy{
+  min-width:0!important;
+}
+
+html body #banModal.ban-info-modal-v69 .modal-appeal-copy small{
+  margin:0 0 2px!important;
+  font-size:8.5px!important;
+  line-height:1!important;
+  letter-spacing:.14em!important;
+  font-weight:900!important;
+}
+
+html body #banModal.ban-info-modal-v69 .modal-appeal-copy strong{
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif!important;
+  font-size:clamp(16px, 1.2vw, 20px)!important;
+  line-height:1.02!important;
+  font-weight:900!important;
+  letter-spacing:.004em!important;
+  white-space:normal!important;
+}
+
+html body #banModal.ban-info-modal-v69 .modal-appeal-count{
+  font-size:10px!important;
+  line-height:1!important;
+  font-weight:900!important;
+  padding:8px 10px!important;
+  white-space:nowrap!important;
+}
+
+html body #banModal.ban-info-modal-v69 .modal-actions{
+  display:none!important;
+}
+
+html body #banModal.ban-info-modal-v69 .ban-info-note-v69,
+html body #banModal.ban-info-modal-v69 .modal-note{
+  width:80%!important;
+  max-width:592px!important;
+  margin:0!important;
+  padding:0!important;
+  color:rgba(216,204,230,.78)!important;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif!important;
+  font-size:13.5px!important;
+  line-height:1.33!important;
+  font-weight:700!important;
+}
+
+@media(max-width:760px){
+  html body #banModal.ban-info-modal-v69{
+    padding:12px!important;
+  }
+
+  html body #banModal.ban-info-modal-v69 .modal-card.ban-info-card-v69{
+    width:calc(100vw - 24px)!important;
+    max-height:calc(100svh - 24px)!important;
+    padding:18px!important;
+    border-radius:21px!important;
+  }
+
+  html body #banModal.ban-info-modal-v69 .ban-info-rail-v69{
+    width:100%!important;
+    max-width:100%!important;
+  }
+
+  html body #banModal.ban-info-modal-v69 .modal-head{
+    max-width:calc(100% - 50px)!important;
+    grid-template-columns:52px minmax(0, 1fr)!important;
+    gap:11px!important;
+  }
+
+  html body #banModal.ban-info-modal-v69 #modalAvatar{
+    width:52px!important;
+    height:52px!important;
+  }
+
+  html body #banModal.ban-info-modal-v69 #modalName{
+    font-size:29px!important;
+  }
+
+  html body #banModal.ban-info-modal-v69 .detail-grid{
+    grid-template-columns:1fr!important;
+    gap:9px!important;
+  }
+
+  html body #banModal.ban-info-modal-v69 .detail{
+    min-height:58px!important;
+    padding:12px 14px!important;
+  }
+
+  html body #banModal.ban-info-modal-v69 .modal-appeal-button,
+  html body #banModal.ban-info-modal-v69 .modal-note{
+    width:100%!important;
+    max-width:100%!important;
+  }
+
+  html body #banModal.ban-info-modal-v69 .modal-appeal-button{
+    height:auto!important;
+    min-height:80px!important;
+    grid-template-columns:50px minmax(0, 1fr)!important;
+    grid-template-areas:"art copy" "art count"!important;
+    row-gap:6px!important;
+  }
+
+  html body #banModal.ban-info-modal-v69 .modal-appeal-art{grid-area:art!important;}
+  html body #banModal.ban-info-modal-v69 .modal-appeal-copy{grid-area:copy!important;}
+  html body #banModal.ban-info-modal-v69 .modal-appeal-count{
+    grid-area:count!important;
+    justify-self:start!important;
+  }
+}

@@ -9,7 +9,7 @@ function mineacle_page_head(string $title): void {
 
     $config = mineacle_config();
     $name = h($config['site']['name'] ?? 'Mineacle Network');
-    $version = 'bansfull3.8.68-b01-header-modal-hardfix';
+    $version = 'bansfull3.8.69-compact-ban-modal-rebuild';
 
     echo '<!doctype html>';
     echo '<html lang="en">';
@@ -40,11 +40,11 @@ function mineacle_header(string $active = 'bans'): void {
     echo '<a class="mcx-button mcx-store ' . ($active === 'store' ? 'is-active' : '') . '" href="' . $store . '">Store</a>';
 
     echo '<a class="mcx-logo" href="' . $bans . '" aria-label="Refresh Mineacle Bans">';
-    echo '<img src="assets/mineacle-bans-hero-logo.png?v=bansfull3.8.68-b01-header-modal-hardfix" alt="Mineacle Bans">';
+    echo '<img src="assets/mineacle-bans-hero-logo.png?v=bansfull3.8.69-compact-ban-modal-rebuild" alt="Mineacle Bans">';
     echo '</a>';
 
     echo '<a class="mcx-discord" href="' . $discord . '" target="_blank" rel="noopener" aria-label="Join Discord">';
-    echo '<img src="assets/discord.svg?v=bansfull3.8.68-b01-header-modal-hardfix" alt="">';
+    echo '<img src="assets/discord.svg?v=bansfull3.8.69-compact-ban-modal-rebuild" alt="">';
     echo '</a>';
 
     echo '<button class="mcx-play" type="button" data-copy-ip="' . $ip . '">Play</button>';
@@ -56,7 +56,7 @@ function mineacle_header(string $active = 'bans'): void {
     echo '<a class="mcx-mobile-item mcx-mobile-text mcx-mobile-vote ' . ($active === 'vote' ? 'active' : '') . '" href="' . $vote . '"><span>Vote</span></a>';
     echo '<a class="mcx-mobile-item mcx-mobile-text mcx-mobile-bans ' . ($active === 'bans' ? 'active' : '') . '" href="' . $bans . '"><span>Bans</span></a>';
     echo '<a class="mcx-mobile-item mcx-mobile-store ' . ($active === 'store' ? 'active' : '') . '" href="' . $store . '"><span>Store</span></a>';
-    echo '<a class="mcx-mobile-item mcx-mobile-discord" href="' . $discord . '" target="_blank" rel="noopener"><img src="assets/discord.svg?v=bansfull3.8.68-b01-header-modal-hardfix" alt=""><span>Discord</span></a>';
+    echo '<a class="mcx-mobile-item mcx-mobile-discord" href="' . $discord . '" target="_blank" rel="noopener"><img src="assets/discord.svg?v=bansfull3.8.69-compact-ban-modal-rebuild" alt=""><span>Discord</span></a>';
     echo '</div>';
     echo '</nav>';
 
@@ -67,7 +67,7 @@ function mineacle_footer(): void {
     $config = mineacle_config();
     $discord = h((string) ($config['site']['discord'] ?? 'https://discord.gg/VwbwWftefM'));
     $x = h((string) ($config['site']['x'] ?? 'https://x.com/mineaclenetwork'));
-    $version = 'bansfull3.8.68-b01-header-modal-hardfix';
+    $version = 'bansfull3.8.69-compact-ban-modal-rebuild';
 
     echo '<footer class="site-footer redesigned-footer">';
     echo '<div class="footer-inner">';
