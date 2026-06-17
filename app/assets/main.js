@@ -15,6 +15,13 @@
   const nextPageButton = byIdOrClass("nextPage", ".js-ban-next");
   const pageInfo = byIdOrClass("pageInfo", ".js-ban-page");
 
+  const currentScript = document.currentScript || document.querySelector('script[src$="assets/main.js"], script[src$="/main.js"]');
+  const assetRoot = currentScript ? new URL(".", currentScript.src) : new URL("assets/", window.location.href);
+
+  function assetUrl(filename) {
+    return new URL(filename, assetRoot).toString();
+  }
+
   let currentPage = 1;
   let currentRows = [];
   let currentPagination = {
@@ -220,7 +227,7 @@
     modal.innerHTML = `
       <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalName">
         <div class="modal-head">
-          <img id="modalAvatar" src="assets/mineacle-square-logo.png" alt="">
+          <img id="modalAvatar" src="" alt="">
           <div class="modal-title">
             <h2 id="modalName">Player</h2>
             <span class="status-badge" id="modalStatus">Active Player Ban</span>
@@ -241,6 +248,13 @@
       </div>
     `;
     document.body.appendChild(modal);
+
+    const fallbackAvatar = modal.querySelector("#modalAvatar");
+    if (fallbackAvatar) {
+      fallbackAvatar.src = assetUrl("mineacle-square-logo.png");
+      fallbackAvatar.alt = "Mineacle";
+    }
+
     return modal;
   }
 
