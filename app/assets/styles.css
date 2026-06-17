@@ -14633,3 +14633,33 @@ main,
     font-size:18px!important;
   }
 }
+
+/* Mineacle Bans v3.8.56: modal appeal button width alignment
+   Aligns the Discord appeal button to the same single-column width used by the existing modal detail cards/pills on desktop. */
+#banModal .modal-appeal-wrap{
+  display:grid!important;
+  grid-template-columns:repeat(2, minmax(0, 1fr))!important;
+  gap:18px!important;
+  margin:22px 52px 22px!important;
+  align-items:stretch!important;
+}
+
+#banModal .modal-appeal-button{
+  grid-column:1!important;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  justify-self:stretch!important;
+}
+
+@media(max-width:760px){
+  #banModal .modal-appeal-wrap{
+    display:block!important;
+    margin-left:0!important;
+    margin-right:0!important;
+  }
+
+  #banModal .modal-appeal-button{
+    width:100%!important;
+  }
+}
