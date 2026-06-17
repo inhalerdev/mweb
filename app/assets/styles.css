@@ -13044,3 +13044,306 @@ textarea,
     margin-top:20px!important;
   }
 }
+
+
+/* Mineacle Bans v3.8.48: hero/nav-width alignment, even section spacing, darker scene overlay
+   - Removes the old hero enforcement pill spacing
+   - Aligns hero copy, tiles, and records board to the floating nav width
+   - Makes section gaps consistent from hero copy -> tiles -> records board
+   - Darkens the background art slightly while keeping it sharp
+   - Matches tiles/records surfaces closer to the nav surface and keeps typography clean */
+:root{
+  --mineacle-v48-nav-width:var(--mcx-nav-w, 1380px);
+  --mineacle-v48-page-gutter:48px;
+  --mineacle-v48-content-width:min(var(--mineacle-v48-nav-width), calc(100vw - var(--mineacle-v48-page-gutter)));
+  --mineacle-v48-section-gap:56px;
+  --mineacle-v48-surface:rgba(18,15,34,.50);
+  --mineacle-v48-surface-soft:rgba(18,15,34,.42);
+  --mineacle-v48-line:rgba(203,88,255,.20);
+  --mineacle-v48-line-soft:rgba(203,88,255,.13);
+  --mineacle-v48-inner:rgba(203,88,255,.060);
+}
+
+/* Slightly darker image treatment with a smooth bottom falloff; no blur added back. */
+.bans-v34-background-fold::after,
+.bans-v32-logo-only-fold::after,
+.bans-v3-hero::after,
+.bans-records-hero::after{
+  background:
+    linear-gradient(180deg,
+      rgba(18,15,34,.26) 0%,
+      rgba(18,15,34,.30) 20%,
+      rgba(18,15,34,.38) 40%,
+      rgba(13,8,24,.62) 62%,
+      rgba(8,5,15,.88) 78%,
+      rgba(5,3,10,.98) 92%,
+      var(--mineacle-v47-dark, #05030b) 100%),
+    radial-gradient(circle at 48% 18%, rgba(203,88,255,.075), transparent 34rem)!important;
+}
+
+/* Match all major above-fold content to the floating nav width/left edge. */
+.ban-hero-content,
+.bans-section,
+.bans-v3-results{
+  width:var(--mineacle-v48-content-width)!important;
+  max-width:var(--mineacle-v48-nav-width)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  box-sizing:border-box!important;
+}
+
+.ban-hero-content{
+  padding-top:clamp(178px, 20.5vh, 236px)!important;
+}
+
+.ban-hero-copy{
+  max-width:760px!important;
+  margin:0!important;
+  text-align:left!important;
+}
+
+.ban-hero-kicker{
+  display:none!important;
+}
+
+.ban-hero-copy h1{
+  margin:0 0 18px!important;
+  font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif!important;
+  font-size:clamp(42px, 4vw, 60px)!important;
+  line-height:1.02!important;
+  letter-spacing:-.024em!important;
+  font-weight:780!important;
+  text-transform:none!important;
+  text-shadow:0 3px 18px rgba(0,0,0,.48)!important;
+}
+
+.ban-hero-copy p{
+  max-width:735px!important;
+  font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif!important;
+  font-size:clamp(16px, 1.15vw, 18px)!important;
+  line-height:1.64!important;
+  font-weight:560!important;
+  color:rgba(242,236,252,.84)!important;
+  text-shadow:0 2px 14px rgba(0,0,0,.46)!important;
+}
+
+.guard-info-tiles{
+  width:100%!important;
+  margin-top:var(--mineacle-v48-section-gap)!important;
+  gap:24px!important;
+  align-items:stretch!important;
+}
+
+.guard-info-tile{
+  min-height:206px!important;
+  padding:22px 20px 20px!important;
+  border:1px solid var(--mineacle-v48-line)!important;
+  border-radius:22px!important;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.045) 0%, rgba(255,255,255,.014) 100%),
+    var(--mineacle-v48-surface)!important;
+  box-shadow:
+    inset 0 0 10px var(--mineacle-v48-inner),
+    inset 0 1px 0 rgba(255,255,255,.050),
+    0 18px 40px rgba(0,0,0,.24)!important;
+  backdrop-filter:blur(6px) saturate(110%)!important;
+  -webkit-backdrop-filter:blur(6px) saturate(110%)!important;
+}
+
+.guard-info-tile::before{
+  height:1px!important;
+  background:linear-gradient(90deg, transparent, rgba(255,136,255,.34), rgba(203,88,255,.28), transparent)!important;
+  opacity:.70!important;
+}
+
+.guard-info-number{
+  width:36px!important;
+  height:26px!important;
+  border-radius:9px!important;
+  color:rgba(255,220,255,.92)!important;
+  background:rgba(18,15,34,.48)!important;
+  border:1px solid rgba(203,88,255,.22)!important;
+  box-shadow:inset 0 0 8px rgba(203,88,255,.055)!important;
+  font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif!important;
+  font-size:12px!important;
+  font-weight:800!important;
+}
+
+.guard-info-tile h2{
+  margin:18px 0 10px!important;
+  font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif!important;
+  font-size:18px!important;
+  line-height:1.20!important;
+  letter-spacing:-.010em!important;
+  font-weight:760!important;
+}
+
+.guard-info-tile p{
+  font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif!important;
+  color:rgba(232,226,244,.76)!important;
+  font-size:14px!important;
+  line-height:1.58!important;
+  font-weight:500!important;
+}
+
+/* Equal spacing between tiles and records board; no overlap/crowding. */
+.bans-v3-results,
+.bans-section{
+  margin-top:var(--mineacle-v48-section-gap)!important;
+}
+
+/* Records board gets the same static border/surface language as the nav. */
+.bans-v3-results{
+  border:1px solid var(--mineacle-v48-line)!important;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.040) 0%, rgba(255,255,255,.012) 100%),
+    var(--mineacle-v48-surface-soft)!important;
+  box-shadow:
+    inset 0 0 10px var(--mineacle-v48-inner),
+    inset 0 1px 0 rgba(255,255,255,.045),
+    0 18px 42px rgba(0,0,0,.22)!important;
+}
+
+.bans-v3-results-head{
+  padding:34px 36px!important;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.038) 0%, rgba(255,255,255,.010) 100%),
+    rgba(18,15,34,.44)!important;
+  border-bottom:1px solid var(--mineacle-v48-line-soft)!important;
+}
+
+.bans-v3-results-head h2{
+  font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif!important;
+  font-size:clamp(30px, 2.35vw, 38px)!important;
+  font-weight:760!important;
+  letter-spacing:-.018em!important;
+}
+
+.bans-v3-kicker{
+  font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif!important;
+  font-weight:850!important;
+  letter-spacing:.14em!important;
+}
+
+/* Match the search controls to the nav button family. */
+.bans-v3-search,
+.bans-v31-results-search{
+  padding:24px 28px!important;
+  grid-template-columns:minmax(0, 1fr) 116px 104px!important;
+  gap:12px!important;
+  align-items:center!important;
+  background:rgba(7,4,13,.38)!important;
+}
+
+.bans-v3-search input,
+.bans-v31-results-search input{
+  height:46px!important;
+  min-height:46px!important;
+  border-radius:6px!important;
+  border:1px solid rgba(203,88,255,.18)!important;
+  background:rgba(6,4,12,.54)!important;
+  color:#fff!important;
+  font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif!important;
+  font-size:14px!important;
+  font-weight:650!important;
+}
+
+.bans-v3-search .btn,
+.bans-v3-results .btn,
+.pagination-row .btn,
+.ban-action .btn{
+  font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif!important;
+  height:46px!important;
+  min-height:46px!important;
+  border-radius:4px!important;
+  font-size:13px!important;
+  font-weight:850!important;
+  letter-spacing:.055em!important;
+}
+
+/* Lighten the nav shell but keep the same transparent purple line and short internal glow. */
+.mcx-header.site-header.mineacle-floating-header,
+#siteHeader.mcx-header{
+  border-color:rgba(203,88,255,.20)!important;
+  background:rgba(18,15,34,.50)!important;
+  box-shadow:
+    0 18px 48px rgba(0,0,0,.24),
+    inset 0 0 10px rgba(203,88,255,.060),
+    inset 0 1px 0 rgba(255,255,255,.050)!important;
+}
+
+.mcx-header.site-header.mineacle-floating-header.is-scrolled,
+#siteHeader.mcx-header.is-scrolled{
+  background:rgba(18,15,34,.54)!important;
+  border-bottom-color:rgba(203,88,255,.20)!important;
+  box-shadow:
+    0 12px 34px rgba(0,0,0,.22),
+    inset 0 0 10px rgba(203,88,255,.055),
+    inset 0 1px 0 rgba(255,255,255,.045)!important;
+}
+
+@media(max-width:1180px){
+  :root{
+    --mineacle-v48-page-gutter:32px;
+    --mineacle-v48-section-gap:46px;
+  }
+
+  .guard-info-tiles{
+    gap:18px!important;
+  }
+}
+
+@media(max-width:980px){
+  :root{
+    --mineacle-v48-page-gutter:28px;
+    --mineacle-v48-section-gap:34px;
+  }
+
+  .ban-hero-content,
+  .bans-section,
+  .bans-v3-results{
+    width:calc(100% - var(--mineacle-v48-page-gutter))!important;
+    max-width:none!important;
+  }
+
+  .ban-hero-content{
+    padding-top:calc(var(--mcx-mobile-nav-h, 76px) + 120px)!important;
+  }
+
+  .ban-hero-copy h1{
+    font-size:clamp(34px, 9vw, 48px)!important;
+  }
+
+  .guard-info-tiles{
+    display:flex!important;
+    overflow-x:auto!important;
+    scroll-snap-type:x mandatory!important;
+    gap:14px!important;
+    padding-bottom:6px!important;
+  }
+
+  .guard-info-tile{
+    flex:0 0 min(82vw, 340px)!important;
+    min-height:190px!important;
+    scroll-snap-align:start!important;
+  }
+
+  .bans-v34-background-fold::after,
+  .bans-v32-logo-only-fold::after,
+  .bans-v3-hero::after,
+  .bans-records-hero::after{
+    background:
+      linear-gradient(180deg,
+        rgba(18,15,34,.24) 0%,
+        rgba(18,15,34,.30) 26%,
+        rgba(12,7,22,.60) 64%,
+        rgba(7,4,13,.92) 84%,
+        var(--mineacle-v47-dark, #05030b) 100%)!important;
+  }
+
+  .bans-v3-search,
+  .bans-v31-results-search{
+    grid-template-columns:1fr!important;
+    padding:18px!important;
+  }
+}
