@@ -9797,3 +9797,247 @@ body,
     font-size:16px!important;
   }
 }
+
+/* Mineacle Bans v3.8.33: mobile link-menu polish
+   - Clean pseudo-element X so rotated bars do not leave a dark/glitched middle mark
+   - Vote/Bans become mobile text links instead of boxed buttons
+   - Menu panel shrink-wraps the button stack so the bottom blank area is shorter */
+@media (max-width: 980px){
+  .mobile-nav-toggle,
+  .mcx-header .mobile-nav-toggle,
+  #siteHeader .mobile-nav-toggle{
+    overflow:hidden!important;
+    isolation:isolate!important;
+  }
+
+  .mobile-nav-toggle::before,
+  .mobile-nav-toggle::after,
+  .mcx-header .mobile-nav-toggle::before,
+  .mcx-header .mobile-nav-toggle::after,
+  #siteHeader .mobile-nav-toggle::before,
+  #siteHeader .mobile-nav-toggle::after{
+    content:""!important;
+    position:absolute!important;
+    left:50%!important;
+    top:50%!important;
+    width:32px!important;
+    height:4px!important;
+    border-radius:999px!important;
+    background:#fff!important;
+    box-shadow:none!important;
+    filter:none!important;
+    text-shadow:none!important;
+    opacity:0!important;
+    transform:translate(-50%, -50%) rotate(0deg)!important;
+    transform-origin:center!important;
+    transition:opacity .12s ease, transform .16s ease!important;
+    z-index:2!important;
+    pointer-events:none!important;
+  }
+
+  .mcx-header.mobile-open .mobile-nav-toggle span,
+  #siteHeader.mcx-header.mobile-open .mobile-nav-toggle span{
+    opacity:0!important;
+    transform:scale(.15)!important;
+    box-shadow:none!important;
+    filter:none!important;
+    text-shadow:none!important;
+  }
+
+  .mcx-header.mobile-open .mobile-nav-toggle::before,
+  #siteHeader.mcx-header.mobile-open .mobile-nav-toggle::before{
+    opacity:1!important;
+    transform:translate(-50%, -50%) rotate(45deg)!important;
+  }
+
+  .mcx-header.mobile-open .mobile-nav-toggle::after,
+  #siteHeader.mcx-header.mobile-open .mobile-nav-toggle::after{
+    opacity:1!important;
+    transform:translate(-50%, -50%) rotate(-45deg)!important;
+  }
+
+  #siteHeader.mcx-header > #mainNav.main-nav.mcx-mobile-menu,
+  #siteHeader.mcx-header.mobile-open > #mainNav.main-nav.mcx-mobile-menu{
+    height:auto!important;
+    min-height:0!important;
+    max-height:calc(var(--mcx-real-vh, 100dvh) - var(--mcx-mobile-panel-top) - max(42px, env(safe-area-inset-bottom, 0px)))!important;
+    padding:30px 22px 34px!important;
+    overflow:hidden!important;
+  }
+
+  #siteHeader.mcx-header > #mainNav.main-nav.mcx-mobile-menu > .mcx-mobile-menu-stage,
+  #siteHeader.mcx-header.mobile-open > #mainNav.main-nav.mcx-mobile-menu > .mcx-mobile-menu-stage{
+    height:auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    justify-content:flex-start!important;
+    gap:20px!important;
+  }
+
+  #siteHeader.mcx-header > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-text,
+  #siteHeader.mcx-header.mobile-open > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-text,
+  #siteHeader.mcx-header > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-vote,
+  #siteHeader.mcx-header.mobile-open > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-vote,
+  #siteHeader.mcx-header > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-bans,
+  #siteHeader.mcx-header.mobile-open > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-bans{
+    width:100%!important;
+    height:42px!important;
+    min-height:42px!important;
+    padding:0!important;
+    border:0!important;
+    border-radius:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
+    outline:0!important;
+    filter:none!important;
+  }
+
+  #siteHeader.mcx-header > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-text span,
+  #siteHeader.mcx-header.mobile-open > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-text span{
+    position:relative!important;
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    min-width:96px!important;
+    padding:7px 16px 12px!important;
+    color:#fff!important;
+    font-size:20px!important;
+    font-weight:950!important;
+    letter-spacing:.055em!important;
+    line-height:1!important;
+    text-shadow:
+      0 3px 0 rgba(0,0,0,.72),
+      0 0 16px rgba(255,255,255,.12)!important;
+    transition:transform .1s ease, color .12s ease, text-shadow .12s ease!important;
+  }
+
+  #siteHeader.mcx-header > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-text span::before,
+  #siteHeader.mcx-header.mobile-open > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-text span::before{
+    content:""!important;
+    position:absolute!important;
+    left:-18px!important;
+    right:-18px!important;
+    bottom:2px!important;
+    height:2px!important;
+    border-radius:999px!important;
+    background:linear-gradient(90deg, transparent 0%, rgba(255,136,255,.68) 18%, rgba(255,85,255,.95) 50%, rgba(255,136,255,.68) 82%, transparent 100%)!important;
+    box-shadow:0 0 18px rgba(255,85,255,.38)!important;
+    opacity:.70!important;
+    pointer-events:none!important;
+  }
+
+  #siteHeader.mcx-header > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-text span::after,
+  #siteHeader.mcx-header.mobile-open > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-text span::after{
+    content:""!important;
+    position:absolute!important;
+    left:50%!important;
+    bottom:-3px!important;
+    width:8px!important;
+    height:8px!important;
+    border-radius:2px!important;
+    background:#ff88ff!important;
+    box-shadow:0 0 14px rgba(255,136,255,.55)!important;
+    transform:translateX(-50%) rotate(45deg)!important;
+    opacity:.88!important;
+    pointer-events:none!important;
+  }
+
+  #siteHeader.mcx-header > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-text:hover span,
+  #siteHeader.mcx-header > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-text:focus-visible span,
+  #siteHeader.mcx-header > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-text.active span,
+  #siteHeader.mcx-header.mobile-open > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-text:hover span,
+  #siteHeader.mcx-header.mobile-open > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-text:focus-visible span,
+  #siteHeader.mcx-header.mobile-open > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-text.active span{
+    color:#ffd8ff!important;
+    text-shadow:
+      0 3px 0 rgba(0,0,0,.72),
+      0 0 18px rgba(255,136,255,.32)!important;
+  }
+
+  #siteHeader.mcx-header > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-text:hover span::before,
+  #siteHeader.mcx-header > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-text:focus-visible span::before,
+  #siteHeader.mcx-header > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-text.active span::before,
+  #siteHeader.mcx-header.mobile-open > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-text:hover span::before,
+  #siteHeader.mcx-header.mobile-open > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-text:focus-visible span::before,
+  #siteHeader.mcx-header.mobile-open > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-text.active span::before{
+    opacity:1!important;
+    height:3px!important;
+    box-shadow:0 0 24px rgba(255,85,255,.52)!important;
+  }
+
+  #siteHeader.mcx-header > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-text:active span,
+  #siteHeader.mcx-header.mobile-open > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-text:active span{
+    transform:translateY(2px)!important;
+  }
+
+  #siteHeader.mcx-header > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-store,
+  #siteHeader.mcx-header.mobile-open > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-store,
+  #siteHeader.mcx-header > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-discord,
+  #siteHeader.mcx-header.mobile-open > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-discord{
+    height:64px!important;
+    min-height:64px!important;
+  }
+}
+
+@media (max-width: 430px){
+  #siteHeader.mcx-header > #mainNav.main-nav.mcx-mobile-menu,
+  #siteHeader.mcx-header.mobile-open > #mainNav.main-nav.mcx-mobile-menu{
+    padding:26px 18px 30px!important;
+  }
+
+  #siteHeader.mcx-header > #mainNav.main-nav.mcx-mobile-menu > .mcx-mobile-menu-stage,
+  #siteHeader.mcx-header.mobile-open > #mainNav.main-nav.mcx-mobile-menu > .mcx-mobile-menu-stage{
+    gap:17px!important;
+  }
+
+  #siteHeader.mcx-header > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-text,
+  #siteHeader.mcx-header.mobile-open > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-text{
+    height:39px!important;
+    min-height:39px!important;
+  }
+
+  #siteHeader.mcx-header > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-text span,
+  #siteHeader.mcx-header.mobile-open > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-text span{
+    font-size:19px!important;
+  }
+
+  #siteHeader.mcx-header > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-store,
+  #siteHeader.mcx-header.mobile-open > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-store,
+  #siteHeader.mcx-header > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-discord,
+  #siteHeader.mcx-header.mobile-open > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-discord{
+    height:62px!important;
+    min-height:62px!important;
+  }
+}
+
+@media (max-width: 980px) and (max-height: 720px){
+  #siteHeader.mcx-header > #mainNav.main-nav.mcx-mobile-menu,
+  #siteHeader.mcx-header.mobile-open > #mainNav.main-nav.mcx-mobile-menu{
+    padding:20px 16px 24px!important;
+  }
+
+  #siteHeader.mcx-header > #mainNav.main-nav.mcx-mobile-menu > .mcx-mobile-menu-stage,
+  #siteHeader.mcx-header.mobile-open > #mainNav.main-nav.mcx-mobile-menu > .mcx-mobile-menu-stage{
+    gap:12px!important;
+  }
+
+  #siteHeader.mcx-header > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-text,
+  #siteHeader.mcx-header.mobile-open > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-text{
+    height:34px!important;
+    min-height:34px!important;
+  }
+
+  #siteHeader.mcx-header > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-text span,
+  #siteHeader.mcx-header.mobile-open > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-text span{
+    font-size:17px!important;
+  }
+
+  #siteHeader.mcx-header > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-store,
+  #siteHeader.mcx-header.mobile-open > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-store,
+  #siteHeader.mcx-header > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-discord,
+  #siteHeader.mcx-header.mobile-open > #mainNav.main-nav.mcx-mobile-menu .mcx-mobile-discord{
+    height:56px!important;
+    min-height:56px!important;
+  }
+}
+
