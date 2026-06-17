@@ -13347,3 +13347,149 @@ textarea,
     padding:18px!important;
   }
 }
+
+
+/* Mineacle Bans v3.8.49: stronger real overlay + looser hero spacing
+   - Adds an actual darker nav-tone overlay across the scenic background
+   - Makes the bottom 10-14% fade harder into the below-fold color without a visible cut line
+   - Moves hero content/feature tiles down and increases vertical rhythm between sections */
+:root{
+  --mineacle-v49-dark:#04020a;
+  --mineacle-v49-nav-tint:rgba(18,15,34,.34);
+  --mineacle-v49-section-gap:72px;
+}
+
+/* Ensure the page below the fold is the exact color the hero fades into. */
+html,
+body,
+.page-shell,
+.site-main,
+main{
+  background:var(--mineacle-v49-dark)!important;
+}
+
+/* Real overlay/tint plus a darker bottom ramp. This intentionally overrides the earlier lighter pass. */
+.bans-v34-background-fold::after,
+.bans-v32-logo-only-fold::after,
+.bans-v3-hero::after,
+.bans-records-hero::after{
+  content:""!important;
+  position:absolute!important;
+  inset:0!important;
+  pointer-events:none!important;
+  z-index:1!important;
+  background:
+    linear-gradient(180deg,
+      rgba(18,15,34,.30) 0%,
+      rgba(18,15,34,.34) 18%,
+      rgba(18,15,34,.38) 38%,
+      rgba(14,9,26,.50) 58%,
+      rgba(9,5,17,.68) 74%,
+      rgba(5,3,10,.88) 86%,
+      var(--mineacle-v49-dark) 96%,
+      var(--mineacle-v49-dark) 100%),
+    radial-gradient(circle at 50% 18%, rgba(203,88,255,.080), transparent 34rem),
+    linear-gradient(90deg,
+      rgba(4,2,10,.26) 0%,
+      rgba(18,15,34,.14) 22%,
+      rgba(18,15,34,.14) 78%,
+      rgba(4,2,10,.26) 100%)!important;
+}
+
+/* Add vertical room so the above-fold content does not feel cramped at the top. */
+.bans-v34-background-fold,
+.bans-v32-logo-only-fold,
+.bans-v3-hero,
+.bans-records-hero{
+  min-height:860px!important;
+  height:92vh!important;
+}
+
+/* Hero text starts lower and breathes more. */
+.ban-hero-content{
+  padding-top:clamp(230px, 25vh, 300px)!important;
+}
+
+/* Make hero copy, tiles, and records read as separate sections with even spacing. */
+.guard-info-tiles{
+  margin-top:var(--mineacle-v49-section-gap)!important;
+}
+
+.bans-section,
+.bans-v3-results{
+  margin-top:var(--mineacle-v49-section-gap)!important;
+}
+
+/* Keep the cards comfortably spaced and stop visual crowding. */
+.guard-info-tiles{
+  gap:28px!important;
+}
+
+.guard-info-tile{
+  min-height:218px!important;
+}
+
+/* Smooth the seam just below the hero by letting the results area sit on the same dark tone. */
+.bans-v3-results,
+.bans-section{
+  position:relative!important;
+  z-index:5!important;
+}
+
+/* Mobile keeps the same darker overlay and extends the hero enough to avoid a hard black cut. */
+@media(max-width:980px){
+  :root{
+    --mineacle-v49-section-gap:44px;
+  }
+
+  .bans-v34-background-fold,
+  .bans-v32-logo-only-fold,
+  .bans-v3-hero,
+  .bans-records-hero{
+    min-height:680px!important;
+    height:74vh!important;
+  }
+
+  .ban-hero-content{
+    padding-top:calc(var(--mcx-mobile-nav-h, 76px) + 148px)!important;
+  }
+
+  .bans-v34-background-fold::after,
+  .bans-v32-logo-only-fold::after,
+  .bans-v3-hero::after,
+  .bans-records-hero::after{
+    background:
+      linear-gradient(180deg,
+        rgba(18,15,34,.28) 0%,
+        rgba(18,15,34,.34) 24%,
+        rgba(13,8,24,.52) 55%,
+        rgba(8,5,15,.78) 80%,
+        var(--mineacle-v49-dark) 96%,
+        var(--mineacle-v49-dark) 100%),
+      radial-gradient(circle at 50% 18%, rgba(203,88,255,.070), transparent 24rem)!important;
+  }
+
+  .guard-info-tiles{
+    margin-top:44px!important;
+    gap:18px!important;
+  }
+
+  .bans-section,
+  .bans-v3-results{
+    margin-top:44px!important;
+  }
+}
+
+@media(max-width:640px){
+  .bans-v34-background-fold,
+  .bans-v32-logo-only-fold,
+  .bans-v3-hero,
+  .bans-records-hero{
+    min-height:640px!important;
+    height:72vh!important;
+  }
+
+  .ban-hero-content{
+    padding-top:calc(var(--mcx-mobile-nav-h, 76px) + 132px)!important;
+  }
+}
