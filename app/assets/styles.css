@@ -14619,3 +14619,136 @@ html body #siteHeader.mcx-header .mcx-discord:focus-visible .mcx-discord-members
     display:none!important;
   }
 }
+
+/* Mineacle Bans v3.8.82: unified white/clear icon buttons
+   Search clear X, ban-row info I, and ban modal close X now share the same static, hover, focus, and pressed visual language. */
+.ban-search-clear,
+.bans-v3-search .ban-search-clear,
+.bans-v31-results-search .ban-search-clear,
+.ban-search-field .ban-search-clear,
+.bans-v3-search .ban-search-field .ban-search-clear,
+.bans-v31-results-search .ban-search-field .ban-search-clear,
+.search-clear,
+.info-btn,
+.js-info-button.info-btn,
+.ban-player-line .info-btn,
+.mineacle-ban-close-single{
+  border:1px solid rgba(255,255,255,.24)!important;
+  border-radius:8px!important;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.115) 0%, rgba(255,255,255,.030) 100%),
+    rgba(18,15,34,.44)!important;
+  color:rgba(255,255,255,.96)!important;
+  text-shadow:0 1px 0 rgba(0,0,0,.55)!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.14),
+    inset 0 -2px 0 rgba(0,0,0,.16),
+    inset 0 0 10px rgba(255,255,255,.035),
+    0 5px 11px rgba(0,0,0,.20)!important;
+  filter:none!important;
+  outline:none!important;
+  transition:
+    transform .08s ease,
+    filter .12s ease,
+    border-color .12s ease,
+    background .12s ease,
+    box-shadow .12s ease,
+    color .12s ease!important;
+}
+
+.ban-search-clear:hover,
+.bans-v3-search .ban-search-clear:hover,
+.bans-v31-results-search .ban-search-clear:hover,
+.ban-search-field .ban-search-clear:hover,
+.bans-v3-search .ban-search-field .ban-search-clear:hover,
+.bans-v31-results-search .ban-search-field .ban-search-clear:hover,
+.search-clear:hover,
+.info-btn:hover,
+.js-info-button.info-btn:hover,
+.ban-player-line .info-btn:hover,
+.mineacle-ban-close-single:hover,
+.mineacle-ban-close-single:focus-visible,
+.info-btn:focus-visible,
+.js-info-button.info-btn:focus-visible,
+.ban-player-line .info-btn:focus-visible,
+.search-clear:focus-visible,
+.ban-search-clear:focus-visible,
+.bans-v3-search .ban-search-clear:focus-visible,
+.bans-v31-results-search .ban-search-clear:focus-visible{
+  border-color:rgba(255,255,255,.46)!important;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.165) 0%, rgba(255,255,255,.050) 100%),
+    rgba(24,16,42,.56)!important;
+  color:#fff!important;
+  filter:brightness(1.08)!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.20),
+    inset 0 -2px 0 rgba(0,0,0,.18),
+    inset 0 0 12px rgba(255,255,255,.055),
+    0 0 0 1px rgba(255,255,255,.030),
+    0 0 18px rgba(255,255,255,.10),
+    0 8px 15px rgba(0,0,0,.24)!important;
+}
+
+.ban-search-clear:hover,
+.bans-v3-search .ban-search-clear:hover,
+.bans-v31-results-search .ban-search-clear:hover,
+.ban-search-field .ban-search-clear:hover,
+.bans-v3-search .ban-search-field .ban-search-clear:hover,
+.bans-v31-results-search .ban-search-field .ban-search-clear:hover,
+.search-clear:hover{
+  transform:translateY(-50%) scale(1.04)!important;
+}
+
+.info-btn:hover,
+.js-info-button.info-btn:hover,
+.ban-player-line .info-btn:hover,
+.mineacle-ban-close-single:hover,
+.mineacle-ban-close-single:focus-visible,
+.info-btn:focus-visible,
+.js-info-button.info-btn:focus-visible,
+.ban-player-line .info-btn:focus-visible{
+  transform:scale(1.04)!important;
+}
+
+.ban-search-clear:active,
+.bans-v3-search .ban-search-clear:active,
+.bans-v31-results-search .ban-search-clear:active,
+.ban-search-field .ban-search-clear:active,
+.bans-v3-search .ban-search-field .ban-search-clear:active,
+.bans-v31-results-search .ban-search-field .ban-search-clear:active,
+.search-clear:active{
+  transform:translateY(calc(-50% + 2px)) scale(.96)!important;
+  filter:brightness(.92)!important;
+  border-color:rgba(255,255,255,.34)!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.10),
+    inset 0 -1px 0 rgba(0,0,0,.24),
+    inset 0 0 8px rgba(255,255,255,.030),
+    0 2px 5px rgba(0,0,0,.26)!important;
+}
+
+.info-btn:active,
+.js-info-button.info-btn:active,
+.ban-player-line .info-btn:active,
+.mineacle-ban-close-single:active{
+  transform:translateY(2px) scale(.96)!important;
+  filter:brightness(.92)!important;
+  border-color:rgba(255,255,255,.34)!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.10),
+    inset 0 -1px 0 rgba(0,0,0,.24),
+    inset 0 0 8px rgba(255,255,255,.030),
+    0 2px 5px rgba(0,0,0,.26)!important;
+}
+
+.mineacle-ban-close-single{
+  font-size:27px!important;
+  font-weight:950!important;
+}
+
+.info-btn,
+.js-info-button.info-btn,
+.ban-player-line .info-btn{
+  font-weight:900!important;
+}
