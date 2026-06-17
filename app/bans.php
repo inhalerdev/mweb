@@ -12,31 +12,31 @@ mineacle_header('bans');
     <section class="bans-v3-hero bans-v32-logo-only-fold bans-v34-background-fold bans-records-hero" aria-label="Public ban records">
         <div class="ban-hero-content">
             <div class="ban-hero-copy">
-                <span class="ban-hero-kicker">Public Ban Records</span>
-                <h1>Mineacle keeps survival fair</h1>
-                <p>Active bans are listed publicly while MineacleClientGuard and staff review behavior that points to hacked clients, unfair combat, movement abuse, or unsafe automation.</p>
+                <span class="ban-hero-kicker">Mineacle Enforcement</span>
+                <h1>Public Ban Records</h1>
+                <p>Active bans are listed publicly so players can see how Mineacle protects Survival. MineacleClientGuard and staff review patterns around hacked clients, unfair combat, movement abuse, and unsafe automation.</p>
             </div>
 
             <div class="guard-info-tiles" aria-label="What MineacleClientGuard watches for">
                 <article class="guard-info-tile">
                     <span class="guard-info-number">01</span>
-                    <h2>Allowed clients</h2>
-                    <p>Checks client brand data against the allowed-client list when readable. Brand data helps, but it is not treated as perfect proof by itself.</p>
+                    <h2>Allowed client signals</h2>
+                    <p>Reads client brand data when available and compares it against the allowed-client list. Useful signal, never the only proof.</p>
                 </article>
                 <article class="guard-info-tile">
                     <span class="guard-info-number">02</span>
-                    <h2>Movement &amp; velocity</h2>
-                    <p>Watches for fly-like movement, abnormal vertical patterns, strange air states, anti-knockback, and velocity canceling.</p>
+                    <h2>Movement &amp; knockback</h2>
+                    <p>Reviews fly-like movement, abnormal vertical behavior, strange air states, reduced knockback, and velocity canceling.</p>
                 </article>
                 <article class="guard-info-tile">
                     <span class="guard-info-number">03</span>
-                    <h2>Combat &amp; placement</h2>
-                    <p>Looks for automated attack timing, repeated aura-like behavior, fast place, auto place, and scaffold-style block patterns.</p>
+                    <h2>Combat &amp; build patterns</h2>
+                    <p>Looks for automated timing, repeated aura-like combat, fast place, auto place, and scaffold-style building patterns.</p>
                 </article>
                 <article class="guard-info-tile">
                     <span class="guard-info-number">04</span>
-                    <h2>Evidence based</h2>
-                    <p>Violations stack over time. Lower confidence alerts staff, repeated suspicious behavior raises violations, and obvious patterns can autoban.</p>
+                    <h2>Evidence over time</h2>
+                    <p>Violations stack before action. Staff alerts come first, repeated confidence increases violations, and obvious repeated patterns can autoban.</p>
                 </article>
             </div>
         </div>

@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&family=Sora:wght@600;700;800&display=swap');
 :root{--bg:#05020b;--panel:#12091d;--line:rgba(255,136,255,.22);--line2:rgba(255,255,255,.09);--pink:#ff88ff;--text:#fff;--soft:#ddd4e7;--muted:#a99ab7;--container:1440px;--gap:24px}
 *{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 50% 0%,rgba(91,24,135,.25),transparent 38rem),linear-gradient(180deg,#090212,#030106 58%,#020104);color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
 body:after{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.018),rgba(255,255,255,.018) 1px,transparent 1px,transparent 4px);opacity:.45}
@@ -11029,6 +11029,315 @@ body{
 @media(max-width:390px){
   .ban-hero-copy h1{
     font-size:36px!important;
+  }
+
+  .guard-info-tile{
+    flex-basis:86vw!important;
+  }
+}
+
+/* Mineacle Bans v3.8.39: vertical breathing + professional playful-serious typography
+   - Loosens hero spacing so the records area no longer crashes into the ClientGuard tiles
+   - Switches hero/nav/card display type to Sora for a cleaner but still branded feel
+   - Makes the hero image occupy more vertical space with a smoother fade into the page
+   - Keeps the v3.8.38 Public Ban Records / ClientGuard tile structure intact */
+
+body{
+  font-family:Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif!important;
+  background:linear-gradient(180deg, #130821 0%, #0b0616 48%, #06030d 74%, #030107 100%)!important;
+}
+
+.mcx-link,
+.mcx-button,
+.mcx-play,
+.ban-hero-kicker,
+.ban-hero-copy h1,
+.guard-info-number,
+.guard-info-tile h2,
+.bans-v3-kicker,
+.bans-v3-results-head h2,
+.section-heading h2,
+.btn{
+  font-family:Sora, Inter, system-ui, sans-serif!important;
+}
+
+.bans-v34-background-fold,
+.bans-v32-logo-only-fold,
+.bans-v3-hero,
+.bans-records-hero{
+  min-height:1120px!important;
+  height:132vh!important;
+}
+
+.bans-v34-background-fold::before,
+.bans-v32-logo-only-fold::before,
+.bans-v3-hero::before,
+.bans-records-hero::before{
+  background:url("bans-hero-background-v35.png?v=bansfull3.8.39") center 6% / cover no-repeat!important;
+  filter:blur(3.2px) saturate(.97) brightness(.77)!important;
+  transform:scale(1.026)!important;
+}
+
+.bans-v34-background-fold::after,
+.bans-v32-logo-only-fold::after,
+.bans-v3-hero::after,
+.bans-records-hero::after{
+  background:
+    linear-gradient(180deg,
+      rgba(5,3,12,.04) 0%,
+      rgba(10,6,20,.06) 18%,
+      rgba(16,9,30,.11) 36%,
+      rgba(18,10,34,.22) 56%,
+      rgba(15,9,28,.42) 72%,
+      rgba(10,6,20,.70) 88%,
+      rgba(5,3,11,.92) 97%,
+      #030107 100%),
+    radial-gradient(circle at 50% 18%, rgba(173,84,255,.12), transparent 40rem),
+    linear-gradient(90deg, rgba(5,3,12,.24), rgba(5,3,12,.03) 24%, rgba(5,3,12,.03) 76%, rgba(5,3,12,.24))!important;
+}
+
+.ban-hero-content{
+  padding-top:clamp(245px, 26vh, 330px)!important;
+}
+
+.ban-hero-copy{
+  max-width:860px!important;
+}
+
+.ban-hero-kicker{
+  min-height:38px!important;
+  padding:0 16px!important;
+  font-size:12px!important;
+  font-weight:800!important;
+  letter-spacing:.115em!important;
+}
+
+.ban-hero-copy h1{
+  max-width:900px!important;
+  margin:26px 0 24px!important;
+  font-size:clamp(56px, 6.6vw, 92px)!important;
+  line-height:1.02!important;
+  letter-spacing:-.048em!important;
+  text-transform:none!important;
+  font-weight:800!important;
+  text-shadow:
+    0 4px 0 rgba(0,0,0,.44),
+    0 0 34px rgba(176,84,255,.18)!important;
+}
+
+.ban-hero-copy p{
+  max-width:790px!important;
+  color:rgba(240,233,255,.88)!important;
+  font-size:clamp(17px, 1.4vw, 21px)!important;
+  line-height:1.78!important;
+  font-weight:650!important;
+}
+
+.guard-info-tiles{
+  gap:22px!important;
+  margin-top:58px!important;
+}
+
+.guard-info-tile{
+  min-height:226px!important;
+  padding:26px 22px 24px!important;
+  border-radius:24px!important;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.11) 0%, rgba(255,255,255,.045) 100%),
+    linear-gradient(135deg, rgba(50,23,78,.52), rgba(11,6,22,.78))!important;
+}
+
+.guard-info-number{
+  width:42px!important;
+  height:30px!important;
+  border-radius:11px!important;
+  font-size:11px!important;
+  font-weight:800!important;
+}
+
+.guard-info-tile h2{
+  margin:20px 0 12px!important;
+  font-size:20px!important;
+  line-height:1.22!important;
+  letter-spacing:-.026em!important;
+  font-weight:800!important;
+}
+
+.guard-info-tile p{
+  font-size:14.5px!important;
+  line-height:1.66!important;
+  font-weight:600!important;
+  color:rgba(236,229,249,.80)!important;
+}
+
+.bans-v3-results,
+.bans-section{
+  margin-top:-230px!important;
+}
+
+.bans-v3-results-head{
+  padding:34px 34px 30px!important;
+}
+
+.bans-v3-kicker{
+  font-weight:800!important;
+  letter-spacing:.16em!important;
+}
+
+.bans-v3-results-head h2{
+  margin-top:10px!important;
+  font-size:clamp(38px, 4vw, 56px)!important;
+  line-height:1.05!important;
+  letter-spacing:-.045em!important;
+  font-weight:800!important;
+}
+
+.bans-v3-search{
+  padding:28px 30px!important;
+}
+
+@media(max-width:1180px){
+  .bans-v34-background-fold,
+  .bans-v32-logo-only-fold,
+  .bans-v3-hero,
+  .bans-records-hero{
+    min-height:1240px!important;
+    height:auto!important;
+  }
+
+  .guard-info-tiles{
+    grid-template-columns:repeat(2, minmax(0, 1fr))!important;
+  }
+
+  .bans-v3-results,
+  .bans-section{
+    margin-top:-190px!important;
+  }
+}
+
+@media(max-width:980px){
+  .bans-v34-background-fold,
+  .bans-v32-logo-only-fold,
+  .bans-v3-hero,
+  .bans-records-hero{
+    min-height:1010px!important;
+    height:112vh!important;
+  }
+
+  .bans-v34-background-fold::before,
+  .bans-v32-logo-only-fold::before,
+  .bans-v3-hero::before,
+  .bans-records-hero::before{
+    background:url("bans-hero-background-mobile-v36.png?v=bansfull3.8.39") center top / cover no-repeat!important;
+    filter:blur(3.2px) saturate(.97) brightness(.77)!important;
+    transform:scale(1.025)!important;
+  }
+
+  .bans-v34-background-fold::after,
+  .bans-v32-logo-only-fold::after,
+  .bans-v3-hero::after,
+  .bans-records-hero::after{
+    background:
+      linear-gradient(180deg,
+        rgba(6,4,13,.04) 0%,
+        rgba(12,7,23,.07) 19%,
+        rgba(18,11,33,.16) 40%,
+        rgba(16,9,30,.34) 62%,
+        rgba(12,7,24,.64) 82%,
+        rgba(5,3,10,.95) 100%),
+      radial-gradient(circle at 50% 14%, rgba(167,84,255,.10), transparent 24rem)!important;
+  }
+
+  .ban-hero-content{
+    width:calc(100% - 30px)!important;
+    padding-top:165px!important;
+  }
+
+  .ban-hero-kicker{
+    min-height:34px!important;
+    font-size:11px!important;
+  }
+
+  .ban-hero-copy h1{
+    margin:20px 0 18px!important;
+    font-size:clamp(42px, 11vw, 60px)!important;
+    line-height:1.04!important;
+    letter-spacing:-.048em!important;
+  }
+
+  .ban-hero-copy p{
+    max-width:660px!important;
+    font-size:15.5px!important;
+    line-height:1.72!important;
+    font-weight:600!important;
+  }
+
+  .guard-info-tiles{
+    gap:16px!important;
+    margin-top:38px!important;
+    padding-bottom:18px!important;
+  }
+
+  .guard-info-tile{
+    flex:0 0 min(84vw, 360px)!important;
+    min-height:214px!important;
+    padding:22px 20px 21px!important;
+  }
+
+  .guard-info-tile h2{
+    font-size:19px!important;
+    line-height:1.22!important;
+  }
+
+  .guard-info-tile p{
+    font-size:13.5px!important;
+    line-height:1.62!important;
+  }
+
+  .bans-v3-results,
+  .bans-section{
+    margin-top:-150px!important;
+  }
+
+  .bans-v3-results-head{
+    padding:26px 20px 24px!important;
+  }
+
+  .bans-v3-results-head h2{
+    font-size:40px!important;
+  }
+
+  .bans-v3-search{
+    padding:22px 18px!important;
+  }
+}
+
+@media(max-width:640px){
+  .bans-v34-background-fold,
+  .bans-v32-logo-only-fold,
+  .bans-v3-hero,
+  .bans-records-hero{
+    min-height:980px!important;
+    height:108vh!important;
+  }
+
+  .ban-hero-content{
+    padding-top:150px!important;
+  }
+
+  .ban-hero-copy h1{
+    font-size:44px!important;
+  }
+
+  .bans-v3-results,
+  .bans-section{
+    margin-top:-128px!important;
+  }
+}
+
+@media(max-width:390px){
+  .ban-hero-copy h1{
+    font-size:40px!important;
   }
 
   .guard-info-tile{
