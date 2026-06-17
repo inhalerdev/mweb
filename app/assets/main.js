@@ -83,11 +83,13 @@
     if (!banPagination || !prevPageButton || !nextPageButton || !pageInfo) return;
 
     const totalPages = Math.max(1, Number(currentPagination.total_pages || 1));
-    const shouldShow = totalPages > 1;
+    const total = Number(currentPagination.total || 0);
+    const perPage = Math.max(1, Number(currentPagination.per_page || 25));
+    const shouldShow = total > perPage && totalPages > 1;
 
     banPagination.hidden = !shouldShow;
     banPagination.style.display = shouldShow ? "flex" : "none";
-    pageInfo.textContent = `Page ${currentPagination.page || 1} of ${totalPages}`;
+    pageInfo.textContent = shouldShow ? `Page ${currentPagination.page || 1} of ${totalPages}` : "";
 
     prevPageButton.disabled = !currentPagination.has_prev;
     nextPageButton.disabled = !currentPagination.has_next;
@@ -213,7 +215,10 @@
 
   function updateClearButton() {
     if (!clearSearch || !banSearch) return;
-    clearSearch.classList.toggle("show", banSearch.value.length > 0);
+    const hasValue = banSearch.value.trim().length > 0;
+    clearSearch.classList.toggle("show", hasValue);
+    clearSearch.hidden = !hasValue;
+    banSearch.classList.toggle("has-value", hasValue);
   }
 
   function createBanModal() {
@@ -427,28 +432,12 @@
     });
   }
 
-
-  function updateMobileViewportVars() {
-    const viewport = window.visualViewport;
-    const height = viewport ? viewport.height : window.innerHeight;
-    if (!height) return;
-    document.documentElement.style.setProperty("--mcx-real-vh", `${Math.round(height)}px`);
-  }
-
   function bindMobileNavigation() {
     const header = document.getElementById("siteHeader");
     const toggle = header ? $(".mobile-nav-toggle", header) : null;
     const menu = document.getElementById("mainNav");
 
     if (!header || !toggle || !menu) return;
-
-    updateMobileViewportVars();
-    window.addEventListener("resize", updateMobileViewportVars, { passive: true });
-    window.addEventListener("orientationchange", updateMobileViewportVars, { passive: true });
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener("resize", updateMobileViewportVars, { passive: true });
-      window.visualViewport.addEventListener("scroll", updateMobileViewportVars, { passive: true });
-    }
 
     const setOpen = (open) => {
       header.classList.toggle("mobile-open", open);
