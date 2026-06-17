@@ -15630,3 +15630,125 @@ main,
     display:none!important;
   }
 }
+
+
+/* Mineacle Bans v3.8.63: restore desktop scroll-expanded nav
+   v3.8.62 fixed the double-line border, but it also kept the scrolled nav feeling like the floating nav.
+   This restores the previous expand-on-scroll behavior while keeping the cleaner single-stroke edge effect. */
+
+@media (min-width: 981px){
+  /* Shared cleanup: no stacked border/pseudo rings on either state. */
+  #siteHeader.mcx-header,
+  #siteHeader.mcx-header.site-header,
+  .mcx-header.site-header{
+    border:0!important;
+    outline:0!important;
+    box-shadow:none!important;
+  }
+
+  #siteHeader .mcx-nav-shell::before,
+  #siteHeader .mcx-nav-shell::after,
+  #siteHeader.mcx-header .mcx-nav-shell::before,
+  #siteHeader.mcx-header .mcx-nav-shell::after,
+  .mcx-header .mcx-nav-shell::before,
+  .mcx-header .mcx-nav-shell::after{
+    content:none!important;
+    display:none!important;
+    opacity:0!important;
+    border:0!important;
+    box-shadow:none!important;
+    background:none!important;
+  }
+
+  /* Floating state: centered framed container. */
+  #siteHeader.mcx-header:not(.is-scrolled),
+  #siteHeader.mcx-header.site-header:not(.is-scrolled),
+  .mcx-header.site-header:not(.is-scrolled){
+    position:fixed!important;
+    top:0!important;
+    left:0!important;
+    right:0!important;
+    width:100%!important;
+    max-width:100%!important;
+    background:transparent!important;
+    pointer-events:none!important;
+  }
+
+  #siteHeader.mcx-header:not(.is-scrolled) .mcx-nav-shell,
+  #siteHeader.mcx-header.site-header:not(.is-scrolled) .mcx-nav-shell,
+  .mcx-header.site-header:not(.is-scrolled) .mcx-nav-shell{
+    width:min(calc(100vw - 220px), 1500px)!important;
+    max-width:1500px!important;
+    margin:24px auto 0!important;
+    pointer-events:auto!important;
+    border:1px solid rgba(203,88,255,.34)!important;
+    border-radius:26px!important;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(255,136,255,.045), transparent 30rem),
+      linear-gradient(180deg, rgba(18,15,34,.68) 0%, rgba(12,8,22,.72) 100%)!important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.070),
+      inset 0 0 10px rgba(203,88,255,.070),
+      inset 0 -1px 0 rgba(42,10,70,.40),
+      0 18px 42px rgba(0,0,0,.24)!important;
+    overflow:visible!important;
+    clip-path:none!important;
+  }
+
+  /* Scrolled state: full-width bar restored. */
+  #siteHeader.mcx-header.is-scrolled,
+  #siteHeader.mcx-header.site-header.is-scrolled,
+  .mcx-header.site-header.is-scrolled,
+  .site-header.is-scrolled{
+    position:fixed!important;
+    top:0!important;
+    left:0!important;
+    right:0!important;
+    width:100vw!important;
+    max-width:100vw!important;
+    margin:0!important;
+    padding:0!important;
+    background:transparent!important;
+    border:0!important;
+    border-radius:0!important;
+    box-shadow:none!important;
+    pointer-events:none!important;
+    transform:none!important;
+  }
+
+  #siteHeader.mcx-header.is-scrolled .mcx-nav-shell,
+  #siteHeader.mcx-header.site-header.is-scrolled .mcx-nav-shell,
+  .mcx-header.site-header.is-scrolled .mcx-nav-shell,
+  .site-header.is-scrolled .mcx-nav-shell{
+    width:100vw!important;
+    max-width:100vw!important;
+    min-width:100vw!important;
+    margin:0!important;
+    padding-left:max(46px, env(safe-area-inset-left, 0px))!important;
+    padding-right:max(46px, env(safe-area-inset-right, 0px))!important;
+    pointer-events:auto!important;
+    border-radius:0!important;
+    border-top:0!important;
+    border-left:0!important;
+    border-right:0!important;
+    border-bottom:1px solid rgba(203,88,255,.30)!important;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(255,136,255,.038), transparent 32rem),
+      linear-gradient(180deg, rgba(18,15,34,.76) 0%, rgba(12,8,22,.80) 100%)!important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.055),
+      inset 0 0 9px rgba(203,88,255,.060),
+      inset 0 -1px 0 rgba(42,10,70,.36),
+      0 14px 34px rgba(0,0,0,.22)!important;
+    overflow:visible!important;
+    clip-path:none!important;
+  }
+}
+
+@media (max-width: 1280px) and (min-width: 981px){
+  #siteHeader.mcx-header:not(.is-scrolled) .mcx-nav-shell,
+  #siteHeader.mcx-header.site-header:not(.is-scrolled) .mcx-nav-shell,
+  .mcx-header.site-header:not(.is-scrolled) .mcx-nav-shell{
+    width:min(calc(100vw - 96px), 1380px)!important;
+  }
+}
