@@ -15851,3 +15851,49 @@ html body #siteHeader.mcx-header .mcx-discord:focus-visible .mcx-discord-members
     0 0 26px rgba(83,190,61,.36),
     0 18px 30px rgba(58,139,42,.28)!important;
 }
+
+/* Mineacle Bans v3.8.94: move records board higher and carry hero image farther down */
+@media (min-width:981px){
+  .bans-v3-hero,
+  .bans-records-hero{
+    min-height:clamp(760px, 82vh, 980px)!important;
+    padding-bottom:clamp(190px, 21vh, 270px)!important;
+    overflow:visible!important;
+  }
+
+  .bans-v3-hero::after,
+  .bans-records-hero::after{
+    background:linear-gradient(180deg,
+      rgba(5,2,11,0) 0%,
+      rgba(5,2,11,.04) 36%,
+      rgba(5,2,11,.18) 54%,
+      rgba(5,2,11,.48) 72%,
+      rgba(5,2,11,.82) 88%,
+      #05020b 100%)!important;
+    opacity:1!important;
+  }
+
+  .bans-section{
+    position:relative!important;
+    z-index:12!important;
+    margin-top:clamp(-470px, -39vh, -320px)!important;
+  }
+
+  .bans-v3-results,
+  .ban-list-wrap{
+    position:relative!important;
+    z-index:12!important;
+  }
+}
+
+@media (min-width:981px) and (max-height:820px){
+  .bans-v3-hero,
+  .bans-records-hero{
+    min-height:clamp(690px, 84vh, 860px)!important;
+    padding-bottom:clamp(150px, 18vh, 220px)!important;
+  }
+
+  .bans-section{
+    margin-top:clamp(-380px, -33vh, -255px)!important;
+  }
+}
