@@ -532,17 +532,32 @@
     function showCopyToast(ip) {
         const toast = document.getElementById("toast");
         const toastValue = document.getElementById("toastValue");
+        const toastShield = document.getElementById("toastShield");
         if (!toast) return;
 
         if (toastValue) toastValue.textContent = ip;
 
         toast.classList.remove("show", "center-popup", "achievement-replay");
+        if (toastShield) {
+            toastShield.classList.remove("is-active");
+            toastShield.setAttribute("aria-hidden", "true");
+        }
+
         void toast.offsetWidth;
+
         toast.classList.add("show", "achievement-replay");
+        if (toastShield) {
+            toastShield.classList.add("is-active");
+            toastShield.setAttribute("aria-hidden", "false");
+        }
 
         window.clearTimeout(window.mineacleToastTimer);
         window.mineacleToastTimer = window.setTimeout(() => {
             toast.classList.remove("show", "achievement-replay", "center-popup");
+            if (toastShield) {
+                toastShield.classList.remove("is-active");
+                toastShield.setAttribute("aria-hidden", "true");
+            }
         }, 3200);
     }
 
