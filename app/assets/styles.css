@@ -17335,3 +17335,68 @@ html body #siteHeader.mcx-header .mcx-discord:focus-visible .mcx-discord-members
     padding-top:calc(var(--mineacle-hero-panel-top) + var(--mineacle-hero-panel-h) + 26px)!important;
   }
 }
+
+
+/* Mineacle Bans v3.9.09: expand hero banner upward */
+@media (min-width:981px){
+  :root{
+    --mineacle-hero-panel-top:clamp(122px, 15vh, 154px);
+    --mineacle-hero-panel-h:clamp(540px, calc(100vh - var(--mineacle-hero-panel-top) - 22px), 740px);
+  }
+
+  .bans-v34-background-fold,
+  .bans-v32-logo-only-fold,
+  .bans-v3-hero,
+  .bans-records-hero{
+    min-height:calc(var(--mineacle-hero-panel-top) + var(--mineacle-hero-panel-h) + 28px)!important;
+  }
+
+  .bans-v34-background-fold::before,
+  .bans-v32-logo-only-fold::before,
+  .bans-v3-hero::before,
+  .bans-records-hero::before,
+  .bans-v34-background-fold::after,
+  .bans-v32-logo-only-fold::after,
+  .bans-v3-hero::after,
+  .bans-records-hero::after{
+    top:var(--mineacle-hero-panel-top)!important;
+    inset:var(--mineacle-hero-panel-top) auto auto 50%!important;
+    height:var(--mineacle-hero-panel-h)!important;
+  }
+
+  .ban-hero-copy{
+    top:calc(var(--mineacle-hero-panel-top) + 58px)!important;
+  }
+
+  .bans-v3-hero .ban-hero-content,
+  .bans-records-hero .ban-hero-content,
+  .bans-v34-background-fold .ban-hero-content,
+  .bans-v32-logo-only-fold .ban-hero-content{
+    padding-top:calc(var(--mineacle-hero-panel-top) + var(--mineacle-hero-panel-h) + var(--mineacle-section-gap))!important;
+  }
+}
+
+@media (min-width:981px) and (max-height:860px){
+  :root{
+    --mineacle-hero-panel-top:clamp(112px, 14vh, 136px);
+    --mineacle-hero-panel-h:clamp(480px, calc(100vh - var(--mineacle-hero-panel-top) - 18px), 620px);
+  }
+
+  .bans-v34-background-fold,
+  .bans-v32-logo-only-fold,
+  .bans-v3-hero,
+  .bans-records-hero{
+    min-height:calc(var(--mineacle-hero-panel-top) + var(--mineacle-hero-panel-h) + 22px)!important;
+  }
+
+  .ban-hero-copy{
+    top:calc(var(--mineacle-hero-panel-top) + 46px)!important;
+  }
+
+  .bans-v3-hero .ban-hero-content,
+  .bans-records-hero .ban-hero-content,
+  .bans-v34-background-fold .ban-hero-content,
+  .bans-v32-logo-only-fold .ban-hero-content{
+    padding-top:calc(var(--mineacle-hero-panel-top) + var(--mineacle-hero-panel-h) + 24px)!important;
+  }
+}
