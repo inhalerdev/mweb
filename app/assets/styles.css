@@ -16374,3 +16374,65 @@ html body #siteHeader.mcx-header .mcx-discord:focus-visible .mcx-discord-members
     --mineacle-hero-panel-w:min(var(--mcx-nav-w, 1380px), calc(100vw - 36px));
   }
 }
+
+
+/* Mineacle Bans v3.9.00: shorter centered hero banner below nav/logo */
+@media (min-width:981px){
+  :root{
+    --mineacle-hero-panel-top:122px;
+    --mineacle-hero-panel-bottom:42px;
+  }
+
+  .bans-v34-background-fold,
+  .bans-v32-logo-only-fold,
+  .bans-v3-hero,
+  .bans-records-hero{
+    min-height:clamp(520px, 74vh, 680px)!important;
+    padding-top:0!important;
+  }
+
+  .bans-v34-background-fold::before,
+  .bans-v32-logo-only-fold::before,
+  .bans-v3-hero::before,
+  .bans-records-hero::before,
+  .bans-v34-background-fold::after,
+  .bans-v32-logo-only-fold::after,
+  .bans-v3-hero::after,
+  .bans-records-hero::after{
+    top:var(--mineacle-hero-panel-top)!important;
+    bottom:var(--mineacle-hero-panel-bottom)!important;
+    inset:var(--mineacle-hero-panel-top) auto var(--mineacle-hero-panel-bottom) 50%!important;
+    min-height:0!important;
+    height:auto!important;
+  }
+
+  .bans-v3-hero .ban-hero-content,
+  .bans-records-hero .ban-hero-content,
+  .bans-v34-background-fold .ban-hero-content,
+  .bans-v32-logo-only-fold .ban-hero-content{
+    padding-top:clamp(230px, 31vh, 300px)!important;
+    padding-bottom:72px!important;
+  }
+}
+
+@media (min-width:981px) and (max-height:860px){
+  :root{
+    --mineacle-hero-panel-top:112px;
+    --mineacle-hero-panel-bottom:28px;
+  }
+
+  .bans-v34-background-fold,
+  .bans-v32-logo-only-fold,
+  .bans-v3-hero,
+  .bans-records-hero{
+    min-height:500px!important;
+  }
+
+  .bans-v3-hero .ban-hero-content,
+  .bans-records-hero .ban-hero-content,
+  .bans-v34-background-fold .ban-hero-content,
+  .bans-v32-logo-only-fold .ban-hero-content{
+    padding-top:210px!important;
+    padding-bottom:56px!important;
+  }
+}
