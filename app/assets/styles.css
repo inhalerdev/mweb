@@ -16541,3 +16541,141 @@ html body #siteHeader.mcx-header .mcx-discord:focus-visible .mcx-discord-members
     max-width:calc(100vw - 36px)!important;
   }
 }
+
+/* Mineacle Bans v3.9.03: full-width hero banner panel with blurred image backdrop */
+@media (min-width:981px){
+  :root{
+    --mineacle-hero-panel-w:calc(100vw - 48px);
+    --mineacle-hero-panel-top:clamp(218px, 27vh, 265px);
+    --mineacle-hero-panel-h:clamp(390px, calc(100vh - var(--mineacle-hero-panel-top) - 36px), 590px);
+    --mineacle-hero-radius:24px;
+  }
+
+  html,
+  body,
+  .page-shell,
+  main{
+    background:#000!important;
+  }
+
+  .bans-v34-background-fold,
+  .bans-v32-logo-only-fold,
+  .bans-v3-hero,
+  .bans-records-hero{
+    min-height:calc(var(--mineacle-hero-panel-top) + var(--mineacle-hero-panel-h) + 34px)!important;
+    padding-top:0!important;
+    background:#000!important;
+    overflow:hidden!important;
+    isolation:isolate!important;
+  }
+
+  /* Blurred version of the same image behind the bordered hero banner. */
+  .bans-v34-background-fold::before,
+  .bans-v32-logo-only-fold::before,
+  .bans-v3-hero::before,
+  .bans-records-hero::before{
+    content:""!important;
+    position:absolute!important;
+    inset:-34px!important;
+    top:-34px!important;
+    right:-34px!important;
+    bottom:-34px!important;
+    left:-34px!important;
+    width:auto!important;
+    height:auto!important;
+    min-height:0!important;
+    transform:none!important;
+    border:0!important;
+    border-radius:0!important;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,.72), rgba(0,0,0,.84)),
+      url('bans-hero-replacement-v3.8.89.webp') center center / cover no-repeat!important;
+    filter:blur(18px)!important;
+    opacity:.54!important;
+    box-shadow:none!important;
+    pointer-events:none!important;
+    z-index:0!important;
+  }
+
+  /* Foreground bordered hero banner: same width as the full floating nav bar. */
+  .bans-v34-background-fold::after,
+  .bans-v32-logo-only-fold::after,
+  .bans-v3-hero::after,
+  .bans-records-hero::after{
+    content:""!important;
+    position:absolute!important;
+    top:var(--mineacle-hero-panel-top)!important;
+    bottom:auto!important;
+    left:50%!important;
+    right:auto!important;
+    inset:var(--mineacle-hero-panel-top) auto auto 50%!important;
+    width:var(--mineacle-hero-panel-w)!important;
+    height:var(--mineacle-hero-panel-h)!important;
+    min-height:0!important;
+    transform:translate3d(-50%, 0, 0)!important;
+    display:block!important;
+    border-radius:var(--mineacle-hero-radius)!important;
+    border:1px solid rgba(255,136,255,.24)!important;
+    background:
+      radial-gradient(circle at 50% 6%, rgba(110,58,255,.12), transparent 32%),
+      linear-gradient(180deg, rgba(4,2,10,.38) 0%, rgba(5,2,11,.52) 48%, rgba(4,2,9,.66) 100%),
+      url('bans-hero-replacement-v3.8.89.webp') center center / cover no-repeat!important;
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,.035),
+      0 22px 58px rgba(0,0,0,.48),
+      inset 0 1px 0 rgba(255,255,255,.08),
+      inset 0 -1px 0 rgba(0,0,0,.40),
+      inset 0 0 34px rgba(0,0,0,.20),
+      inset 0 0 28px rgba(255,136,255,.055)!important;
+    opacity:1!important;
+    visibility:visible!important;
+    filter:none!important;
+    pointer-events:none!important;
+    z-index:1!important;
+  }
+
+  .bans-v3-hero > *,
+  .bans-records-hero > *,
+  .bans-v34-background-fold > *,
+  .bans-v32-logo-only-fold > *{
+    position:relative!important;
+    z-index:2!important;
+  }
+
+  .bans-v3-hero .ban-hero-content,
+  .bans-records-hero .ban-hero-content,
+  .bans-v34-background-fold .ban-hero-content,
+  .bans-v32-logo-only-fold .ban-hero-content{
+    width:var(--mineacle-hero-panel-w)!important;
+    max-width:var(--mineacle-hero-panel-w)!important;
+    padding-top:calc(var(--mineacle-hero-panel-top) + var(--mineacle-hero-panel-h) + 30px)!important;
+    padding-bottom:0!important;
+  }
+}
+
+@media (min-width:981px) and (max-width:1280px){
+  :root{
+    --mineacle-hero-panel-w:calc(100vw - 36px);
+  }
+}
+
+@media (min-width:981px) and (max-height:860px){
+  :root{
+    --mineacle-hero-panel-top:clamp(198px, 25vh, 232px);
+    --mineacle-hero-panel-h:clamp(340px, calc(100vh - var(--mineacle-hero-panel-top) - 30px), 500px);
+  }
+
+  .bans-v34-background-fold,
+  .bans-v32-logo-only-fold,
+  .bans-v3-hero,
+  .bans-records-hero{
+    min-height:calc(var(--mineacle-hero-panel-top) + var(--mineacle-hero-panel-h) + 28px)!important;
+  }
+
+  .bans-v3-hero .ban-hero-content,
+  .bans-records-hero .ban-hero-content,
+  .bans-v34-background-fold .ban-hero-content,
+  .bans-v32-logo-only-fold .ban-hero-content{
+    padding-top:calc(var(--mineacle-hero-panel-top) + var(--mineacle-hero-panel-h) + 26px)!important;
+  }
+}
