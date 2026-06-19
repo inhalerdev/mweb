@@ -64,7 +64,40 @@
     }
   }
 
+
+
+  function installHeaderScrollState() {
+    var header = document.getElementById('siteHeader');
+    if (!header) {
+      return;
+    }
+
+    var ticking = false;
+    var threshold = 42;
+
+    function apply() {
+      ticking = false;
+      var scrolled = window.scrollY > threshold;
+      header.classList.toggle('is-scrolled', scrolled);
+      document.documentElement.classList.toggle('mineacle-nav-scrolled', scrolled);
+      document.body.classList.toggle('mineacle-nav-scrolled', scrolled);
+    }
+
+    function requestApply() {
+      if (ticking) {
+        return;
+      }
+      ticking = true;
+      window.requestAnimationFrame(apply);
+    }
+
+    apply();
+    window.addEventListener('scroll', requestApply, { passive: true });
+    window.addEventListener('resize', requestApply, { passive: true });
+  }
+
   ready(function () {
+    installHeaderScrollState();
     var heroCopy = document.querySelector('.ban-hero-copy');
     if (!heroCopy || heroCopy.querySelector('.ban-hero-scroll-btn')) {
       ensureClientGuardSection();
