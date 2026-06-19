@@ -16508,3 +16508,36 @@ html body #siteHeader.mcx-header .mcx-discord:focus-visible .mcx-discord-members
     padding-top:calc(var(--mineacle-hero-panel-top) + var(--mineacle-hero-panel-h) + 28px)!important;
   }
 }
+
+
+/* Mineacle Bans v3.9.02: full-width floating desktop nav bar */
+@media (min-width:981px){
+  html body #siteHeader.mcx-header,
+  html body #siteHeader.mcx-header.site-header,
+  html body #siteHeader.mcx-header.mineacle-floating-header,
+  html body #siteHeader.mcx-header.blocaria-style-header,
+  html body .mcx-header.site-header.mineacle-floating-header{
+    width:calc(100vw - 48px)!important;
+    max-width:calc(100vw - 48px)!important;
+    min-width:0!important;
+    left:50%!important;
+    right:auto!important;
+    transform:translate3d(-50%, 0, 0)!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-nav-shell{
+    width:100%!important;
+    max-width:none!important;
+  }
+}
+
+@media (min-width:981px) and (max-width:1280px){
+  html body #siteHeader.mcx-header,
+  html body #siteHeader.mcx-header.site-header,
+  html body #siteHeader.mcx-header.mineacle-floating-header,
+  html body #siteHeader.mcx-header.blocaria-style-header,
+  html body .mcx-header.site-header.mineacle-floating-header{
+    width:calc(100vw - 36px)!important;
+    max-width:calc(100vw - 36px)!important;
+  }
+}
