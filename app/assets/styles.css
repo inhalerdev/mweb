@@ -17226,3 +17226,70 @@ html body #siteHeader.mcx-header .mcx-discord:focus-visible .mcx-discord-members
     max-width:calc(100vw - 36px)!important;
   }
 }
+
+
+/* Mineacle Bans v3.9.07: keep nav item positions identical before/after scroll */
+@media (min-width:981px){
+  html body #siteHeader.mcx-header,
+  html body #siteHeader.mcx-header.site-header,
+  html body #siteHeader.mcx-header.mineacle-floating-header,
+  html body #siteHeader.mcx-header.blocaria-style-header,
+  html body .mcx-header.site-header.mineacle-floating-header{
+    top:18px!important;
+    left:50%!important;
+    right:auto!important;
+    width:calc(100vw - 48px)!important;
+    max-width:calc(100vw - 48px)!important;
+    min-width:0!important;
+    transform:translate3d(-50%, 0, 0)!important;
+    transition:
+      border-radius .20s ease,
+      border-color .20s ease,
+      background .20s ease,
+      box-shadow .20s ease,
+      backdrop-filter .20s ease!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-nav-shell,
+  html body #siteHeader.mcx-header.is-scrolled .mcx-nav-shell,
+  html.mineacle-nav-scrolled body #siteHeader.mcx-header .mcx-nav-shell,
+  body.mineacle-nav-scrolled #siteHeader.mcx-header .mcx-nav-shell{
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    margin-left:0!important;
+    margin-right:0!important;
+    transform:none!important;
+  }
+
+  html body #siteHeader.mcx-header.is-scrolled,
+  html.mineacle-nav-scrolled body #siteHeader.mcx-header,
+  body.mineacle-nav-scrolled #siteHeader.mcx-header{
+    top:18px!important;
+    left:50%!important;
+    right:auto!important;
+    width:calc(100vw - 48px)!important;
+    max-width:calc(100vw - 48px)!important;
+    min-width:0!important;
+    transform:translate3d(-50%, 0, 0)!important;
+    border-radius:22px!important;
+    border:1px solid rgba(203,88,255,.26)!important;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(255,136,255,.045), transparent 34rem),
+      linear-gradient(180deg, rgba(14,10,24,.78), rgba(8,5,16,.84))!important;
+  }
+}
+
+@media (min-width:981px) and (max-width:1280px){
+  html body #siteHeader.mcx-header,
+  html body #siteHeader.mcx-header.site-header,
+  html body #siteHeader.mcx-header.mineacle-floating-header,
+  html body #siteHeader.mcx-header.blocaria-style-header,
+  html body .mcx-header.site-header.mineacle-floating-header,
+  html body #siteHeader.mcx-header.is-scrolled,
+  html.mineacle-nav-scrolled body #siteHeader.mcx-header,
+  body.mineacle-nav-scrolled #siteHeader.mcx-header{
+    width:calc(100vw - 36px)!important;
+    max-width:calc(100vw - 36px)!important;
+  }
+}
