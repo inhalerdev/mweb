@@ -18295,3 +18295,105 @@ html body #siteHeader.mcx-header .mcx-discord:focus-visible .mcx-discord-members
     max-width:calc(100vw - 48px)!important;
   }
 }
+
+
+/* Mineacle Bans v3.9.19: permanent dark transparent nav, non-sticky */
+@media (min-width:981px){
+  html body #siteHeader.mcx-header,
+  html body #siteHeader.mcx-header.site-header,
+  html body #siteHeader.mcx-header.mineacle-floating-header,
+  html body #siteHeader.mcx-header.blocaria-style-header,
+  html body #siteHeader.mcx-header.is-scrolled,
+  html body #siteHeader.mcx-header.nav-scrolled,
+  html body #siteHeader.mcx-header.mcx-scrolled,
+  html body #siteHeader.mcx-header[data-scrolled="true"],
+  html.mineacle-nav-scrolled body #siteHeader.mcx-header,
+  body.mineacle-nav-scrolled #siteHeader.mcx-header,
+  html body.scrolled #siteHeader.mcx-header,
+  html body.nav-scrolled #siteHeader.mcx-header,
+  html body.has-scrolled #siteHeader.mcx-header,
+  html body .mcx-header.site-header.mineacle-floating-header{
+    position:absolute!important;
+    top:28px!important;
+    left:50%!important;
+    right:auto!important;
+    width:calc(100vw - 96px)!important;
+    max-width:none!important;
+    min-width:0!important;
+    margin:0!important;
+    transform:translate3d(-50%, 0, 0)!important;
+    z-index:80!important;
+    border-radius:24px!important;
+    border:1px solid rgba(255,255,255,.075)!important;
+    border-bottom-color:rgba(255,136,255,.16)!important;
+    background:linear-gradient(180deg, rgba(34,34,40,.66), rgba(17,17,22,.54))!important;
+    box-shadow:
+      0 18px 46px rgba(0,0,0,.28),
+      inset 0 1px 0 rgba(255,255,255,.075),
+      inset 0 -1px 0 rgba(0,0,0,.44),
+      0 0 24px rgba(255,136,255,.075)!important;
+    backdrop-filter:blur(16px)!important;
+    -webkit-backdrop-filter:blur(16px)!important;
+    transition:none!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-nav-shell,
+  html body #siteHeader.mcx-header.is-scrolled .mcx-nav-shell,
+  html body #siteHeader.mcx-header.nav-scrolled .mcx-nav-shell,
+  html body #siteHeader.mcx-header.mcx-scrolled .mcx-nav-shell,
+  html body #siteHeader.mcx-header[data-scrolled="true"] .mcx-nav-shell,
+  html.mineacle-nav-scrolled body #siteHeader.mcx-header .mcx-nav-shell,
+  body.mineacle-nav-scrolled #siteHeader.mcx-header .mcx-nav-shell,
+  html body.scrolled #siteHeader.mcx-header .mcx-nav-shell,
+  html body.nav-scrolled #siteHeader.mcx-header .mcx-nav-shell,
+  html body.has-scrolled #siteHeader.mcx-header .mcx-nav-shell{
+    width:calc(100vw - 96px)!important;
+    max-width:calc(100vw - 96px)!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+    transition:none!important;
+  }
+
+  html body #siteHeader.mcx-header::before,
+  html body #siteHeader.mcx-header::after,
+  html body #siteHeader.mcx-header.is-scrolled::before,
+  html body #siteHeader.mcx-header.is-scrolled::after,
+  html body #siteHeader.mcx-header.nav-scrolled::before,
+  html body #siteHeader.mcx-header.nav-scrolled::after{
+    content:none!important;
+    display:none!important;
+  }
+}
+
+@media (min-width:981px) and (max-width:1280px){
+  html body #siteHeader.mcx-header,
+  html body #siteHeader.mcx-header.site-header,
+  html body #siteHeader.mcx-header.mineacle-floating-header,
+  html body #siteHeader.mcx-header.blocaria-style-header,
+  html body #siteHeader.mcx-header.is-scrolled,
+  html body #siteHeader.mcx-header.nav-scrolled,
+  html body #siteHeader.mcx-header.mcx-scrolled,
+  html body #siteHeader.mcx-header[data-scrolled="true"],
+  html.mineacle-nav-scrolled body #siteHeader.mcx-header,
+  body.mineacle-nav-scrolled #siteHeader.mcx-header,
+  html body.scrolled #siteHeader.mcx-header,
+  html body.nav-scrolled #siteHeader.mcx-header,
+  html body.has-scrolled #siteHeader.mcx-header,
+  html body .mcx-header.site-header.mineacle-floating-header{
+    width:calc(100vw - 48px)!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-nav-shell,
+  html body #siteHeader.mcx-header.is-scrolled .mcx-nav-shell,
+  html body #siteHeader.mcx-header.nav-scrolled .mcx-nav-shell,
+  html body #siteHeader.mcx-header.mcx-scrolled .mcx-nav-shell,
+  html body #siteHeader.mcx-header[data-scrolled="true"] .mcx-nav-shell,
+  html.mineacle-nav-scrolled body #siteHeader.mcx-header .mcx-nav-shell,
+  body.mineacle-nav-scrolled #siteHeader.mcx-header .mcx-nav-shell,
+  html body.scrolled #siteHeader.mcx-header .mcx-nav-shell,
+  html body.nav-scrolled #siteHeader.mcx-header .mcx-nav-shell,
+  html body.has-scrolled #siteHeader.mcx-header .mcx-nav-shell{
+    width:calc(100vw - 48px)!important;
+    max-width:calc(100vw - 48px)!important;
+  }
+}
