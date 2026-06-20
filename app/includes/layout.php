@@ -18,7 +18,7 @@ function mineacle_page_head(string $title): void {
     echo '<title>' . h($title) . ' | ' . $name . '</title>';
     echo '<meta name="description" content="Mineacle public bans portal">';
     echo '<link rel="icon" type="image/png" href="assets/mineacle-square-logo.png?v=bansfull3.8.27.277.266.255.244.233.222.211.200.199.188.177.166.144.8.7.6.5.4.3.2">';
-    echo '<link rel="stylesheet" href="assets/styles.css?v=banssingle3.9.12">';
+    echo '<link rel="stylesheet" href="assets/styles.css?v=banssingle3.9.14">';
     echo '</head>';
 }
 
