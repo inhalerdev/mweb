@@ -18496,3 +18496,47 @@ html body #siteHeader.mcx-header .mcx-discord:focus-visible .mcx-discord-members
     max-width:calc(100vw - 48px)!important;
   }
 }
+
+
+/* Mineacle Bans v3.9.21: fixed full-width nav, no sticky behavior */
+@media (min-width:981px){
+  html body #siteHeader.mcx-header,
+  html body #siteHeader.mcx-header.site-header,
+  html body #siteHeader.mcx-header.mineacle-floating-header,
+  html body #siteHeader.mcx-header.blocaria-style-header,
+  html body .mcx-header.site-header.mineacle-floating-header{
+    position:fixed!important;
+    top:0!important;
+    left:0!important;
+    right:0!important;
+    bottom:auto!important;
+    width:100vw!important;
+    max-width:none!important;
+    min-width:100vw!important;
+    margin:0!important;
+    transform:none!important;
+    z-index:9999!important;
+  }
+
+  html body #siteHeader.mcx-header.is-scrolled,
+  html body #siteHeader.mcx-header.nav-scrolled,
+  html body #siteHeader.mcx-header.mcx-scrolled,
+  html body #siteHeader.mcx-header[data-scrolled="true"],
+  html body.scrolled #siteHeader.mcx-header,
+  html body.nav-scrolled #siteHeader.mcx-header,
+  html body.has-scrolled #siteHeader.mcx-header{
+    position:fixed!important;
+    top:0!important;
+    left:0!important;
+    right:0!important;
+    width:100vw!important;
+    max-width:none!important;
+    min-width:100vw!important;
+    margin:0!important;
+    transform:none!important;
+  }
+
+  html body .page-shell{
+    padding-top:0!important;
+  }
+}
