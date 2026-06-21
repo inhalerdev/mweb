@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&family=Sora:wght@600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
 :root{--bg:#05020b;--panel:#12091d;--line:rgba(255,136,255,.22);--line2:rgba(255,255,255,.09);--pink:#ff88ff;--text:#fff;--soft:#ddd4e7;--muted:#a99ab7;--container:1440px;--gap:24px}
 *{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 50% 0%,rgba(91,24,135,.25),transparent 38rem),linear-gradient(180deg,#090212,#030106 58%,#020104);color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
 body:after{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.018),rgba(255,255,255,.018) 1px,transparent 1px,transparent 4px);opacity:.45}
@@ -18484,5 +18484,155 @@ html body #siteHeader.mcx-header .mcx-discord:focus-visible .mcx-discord-members
     --mineacle-hero-panel-w:var(--mineacle-nav-link-rail)!important;
     --mineacle-hero-panel-top:clamp(168px, 20vh, 200px);
     --mineacle-hero-panel-h:clamp(450px, calc(100vh - var(--mineacle-hero-panel-top) - 22px), 580px);
+  }
+}
+
+
+/* Mineacle Bans v3.9.24: Open Sans font normalization
+   Site-wide font stack is now Open Sans Regular/Bold only. */
+:root{
+  --mineacle-font:"Open Sans", Arial, Helvetica, sans-serif;
+}
+
+html,
+body,
+body *{
+  font-family:var(--mineacle-font)!important;
+}
+
+body,
+p,
+li,
+input,
+textarea,
+select,
+.ban-hero-copy p,
+.guard-feature-copy,
+.guard-feature-copy p,
+.footer-copy,
+.footer-disclaimer{
+  font-weight:400!important;
+}
+
+/* Use Open Sans Bold for headings, nav, buttons, labels, tags, and strong UI text. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+strong,
+b,
+button,
+a,
+label,
+.badge,
+.tag,
+.ban-name,
+.ban-reason,
+.ban-count,
+.ban-hero-kicker,
+.ban-hero-scroll-btn,
+.mcx-link,
+.mcx-button,
+.mcx-store,
+.mcx-discord,
+.mcx-play,
+.mcx-mobile-link,
+.mcx-mobile-store,
+.mcx-mobile-discord,
+.info-btn,
+.search-clear,
+.btn,
+.section-heading > span,
+.client-guard-section-title,
+.client-guard-feature-title,
+.guard-feature-title{
+  font-weight:700!important;
+}
+
+
+/* Mineacle Bans v3.9.25: smaller desktop nav links, buttons, and center logo */
+@media (min-width:981px){
+  html body #siteHeader.mcx-header .mcx-nav-shell{
+    min-height:82px!important;
+    height:82px!important;
+    align-items:center!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-link{
+    font-size:15px!important;
+    line-height:1!important;
+    letter-spacing:.055em!important;
+    padding-left:8px!important;
+    padding-right:8px!important;
+    min-height:34px!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-button,
+  html body #siteHeader.mcx-header .mcx-store,
+  html body #siteHeader.mcx-header .mcx-play{
+    min-height:42px!important;
+    height:42px!important;
+    padding-left:22px!important;
+    padding-right:22px!important;
+    font-size:16px!important;
+    line-height:1!important;
+    border-radius:4px!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-discord{
+    width:42px!important;
+    min-width:42px!important;
+    height:42px!important;
+    min-height:42px!important;
+    border-radius:4px!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-discord img{
+    width:22px!important;
+    height:22px!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-logo{
+    width:230px!important;
+    max-width:230px!important;
+    height:auto!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-logo img{
+    width:230px!important;
+    max-width:230px!important;
+    height:auto!important;
+    max-height:104px!important;
+  }
+}
+
+@media (min-width:981px) and (max-width:1280px){
+  html body #siteHeader.mcx-header .mcx-logo,
+  html body #siteHeader.mcx-header .mcx-logo img{
+    width:205px!important;
+    max-width:205px!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-button,
+  html body #siteHeader.mcx-header .mcx-store,
+  html body #siteHeader.mcx-header .mcx-play{
+    min-height:40px!important;
+    height:40px!important;
+    padding-left:18px!important;
+    padding-right:18px!important;
+    font-size:15px!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-discord{
+    width:40px!important;
+    min-width:40px!important;
+    height:40px!important;
+    min-height:40px!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-link{
+    font-size:14px!important;
   }
 }
