@@ -20283,3 +20283,37 @@ body *{
     --mcx-players-icon-size:14px;
   }
 }
+
+
+/* Mineacle Bans v3.9.48: only collapse Players Online if Discord hover would collide */
+@media (min-width:981px){
+  /* Undo the hover-only collapse from v3.9.47 by default. Large windows keep full Players Online text. */
+  html body #siteHeader.mcx-header .mcx-nav-shell:has(.mcx-discord:hover) .mcx-players-online,
+  html body #siteHeader.mcx-header .mcx-nav-shell:has(.mcx-discord:focus-visible) .mcx-players-online,
+  html body #siteHeader.mcx-header .mcx-nav-shell:has(.mcx-discord:active) .mcx-players-online{
+    transform:translateX(0)!important;
+    gap:7px!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-nav-shell:has(.mcx-discord:hover) .mcx-players-label,
+  html body #siteHeader.mcx-header .mcx-nav-shell:has(.mcx-discord:focus-visible) .mcx-players-label,
+  html body #siteHeader.mcx-header .mcx-nav-shell:has(.mcx-discord:active) .mcx-players-label{
+    opacity:1!important;
+    max-width:140px!important;
+  }
+
+  /* JS adds this only when the expanded Discord button would overlap Players Online. */
+  html body #siteHeader.mcx-header .mcx-nav-shell.discord-would-collide:has(.mcx-discord:hover) .mcx-players-online,
+  html body #siteHeader.mcx-header .mcx-nav-shell.discord-would-collide:has(.mcx-discord:focus-visible) .mcx-players-online,
+  html body #siteHeader.mcx-header .mcx-nav-shell.discord-would-collide:has(.mcx-discord:active) .mcx-players-online{
+    transform:translateX(var(--mcx-players-hover-shift, -108px))!important;
+    gap:6px!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-nav-shell.discord-would-collide:has(.mcx-discord:hover) .mcx-players-label,
+  html body #siteHeader.mcx-header .mcx-nav-shell.discord-would-collide:has(.mcx-discord:focus-visible) .mcx-players-label,
+  html body #siteHeader.mcx-header .mcx-nav-shell.discord-would-collide:has(.mcx-discord:active) .mcx-players-label{
+    opacity:0!important;
+    max-width:0!important;
+  }
+}

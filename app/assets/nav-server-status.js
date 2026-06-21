@@ -75,4 +75,42 @@
 
   refresh();
   window.setInterval(refresh, 60000);
+
+  const setupDiscordCollisionGuard = () => {
+    const navShell = document.querySelector('#siteHeader.mcx-header .mcx-nav-shell');
+    const playersOnline = document.getElementById('navPlayersOnline');
+    const discordButton = document.querySelector('#siteHeader.mcx-header .mcx-discord');
+
+    if (!navShell || !playersOnline || !discordButton) {
+      return;
+    }
+
+    const getCssNumber = (name, fallback) => {
+      const raw = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      const parsed = Number.parseFloat(raw);
+
+      return Number.isFinite(parsed) ? parsed : fallback;
+    };
+
+    const refreshCollisionState = () => {
+      const playersRect = playersOnline.getBoundingClientRect();
+      const discordRect = discordButton.getBoundingClientRect();
+      const expandedWidth = getCssNumber('--mcx-discord-expanded-w', 218);
+      const safetyGap = 12;
+      const expandedLeft = discordRect.right - expandedWidth;
+      const wouldCollide = playersRect.right + safetyGap > expandedLeft;
+
+      navShell.classList.toggle('discord-would-collide', wouldCollide);
+    };
+
+    discordButton.addEventListener('mouseenter', refreshCollisionState);
+    discordButton.addEventListener('focus', refreshCollisionState);
+    discordButton.addEventListener('pointerdown', refreshCollisionState);
+    window.addEventListener('resize', refreshCollisionState, { passive: true });
+
+    refreshCollisionState();
+  };
+
+  setupDiscordCollisionGuard();
+
 })();
