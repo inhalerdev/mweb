@@ -15,7 +15,7 @@ function mineacle_page_head(string $title): void {
     echo '<title>Mineacle | ' . h($title) . '</title>';
     echo '<meta name="description" content="Mineacle public bans portal">';
     echo '<link rel="icon" type="image/png" href="assets/mineacle-square-logo.png?v=bansfull3.8.27.277.266.255.244.233.222.211.200.199.188.177.166.144.8.7.6.5.4.3.2">';
-    echo '<link rel="stylesheet" href="assets/styles.css?v=banssingle3.9.57">';
+    echo '<link rel="stylesheet" href="assets/styles.css?v=banssingle3.9.58">';
     echo '</head>';
 }
 
@@ -35,7 +35,7 @@ function mineacle_header(string $active = 'bans'): void {
     echo '<a class="mcx-link mcx-stats ' . ($active === 'stats' ? 'is-active' : '') . '" href="' . $stats . '">Stats</a>';
     echo '<a class="mcx-button mcx-store ' . ($active === 'store' ? 'is-active' : '') . '" href="' . $store . '">Store</a>';
     echo '<span class="mcx-players-online" id="navPlayersOnline" data-status-url="api/server-status.php" aria-label="Minecraft players online">';
-    echo '<img class="mcx-players-icon" src="assets/players-online-icon.png?v=banssingle3.9.57" alt="">';
+    echo '<img class="mcx-players-icon" src="assets/players-online-icon.png?v=banssingle3.9.58" alt="">';
     echo '<span class="mcx-players-value" id="navPlayersOnlineValue">0</span>';
     echo '<span class="mcx-players-label">Players Online</span>';
     echo '</span>';
@@ -77,9 +77,34 @@ function mineacle_footer(): void {
     echo '</div>';
     echo '</div>';
     echo '</footer>';
-    echo '<script src="assets/main.js?v=banssingle3.8.99"></script>';
-    echo '<script src="assets/hero-scroll.js?v=banssingle3.9.57"></script>';
-    echo '<script src="assets/nav-server-status.js?v=banssingle3.9.57"></script>';
+    echo '<script src="assets/main.js?v=banssingle3.9.58"></script>';
+    echo '<script src="assets/hero-scroll.js?v=banssingle3.9.58"></script>';
+    echo '<script src="assets/nav-server-status.js?v=banssingle3.9.58"></script>';
+
+    echo <<<'HTML'
+<script>
+(function(){
+  function polishBanSectionLabels(){
+    document.querySelectorAll('.section-heading > span, .records-kicker').forEach(function(el){
+      if (/search\s+records/i.test(el.textContent || '')) {
+        el.textContent = 'Public Records';
+      }
+    });
+    document.querySelectorAll('.section-heading h2, .bans-v3-results-head h2, .records-title').forEach(function(el){
+      if (/active\s+bans/i.test(el.textContent || '')) {
+        el.textContent = 'Active Ban Records';
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', polishBanSectionLabels);
+  } else {
+    polishBanSectionLabels();
+  }
+})();
+</script>
+HTML;
 
     echo <<<'HTML'
 <script>
@@ -102,7 +127,7 @@ function mineacle_footer(): void {
 
     var img = section.querySelector('.client-guard-title-img, .client-guard-section-title img');
     if (img) {
-      img.src = 'assets/mineacle-clientguard-logo-v2.png?v=banssingle3.9.57';
+      img.src = 'assets/mineacle-clientguard-logo-v2.png?v=banssingle3.9.58';
       img.alt = 'Mineacle Client Guard';
       img.classList.add('client-guard-title-img');
     }

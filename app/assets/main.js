@@ -58,7 +58,7 @@
     }
 
     function isTemporary(raw = {}) {
-        return Boolean(raw.temporary || raw.temp || raw.type === "Temp Ban" || raw.status_type === "temp");
+        return Boolean(raw.temporary || raw.temp || raw.type === "Temp Ban" || raw.type === "Temporary Ban" || raw.status_type === "temp");
     }
 
     function isIpBan(raw = {}) {
@@ -82,7 +82,7 @@
             duration: raw.duration || raw.remaining || raw.expires_in || (temporary ? "Temporary" : "Permanent"),
             expires: raw.expires || raw.expires_at || "",
             status: raw.status || (ipban ? "IP Ban" : temporary ? "Temporary Ban" : "Permanent Ban"),
-            type: raw.type || (ipban ? "IP Ban" : temporary ? "Temp Ban" : "Perm Ban"),
+            type: raw.type || (ipban ? "IP Ban" : temporary ? "Temporary Ban" : "Permanent Ban"),
             status_type: statusType,
             appeal_id: raw.appeal_id || raw.id || raw.uuid || "MCL-000000",
             support_email: raw.support_email || raw.appeal_email || SUPPORT_FALLBACK,
@@ -98,8 +98,8 @@
 
     function statusLabel(ban) {
         if (ban.ipban) return "IP Ban";
-        if (ban.temporary) return "Temp Ban";
-        return "Perm Ban";
+        if (ban.temporary) return "Temporary Ban";
+        return "Permanent Ban";
     }
 
     function renderPagination() {
