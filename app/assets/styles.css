@@ -19844,3 +19844,79 @@ body *{
     transform:translateX(-28px) translateY(0)!important;
   }
 }
+
+
+/* Mineacle Bans v3.9.39: nav players-online status between Store and Discord */
+@media (min-width:981px){
+  html body #siteHeader.mcx-header .mcx-store{
+    order:5!important;
+    margin-left:14px!important;
+    margin-right:0!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-players-online{
+    order:6!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+    height:var(--mcx-row-control-h, 44px)!important;
+    min-height:var(--mcx-row-control-h, 44px)!important;
+    max-height:var(--mcx-row-control-h, 44px)!important;
+    min-width:172px!important;
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    align-self:center!important;
+    color:rgba(255,255,255,.72)!important;
+    font-family:"Open Sans", Arial, Helvetica, sans-serif!important;
+    font-size:var(--mcx-nav-text-size, 14px)!important;
+    font-weight:var(--mcx-nav-text-weight, 700)!important;
+    letter-spacing:var(--mcx-nav-text-spacing, .02em)!important;
+    line-height:1!important;
+    text-transform:uppercase!important;
+    white-space:nowrap!important;
+    text-align:center!important;
+    text-shadow:0 0 12px rgba(255,255,255,.045)!important;
+    pointer-events:none!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-players-online.is-live{
+    color:rgba(235,255,232,.86)!important;
+    text-shadow:0 0 14px rgba(91,255,124,.11)!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-players-online.is-offline,
+  html body #siteHeader.mcx-header .mcx-players-online.is-unknown{
+    color:rgba(255,255,255,.56)!important;
+    text-shadow:none!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-discord{
+    order:7!important;
+    margin-left:0!important;
+    margin-right:26px!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-play{
+    order:8!important;
+  }
+
+  /* Keep the full row vertically aligned: logo, links, status, buttons. */
+  html body #siteHeader.mcx-header .mcx-logo,
+  html body #siteHeader.mcx-header .mcx-link,
+  html body #siteHeader.mcx-header .mcx-players-online,
+  html body #siteHeader.mcx-header .mcx-store,
+  html body #siteHeader.mcx-header .mcx-discord,
+  html body #siteHeader.mcx-header .mcx-play{
+    align-self:center!important;
+  }
+}
+
+@media (min-width:981px) and (max-width:1320px){
+  html body #siteHeader.mcx-header .mcx-players-online{
+    min-width:152px!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-discord{
+    margin-right:20px!important;
+  }
+}

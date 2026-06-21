@@ -18,7 +18,7 @@ function mineacle_page_head(string $title): void {
     echo '<title>' . h($title) . ' | ' . $name . '</title>';
     echo '<meta name="description" content="Mineacle public bans portal">';
     echo '<link rel="icon" type="image/png" href="assets/mineacle-square-logo.png?v=bansfull3.8.27.277.266.255.244.233.222.211.200.199.188.177.166.144.8.7.6.5.4.3.2">';
-    echo '<link rel="stylesheet" href="assets/styles.css?v=banssingle3.9.38">';
+    echo '<link rel="stylesheet" href="assets/styles.css?v=banssingle3.9.40">';
     echo '</head>';
 }
 
@@ -37,6 +37,7 @@ function mineacle_header(string $active = 'bans'): void {
     echo '<a class="mcx-link mcx-bans ' . ($active === 'bans' ? 'is-active' : '') . '" href="' . $bans . '">Bans</a>';
     echo '<a class="mcx-link mcx-stats ' . ($active === 'stats' ? 'is-active' : '') . '" href="' . $stats . '">Stats</a>';
     echo '<a class="mcx-button mcx-store ' . ($active === 'store' ? 'is-active' : '') . '" href="' . $store . '">Store</a>';
+    echo '<span class="mcx-players-online" id="navPlayersOnline" data-status-url="api/server-status.php" aria-label="Minecraft players online">Players Online</span>';
     echo '<a class="mcx-logo" href="' . $bans . '" aria-label="Refresh Mineacle Bans">';
     echo '<img src="assets/mineacle-bans-hero-logo.png?v=bansfull3.8.27.277.266.255.244.233.222.211.200.199" alt="Mineacle Bans">';
     echo '</a>';
@@ -76,5 +77,6 @@ function mineacle_footer(): void {
     echo '</div>';
     echo '</footer>';
     echo '<script src="assets/main.js?v=banssingle3.8.99"></script>';
-    echo '<script src="assets/hero-scroll.js?v=banssingle3.9.38"></script>';
+    echo '<script src="assets/hero-scroll.js?v=banssingle3.9.40"></script>';
+    echo '<script src="assets/nav-server-status.js?v=banssingle3.9.40"></script>';
 }
