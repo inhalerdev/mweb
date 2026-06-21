@@ -19411,3 +19411,131 @@ body *{
     max-width:166px!important;
   }
 }
+
+
+/* Mineacle Bans v3.9.35: shared rail alignment + tighter store gap + Discord hover fix */
+@media (min-width:981px){
+  :root{
+    --mineacle-site-rail:min(1680px, calc(100vw - 112px));
+    --mcx-nav-text-size:14px;
+    --mcx-nav-text-weight:700;
+    --mcx-nav-text-spacing:.02em;
+  }
+
+  /* One shared horizontal rail for the whole desktop site. */
+  html body #siteHeader.mcx-header .mcx-nav-shell,
+  .bans-v3-hero .ban-hero-content,
+  .bans-records-hero .ban-hero-content,
+  .bans-v34-background-fold .ban-hero-content,
+  .bans-v32-logo-only-fold .ban-hero-content,
+  .client-guard-section,
+  .client-guard-inner,
+  .guard-info-tiles,
+  .bans-v3-results,
+  .bans-section,
+  .footer-inner{
+    width:var(--mineacle-site-rail)!important;
+    max-width:var(--mineacle-site-rail)!important;
+  }
+
+  .bans-v34-background-fold::after,
+  .bans-v32-logo-only-fold::after,
+  .bans-v3-hero::after,
+  .bans-records-hero::after{
+    width:var(--mineacle-site-rail)!important;
+    max-width:var(--mineacle-site-rail)!important;
+  }
+
+  /* Keep nav controls on that same rail and align the logo with the hero/banner left edge. */
+  html body #siteHeader.mcx-header .mcx-nav-shell{
+    padding-left:0!important;
+    padding-right:0!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-start!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-logo{
+    margin-left:0!important;
+    margin-right:42px!important;
+  }
+
+  /* Pull the visual logo artwork to the true rail edge without moving the rest of the nav row. */
+  html body #siteHeader.mcx-header .mcx-logo img{
+    transform:translateX(-34px)!important;
+  }
+
+  /* Store belongs closer to the text links. */
+  html body #siteHeader.mcx-header .mcx-store{
+    margin-left:14px!important;
+    margin-right:auto!important;
+  }
+
+  /* All nav text uses one exact typography system. */
+  html body #siteHeader.mcx-header .mcx-link,
+  html body #siteHeader.mcx-header .mcx-button,
+  html body #siteHeader.mcx-header .mcx-store,
+  html body #siteHeader.mcx-header .mcx-play,
+  html body #siteHeader.mcx-header .mcx-discord-members{
+    font-family:"Open Sans", Arial, Helvetica, sans-serif!important;
+    font-size:var(--mcx-nav-text-size)!important;
+    font-weight:var(--mcx-nav-text-weight)!important;
+    letter-spacing:var(--mcx-nav-text-spacing)!important;
+    line-height:1!important;
+    text-transform:uppercase!important;
+  }
+
+  /* Discord hover: expand far enough left and do not clip the label. */
+  html body #siteHeader.mcx-header .mcx-discord{
+    overflow:visible!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-discord:hover::before,
+  html body #siteHeader.mcx-header .mcx-discord:focus-visible::before,
+  html body #siteHeader.mcx-header .mcx-discord:active::before{
+    width:252px!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-discord-members{
+    right:42px!important;
+    width:auto!important;
+    min-width:188px!important;
+    max-width:none!important;
+    padding:0 6px 0 0!important;
+    white-space:nowrap!important;
+    overflow:visible!important;
+    text-overflow:clip!important;
+    text-align:center!important;
+  }
+}
+
+@media (min-width:981px) and (max-width:1320px){
+  :root{
+    --mineacle-site-rail:calc(100vw - 72px);
+    --mcx-nav-text-size:13px;
+  }
+
+  html body #siteHeader.mcx-header .mcx-logo{
+    margin-right:28px!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-logo img{
+    transform:translateX(-28px)!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-store{
+    margin-left:10px!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-discord:hover::before,
+  html body #siteHeader.mcx-header .mcx-discord:focus-visible::before,
+  html body #siteHeader.mcx-header .mcx-discord:active::before{
+    width:232px!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-discord-members{
+    min-width:170px!important;
+  }
+}
