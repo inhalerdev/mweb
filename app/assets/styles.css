@@ -19263,3 +19263,37 @@ body *{
     width:164px!important;
   }
 }
+
+
+/* Mineacle Bans v3.9.32: make Discord hover members text match nav sizing */
+@media (min-width:981px){
+  html body #siteHeader.mcx-header .mcx-discord:hover::before,
+  html body #siteHeader.mcx-header .mcx-discord:focus-visible::before,
+  html body #siteHeader.mcx-header .mcx-discord:active::before{
+    width:198px!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-discord-members{
+    right:42px!important;
+    width:144px!important;
+    max-width:144px!important;
+    font-size:14px!important;
+    font-weight:700!important;
+    letter-spacing:.02em!important;
+    line-height:1!important;
+  }
+}
+
+@media (min-width:981px) and (max-width:1320px){
+  html body #siteHeader.mcx-header .mcx-discord:hover::before,
+  html body #siteHeader.mcx-header .mcx-discord:focus-visible::before,
+  html body #siteHeader.mcx-header .mcx-discord:active::before{
+    width:184px!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-discord-members{
+    width:130px!important;
+    max-width:130px!important;
+    font-size:13px!important;
+  }
+}
