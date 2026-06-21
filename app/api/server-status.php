@@ -111,38 +111,7 @@ function mineacle_status_parse_host(string $rawHost): array {
     return [$host, $port];
 }
 
-function mineacle_status_resolve_srv(string $host, int $port): array {
-    if ($port !== 25565 || !function_exists('dns_get_record')) {
-        return [$host, $port];
-    }
-
-    $records = @dns_get_record('_minecraft._tcp.' . $host, DNS_SRV);
-
-    if (!is_array($records) || $records === []) {
-        return [$host, $port];
-    }
-
-    usort($records, static function (array $a, array $b): int {
-        $priorityA = (int) ($a['pri'] ?? 0);
-        $priorityB = (int) ($b['pri'] ?? 0);
-
-        if ($priorityA !== $priorityB) {
-            return $priorityA <=> $priorityB;
-        }
-
-        return ((int) ($b['weight'] ?? 0)) <=> ((int) ($a['weight'] ?? 0));
-    });
-
-    $record = $records[0];
-    $target = rtrim((string) ($record['target'] ?? $host), '.');
-    $resolvedPort = (int) ($record['port'] ?? $port);
-
-    return [$target !== '' ? $target : $host, $resolvedPort > 0 ? $resolvedPort : $port];
-}
-
-function mineacle_status_ping(string $host, int $port): array {
-    [$connectHost, $connectPort] = mineacle_status_resolve_srv($host, $port);
-
+function mineacle_status_ping(string $connectHost, int $connectPort, string $publicHost, int $publicPort): array {
     $errno = 0;
     $error = '';
     $socket = @stream_socket_client(
@@ -161,8 +130,8 @@ function mineacle_status_ping(string $host, int $port): array {
 
     $handshake = mineacle_status_varint(0)
         . mineacle_status_varint(763)
-        . mineacle_status_string($host)
-        . pack('n', $port)
+        . mineacle_status_string($publicHost)
+        . pack('n', $publicPort)
         . mineacle_status_varint(1);
 
     fwrite($socket, mineacle_status_packet($handshake));
@@ -206,24 +175,32 @@ function mineacle_status_ping(string $host, int $port): array {
 
     return [
         'online' => true,
-        'host' => $host,
-        'port' => $port,
+        'host' => $publicHost,
+        'port' => $publicPort,
+        'query_host' => $connectHost,
+        'query_port' => $connectPort,
         'players_online' => (int) ($players['online'] ?? 0),
         'players_max' => (int) ($players['max'] ?? 0),
     ];
 }
 
-$config = mineacle_status_config();
-$site = is_array($config['site'] ?? null) ? $config['site'] : [];
-[$host, $port] = mineacle_status_parse_host((string) ($site['ip'] ?? 'mineacle.net'));
+// Public navbar count must come from the live Minecraft status ping only.
+// Display/copy IP stays mineacle.net, but the status socket queries the actual Lagless backend.
+// Do not read LiteBans, stats, Discord, cached website data, DNS SRV records, or any database here.
+$publicHost = 'mineacle.net';
+$publicPort = 25565;
+$queryHost = '59-GN03.DFW.lagless.gg';
+$queryPort = 19136;
 
 try {
-    mineacle_status_json(mineacle_status_ping($host, $port));
+    mineacle_status_json(mineacle_status_ping($queryHost, $queryPort, $publicHost, $publicPort));
 } catch (Throwable $exception) {
     mineacle_status_json([
         'online' => false,
-        'host' => $host,
-        'port' => $port,
+        'host' => $publicHost,
+        'port' => $publicPort,
+        'query_host' => $queryHost,
+        'query_port' => $queryPort,
         'players_online' => 0,
         'players_max' => 0,
     ]);
