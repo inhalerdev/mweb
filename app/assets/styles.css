@@ -18497,7 +18497,7 @@ html body #siteHeader.mcx-header .mcx-discord:focus-visible .mcx-discord-members
 html,
 body,
 body *{
-  font-family:var(--mineacle-font)!important;
+  font-family:"Open Sans", Arial, Helvetica, sans-serif!important;
 }
 
 body,
@@ -18635,4 +18635,121 @@ label,
   html body #siteHeader.mcx-header .mcx-link{
     font-size:14px!important;
   }
+}
+
+
+/* Mineacle Bans v3.9.26: remove blurred hero backdrop + shared fluid site rail */
+@media (min-width:981px){
+  :root{
+    --mineacle-site-rail:calc(100vw - 96px);
+    --mineacle-nav-link-rail:var(--mineacle-site-rail)!important;
+    --mineacle-hero-panel-w:var(--mineacle-site-rail)!important;
+  }
+
+  html,
+  body,
+  .page-shell,
+  main{
+    background:#101012!important;
+  }
+
+  body::after{
+    opacity:.10!important;
+  }
+
+  .bans-v34-background-fold,
+  .bans-v32-logo-only-fold,
+  .bans-v3-hero,
+  .bans-records-hero{
+    background:#101012!important;
+    overflow:hidden!important;
+  }
+
+  /* Remove the duplicated blurred hero-image backdrop completely. */
+  .bans-v34-background-fold::before,
+  .bans-v32-logo-only-fold::before,
+  .bans-v3-hero::before,
+  .bans-records-hero::before{
+    display:none!important;
+    content:none!important;
+    opacity:0!important;
+    visibility:hidden!important;
+    background:none!important;
+    filter:none!important;
+    box-shadow:none!important;
+  }
+
+  /* Keep only the sharp bordered hero image panel, darkened slightly. */
+  .bans-v34-background-fold::after,
+  .bans-v32-logo-only-fold::after,
+  .bans-v3-hero::after,
+  .bans-records-hero::after{
+    width:var(--mineacle-site-rail)!important;
+    max-width:var(--mineacle-site-rail)!important;
+    background:
+      radial-gradient(circle at 20% 18%, rgba(255,255,255,.055), transparent 24%),
+      linear-gradient(180deg, rgba(4,2,8,.42) 0%, rgba(4,2,8,.52) 52%, rgba(4,2,8,.64) 100%),
+      url('bans-hero-replacement-v3.8.89.webp') center center / cover no-repeat!important;
+    filter:none!important;
+    opacity:1!important;
+  }
+
+  /* One shared rail: nav contents, hero, Client Guard, bans, and footer. */
+  html body #siteHeader.mcx-header .mcx-nav-shell,
+  html body #siteHeader.mcx-header.is-scrolled .mcx-nav-shell,
+  html body #siteHeader.mcx-header.nav-scrolled .mcx-nav-shell,
+  html body #siteHeader.mcx-header.mcx-scrolled .mcx-nav-shell,
+  html body #siteHeader.mcx-header[data-scrolled="true"] .mcx-nav-shell,
+  html.mineacle-nav-scrolled body #siteHeader.mcx-header .mcx-nav-shell,
+  body.mineacle-nav-scrolled #siteHeader.mcx-header .mcx-nav-shell,
+  html body.scrolled #siteHeader.mcx-header .mcx-nav-shell,
+  html body.nav-scrolled #siteHeader.mcx-header .mcx-nav-shell,
+  html body.has-scrolled #siteHeader.mcx-header .mcx-nav-shell,
+  .bans-v3-hero .ban-hero-content,
+  .bans-records-hero .ban-hero-content,
+  .bans-v34-background-fold .ban-hero-content,
+  .bans-v32-logo-only-fold .ban-hero-content,
+  .client-guard-section,
+  .client-guard-inner,
+  .guard-info-tiles,
+  .bans-section,
+  .bans-v3-results,
+  .site-footer .footer-inner,
+  .redesigned-footer .footer-inner{
+    width:var(--mineacle-site-rail)!important;
+    max-width:var(--mineacle-site-rail)!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-nav-shell{
+    padding-left:0!important;
+    padding-right:0!important;
+  }
+
+  .ban-hero-copy{
+    left:clamp(40px, 4.4vw, 74px)!important;
+    max-width:min(720px, 48vw)!important;
+  }
+}
+
+@media (min-width:981px) and (max-width:1280px){
+  :root{
+    --mineacle-site-rail:calc(100vw - 48px);
+    --mineacle-nav-link-rail:var(--mineacle-site-rail)!important;
+    --mineacle-hero-panel-w:var(--mineacle-site-rail)!important;
+  }
+
+  .ban-hero-copy{
+    left:clamp(28px, 3.8vw, 52px)!important;
+    max-width:min(640px, 50vw)!important;
+  }
+}
+
+
+/* Mineacle Bans v3.9.27: IntelliJ-safe Open Sans font stack */
+html,
+body,
+body *{
+  font-family:"Open Sans", Arial, Helvetica, sans-serif!important;
 }
