@@ -20156,3 +20156,49 @@ body *{
     --mcx-discord-label-right:48px;
   }
 }
+
+
+/* Mineacle Bans v3.9.46: slim Discord hover button without clipping */
+@media (min-width:981px){
+  :root{
+    --mcx-discord-expanded-w:218px;
+    --mcx-discord-label-w:144px;
+    --mcx-discord-label-right:50px;
+  }
+
+  html body #siteHeader.mcx-header .mcx-discord:hover::before,
+  html body #siteHeader.mcx-header .mcx-discord:focus-visible::before,
+  html body #siteHeader.mcx-header .mcx-discord:active::before{
+    width:var(--mcx-discord-expanded-w)!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-discord-members{
+    right:var(--mcx-discord-label-right)!important;
+    width:var(--mcx-discord-label-w)!important;
+    min-width:var(--mcx-discord-label-w)!important;
+    max-width:var(--mcx-discord-label-w)!important;
+    overflow:visible!important;
+    white-space:nowrap!important;
+    text-align:center!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-discord:hover img,
+  html body #siteHeader.mcx-header .mcx-discord:focus-visible img,
+  html body #siteHeader.mcx-header .mcx-discord:active img{
+    right:12px!important;
+  }
+}
+
+@media (min-width:981px) and (max-width:1320px){
+  :root{
+    --mcx-discord-expanded-w:204px;
+    --mcx-discord-label-w:134px;
+    --mcx-discord-label-right:46px;
+  }
+
+  html body #siteHeader.mcx-header .mcx-discord:hover img,
+  html body #siteHeader.mcx-header .mcx-discord:focus-visible img,
+  html body #siteHeader.mcx-header .mcx-discord:active img{
+    right:11px!important;
+  }
+}
