@@ -20845,3 +20845,200 @@ body *{
     font-size:11px!important;
   }
 }
+
+
+/* Mineacle Bans v3.9.52: fix smaller nav text clipping and restore unified text sizing */
+@media (min-width:981px){
+  :root{
+    --mcx-nav-text-size:14px;
+    --mcx-nav-text-weight:700;
+    --mcx-nav-text-spacing:.02em;
+
+    /* Keep the smaller button height, but give text-bearing controls enough horizontal room. */
+    --mcx-row-control-h:34px;
+    --mcx-row-button-w:78px;
+    --mcx-row-discord-w:34px;
+    --mcx-discord-static-w:34px;
+    --mcx-discord-icon-size:18px;
+
+    --mcx-discord-expanded-w:218px;
+    --mcx-discord-label-w:150px;
+    --mcx-discord-label-right:48px;
+
+    --mcx-players-online-w:204px;
+    --mcx-players-online-compact-w:76px;
+    --mcx-players-icon-size:16px;
+  }
+
+  /* One exact nav text system across plain links, buttons, Discord hover, and player count. */
+  html body #siteHeader.mcx-header .mcx-link,
+  html body #siteHeader.mcx-header .mcx-button,
+  html body #siteHeader.mcx-header .mcx-store,
+  html body #siteHeader.mcx-header .mcx-play,
+  html body #siteHeader.mcx-header .mcx-discord-members,
+  html body #siteHeader.mcx-header .mcx-players-online,
+  html body #siteHeader.mcx-header .mcx-players-value,
+  html body #siteHeader.mcx-header .mcx-players-label{
+    font-family:"Open Sans", Arial, Helvetica, sans-serif!important;
+    font-size:var(--mcx-nav-text-size)!important;
+    font-weight:var(--mcx-nav-text-weight)!important;
+    letter-spacing:var(--mcx-nav-text-spacing)!important;
+    line-height:1!important;
+    text-transform:uppercase!important;
+  }
+
+  /* Store / Play stay 25% smaller, but their text remains the same nav size. */
+  html body #siteHeader.mcx-header .mcx-button,
+  html body #siteHeader.mcx-header .mcx-store,
+  html body #siteHeader.mcx-header .mcx-play{
+    width:var(--mcx-row-button-w)!important;
+    min-width:var(--mcx-row-button-w)!important;
+    max-width:var(--mcx-row-button-w)!important;
+    height:var(--mcx-row-control-h)!important;
+    min-height:var(--mcx-row-control-h)!important;
+    max-height:var(--mcx-row-control-h)!important;
+    padding:0!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-link{
+    height:var(--mcx-row-control-h)!important;
+    min-height:var(--mcx-row-control-h)!important;
+    max-height:var(--mcx-row-control-h)!important;
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+  }
+
+  /* Discord keeps the small square static slot, then expands wide enough for full-size text. */
+  html body #siteHeader.mcx-header .mcx-discord,
+  html body #siteHeader.mcx-header .mcx-discord:hover,
+  html body #siteHeader.mcx-header .mcx-discord:focus-visible,
+  html body #siteHeader.mcx-header .mcx-discord:active{
+    width:var(--mcx-discord-static-w)!important;
+    min-width:var(--mcx-discord-static-w)!important;
+    max-width:var(--mcx-discord-static-w)!important;
+    height:var(--mcx-row-control-h)!important;
+    min-height:var(--mcx-row-control-h)!important;
+    max-height:var(--mcx-row-control-h)!important;
+    flex-basis:var(--mcx-discord-static-w)!important;
+    overflow:visible!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-discord::before{
+    width:var(--mcx-discord-static-w)!important;
+    height:var(--mcx-row-control-h)!important;
+    min-height:var(--mcx-row-control-h)!important;
+    max-height:var(--mcx-row-control-h)!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-discord:hover::before,
+  html body #siteHeader.mcx-header .mcx-discord:focus-visible::before,
+  html body #siteHeader.mcx-header .mcx-discord:active::before{
+    width:var(--mcx-discord-expanded-w)!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-discord img{
+    width:var(--mcx-discord-icon-size)!important;
+    height:var(--mcx-discord-icon-size)!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-discord:hover img,
+  html body #siteHeader.mcx-header .mcx-discord:focus-visible img,
+  html body #siteHeader.mcx-header .mcx-discord:active img{
+    right:9px!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-discord-members{
+    right:var(--mcx-discord-label-right)!important;
+    width:var(--mcx-discord-label-w)!important;
+    min-width:var(--mcx-discord-label-w)!important;
+    max-width:var(--mcx-discord-label-w)!important;
+    overflow:visible!important;
+    white-space:nowrap!important;
+    text-align:center!important;
+    text-overflow:clip!important;
+  }
+
+  /* Player count capsule keeps full-size nav text and enough room to not clip. */
+  html body #siteHeader.mcx-header .mcx-players-online{
+    flex-basis:var(--mcx-players-online-w)!important;
+    width:var(--mcx-players-online-w)!important;
+    min-width:var(--mcx-players-online-w)!important;
+    max-width:var(--mcx-players-online-w)!important;
+    height:var(--mcx-row-control-h)!important;
+    min-height:var(--mcx-row-control-h)!important;
+    max-height:var(--mcx-row-control-h)!important;
+    padding-left:12px!important;
+    padding-right:12px!important;
+    gap:7px!important;
+    overflow:hidden!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-players-icon{
+    width:var(--mcx-players-icon-size)!important;
+    height:var(--mcx-players-icon-size)!important;
+    flex:0 0 var(--mcx-players-icon-size)!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-players-label{
+    max-width:148px!important;
+    overflow:hidden!important;
+    white-space:nowrap!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-nav-shell:not(.discord-would-collide):has(.mcx-discord:hover) .mcx-players-online,
+  html body #siteHeader.mcx-header .mcx-nav-shell:not(.discord-would-collide):has(.mcx-discord:focus-visible) .mcx-players-online,
+  html body #siteHeader.mcx-header .mcx-nav-shell:not(.discord-would-collide):has(.mcx-discord:active) .mcx-players-online{
+    flex-basis:var(--mcx-players-online-w)!important;
+    width:var(--mcx-players-online-w)!important;
+    min-width:var(--mcx-players-online-w)!important;
+    max-width:var(--mcx-players-online-w)!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-nav-shell:not(.discord-would-collide):has(.mcx-discord:hover) .mcx-players-label,
+  html body #siteHeader.mcx-header .mcx-nav-shell:not(.discord-would-collide):has(.mcx-discord:focus-visible) .mcx-players-label,
+  html body #siteHeader.mcx-header .mcx-nav-shell:not(.discord-would-collide):has(.mcx-discord:active) .mcx-players-label{
+    opacity:1!important;
+    max-width:148px!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-nav-shell.discord-would-collide:has(.mcx-discord:hover) .mcx-players-online,
+  html body #siteHeader.mcx-header .mcx-nav-shell.discord-would-collide:has(.mcx-discord:focus-visible) .mcx-players-online,
+  html body #siteHeader.mcx-header .mcx-nav-shell.discord-would-collide:has(.mcx-discord:active) .mcx-players-online{
+    flex-basis:var(--mcx-players-online-compact-w)!important;
+    width:var(--mcx-players-online-compact-w)!important;
+    min-width:var(--mcx-players-online-compact-w)!important;
+    max-width:var(--mcx-players-online-compact-w)!important;
+    padding-left:9px!important;
+    padding-right:9px!important;
+    gap:6px!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-nav-shell.discord-would-collide:has(.mcx-discord:hover) .mcx-players-label,
+  html body #siteHeader.mcx-header .mcx-nav-shell.discord-would-collide:has(.mcx-discord:focus-visible) .mcx-players-label,
+  html body #siteHeader.mcx-header .mcx-nav-shell.discord-would-collide:has(.mcx-discord:active) .mcx-players-label{
+    opacity:0!important;
+    max-width:0!important;
+  }
+}
+
+@media (min-width:981px) and (max-width:1320px){
+  :root{
+    --mcx-nav-text-size:13px;
+    --mcx-row-control-h:33px;
+    --mcx-row-button-w:72px;
+    --mcx-row-discord-w:33px;
+    --mcx-discord-static-w:33px;
+    --mcx-discord-icon-size:17px;
+    --mcx-discord-expanded-w:204px;
+    --mcx-discord-label-w:140px;
+    --mcx-discord-label-right:44px;
+    --mcx-players-online-w:188px;
+    --mcx-players-online-compact-w:72px;
+    --mcx-players-icon-size:15px;
+  }
+
+  html body #siteHeader.mcx-header .mcx-players-label{
+    max-width:136px!important;
+  }
+}
