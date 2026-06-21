@@ -20095,3 +20095,64 @@ body *{
     margin-right:20px!important;
   }
 }
+
+
+/* Mineacle Bans v3.9.45: fix Discord hover text clipping while keeping Players Online fixed */
+@media (min-width:981px){
+  :root{
+    --mcx-discord-expanded-w:244px;
+    --mcx-discord-label-w:166px;
+    --mcx-discord-label-right:52px;
+  }
+
+  /* Keep the actual Discord layout slot square so Players Online and Play never move. */
+  html body #siteHeader.mcx-header .mcx-discord,
+  html body #siteHeader.mcx-header .mcx-discord:hover,
+  html body #siteHeader.mcx-header .mcx-discord:focus-visible,
+  html body #siteHeader.mcx-header .mcx-discord:active{
+    flex:0 0 var(--mcx-discord-static-w, 44px)!important;
+    width:var(--mcx-discord-static-w, 44px)!important;
+    min-width:var(--mcx-discord-static-w, 44px)!important;
+    max-width:var(--mcx-discord-static-w, 44px)!important;
+    overflow:visible!important;
+  }
+
+  /* Widen only the visual hover layer so the text fits at the same nav font size. */
+  html body #siteHeader.mcx-header .mcx-discord:hover::before,
+  html body #siteHeader.mcx-header .mcx-discord:focus-visible::before,
+  html body #siteHeader.mcx-header .mcx-discord:active::before{
+    width:var(--mcx-discord-expanded-w)!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-discord-members{
+    width:var(--mcx-discord-label-w)!important;
+    min-width:var(--mcx-discord-label-w)!important;
+    max-width:var(--mcx-discord-label-w)!important;
+    right:var(--mcx-discord-label-right)!important;
+    overflow:visible!important;
+    white-space:nowrap!important;
+    text-overflow:clip!important;
+    text-align:center!important;
+    font-size:var(--mcx-nav-text-size, 14px)!important;
+    font-weight:var(--mcx-nav-text-weight, 700)!important;
+    letter-spacing:var(--mcx-nav-text-spacing, .02em)!important;
+  }
+
+  /* Players Online stays fixed above any left-expanding Discord paint. */
+  html body #siteHeader.mcx-header .mcx-players-online{
+    z-index:30!important;
+    transform:none!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-discord{
+    z-index:10!important;
+  }
+}
+
+@media (min-width:981px) and (max-width:1320px){
+  :root{
+    --mcx-discord-expanded-w:228px;
+    --mcx-discord-label-w:154px;
+    --mcx-discord-label-right:48px;
+  }
+}
