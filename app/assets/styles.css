@@ -20202,3 +20202,84 @@ body *{
     right:11px!important;
   }
 }
+
+
+/* Mineacle Bans v3.9.47: collapse player count during Discord hover + normalize player count sizing */
+@media (min-width:981px){
+  :root{
+    --mcx-players-hover-shift:-108px;
+    --mcx-players-icon-size:15px;
+  }
+
+  /* Match Players Online typography to every other nav word/link exactly. */
+  html body #siteHeader.mcx-header .mcx-players-online,
+  html body #siteHeader.mcx-header .mcx-players-value,
+  html body #siteHeader.mcx-header .mcx-players-label{
+    font-family:"Open Sans", Arial, Helvetica, sans-serif!important;
+    font-size:var(--mcx-nav-text-size, 14px)!important;
+    font-weight:var(--mcx-nav-text-weight, 700)!important;
+    letter-spacing:var(--mcx-nav-text-spacing, .02em)!important;
+    line-height:1!important;
+    text-transform:uppercase!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-players-online{
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:7px!important;
+    height:var(--mcx-row-control-h, 44px)!important;
+    min-height:var(--mcx-row-control-h, 44px)!important;
+    max-height:var(--mcx-row-control-h, 44px)!important;
+    transform:translateX(0)!important;
+    transition:transform .16s cubic-bezier(.19,1,.22,1)!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-players-icon{
+    width:var(--mcx-players-icon-size)!important;
+    height:var(--mcx-players-icon-size)!important;
+    flex:0 0 var(--mcx-players-icon-size)!important;
+    opacity:.94!important;
+    filter:drop-shadow(0 0 5px rgba(255,255,255,.18))!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-players-value{
+    color:#e7b7ff!important;
+    text-shadow:
+      0 0 7px rgba(231,183,255,.34),
+      0 0 14px rgba(196,77,255,.18)!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-players-label{
+    color:rgba(255,255,255,.72)!important;
+    text-shadow:none!important;
+    width:auto!important;
+    max-width:140px!important;
+    overflow:hidden!important;
+    white-space:nowrap!important;
+    opacity:1!important;
+    transition:opacity .10s ease, max-width .14s cubic-bezier(.19,1,.22,1)!important;
+  }
+
+  /* When Discord expands left, collapse Players Online to icon + count and shift it away from the hover button. */
+  html body #siteHeader.mcx-header .mcx-nav-shell:has(.mcx-discord:hover) .mcx-players-online,
+  html body #siteHeader.mcx-header .mcx-nav-shell:has(.mcx-discord:focus-visible) .mcx-players-online,
+  html body #siteHeader.mcx-header .mcx-nav-shell:has(.mcx-discord:active) .mcx-players-online{
+    transform:translateX(var(--mcx-players-hover-shift))!important;
+    gap:6px!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-nav-shell:has(.mcx-discord:hover) .mcx-players-label,
+  html body #siteHeader.mcx-header .mcx-nav-shell:has(.mcx-discord:focus-visible) .mcx-players-label,
+  html body #siteHeader.mcx-header .mcx-nav-shell:has(.mcx-discord:active) .mcx-players-label{
+    opacity:0!important;
+    max-width:0!important;
+  }
+}
+
+@media (min-width:981px) and (max-width:1320px){
+  :root{
+    --mcx-players-hover-shift:-92px;
+    --mcx-players-icon-size:14px;
+  }
+}
