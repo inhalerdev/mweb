@@ -18431,3 +18431,58 @@ html body #siteHeader.mcx-header .mcx-discord:focus-visible .mcx-discord-members
     max-width:calc(100vw - 48px)!important;
   }
 }
+
+
+/* Mineacle Bans v3.9.23: lower hero banner from main logo and lock width to nav-link rail */
+@media (min-width:981px){
+  :root{
+    --mineacle-nav-link-rail:min(1180px, calc(100vw - 260px));
+    --mineacle-hero-panel-w:var(--mineacle-nav-link-rail)!important;
+    --mineacle-hero-panel-top:clamp(178px, 21vh, 220px);
+    --mineacle-hero-panel-h:clamp(500px, calc(100vh - var(--mineacle-hero-panel-top) - 24px), 660px);
+  }
+
+  .bans-v34-background-fold::before,
+  .bans-v32-logo-only-fold::before,
+  .bans-v3-hero::before,
+  .bans-records-hero::before,
+  .bans-v34-background-fold::after,
+  .bans-v32-logo-only-fold::after,
+  .bans-v3-hero::after,
+  .bans-records-hero::after{
+    top:var(--mineacle-hero-panel-top)!important;
+    inset:var(--mineacle-hero-panel-top) auto auto 50%!important;
+    width:var(--mineacle-nav-link-rail)!important;
+    max-width:var(--mineacle-nav-link-rail)!important;
+    height:var(--mineacle-hero-panel-h)!important;
+  }
+
+  .bans-v34-background-fold,
+  .bans-v32-logo-only-fold,
+  .bans-v3-hero,
+  .bans-records-hero{
+    min-height:calc(var(--mineacle-hero-panel-top) + var(--mineacle-hero-panel-h) + 28px)!important;
+  }
+
+  .bans-v3-hero .ban-hero-content,
+  .bans-records-hero .ban-hero-content,
+  .bans-v34-background-fold .ban-hero-content,
+  .bans-v32-logo-only-fold .ban-hero-content{
+    width:var(--mineacle-nav-link-rail)!important;
+    max-width:var(--mineacle-nav-link-rail)!important;
+    padding-top:calc(var(--mineacle-hero-panel-top) + var(--mineacle-hero-panel-h) + var(--mineacle-section-gap, 34px))!important;
+  }
+
+  .ban-hero-copy{
+    top:calc(var(--mineacle-hero-panel-top) + (var(--mineacle-hero-panel-h) / 2))!important;
+  }
+}
+
+@media (min-width:981px) and (max-width:1280px){
+  :root{
+    --mineacle-nav-link-rail:calc(100vw - 104px);
+    --mineacle-hero-panel-w:var(--mineacle-nav-link-rail)!important;
+    --mineacle-hero-panel-top:clamp(168px, 20vh, 200px);
+    --mineacle-hero-panel-h:clamp(450px, calc(100vh - var(--mineacle-hero-panel-top) - 22px), 580px);
+  }
+}
