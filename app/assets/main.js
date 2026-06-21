@@ -632,3 +632,70 @@
     window.mineacleOpenBanInfo = openBanInfo;
     window.mineacleCloseBanInfo = closeModal;
 })();
+
+
+/* Mineacle Bans v3.9.59: final copy cleanup for records labels and punishment labels */
+(function () {
+  'use strict';
+
+  const labelMap = new Map([
+    ['PERM BAN', 'PERMANENT BAN'],
+    ['PERMANENT', 'PERMANENT BAN'],
+    ['TEMP BAN', 'TEMPORARY BAN'],
+    ['TEMPORARY', 'TEMPORARY BAN'],
+    ['IP BAN', 'IP BAN'],
+    ['WARN', 'WARNING'],
+    ['WARNING', 'WARNING'],
+    ['MUTE', 'MUTE'],
+    ['KICK', 'KICK']
+  ]);
+
+  const normalizeLabel = (value) => {
+    const key = String(value || '').trim().toUpperCase();
+    return labelMap.get(key) || value;
+  };
+
+  const replaceExactText = (root, from, to) => {
+    root.querySelectorAll('span, h1, h2, h3, b, strong, button, a, div').forEach((node) => {
+      if (node.children.length > 0) {
+        return;
+      }
+
+      if (node.textContent.trim() === from) {
+        node.textContent = to;
+      }
+    });
+  };
+
+  const cleanupBansCopy = () => {
+    const root = document.body;
+
+    replaceExactText(root, 'SEARCH RECORDS', 'BAN LOOKUP');
+    replaceExactText(root, 'Search Records', 'Ban Lookup');
+    replaceExactText(root, 'Active bans', 'Public Ban Records');
+    replaceExactText(root, 'Active Bans', 'Public Ban Records');
+    replaceExactText(root, 'Active Ban Records', 'Public Ban Records');
+
+    root.querySelectorAll('.ban-type-pill, .ban-status, .status-pill, .ban-pill, .mineacle-ban-status-single, .mineacle-ban-type-single').forEach((node) => {
+      const next = normalizeLabel(node.textContent);
+      if (next && next !== node.textContent) {
+        node.textContent = next;
+      }
+    });
+  };
+
+  const run = () => window.requestAnimationFrame(cleanupBansCopy);
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', run);
+  } else {
+    run();
+  }
+
+  document.addEventListener('click', () => {
+    window.setTimeout(cleanupBansCopy, 0);
+  });
+
+  const observer = new MutationObserver(cleanupBansCopy);
+  observer.observe(document.documentElement, { childList: true, subtree: true });
+})();
