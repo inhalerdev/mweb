@@ -15,7 +15,7 @@ function mineacle_page_head(string $title): void {
     echo '<title>Mineacle | ' . h($title) . '</title>';
     echo '<meta name="description" content="Mineacle public bans portal">';
     echo '<link rel="icon" type="image/png" href="assets/mineacle-square-logo.png?v=bansfull3.8.27.277.266.255.244.233.222.211.200.199.188.177.166.144.8.7.6.5.4.3.2">';
-    echo '<link rel="stylesheet" href="assets/styles.css?v=banssingle3.9.54">';
+    echo '<link rel="stylesheet" href="assets/styles.css?v=banssingle3.9.55">';
     echo '</head>';
 }
 
@@ -35,7 +35,7 @@ function mineacle_header(string $active = 'bans'): void {
     echo '<a class="mcx-link mcx-stats ' . ($active === 'stats' ? 'is-active' : '') . '" href="' . $stats . '">Stats</a>';
     echo '<a class="mcx-button mcx-store ' . ($active === 'store' ? 'is-active' : '') . '" href="' . $store . '">Store</a>';
     echo '<span class="mcx-players-online" id="navPlayersOnline" data-status-url="api/server-status.php" aria-label="Minecraft players online">';
-    echo '<img class="mcx-players-icon" src="assets/players-online-icon.png?v=banssingle3.9.54" alt="">';
+    echo '<img class="mcx-players-icon" src="assets/players-online-icon.png?v=banssingle3.9.55" alt="">';
     echo '<span class="mcx-players-value" id="navPlayersOnlineValue">0</span>';
     echo '<span class="mcx-players-label">Players Online</span>';
     echo '</span>';
@@ -78,6 +78,53 @@ function mineacle_footer(): void {
     echo '</div>';
     echo '</footer>';
     echo '<script src="assets/main.js?v=banssingle3.8.99"></script>';
-    echo '<script src="assets/hero-scroll.js?v=banssingle3.9.54"></script>';
-    echo '<script src="assets/nav-server-status.js?v=banssingle3.9.54"></script>';
+    echo '<script src="assets/hero-scroll.js?v=banssingle3.9.55"></script>';
+    echo '<script src="assets/nav-server-status.js?v=banssingle3.9.55"></script>';
+
+    echo <<<'HTML'
+<script>
+(function(){
+  function applyClientGuardRefresh(){
+    var section = document.querySelector('.client-guard-detail-section, .client-guard-section');
+    if (!section) return;
+
+    var panelInner = section.querySelector('.client-guard-panel-inner');
+    var titleWrap = section.querySelector('.client-guard-title-wrap, .client-guard-section-title');
+    var copy = section.querySelector('.client-guard-copy');
+
+    if (panelInner) {
+      panelInner.classList.add('client-guard-panel-rebuilt');
+    }
+
+    if (panelInner && titleWrap && titleWrap.parentNode !== panelInner) {
+      panelInner.insertBefore(titleWrap, panelInner.firstChild);
+    }
+
+    var img = section.querySelector('.client-guard-title-img, .client-guard-section-title img');
+    if (img) {
+      img.src = 'assets/mineacle-clientguard-logo-v2.png?v=banssingle3.9.55';
+      img.alt = 'Mineacle Client Guard';
+      img.classList.add('client-guard-title-img');
+    }
+
+    if (copy) {
+      var heading = copy.querySelector('h2');
+      var para = copy.querySelector('p');
+      if (heading) {
+        heading.textContent = 'Fair survival, reviewed fairly';
+      }
+      if (para) {
+        para.textContent = 'Mineacle Client Guard helps staff review client, movement, combat, and building behavior using repeated patterns instead of judging one random moment';
+      }
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyClientGuardRefresh);
+  } else {
+    applyClientGuardRefresh();
+  }
+})();
+</script>
+HTML;
 }
