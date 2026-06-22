@@ -25972,3 +25972,332 @@ body *{
     margin-top:var(--mineacle-section-spacing-equal)!important;
   }
 }
+
+
+/* Mineacle Bans v3.9.76: equal section spacing + corrected bans table row */
+@media (min-width:981px){
+  :root{
+    --mineacle-section-gap-final:86px;
+    --mineacle-ban-table-player: minmax(300px, 1.1fr);
+    --mineacle-ban-table-reason: minmax(380px, 1.45fr);
+    --mineacle-ban-table-type: minmax(280px, .95fr);
+  }
+
+  /*
+    Match spacing:
+    header bottom -> Client Guard top
+    Client Guard bottom -> Bans top
+  */
+  html body .client-guard-detail-section,
+  html body .client-guard-section{
+    margin-top:var(--mineacle-section-gap-final)!important;
+    margin-bottom:0!important;
+    padding-top:0!important;
+    padding-bottom:0!important;
+    min-height:auto!important;
+    transform:none!important;
+  }
+
+  html body .client-guard-panel{
+    margin-top:0!important;
+    margin-bottom:0!important;
+  }
+
+  html body .bans-v3-results,
+  html body .bans-section{
+    margin-top:var(--mineacle-section-gap-final)!important;
+  }
+
+  /* Remove wrapper spacing/fade interference. */
+  html body .bans-v34-background-fold,
+  html body .bans-v32-logo-only-fold,
+  html body .bans-v3-hero,
+  html body .bans-records-hero,
+  html body .bans-hero,
+  html body .page-hero{
+    padding-top:0!important;
+    padding-bottom:0!important;
+    margin-top:0!important;
+    margin-bottom:0!important;
+  }
+
+  html body .bans-v34-background-fold::before,
+  html body .bans-v34-background-fold::after,
+  html body .bans-v32-logo-only-fold::before,
+  html body .bans-v32-logo-only-fold::after,
+  html body .bans-v3-hero::before,
+  html body .bans-v3-hero::after,
+  html body .bans-records-hero::before,
+  html body .bans-records-hero::after,
+  html body .bans-hero::before,
+  html body .bans-hero::after,
+  html body .page-hero::before,
+  html body .page-hero::after{
+    display:none!important;
+    content:none!important;
+    opacity:0!important;
+    background:none!important;
+    border:0!important;
+    box-shadow:none!important;
+  }
+
+  /* Bans table shell stays one clean section. */
+  html body .js-ban-table,
+  html body .ban-table{
+    display:block!important;
+    border-radius:0!important;
+    overflow:visible!important;
+    background:transparent!important;
+    box-shadow:none!important;
+  }
+
+  html body .ban-table-header-row{
+    display:grid!important;
+    grid-template-columns:var(--mineacle-ban-table-player) var(--mineacle-ban-table-reason) var(--mineacle-ban-table-type)!important;
+    align-items:center!important;
+    min-height:42px!important;
+    padding:0 20px!important;
+    border:0!important;
+    border-bottom:1px solid rgba(255,255,255,.065)!important;
+    border-radius:0!important;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.026), rgba(255,255,255,.008)),
+      rgba(17,17,23,.72)!important;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.035)!important;
+  }
+
+  html body .ban-table-heading{
+    color:rgba(255,255,255,.58)!important;
+    font-family:"Open Sans", Arial, Helvetica, sans-serif!important;
+    font-size:11px!important;
+    font-weight:700!important;
+    letter-spacing:.12em!important;
+    line-height:1!important;
+    text-transform:uppercase!important;
+    text-align:left!important;
+  }
+
+  /* Banned player row: exactly Player | Reason | Type. */
+  html body article.ban-row.mineacle-ban-row-square.ban-table-data-row,
+  html body .ban-row.mineacle-ban-row-square.ban-table-data-row,
+  html body .js-ban-table article.ban-row.mineacle-ban-row-square.ban-table-data-row,
+  html body .js-ban-table .ban-row.mineacle-ban-row-square.ban-table-data-row{
+    display:grid!important;
+    grid-template-columns:var(--mineacle-ban-table-player) var(--mineacle-ban-table-reason) var(--mineacle-ban-table-type)!important;
+    align-items:center!important;
+    column-gap:0!important;
+    min-height:68px!important;
+    padding:9px 20px!important;
+    margin:0!important;
+    border:0!important;
+    border-bottom:1px solid rgba(255,255,255,.055)!important;
+    border-radius:0!important;
+    -webkit-border-radius:0!important;
+    overflow:visible!important;
+    clip-path:none!important;
+    mask-image:none!important;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.018), rgba(255,255,255,.007)),
+      rgba(255,255,255,.014)!important;
+    box-shadow:none!important;
+    transform:none!important;
+  }
+
+  html body article.ban-row.mineacle-ban-row-square.ban-table-data-row:hover,
+  html body .ban-row.mineacle-ban-row-square.ban-table-data-row:hover,
+  html body .js-ban-table article.ban-row.mineacle-ban-row-square.ban-table-data-row:hover,
+  html body .js-ban-table .ban-row.mineacle-ban-row-square.ban-table-data-row:hover{
+    border-radius:0!important;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.032), rgba(255,255,255,.012)),
+      rgba(255,255,255,.024)!important;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.040)!important;
+    transform:none!important;
+  }
+
+  html body .ban-row.mineacle-ban-row-square.ban-table-data-row::before,
+  html body .ban-row.mineacle-ban-row-square.ban-table-data-row::after{
+    display:none!important;
+    content:none!important;
+    border-radius:0!important;
+    -webkit-border-radius:0!important;
+  }
+
+  html body .ban-table-data-row > .ban-cell{
+    min-width:0!important;
+    height:auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    border:0!important;
+    border-radius:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
+    color:inherit!important;
+    padding:0!important;
+    margin:0!important;
+    transform:none!important;
+    position:relative!important;
+  }
+
+  html body .ban-table-data-row > .ban-player-cell{
+    grid-column:1 / 2!important;
+    grid-row:1!important;
+    order:1!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-start!important;
+    gap:12px!important;
+  }
+
+  html body .ban-table-data-row > .ban-reason-cell{
+    grid-column:2 / 3!important;
+    grid-row:1!important;
+    order:2!important;
+    display:block!important;
+    padding-right:22px!important;
+    color:rgba(255,255,255,.70)!important;
+    font-size:13px!important;
+    font-weight:700!important;
+    line-height:1.35!important;
+    text-align:left!important;
+  }
+
+  html body .ban-table-data-row > .ban-type-cell{
+    grid-column:3 / 4!important;
+    grid-row:1!important;
+    order:3!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:space-between!important;
+    gap:12px!important;
+  }
+
+  html body .ban-player-cell .ban-avatar,
+  html body .ban-table-data-row .ban-avatar{
+    width:42px!important;
+    min-width:42px!important;
+    height:42px!important;
+    min-height:42px!important;
+    border-radius:8px!important;
+    flex:0 0 42px!important;
+  }
+
+  html body .ban-player-copy{
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:flex-start!important;
+    justify-content:center!important;
+    min-width:0!important;
+    gap:4px!important;
+  }
+
+  html body .ban-player-line{
+    display:flex!important;
+    align-items:center!important;
+    gap:8px!important;
+    min-width:0!important;
+  }
+
+  html body .ban-table-data-row .ban-name{
+    font-size:16px!important;
+    line-height:1.1!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+  }
+
+  html body .ban-table-data-row .ban-date{
+    font-size:11.5px!important;
+    line-height:1.1!important;
+    color:rgba(255,255,255,.50)!important;
+    white-space:nowrap!important;
+  }
+
+  html body .ban-type-copy{
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:flex-start!important;
+    justify-content:center!important;
+    gap:5px!important;
+    min-width:0!important;
+  }
+
+  html body .ban-table-data-row .ban-type-pill{
+    min-width:132px!important;
+    height:28px!important;
+    min-height:28px!important;
+    max-height:28px!important;
+    padding:0 12px!important;
+    border-radius:6px!important;
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    font-size:11px!important;
+    line-height:1!important;
+    white-space:nowrap!important;
+  }
+
+  html body .ban-table-data-row .ban-meta{
+    color:rgba(255,255,255,.50)!important;
+    font-size:11.5px!important;
+    line-height:1.1!important;
+    white-space:nowrap!important;
+  }
+
+  html body .ban-table-data-row .ban-action{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-end!important;
+    min-width:0!important;
+    margin-left:auto!important;
+  }
+
+  html body .ban-table-data-row .ban-action:empty{
+    display:none!important;
+  }
+}
+
+@media (min-width:981px) and (max-width:1320px){
+  :root{
+    --mineacle-section-gap-final:72px;
+    --mineacle-ban-table-player: minmax(260px, 1.05fr);
+    --mineacle-ban-table-reason: minmax(300px, 1.4fr);
+    --mineacle-ban-table-type: minmax(230px, .9fr);
+  }
+
+  html body .ban-table-header-row,
+  html body article.ban-row.mineacle-ban-row-square.ban-table-data-row,
+  html body .ban-row.mineacle-ban-row-square.ban-table-data-row{
+    padding-left:16px!important;
+    padding-right:16px!important;
+  }
+
+  html body .ban-table-data-row .ban-type-pill{
+    min-width:118px!important;
+  }
+}
+
+@media (max-width:980px){
+  :root{
+    --mineacle-section-gap-final:36px;
+  }
+
+  html body .client-guard-detail-section,
+  html body .client-guard-section{
+    margin-top:var(--mineacle-section-gap-final)!important;
+  }
+
+  html body .bans-v3-results,
+  html body .bans-section{
+    margin-top:var(--mineacle-section-gap-final)!important;
+  }
+
+  html body .ban-table-header-row{
+    display:none!important;
+  }
+
+  html body .ban-row.mineacle-ban-row-square,
+  html body .ban-row.ban-table-data-row{
+    border-radius:0!important;
+  }
+}

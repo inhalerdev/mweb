@@ -178,7 +178,7 @@
             </div>
         ` + currentRows.map((ban, index) => `
             <article class="ban-row mineacle-ban-row-square ban-table-data-row" data-ban-index="${index}">
-                <div class="ban-player ban-player-cell">
+                <div class="ban-cell ban-player-cell">
                     <img class="ban-avatar" src="${escapeHtml(ban.skin)}" alt="${escapeHtml(ban.username)}" loading="lazy">
                     <div class="ban-player-copy">
                         <div class="ban-player-line">
@@ -189,9 +189,9 @@
                     </div>
                 </div>
 
-                <div class="ban-reason ban-reason-cell">${escapeHtml(ban.reason)}</div>
+                <div class="ban-cell ban-reason-cell">${escapeHtml(ban.reason)}</div>
 
-                <div class="ban-status ban-type-cell">
+                <div class="ban-cell ban-type-cell">
                     <div class="ban-type-copy">
                         <button class="badge ban-type-pill ${escapeHtml(ban.status_type)} js-info-button" type="button" data-info-index="${index}" aria-label="View ${escapeHtml(statusLabel(ban))} details">${escapeHtml(statusLabel(ban))}</button>
                         <span class="ban-meta">${escapeHtml(ban.duration)}</span>
