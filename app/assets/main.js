@@ -67,11 +67,13 @@
             raw.expires_in
         ].filter(Boolean).join(" ").toLowerCase();
 
-        if (raw.temporary || raw.temp) return true;
-        if (joined.includes("temporary") || joined.includes("temp")) return true;
-        if (!joined.includes("permanent") && /\b\d+\s*(minute|minutes|hour|hours|day|days|week|weeks|month|months)\b/.test(joined)) return true;
-
-        return false;
+        return Boolean(
+            raw.temporary ||
+            raw.temp ||
+            joined.includes("temporary") ||
+            joined.includes("temp") ||
+            (!joined.includes("permanent") && /\b\d+\s*(minute|minutes|hour|hours|day|days|week|weeks|month|months)\b/.test(joined))
+        );
     }
 
     function isIpBan(raw = {}) {
