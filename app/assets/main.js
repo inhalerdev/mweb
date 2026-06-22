@@ -179,7 +179,7 @@
         }
 
         banList.innerHTML = currentRows.map((ban, index) => `
-            <article class="ban-row" data-ban-index="${index}">
+            <article class="ban-row mineacle-ban-row-square" data-ban-index="${index}">
                 <img class="ban-avatar" src="${escapeHtml(ban.skin)}" alt="${escapeHtml(ban.username)}" loading="lazy">
 
                 <div class="ban-player">
@@ -696,5 +696,41 @@
     document.addEventListener('DOMContentLoaded', wire, { once: true });
   } else {
     wire();
+  }
+})();
+
+
+/* Mineacle Bans v3.9.72: final Search/Clear sync, no observer */
+(function () {
+  'use strict';
+
+  const syncSearchButtons = () => {
+    document.querySelectorAll('.js-ban-search-form').forEach((form) => {
+      const input = form.querySelector('.js-ban-search, input');
+      const button = form.querySelector('button[type="submit"], .btn:not(.search-clear):not(.ban-search-clear)');
+      if (!input || !button) return;
+
+      const hasValue = input.value.trim().length > 0;
+      button.textContent = hasValue ? 'Clear' : 'Search';
+      button.classList.toggle('is-clear', hasValue);
+      button.classList.toggle('is-search', !hasValue);
+      button.setAttribute('aria-label', hasValue ? 'Clear search' : 'Search bans');
+    });
+  };
+
+  const wireSearchButtons = () => {
+    syncSearchButtons();
+    document.querySelectorAll('.js-ban-search-form .js-ban-search, .js-ban-search-form input').forEach((input) => {
+      input.addEventListener('input', syncSearchButtons);
+      input.addEventListener('keyup', syncSearchButtons);
+      input.addEventListener('change', syncSearchButtons);
+    });
+    document.addEventListener('click', () => window.setTimeout(syncSearchButtons, 0));
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', wireSearchButtons, { once: true });
+  } else {
+    wireSearchButtons();
   }
 })();
