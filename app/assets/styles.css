@@ -26350,3 +26350,104 @@ body *{
     margin-top:var(--mineacle-page-drop)!important;
   }
 }
+
+
+/* Mineacle Bans v3.9.79: match nav→ClientGuard, ClientGuard→Bans, and Bans→Footer spacing */
+@media (min-width:981px){
+  :root{
+    /*
+      The visible Client Guard top gap was still shorter because older wrapper positioning
+      compresses the first section. This larger top drop visually matches the real
+      Client Guard→Bans gap while leaving the nav/header untouched.
+    */
+    --mineacle-content-first-gap-match:190px;
+    --mineacle-section-gap-match:86px;
+  }
+
+  html body .client-guard-detail-section,
+  html body .client-guard-section{
+    margin-top:var(--mineacle-content-first-gap-match)!important;
+    margin-bottom:0!important;
+    padding-top:0!important;
+    padding-bottom:0!important;
+    min-height:auto!important;
+    transform:none!important;
+  }
+
+  html body .client-guard-panel{
+    margin-top:0!important;
+    margin-bottom:0!important;
+  }
+
+  html body .bans-v3-results,
+  html body .bans-section{
+    margin-top:var(--mineacle-section-gap-match)!important;
+    margin-bottom:var(--mineacle-section-gap-match)!important;
+    padding-top:0!important;
+    padding-bottom:0!important;
+  }
+
+  html body .site-footer.redesigned-footer{
+    margin-top:0!important;
+  }
+
+  /* Remove legacy wrapper spacing so only the three gap values above control rhythm. */
+  html body .bans-v34-background-fold,
+  html body .bans-v32-logo-only-fold,
+  html body .bans-v3-hero,
+  html body .bans-records-hero,
+  html body .bans-hero,
+  html body .page-hero{
+    padding-top:0!important;
+    padding-bottom:0!important;
+    margin-top:0!important;
+    margin-bottom:0!important;
+  }
+
+  html body .bans-v34-background-fold::before,
+  html body .bans-v34-background-fold::after,
+  html body .bans-v32-logo-only-fold::before,
+  html body .bans-v32-logo-only-fold::after,
+  html body .bans-v3-hero::before,
+  html body .bans-v3-hero::after,
+  html body .bans-records-hero::before,
+  html body .bans-records-hero::after,
+  html body .bans-hero::before,
+  html body .bans-hero::after,
+  html body .page-hero::before,
+  html body .page-hero::after{
+    display:none!important;
+    content:none!important;
+    opacity:0!important;
+    background:none!important;
+    border:0!important;
+    box-shadow:none!important;
+  }
+}
+
+@media (min-width:981px) and (max-width:1320px){
+  :root{
+    --mineacle-content-first-gap-match:156px;
+    --mineacle-section-gap-match:72px;
+  }
+}
+
+@media (max-width:980px){
+  :root{
+    --mineacle-content-first-gap-match:72px;
+    --mineacle-section-gap-match:36px;
+  }
+
+  html body .client-guard-detail-section,
+  html body .client-guard-section{
+    margin-top:var(--mineacle-content-first-gap-match)!important;
+    padding-top:0!important;
+    padding-bottom:0!important;
+  }
+
+  html body .bans-v3-results,
+  html body .bans-section{
+    margin-top:var(--mineacle-section-gap-match)!important;
+    margin-bottom:var(--mineacle-section-gap-match)!important;
+  }
+}
