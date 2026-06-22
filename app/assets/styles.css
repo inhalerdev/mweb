@@ -27174,3 +27174,373 @@ body *{
     box-shadow:none!important;
   }
 }
+
+
+/* Mineacle Bans v3.9.86: flat color pass; gradients only remain on buttons */
+@media (min-width:981px){
+  :root{
+    --mineacle-flat-page:#0b0b10;
+    --mineacle-flat-nav:#14141a;
+    --mineacle-flat-panel:#111117;
+    --mineacle-flat-panel-2:#15151c;
+    --mineacle-flat-panel-3:#0f0f14;
+    --mineacle-flat-input:#171720;
+    --mineacle-flat-row:#13131a;
+    --mineacle-flat-line:rgba(255,255,255,.075);
+    --mineacle-flat-line-soft:rgba(255,255,255,.055);
+  }
+
+  html,
+  html body,
+  html body.bans-page{
+    background:var(--mineacle-flat-page)!important;
+    background-image:none!important;
+  }
+
+  html body::before,
+  html body::after{
+    display:none!important;
+    content:none!important;
+    background:none!important;
+    background-image:none!important;
+  }
+
+  html body .page-shell,
+  html body main,
+  html body .site-main,
+  html body .bans-v34-background-fold,
+  html body .bans-v32-logo-only-fold,
+  html body .bans-v3-hero,
+  html body .bans-records-hero,
+  html body .bans-hero,
+  html body .page-hero,
+  html body .client-guard-detail-section,
+  html body .client-guard-section{
+    background:var(--mineacle-flat-page)!important;
+    background-image:none!important;
+    box-shadow:none!important;
+  }
+
+  html body .bans-v34-background-fold::before,
+  html body .bans-v34-background-fold::after,
+  html body .bans-v32-logo-only-fold::before,
+  html body .bans-v32-logo-only-fold::after,
+  html body .bans-v3-hero::before,
+  html body .bans-v3-hero::after,
+  html body .bans-records-hero::before,
+  html body .bans-records-hero::after,
+  html body .bans-hero::before,
+  html body .bans-hero::after,
+  html body .page-hero::before,
+  html body .page-hero::after,
+  html body .client-guard-detail-section::before,
+  html body .client-guard-detail-section::after,
+  html body .client-guard-section::before,
+  html body .client-guard-section::after{
+    display:none!important;
+    content:none!important;
+    background:none!important;
+    background-image:none!important;
+    box-shadow:none!important;
+    opacity:0!important;
+  }
+
+  /* Header / navbar container: flat surface, no glass gradient. Buttons keep their own gradients. */
+  html body #siteHeader.mcx-header,
+  html body #siteHeader.mcx-header.site-header,
+  html body #siteHeader.mcx-header.mineacle-floating-header,
+  html body #siteHeader.mcx-header.blocaria-style-header,
+  html body .mcx-header.site-header.mineacle-floating-header,
+  html body .site-header{
+    background:var(--mineacle-flat-nav)!important;
+    background-image:none!important;
+    border-color:var(--mineacle-flat-line)!important;
+    box-shadow:none!important;
+    backdrop-filter:none!important;
+    -webkit-backdrop-filter:none!important;
+  }
+
+  html body #siteHeader.mcx-header::before,
+  html body #siteHeader.mcx-header::after,
+  html body .mcx-header::before,
+  html body .mcx-header::after,
+  html body .site-header::before,
+  html body .site-header::after,
+  html body .mcx-nav-shell::before,
+  html body .mcx-nav-shell::after{
+    display:none!important;
+    content:none!important;
+    background:none!important;
+    background-image:none!important;
+    box-shadow:none!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-nav-shell,
+  html body .mcx-nav-shell{
+    background:transparent!important;
+    background-image:none!important;
+    box-shadow:none!important;
+  }
+
+  /* Text nav links stay flat; nav buttons are intentionally not targeted. */
+  html body #siteHeader.mcx-header .mcx-link,
+  html body #siteHeader.mcx-header .mcx-link:hover,
+  html body #siteHeader.mcx-header .mcx-link.is-active,
+  html body .mcx-link,
+  html body .mcx-link:hover,
+  html body .mcx-link.is-active{
+    background:transparent!important;
+    background-image:none!important;
+    box-shadow:none!important;
+  }
+
+  /* Main content containers. */
+  html body .client-guard-panel,
+  html body .bans-section,
+  html body .bans-v3-results,
+  html body .bans-section .ban-list-wrap,
+  html body .bans-v3-results .ban-list-wrap,
+  html body .site-footer.redesigned-footer,
+  html body .logo-only-footer{
+    background:var(--mineacle-flat-panel)!important;
+    background-image:none!important;
+    border-color:var(--mineacle-flat-line)!important;
+    box-shadow:none!important;
+    backdrop-filter:none!important;
+    -webkit-backdrop-filter:none!important;
+  }
+
+  html body .client-guard-panel::before,
+  html body .client-guard-panel::after,
+  html body .bans-section::before,
+  html body .bans-section::after,
+  html body .bans-v3-results::before,
+  html body .bans-v3-results::after,
+  html body .bans-section .ban-list-wrap::before,
+  html body .bans-section .ban-list-wrap::after,
+  html body .bans-v3-results .ban-list-wrap::before,
+  html body .bans-v3-results .ban-list-wrap::after,
+  html body .site-footer.redesigned-footer::before,
+  html body .site-footer.redesigned-footer::after,
+  html body .logo-only-footer::before,
+  html body .logo-only-footer::after{
+    display:none!important;
+    content:none!important;
+    background:none!important;
+    background-image:none!important;
+    box-shadow:none!important;
+  }
+
+  html body .client-guard-panel-inner,
+  html body .client-guard-panel-inner.client-guard-panel-rebuilt{
+    background:transparent!important;
+    background-image:none!important;
+    box-shadow:none!important;
+  }
+
+  html body .client-guard-panel-rebuilt .client-guard-list li,
+  html body .guard-info-tile,
+  html body .guard-info-tiles > *,
+  html body .client-guard-card,
+  html body .client-guard-block{
+    background:var(--mineacle-flat-panel-2)!important;
+    background-image:none!important;
+    border-color:var(--mineacle-flat-line-soft)!important;
+    box-shadow:none!important;
+  }
+
+  html body .client-guard-panel-rebuilt .client-guard-list b,
+  html body .client-guard-panel-rebuilt .client-guard-list b:hover{
+    background:var(--mineacle-flat-input)!important;
+    background-image:none!important;
+    box-shadow:none!important;
+    border-color:var(--mineacle-flat-line)!important;
+  }
+
+  /* Bans section internals are flat and joined. */
+  html body .bans-v3-results-head,
+  html body .section-heading,
+  html body .bans-section .section-heading,
+  html body .bans-section .bans-v3-results-head,
+  html body .bans-v3-results .section-heading,
+  html body .bans-v3-results .bans-v3-results-head,
+  html body .js-ban-search-form,
+  html body form.js-ban-search-form,
+  html body .bans-v3-search,
+  html body .bans-v31-results-search,
+  html body .ban-toolbar,
+  html body .ban-search-row,
+  html body .ban-table-header-row,
+  html body .js-ban-table,
+  html body .ban-table{
+    background:var(--mineacle-flat-panel)!important;
+    background-image:none!important;
+    box-shadow:none!important;
+    border-color:var(--mineacle-flat-line-soft)!important;
+    backdrop-filter:none!important;
+    -webkit-backdrop-filter:none!important;
+  }
+
+  html body .ban-table-header-row{
+    background:var(--mineacle-flat-panel-2)!important;
+    background-image:none!important;
+  }
+
+  html body .js-ban-search-form .searchbar,
+  html body .js-ban-search-form .ban-search-field,
+  html body .searchbar,
+  html body .ban-search-field,
+  html body .js-ban-search,
+  html body .js-ban-search-form input{
+    background:var(--mineacle-flat-input)!important;
+    background-image:none!important;
+    box-shadow:none!important;
+    border-color:var(--mineacle-flat-line)!important;
+  }
+
+  html body article.ban-row,
+  html body .ban-row,
+  html body .ban-row.mineacle-ban-row-square,
+  html body .ban-row.ban-table-data-row,
+  html body .js-ban-table article.ban-row,
+  html body .js-ban-table .ban-row,
+  html body .js-ban-table .ban-row.mineacle-ban-row-square,
+  html body .js-ban-table .ban-row.ban-table-data-row,
+  html body article.ban-row:hover,
+  html body .ban-row:hover,
+  html body .ban-row.mineacle-ban-row-square:hover,
+  html body .ban-row.ban-table-data-row:hover,
+  html body .js-ban-table article.ban-row:hover,
+  html body .js-ban-table .ban-row:hover,
+  html body .js-ban-table .ban-row.mineacle-ban-row-square:hover,
+  html body .js-ban-table .ban-row.ban-table-data-row:hover{
+    background:var(--mineacle-flat-row)!important;
+    background-image:none!important;
+    box-shadow:none!important;
+    border-color:var(--mineacle-flat-line-soft)!important;
+    transform:none!important;
+    filter:none!important;
+  }
+
+  html body .ban-cell,
+  html body .ban-player-cell,
+  html body .ban-reason-cell,
+  html body .ban-type-cell,
+  html body .ban-type-copy,
+  html body .ban-player-copy,
+  html body .ban-action{
+    background:transparent!important;
+    background-image:none!important;
+    box-shadow:none!important;
+  }
+
+  html body .ban-type-pill,
+  html body .ban-type-pill:hover,
+  html body .status-pill,
+  html body .ban-pill,
+  html body .badge:not(.btn){
+    background:var(--mineacle-flat-input)!important;
+    background-image:none!important;
+    border-color:var(--mineacle-flat-line)!important;
+    box-shadow:none!important;
+    filter:none!important;
+  }
+
+  html body .js-ban-meta,
+  html body .mineacle-ban-count-bottom,
+  html body .ban-pagination-meta,
+  html body .bans-v3-meta,
+  html body .bans-count-pill,
+  html body .records-count-pill,
+  html body .pagination-row,
+  html body .ban-table-footer,
+  html body .bans-pagination,
+  html body .ban-pagination{
+    background:var(--mineacle-flat-input)!important;
+    background-image:none!important;
+    border-color:var(--mineacle-flat-line)!important;
+    box-shadow:none!important;
+  }
+
+  /* Modal / More Info popup: flat colors; CTA button gradients are preserved. */
+  html body #banModal.mineacle-ban-modal-single,
+  html body .mineacle-ban-modal-single{
+    background:rgba(0,0,0,.76)!important;
+    background-image:none!important;
+    backdrop-filter:none!important;
+    -webkit-backdrop-filter:none!important;
+  }
+
+  html body .mineacle-ban-card-single,
+  html body .mineacle-ban-grid-single article,
+  html body .mineacle-ban-discord-single,
+  html body .mineacle-ban-actions-single{
+    background:var(--mineacle-flat-panel)!important;
+    background-image:none!important;
+    border-color:var(--mineacle-flat-line)!important;
+    box-shadow:none!important;
+  }
+
+  html body .mineacle-ban-grid-single article,
+  html body .mineacle-ban-discord-single{
+    background:var(--mineacle-flat-panel-2)!important;
+  }
+
+  html body .mineacle-ban-status-single,
+  html body .mineacle-ban-type-single,
+  html body .mineacle-ban-pill-single{
+    background:var(--mineacle-flat-input)!important;
+    background-image:none!important;
+    box-shadow:none!important;
+    border-color:var(--mineacle-flat-line)!important;
+  }
+
+  html body .mineacle-ban-close-single,
+  html body .mineacle-ban-close-single:hover,
+  html body .info-btn,
+  html body .info-btn:hover,
+  html body .js-info-button.info-btn,
+  html body .js-info-button.info-btn:hover,
+  html body .ban-info-btn,
+  html body .ban-info-btn:hover,
+  html body .js-ban-info,
+  html body .js-ban-info:hover,
+  html body .icon-btn,
+  html body .icon-btn:hover{
+    background:var(--mineacle-flat-input)!important;
+    background-image:none!important;
+    box-shadow:none!important;
+    border-color:var(--mineacle-flat-line)!important;
+    filter:none!important;
+    transform:none!important;
+  }
+}
+
+@media (max-width:980px){
+  html,
+  html body{
+    background:#0b0b10!important;
+    background-image:none!important;
+  }
+
+  html body .client-guard-panel,
+  html body .bans-section,
+  html body .bans-v3-results,
+  html body .site-footer.redesigned-footer{
+    background:#111117!important;
+    background-image:none!important;
+    box-shadow:none!important;
+  }
+
+  html body .bans-v3-results-head,
+  html body .section-heading,
+  html body .js-ban-search-form,
+  html body .ban-table-header-row,
+  html body .js-ban-table,
+  html body .ban-row,
+  html body .mineacle-ban-card-single{
+    background:#111117!important;
+    background-image:none!important;
+    box-shadow:none!important;
+  }
+}
