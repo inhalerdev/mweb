@@ -27885,3 +27885,114 @@ body *{
     pointer-events:none!important;
   }
 }
+
+
+/* Mineacle Bans v3.9.91: lock ban type pill state; no row-hover discolor */
+@media (min-width:981px){
+  /*
+    The ban type label must never change when the banned player slot/row is hovered.
+    Use one final high-specificity state for normal, row-hover, label-hover, focus, active,
+    and active/permanent status class combinations.
+  */
+  html body .bans-section .js-ban-table article.ban-row.mineacle-ban-row-square.ban-table-data-row .ban-type-cell .badge.ban-type-pill,
+  html body .bans-section .js-ban-table article.ban-row.mineacle-ban-row-square.ban-table-data-row:hover .ban-type-cell .badge.ban-type-pill,
+  html body .bans-section .js-ban-table article.ban-row.mineacle-ban-row-square.ban-table-data-row .ban-type-cell .badge.ban-type-pill:hover,
+  html body .bans-section .js-ban-table article.ban-row.mineacle-ban-row-square.ban-table-data-row:hover .ban-type-cell .badge.ban-type-pill:hover,
+  html body .bans-section .js-ban-table article.ban-row.mineacle-ban-row-square.ban-table-data-row .ban-type-cell .badge.ban-type-pill:focus,
+  html body .bans-section .js-ban-table article.ban-row.mineacle-ban-row-square.ban-table-data-row .ban-type-cell .badge.ban-type-pill:focus-visible,
+  html body .bans-section .js-ban-table article.ban-row.mineacle-ban-row-square.ban-table-data-row .ban-type-cell .badge.ban-type-pill:active,
+  html body .bans-section .js-ban-table article.ban-row.mineacle-ban-row-square.ban-table-data-row .ban-type-cell .badge.ban-type-pill.active,
+  html body .bans-section .js-ban-table article.ban-row.mineacle-ban-row-square.ban-table-data-row:hover .ban-type-cell .badge.ban-type-pill.active,
+  html body .bans-section .js-ban-table article.ban-row.mineacle-ban-row-square.ban-table-data-row .ban-type-cell .badge.ban-type-pill.permanent,
+  html body .bans-section .js-ban-table article.ban-row.mineacle-ban-row-square.ban-table-data-row:hover .ban-type-cell .badge.ban-type-pill.permanent,
+  html body .bans-v3-results .js-ban-table article.ban-row.mineacle-ban-row-square.ban-table-data-row .ban-type-cell .badge.ban-type-pill,
+  html body .bans-v3-results .js-ban-table article.ban-row.mineacle-ban-row-square.ban-table-data-row:hover .ban-type-cell .badge.ban-type-pill,
+  html body .bans-v3-results .js-ban-table article.ban-row.mineacle-ban-row-square.ban-table-data-row .ban-type-cell .badge.ban-type-pill:hover,
+  html body .bans-v3-results .js-ban-table article.ban-row.mineacle-ban-row-square.ban-table-data-row:hover .ban-type-cell .badge.ban-type-pill:hover,
+  html body .ban-table-data-row .ban-type-cell .badge.ban-type-pill,
+  html body .ban-table-data-row:hover .ban-type-cell .badge.ban-type-pill,
+  html body .ban-table-data-row .ban-type-cell .badge.ban-type-pill:hover,
+  html body .ban-table-data-row:hover .ban-type-cell .badge.ban-type-pill:hover,
+  html body .ban-row .ban-type-cell .badge.ban-type-pill,
+  html body .ban-row:hover .ban-type-cell .badge.ban-type-pill,
+  html body .ban-row .ban-type-cell .badge.ban-type-pill:hover,
+  html body .ban-row:hover .ban-type-cell .badge.ban-type-pill:hover{
+    height:42px!important;
+    min-height:42px!important;
+    min-width:88px!important;
+    padding:0 16px!important;
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    border-radius:7px!important;
+    border:1px solid rgba(255,136,255,.28)!important;
+    background:rgba(18,15,34,.46)!important;
+    color:#ffd8ff!important;
+    font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif!important;
+    font-size:12px!important;
+    font-weight:900!important;
+    letter-spacing:.055em!important;
+    line-height:1!important;
+    text-transform:uppercase!important;
+    text-shadow:0 1px 0 rgba(0,0,0,.55)!important;
+    box-shadow:
+      inset 0 0 8px rgba(203,88,255,.070),
+      inset 0 1px 0 rgba(255,255,255,.052)!important;
+    filter:none!important;
+    opacity:1!important;
+    transform:none!important;
+    cursor:default!important;
+    pointer-events:none!important;
+    outline:none!important;
+  }
+
+  html body .ban-type-cell .badge.ban-type-pill::before,
+  html body .ban-type-cell .badge.ban-type-pill::after,
+  html body .ban-row:hover .ban-type-cell .badge.ban-type-pill::before,
+  html body .ban-row:hover .ban-type-cell .badge.ban-type-pill::after,
+  html body .ban-table-data-row:hover .ban-type-cell .badge.ban-type-pill::before,
+  html body .ban-table-data-row:hover .ban-type-cell .badge.ban-type-pill::after{
+    display:none!important;
+    content:none!important;
+    background:none!important;
+    box-shadow:none!important;
+    opacity:0!important;
+  }
+
+  /* IP and temporary labels get their own fixed colors, also locked against row hover. */
+  html body .ban-table-data-row .ban-type-cell .badge.ban-type-pill.ip,
+  html body .ban-table-data-row:hover .ban-type-cell .badge.ban-type-pill.ip,
+  html body .ban-table-data-row .ban-type-cell .badge.ban-type-pill.ban-type-ip,
+  html body .ban-table-data-row:hover .ban-type-cell .badge.ban-type-pill.ban-type-ip{
+    border-color:rgba(255,104,147,.32)!important;
+    background:rgba(18,15,34,.46)!important;
+    color:#ffbdd1!important;
+  }
+
+  html body .ban-table-data-row .ban-type-cell .badge.ban-type-pill.temp,
+  html body .ban-table-data-row:hover .ban-type-cell .badge.ban-type-pill.temp,
+  html body .ban-table-data-row .ban-type-cell .badge.ban-type-pill.temporary,
+  html body .ban-table-data-row:hover .ban-type-cell .badge.ban-type-pill.temporary,
+  html body .ban-table-data-row .ban-type-cell .badge.ban-type-pill.ban-type-temp,
+  html body .ban-table-data-row:hover .ban-type-cell .badge.ban-type-pill.ban-type-temp{
+    border-color:rgba(255,195,96,.34)!important;
+    background:rgba(18,15,34,.46)!important;
+    color:#ffe2aa!important;
+  }
+}
+
+@media (max-width:980px){
+  html body .ban-table-data-row .ban-type-cell .badge.ban-type-pill,
+  html body .ban-table-data-row:hover .ban-type-cell .badge.ban-type-pill,
+  html body .ban-row .ban-type-cell .badge.ban-type-pill,
+  html body .ban-row:hover .ban-type-cell .badge.ban-type-pill{
+    border:1px solid rgba(255,136,255,.28)!important;
+    background:rgba(18,15,34,.46)!important;
+    color:#ffd8ff!important;
+    box-shadow:inset 0 0 8px rgba(203,88,255,.070), inset 0 1px 0 rgba(255,255,255,.052)!important;
+    filter:none!important;
+    opacity:1!important;
+    transform:none!important;
+    pointer-events:none!important;
+  }
+}
