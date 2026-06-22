@@ -27194,7 +27194,6 @@ body *{
   html body,
   html body.bans-page{
     background:var(--mineacle-flat-page)!important;
-    background-image:none!important;
   }
 
   html body::before,
@@ -27202,7 +27201,6 @@ body *{
     display:none!important;
     content:none!important;
     background:none!important;
-    background-image:none!important;
   }
 
   html body .page-shell,
@@ -27217,7 +27215,6 @@ body *{
   html body .client-guard-detail-section,
   html body .client-guard-section{
     background:var(--mineacle-flat-page)!important;
-    background-image:none!important;
     box-shadow:none!important;
   }
 
@@ -27240,7 +27237,6 @@ body *{
     display:none!important;
     content:none!important;
     background:none!important;
-    background-image:none!important;
     box-shadow:none!important;
     opacity:0!important;
   }
@@ -27253,7 +27249,6 @@ body *{
   html body .mcx-header.site-header.mineacle-floating-header,
   html body .site-header{
     background:var(--mineacle-flat-nav)!important;
-    background-image:none!important;
     border-color:var(--mineacle-flat-line)!important;
     box-shadow:none!important;
     backdrop-filter:none!important;
@@ -27271,14 +27266,12 @@ body *{
     display:none!important;
     content:none!important;
     background:none!important;
-    background-image:none!important;
     box-shadow:none!important;
   }
 
   html body #siteHeader.mcx-header .mcx-nav-shell,
   html body .mcx-nav-shell{
     background:transparent!important;
-    background-image:none!important;
     box-shadow:none!important;
   }
 
@@ -27290,7 +27283,6 @@ body *{
   html body .mcx-link:hover,
   html body .mcx-link.is-active{
     background:transparent!important;
-    background-image:none!important;
     box-shadow:none!important;
   }
 
@@ -27303,7 +27295,6 @@ body *{
   html body .site-footer.redesigned-footer,
   html body .logo-only-footer{
     background:var(--mineacle-flat-panel)!important;
-    background-image:none!important;
     border-color:var(--mineacle-flat-line)!important;
     box-shadow:none!important;
     backdrop-filter:none!important;
@@ -27327,14 +27318,12 @@ body *{
     display:none!important;
     content:none!important;
     background:none!important;
-    background-image:none!important;
     box-shadow:none!important;
   }
 
   html body .client-guard-panel-inner,
   html body .client-guard-panel-inner.client-guard-panel-rebuilt{
     background:transparent!important;
-    background-image:none!important;
     box-shadow:none!important;
   }
 
@@ -27344,7 +27333,6 @@ body *{
   html body .client-guard-card,
   html body .client-guard-block{
     background:var(--mineacle-flat-panel-2)!important;
-    background-image:none!important;
     border-color:var(--mineacle-flat-line-soft)!important;
     box-shadow:none!important;
   }
@@ -27352,7 +27340,6 @@ body *{
   html body .client-guard-panel-rebuilt .client-guard-list b,
   html body .client-guard-panel-rebuilt .client-guard-list b:hover{
     background:var(--mineacle-flat-input)!important;
-    background-image:none!important;
     box-shadow:none!important;
     border-color:var(--mineacle-flat-line)!important;
   }
@@ -27374,7 +27361,6 @@ body *{
   html body .js-ban-table,
   html body .ban-table{
     background:var(--mineacle-flat-panel)!important;
-    background-image:none!important;
     box-shadow:none!important;
     border-color:var(--mineacle-flat-line-soft)!important;
     backdrop-filter:none!important;
@@ -27383,7 +27369,6 @@ body *{
 
   html body .ban-table-header-row{
     background:var(--mineacle-flat-panel-2)!important;
-    background-image:none!important;
   }
 
   html body .js-ban-search-form .searchbar,
@@ -27393,7 +27378,6 @@ body *{
   html body .js-ban-search,
   html body .js-ban-search-form input{
     background:var(--mineacle-flat-input)!important;
-    background-image:none!important;
     box-shadow:none!important;
     border-color:var(--mineacle-flat-line)!important;
   }
@@ -27415,7 +27399,6 @@ body *{
   html body .js-ban-table .ban-row.mineacle-ban-row-square:hover,
   html body .js-ban-table .ban-row.ban-table-data-row:hover{
     background:var(--mineacle-flat-row)!important;
-    background-image:none!important;
     box-shadow:none!important;
     border-color:var(--mineacle-flat-line-soft)!important;
     transform:none!important;
@@ -27430,7 +27413,6 @@ body *{
   html body .ban-player-copy,
   html body .ban-action{
     background:transparent!important;
-    background-image:none!important;
     box-shadow:none!important;
   }
 
@@ -27440,7 +27422,6 @@ body *{
   html body .ban-pill,
   html body .badge:not(.btn){
     background:var(--mineacle-flat-input)!important;
-    background-image:none!important;
     border-color:var(--mineacle-flat-line)!important;
     box-shadow:none!important;
     filter:none!important;
@@ -27457,7 +27438,6 @@ body *{
   html body .bans-pagination,
   html body .ban-pagination{
     background:var(--mineacle-flat-input)!important;
-    background-image:none!important;
     border-color:var(--mineacle-flat-line)!important;
     box-shadow:none!important;
   }
@@ -27466,7 +27446,6 @@ body *{
   html body #banModal.mineacle-ban-modal-single,
   html body .mineacle-ban-modal-single{
     background:rgba(0,0,0,.76)!important;
-    background-image:none!important;
     backdrop-filter:none!important;
     -webkit-backdrop-filter:none!important;
   }
@@ -27476,7 +27455,6 @@ body *{
   html body .mineacle-ban-discord-single,
   html body .mineacle-ban-actions-single{
     background:var(--mineacle-flat-panel)!important;
-    background-image:none!important;
     border-color:var(--mineacle-flat-line)!important;
     box-shadow:none!important;
   }
@@ -27490,7 +27468,6 @@ body *{
   html body .mineacle-ban-type-single,
   html body .mineacle-ban-pill-single{
     background:var(--mineacle-flat-input)!important;
-    background-image:none!important;
     box-shadow:none!important;
     border-color:var(--mineacle-flat-line)!important;
   }
@@ -27508,7 +27485,6 @@ body *{
   html body .icon-btn,
   html body .icon-btn:hover{
     background:var(--mineacle-flat-input)!important;
-    background-image:none!important;
     box-shadow:none!important;
     border-color:var(--mineacle-flat-line)!important;
     filter:none!important;
@@ -27520,7 +27496,6 @@ body *{
   html,
   html body{
     background:#0b0b10!important;
-    background-image:none!important;
   }
 
   html body .client-guard-panel,
@@ -27528,7 +27503,6 @@ body *{
   html body .bans-v3-results,
   html body .site-footer.redesigned-footer{
     background:#111117!important;
-    background-image:none!important;
     box-shadow:none!important;
   }
 
@@ -27540,7 +27514,8 @@ body *{
   html body .ban-row,
   html body .mineacle-ban-card-single{
     background:#111117!important;
-    background-image:none!important;
     box-shadow:none!important;
   }
 }
+
+/* Mineacle Bans v3.9.87: IntelliJ cleanup removed duplicate background-image declarations from flat-color override block */
