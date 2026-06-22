@@ -742,15 +742,7 @@
 /* Mineacle Bans v3.9.66: Client Guard copy + store-matched search/unban button labels */
 (function () {
   'use strict';
-
-  const setLeafText = (selector, text) => {
-    const node = document.querySelector(selector);
-    if (node && node.textContent.trim() !== text) {
-      node.textContent = text;
-    }
-  };
-
-  const normalizeLabels = () => {
+const normalizeLabels = () => {
     const heading = document.querySelector('.client-guard-copy h2');
     const paragraph = document.querySelector('.client-guard-copy p');
 

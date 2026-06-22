@@ -24428,3 +24428,5 @@ body *{
     --mineacle-store-btn-w:var(--mcx-row-button-w, 72px);
   }
 }
+
+/* Mineacle Bans v3.9.67: removed unused JS helper flagged by IntelliJ */
