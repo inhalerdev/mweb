@@ -58,7 +58,20 @@
     }
 
     function isTemporary(raw = {}) {
-        return Boolean(raw.temporary || raw.temp || raw.type === "Temp Ban" || raw.type === "Temporary Ban" || raw.status_type === "temp");
+        const joined = [
+            raw.status_type,
+            raw.type,
+            raw.status,
+            raw.duration,
+            raw.remaining,
+            raw.expires_in
+        ].filter(Boolean).join(" ").toLowerCase();
+
+        if (raw.temporary || raw.temp) return true;
+        if (joined.includes("temporary") || joined.includes("temp")) return true;
+        if (!joined.includes("permanent") && /\b\d+\s*(minute|minutes|hour|hours|day|days|week|weeks|month|months)\b/.test(joined)) return true;
+
+        return false;
     }
 
     function isIpBan(raw = {}) {
@@ -103,16 +116,8 @@
     }
 
     function statusClassList(ban) {
-        const raw = String((ban && ban.status_type) || "").toLowerCase();
-
-        if ((ban && ban.ipban) || raw.includes("ip")) {
-            return "ip ban-type-ip";
-        }
-
-        if ((ban && ban.temporary) || raw.includes("temp")) {
-            return "temp temporary ban-type-temp";
-        }
-
+        if (ban && ban.ipban) return "ip ban-type-ip";
+        if (ban && ban.temporary) return "temp temporary ban-type-temp";
         return "perm permanent active";
     }
 
@@ -215,7 +220,7 @@
                     <div class="ban-player-copy">
                         <div class="ban-player-line">
                             <strong class="ban-name">${escapeHtml(ban.username)}</strong>
-                            <button class="info-btn js-info-button mineacle-row-info-button" type="button" data-info-index="${index}" aria-label="View ${escapeHtml(ban.username)} ban details">i</button>
+                            <button class="mineacle-ban-close-single js-info-button mineacle-row-info-button" type="button" data-info-index="${index}" aria-label="View ${escapeHtml(ban.username)} ban details">i</button>
                         </div>
                         <span class="ban-date">${escapeHtml(ban.date)}</span>
                     </div>
@@ -225,7 +230,7 @@
 
                 <div class="ban-cell ban-type-cell">
                     <div class="ban-type-copy">
-                        <span class="badge ban-type-pill mineacle-row-ban-type-pill mineacle-ban-status-single ${escapeHtml(statusClassList(ban))}" aria-label="${escapeHtml(statusLabel(ban))}">${escapeHtml(statusLabel(ban))}</span>
+                        <span class="mineacle-ban-status-single mineacle-row-ban-type-pill ${escapeHtml(statusClassList(ban))}" aria-label="${escapeHtml(statusLabel(ban))}">${escapeHtml(statusLabel(ban))}</span>
                         ${durationMetaLabel(ban) ? `<span class="ban-meta">${escapeHtml(durationMetaLabel(ban))}</span>` : ""}
                     </div>
                     <div class="ban-action">${actionButton(ban)}</div>
@@ -572,7 +577,7 @@
                 return;
             }
 
-            const infoButton = event.target.closest(".info-btn, .js-info-button, [data-info-index], .ban-type-pill");
+            const infoButton = event.target.closest(".mineacle-row-info-button, .js-info-button, [data-info-index]");
             if (!infoButton) return;
 
             const index = infoButton.dataset ? infoButton.dataset.infoIndex : null;
