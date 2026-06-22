@@ -25520,3 +25520,140 @@ body *{
     margin:0!important;
   }
 }
+
+
+/* Mineacle Bans v3.9.73: final search/clear state lock */
+@media (min-width:981px){
+  /*
+    Search stays purple.
+    Clear is red as soon as the field has text.
+    Hover/click never lift either state.
+  */
+
+  html body .js-ban-search-form button[type="submit"],
+  html body .js-ban-search-form button[type="submit"].is-search,
+  html body .js-ban-search-form .mineacle-search-button-live,
+  html body .js-ban-search-form .mineacle-search-button-live.is-search,
+  html body .bans-section .js-ban-search-form button[type="submit"],
+  html body .bans-section .js-ban-search-form button[type="submit"].is-search,
+  html body .bans-v3-results .js-ban-search-form button[type="submit"],
+  html body .bans-v3-results .js-ban-search-form button[type="submit"].is-search{
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,0) 34%),
+      linear-gradient(180deg, #bd2bff 0%, #9018e5 55%, #5e0aa8 100%)!important;
+    box-shadow:
+      inset 0 2px 0 rgba(255,255,255,.18),
+      inset 0 -2px 0 rgba(35,0,75,.30),
+      0 2px 0 rgba(28,0,56,.50),
+      0 6px 12px rgba(124,0,255,.10)!important;
+    transform:none!important;
+    translate:none!important;
+    filter:none!important;
+  }
+
+  html body .js-ban-search-form button[type="submit"]:hover,
+  html body .js-ban-search-form button[type="submit"].is-search:hover,
+  html body .js-ban-search-form .mineacle-search-button-live:hover,
+  html body .js-ban-search-form .mineacle-search-button-live.is-search:hover,
+  html body .bans-section .js-ban-search-form button[type="submit"]:hover,
+  html body .bans-section .js-ban-search-form button[type="submit"].is-search:hover,
+  html body .bans-v3-results .js-ban-search-form button[type="submit"]:hover,
+  html body .bans-v3-results .js-ban-search-form button[type="submit"].is-search:hover{
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,0) 34%),
+      linear-gradient(180deg, #c33aff 0%, #9820ed 55%, #6410b0 100%)!important;
+    box-shadow:
+      inset 0 2px 0 rgba(255,255,255,.22),
+      inset 0 -2px 0 rgba(35,0,75,.30),
+      0 2px 0 rgba(28,0,56,.50),
+      0 0 14px rgba(199,66,255,.15)!important;
+    transform:none!important;
+    translate:none!important;
+    filter:brightness(1.03) saturate(1.02)!important;
+  }
+
+  html body .js-ban-search-form button[type="submit"]:active,
+  html body .js-ban-search-form button[type="submit"].is-search:active,
+  html body .js-ban-search-form .mineacle-search-button-live:active,
+  html body .js-ban-search-form .mineacle-search-button-live.is-search:active,
+  html body .bans-section .js-ban-search-form button[type="submit"]:active,
+  html body .bans-section .js-ban-search-form button[type="submit"].is-search:active,
+  html body .bans-v3-results .js-ban-search-form button[type="submit"]:active,
+  html body .bans-v3-results .js-ban-search-form button[type="submit"].is-search:active{
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,0) 34%),
+      linear-gradient(180deg, #9f20dc 0%, #7611bf 55%, #4c078d 100%)!important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.13),
+      inset 0 -2px 0 rgba(35,0,75,.32),
+      0 2px 0 rgba(28,0,56,.48),
+      0 0 10px rgba(199,66,255,.10)!important;
+    transform:none!important;
+    translate:none!important;
+    filter:brightness(.90) saturate(.96)!important;
+  }
+
+  html body .js-ban-search-form button[type="submit"].is-clear,
+  html body .js-ban-search-form .mineacle-search-button-live.is-clear,
+  html body .bans-section .js-ban-search-form button[type="submit"].is-clear,
+  html body .bans-v3-results .js-ban-search-form button[type="submit"].is-clear{
+    border-color:rgba(255,210,210,.18)!important;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,0) 34%),
+      linear-gradient(180deg, #ff4b4b 0%, #d52635 55%, #951622 100%)!important;
+    box-shadow:
+      inset 0 2px 0 rgba(255,255,255,.18),
+      inset 0 -2px 0 rgba(92,0,10,.34),
+      0 2px 0 rgba(70,0,8,.54),
+      0 6px 12px rgba(255,50,62,.12)!important;
+    transform:none!important;
+    translate:none!important;
+    filter:none!important;
+  }
+
+  html body .js-ban-search-form button[type="submit"].is-clear:hover,
+  html body .js-ban-search-form .mineacle-search-button-live.is-clear:hover,
+  html body .bans-section .js-ban-search-form button[type="submit"].is-clear:hover,
+  html body .bans-v3-results .js-ban-search-form button[type="submit"].is-clear:hover{
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,0) 34%),
+      linear-gradient(180deg, #ff5555 0%, #df2d3c 55%, #9f1825 100%)!important;
+    box-shadow:
+      inset 0 2px 0 rgba(255,255,255,.22),
+      inset 0 -2px 0 rgba(92,0,10,.34),
+      0 2px 0 rgba(70,0,8,.54),
+      0 0 14px rgba(255,66,78,.16)!important;
+    transform:none!important;
+    translate:none!important;
+    filter:brightness(1.03) saturate(1.02)!important;
+  }
+
+  html body .js-ban-search-form button[type="submit"].is-clear:active,
+  html body .js-ban-search-form .mineacle-search-button-live.is-clear:active,
+  html body .bans-section .js-ban-search-form button[type="submit"].is-clear:active,
+  html body .bans-v3-results .js-ban-search-form button[type="submit"].is-clear:active{
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,0) 34%),
+      linear-gradient(180deg, #d83939 0%, #ae1e2b 55%, #76111b 100%)!important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.13),
+      inset 0 -2px 0 rgba(92,0,10,.36),
+      0 2px 0 rgba(70,0,8,.50),
+      0 0 10px rgba(255,66,78,.10)!important;
+    transform:none!important;
+    translate:none!important;
+    filter:brightness(.90) saturate(.96)!important;
+  }
+}
+
+@media (max-width:980px){
+  html body .js-ban-search-form button[type="submit"],
+  html body .js-ban-search-form button[type="submit"]:hover,
+  html body .js-ban-search-form button[type="submit"]:active,
+  html body .js-ban-search-form button[type="submit"].is-clear,
+  html body .js-ban-search-form button[type="submit"].is-clear:hover,
+  html body .js-ban-search-form button[type="submit"].is-clear:active{
+    transform:none!important;
+    translate:none!important;
+  }
+}
