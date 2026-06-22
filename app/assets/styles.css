@@ -26537,3 +26537,158 @@ body *{
     border-radius:0!important;
   }
 }
+
+
+/* Mineacle Bans v3.9.81: exact Client Guard corner match for Bans card */
+@media (min-width:981px){
+  :root{
+    --mineacle-clientguard-radius-final:16px;
+  }
+
+  /*
+    The Client Guard panel is 16px. Force the Bans outer card/wrapper to the same
+    16px radius and remove the older 24px clip-path that kept showing oversized corners.
+  */
+  html body .client-guard-panel{
+    border-radius:var(--mineacle-clientguard-radius-final)!important;
+    -webkit-border-radius:var(--mineacle-clientguard-radius-final)!important;
+    overflow:hidden!important;
+    clip-path:inset(0 round var(--mineacle-clientguard-radius-final))!important;
+  }
+
+  html body .bans-section,
+  html body .bans-v3-results,
+  html body .bans-section .ban-list-wrap,
+  html body .bans-v3-results .ban-list-wrap{
+    border-radius:var(--mineacle-clientguard-radius-final)!important;
+    -webkit-border-radius:var(--mineacle-clientguard-radius-final)!important;
+    overflow:hidden!important;
+    clip-path:inset(0 round var(--mineacle-clientguard-radius-final))!important;
+    background-clip:padding-box!important;
+  }
+
+  html body .bans-section::before,
+  html body .bans-section::after,
+  html body .bans-v3-results::before,
+  html body .bans-v3-results::after,
+  html body .bans-section .ban-list-wrap::before,
+  html body .bans-section .ban-list-wrap::after,
+  html body .bans-v3-results .ban-list-wrap::before,
+  html body .bans-v3-results .ban-list-wrap::after{
+    border-radius:inherit!important;
+    -webkit-border-radius:inherit!important;
+    clip-path:inherit!important;
+  }
+
+  /*
+    Everything inside the Bans card must flow squarely.
+    This removes the red-boxed internal rounded corners.
+  */
+  html body .bans-section .section-heading,
+  html body .bans-section .bans-v3-results-head,
+  html body .bans-section .js-ban-search-form,
+  html body .bans-section form.js-ban-search-form,
+  html body .bans-section .bans-v3-search,
+  html body .bans-section .bans-v31-results-search,
+  html body .bans-section .ban-toolbar,
+  html body .bans-section .ban-search-row,
+  html body .bans-section .ban-table-header-row,
+  html body .bans-section .js-ban-table,
+  html body .bans-section .ban-table,
+  html body .bans-v3-results .section-heading,
+  html body .bans-v3-results .bans-v3-results-head,
+  html body .bans-v3-results .js-ban-search-form,
+  html body .bans-v3-results form.js-ban-search-form,
+  html body .bans-v3-results .bans-v3-search,
+  html body .bans-v3-results .bans-v31-results-search,
+  html body .bans-v3-results .ban-toolbar,
+  html body .bans-v3-results .ban-search-row,
+  html body .bans-v3-results .ban-table-header-row,
+  html body .bans-v3-results .js-ban-table,
+  html body .bans-v3-results .ban-table{
+    border-radius:0!important;
+    -webkit-border-radius:0!important;
+    clip-path:none!important;
+    overflow:visible!important;
+  }
+
+  html body .bans-section article.ban-row,
+  html body .bans-section .ban-row,
+  html body .bans-section .mineacle-ban-row-square,
+  html body .bans-section .ban-table-data-row,
+  html body .bans-v3-results article.ban-row,
+  html body .bans-v3-results .ban-row,
+  html body .bans-v3-results .mineacle-ban-row-square,
+  html body .bans-v3-results .ban-table-data-row{
+    border-radius:0!important;
+    -webkit-border-radius:0!important;
+    clip-path:none!important;
+    overflow:visible!important;
+  }
+
+  html body .bans-section article.ban-row::before,
+  html body .bans-section article.ban-row::after,
+  html body .bans-section .ban-row::before,
+  html body .bans-section .ban-row::after,
+  html body .bans-v3-results article.ban-row::before,
+  html body .bans-v3-results article.ban-row::after,
+  html body .bans-v3-results .ban-row::before,
+  html body .bans-v3-results .ban-row::after{
+    display:none!important;
+    content:none!important;
+    border-radius:0!important;
+    -webkit-border-radius:0!important;
+    clip-path:none!important;
+  }
+
+  /*
+    Undo older broad v3.9.80 rules that treated inner wrappers as outer cards.
+    These are internal now, so they should not create extra red-boxed rounded corners.
+  */
+  html body .bans-section .ban-table-shell,
+  html body .bans-section .bans-card,
+  html body .bans-section .ban-board,
+  html body .bans-section .ban-panel,
+  html body .bans-section .bans-v3-card,
+  html body .bans-section .bans-v31-results-card,
+  html body .bans-section .bans-v3-results-card,
+  html body .bans-section .card,
+  html body .bans-v3-results .ban-table-shell,
+  html body .bans-v3-results .bans-card,
+  html body .bans-v3-results .ban-board,
+  html body .bans-v3-results .ban-panel,
+  html body .bans-v3-results .bans-v3-card,
+  html body .bans-v3-results .bans-v31-results-card,
+  html body .bans-v3-results .bans-v3-results-card,
+  html body .bans-v3-results .card{
+    border-radius:0!important;
+    -webkit-border-radius:0!important;
+    clip-path:none!important;
+  }
+}
+
+@media (max-width:980px){
+  html body .client-guard-panel,
+  html body .bans-section,
+  html body .bans-v3-results,
+  html body .bans-section .ban-list-wrap,
+  html body .bans-v3-results .ban-list-wrap{
+    border-radius:16px!important;
+    -webkit-border-radius:16px!important;
+    overflow:hidden!important;
+    clip-path:inset(0 round 16px)!important;
+  }
+
+  html body .bans-section .section-heading,
+  html body .bans-section .js-ban-search-form,
+  html body .bans-section .ban-table-header-row,
+  html body .bans-section .ban-row,
+  html body .bans-v3-results .section-heading,
+  html body .bans-v3-results .js-ban-search-form,
+  html body .bans-v3-results .ban-table-header-row,
+  html body .bans-v3-results .ban-row{
+    border-radius:0!important;
+    -webkit-border-radius:0!important;
+    clip-path:none!important;
+  }
+}
