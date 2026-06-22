@@ -201,7 +201,7 @@
                     <div class="ban-player-copy">
                         <div class="ban-player-line">
                             <strong class="ban-name">${escapeHtml(ban.username)}</strong>
-                            <button class="info-btn js-info-button" type="button" data-info-index="${index}" aria-label="View ${escapeHtml(ban.username)} ban details">i</button>
+                            <button class="info-btn js-info-button mineacle-row-info-button" type="button" data-info-index="${index}" aria-label="View ${escapeHtml(ban.username)} ban details">i</button>
                         </div>
                         <span class="ban-date">${escapeHtml(ban.date)}</span>
                     </div>
@@ -211,7 +211,7 @@
 
                 <div class="ban-cell ban-type-cell">
                     <div class="ban-type-copy">
-                        <span class="badge ban-type-pill ${escapeHtml(ban.status_type)}" aria-label="${escapeHtml(statusLabel(ban))}">${escapeHtml(statusLabel(ban))}</span>
+                        <span class="badge ban-type-pill mineacle-row-ban-type-pill mineacle-ban-status-single ${escapeHtml(ban.status_type)}" aria-label="${escapeHtml(statusLabel(ban))}">${escapeHtml(statusLabel(ban))}</span>
                         ${durationMetaLabel(ban) ? `<span class="ban-meta">${escapeHtml(durationMetaLabel(ban))}</span>` : ""}
                     </div>
                     <div class="ban-action">${actionButton(ban)}</div>
