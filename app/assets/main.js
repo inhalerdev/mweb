@@ -634,7 +634,9 @@
 })();
 
 
-/* Mineacle Bans v3.9.59: final copy cleanup for records labels and punishment labels */
+
+
+/* Mineacle Bans v3.9.62: safe one-shot/live DOM polish without load-locking MutationObserver */
 (function () {
   'use strict';
 
@@ -660,75 +662,7 @@
       if (node.children.length > 0) {
         return;
       }
-
-      if (node.textContent.trim() === from) {
-        node.textContent = to;
-      }
-    });
-  };
-
-  const cleanupBansCopy = () => {
-    const root = document.body;
-
-    replaceExactText(root, 'SEARCH RECORDS', 'BAN LOOKUP');
-    replaceExactText(root, 'Search Records', 'Ban Lookup');
-    replaceExactText(root, 'Active bans', 'Public Ban Records');
-    replaceExactText(root, 'Active Bans', 'Public Ban Records');
-    replaceExactText(root, 'Active Ban Records', 'Public Ban Records');
-
-    root.querySelectorAll('.ban-type-pill, .ban-status, .status-pill, .ban-pill, .mineacle-ban-status-single, .mineacle-ban-type-single').forEach((node) => {
-      const next = normalizeLabel(node.textContent);
-      if (next && next !== node.textContent) {
-        node.textContent = next;
-      }
-    });
-  };
-
-  const run = () => window.requestAnimationFrame(cleanupBansCopy);
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', run);
-  } else {
-    run();
-  }
-
-  document.addEventListener('click', () => {
-    window.setTimeout(cleanupBansCopy, 0);
-  });
-
-  const observer = new MutationObserver(cleanupBansCopy);
-  observer.observe(document.documentElement, { childList: true, subtree: true });
-})();
-
-
-/* Mineacle Bans v3.9.60: live DOM class helpers for search + copy cleanup */
-(function () {
-  'use strict';
-
-  const labelMap = new Map([
-    ['PERM BAN', 'PERMANENT BAN'],
-    ['PERMANENT', 'PERMANENT BAN'],
-    ['TEMP BAN', 'TEMPORARY BAN'],
-    ['TEMPORARY', 'TEMPORARY BAN'],
-    ['IP BAN', 'IP BAN'],
-    ['WARN', 'WARNING'],
-    ['WARNING', 'WARNING'],
-    ['MUTE', 'MUTE'],
-    ['KICK', 'KICK']
-  ]);
-
-  const normalizeLabel = (value) => {
-    const key = String(value || '').trim().toUpperCase();
-    return labelMap.get(key) || value;
-  };
-
-  const replaceExactText = (root, from, to) => {
-    root.querySelectorAll('span, h1, h2, h3, b, strong, button, a, div').forEach((node) => {
-      if (node.children.length > 0) {
-        return;
-      }
-
-      if (node.textContent.trim() === from) {
+      if (node.textContent.trim() === from && node.textContent !== to) {
         node.textContent = to;
       }
     });
@@ -738,11 +672,24 @@
     const root = document.body;
 
     document.querySelectorAll('.js-ban-search-form').forEach((form) => {
-      form.classList.add('mineacle-integrated-search');
-      const searchbar = form.querySelector('.searchbar, .ban-search-field');
-      const button = form.querySelector('button[type="submit"], .btn');
-      if (searchbar) searchbar.classList.add('mineacle-search-field-live');
-      if (button) button.classList.add('mineacle-search-button-live');
+      if (!form.classList.contains('mineacle-integrated-search')) {
+        form.classList.add('mineacle-integrated-search');
+      }
+      const field = form.querySelector('.searchbar, .ban-search-field');
+      const button = form.querySelector('button[type="submit"], .btn:not(.search-clear):not(.ban-search-clear)');
+      const input = form.querySelector('.js-ban-search, input');
+      if (field && !field.classList.contains('mineacle-search-field-live')) {
+        field.classList.add('mineacle-search-field-live');
+      }
+      if (button && !button.classList.contains('mineacle-search-button-live')) {
+        button.classList.add('mineacle-search-button-live');
+      }
+      if (button && button.textContent.trim() !== 'Search') {
+        button.textContent = 'Search';
+      }
+      if (input && input.getAttribute('placeholder') !== 'Search Minecraft username') {
+        input.setAttribute('placeholder', 'Search Minecraft username');
+      }
     });
 
     replaceExactText(root, 'SEARCH RECORDS', 'BAN LOOKUP');
@@ -759,89 +706,34 @@
     });
   };
 
-  const run = () => window.requestAnimationFrame(applyBansPolish);
+  let scheduled = false;
+  let observer = null;
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', run);
-  } else {
-    run();
-  }
-
-  document.addEventListener('click', () => {
-    window.setTimeout(applyBansPolish, 0);
-  });
-
-  const observer = new MutationObserver(applyBansPolish);
-  observer.observe(document.documentElement, { childList: true, subtree: true });
-})();
-
-
-/* Mineacle Bans v3.9.61: force live search/button classes and labels */
-(function () {
-  'use strict';
-
-  const labelMap = new Map([
-    ['PERM BAN', 'PERMANENT BAN'],
-    ['PERMANENT', 'PERMANENT BAN'],
-    ['TEMP BAN', 'TEMPORARY BAN'],
-    ['TEMPORARY', 'TEMPORARY BAN'],
-    ['IP BAN', 'IP BAN'],
-    ['WARN', 'WARNING'],
-    ['WARNING', 'WARNING'],
-    ['MUTE', 'MUTE'],
-    ['KICK', 'KICK']
-  ]);
-
-  const normalizeLabel = (value) => {
-    const key = String(value || '').trim().toUpperCase();
-    return labelMap.get(key) || value;
-  };
-
-  const replaceExactText = (root, from, to) => {
-    root.querySelectorAll('span, h1, h2, h3, b, strong, button, a, div').forEach((node) => {
-      if (node.children.length > 0) return;
-      if (node.textContent.trim() === from) node.textContent = to;
-    });
-  };
-
-  const applyMineacleBansPolish = () => {
-    const root = document.body;
-
-    document.querySelectorAll('.js-ban-search-form').forEach((form) => {
-      form.classList.add('mineacle-integrated-search');
-      const field = form.querySelector('.searchbar, .ban-search-field');
-      const button = form.querySelector('button[type="submit"], .btn:not(.search-clear):not(.ban-search-clear)');
-      const input = form.querySelector('.js-ban-search, input');
-      if (field) field.classList.add('mineacle-search-field-live');
-      if (button) {
-        button.classList.add('mineacle-search-button-live');
-        button.textContent = 'Search';
+  const schedule = () => {
+    if (scheduled) return;
+    scheduled = true;
+    window.requestAnimationFrame(() => {
+      scheduled = false;
+      if (observer) observer.disconnect();
+      applyBansPolish();
+      if (observer && document.body) {
+        observer.observe(document.body, { childList: true, subtree: true });
       }
-      if (input) input.setAttribute('placeholder', 'Search Minecraft username');
-    });
-
-    replaceExactText(root, 'SEARCH RECORDS', 'BAN LOOKUP');
-    replaceExactText(root, 'Search Records', 'Ban Lookup');
-    replaceExactText(root, 'Active bans', 'Public Ban Records');
-    replaceExactText(root, 'Active Bans', 'Public Ban Records');
-    replaceExactText(root, 'Active Ban Records', 'Public Ban Records');
-
-    root.querySelectorAll('.ban-type-pill, .ban-status, .status-pill, .ban-pill, .mineacle-ban-status-single, .mineacle-ban-type-single').forEach((node) => {
-      const next = normalizeLabel(node.textContent);
-      if (next && next !== node.textContent) node.textContent = next;
     });
   };
 
-  const run = () => window.requestAnimationFrame(applyMineacleBansPolish);
+  const start = () => {
+    applyBansPolish();
+    if (document.body && window.MutationObserver) {
+      observer = new MutationObserver(schedule);
+      observer.observe(document.body, { childList: true, subtree: true });
+    }
+    document.addEventListener('click', () => window.setTimeout(schedule, 0));
+  };
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', run);
+    document.addEventListener('DOMContentLoaded', start, { once: true });
   } else {
-    run();
+    start();
   }
-
-  document.addEventListener('click', () => window.setTimeout(applyMineacleBansPolish, 0));
-
-  const observer = new MutationObserver(applyMineacleBansPolish);
-  observer.observe(document.documentElement, { childList: true, subtree: true });
 })();
