@@ -26692,3 +26692,128 @@ body *{
     clip-path:none!important;
   }
 }
+
+
+/* Mineacle Bans v3.9.82: bottom-centered record count + Client Guard edge effect on Bans */
+@media (min-width:981px){
+  /*
+    Match the Bans container edge treatment to Client Guard:
+    neutral gray border, same dark glass surface, same subtle inner highlight/drop shadow.
+  */
+  html body .bans-section,
+  html body .bans-v3-results,
+  html body .bans-section .ban-list-wrap,
+  html body .bans-v3-results .ban-list-wrap{
+    border:1px solid rgba(255,255,255,.075)!important;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.028), rgba(255,255,255,.010) 46%),
+      rgba(17,17,23,.84)!important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.050),
+      0 18px 36px rgba(0,0,0,.22)!important;
+  }
+
+  /*
+    The old 1-1 of 1 pill lived in the top-right heading area.
+    Move it to bottom-center of the Bans container.
+  */
+  html body .bans-section,
+  html body .bans-v3-results{
+    position:relative!important;
+    padding-bottom:56px!important;
+  }
+
+  html body .js-ban-meta,
+  html body .ban-pagination-meta,
+  html body .bans-v3-meta,
+  html body .bans-count-pill,
+  html body .records-count-pill{
+    position:absolute!important;
+    left:50%!important;
+    right:auto!important;
+    top:auto!important;
+    bottom:16px!important;
+    transform:translateX(-50%)!important;
+    z-index:8!important;
+    min-width:84px!important;
+    height:34px!important;
+    min-height:34px!important;
+    padding:0 18px!important;
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    border-radius:999px!important;
+    border:1px solid rgba(255,255,255,.095)!important;
+    background:rgba(255,255,255,.040)!important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.055),
+      0 8px 18px rgba(0,0,0,.18)!important;
+    color:rgba(255,255,255,.72)!important;
+    font-family:"Open Sans", Arial, Helvetica, sans-serif!important;
+    font-size:13px!important;
+    font-weight:700!important;
+    letter-spacing:.02em!important;
+    text-transform:uppercase!important;
+    line-height:1!important;
+    white-space:nowrap!important;
+  }
+
+  /*
+    Prevent heading layout from reserving or forcing the count back to the right.
+  */
+  html body .bans-v3-results-head,
+  html body .section-heading,
+  html body .bans-section .section-heading{
+    position:relative!important;
+  }
+
+  html body .bans-v3-results-head .js-ban-meta,
+  html body .section-heading .js-ban-meta,
+  html body .bans-section .section-heading .js-ban-meta{
+    margin:0!important;
+  }
+
+  /*
+    Keep the bottom-centered count from colliding with the final ban row.
+  */
+  html body .js-ban-table,
+  html body .ban-table{
+    margin-bottom:0!important;
+  }
+}
+
+@media (max-width:980px){
+  html body .bans-section,
+  html body .bans-v3-results{
+    position:relative!important;
+    padding-bottom:52px!important;
+  }
+
+  html body .js-ban-meta,
+  html body .ban-pagination-meta,
+  html body .bans-v3-meta,
+  html body .bans-count-pill,
+  html body .records-count-pill{
+    position:absolute!important;
+    left:50%!important;
+    right:auto!important;
+    top:auto!important;
+    bottom:14px!important;
+    transform:translateX(-50%)!important;
+    min-width:78px!important;
+    height:32px!important;
+    padding:0 16px!important;
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    border-radius:999px!important;
+    border:1px solid rgba(255,255,255,.095)!important;
+    background:rgba(255,255,255,.040)!important;
+    color:rgba(255,255,255,.72)!important;
+    font-family:"Open Sans", Arial, Helvetica, sans-serif!important;
+    font-size:12px!important;
+    font-weight:700!important;
+    letter-spacing:.02em!important;
+    text-transform:uppercase!important;
+  }
+}
