@@ -774,3 +774,74 @@
   const observer = new MutationObserver(applyBansPolish);
   observer.observe(document.documentElement, { childList: true, subtree: true });
 })();
+
+
+/* Mineacle Bans v3.9.61: force live search/button classes and labels */
+(function () {
+  'use strict';
+
+  const labelMap = new Map([
+    ['PERM BAN', 'PERMANENT BAN'],
+    ['PERMANENT', 'PERMANENT BAN'],
+    ['TEMP BAN', 'TEMPORARY BAN'],
+    ['TEMPORARY', 'TEMPORARY BAN'],
+    ['IP BAN', 'IP BAN'],
+    ['WARN', 'WARNING'],
+    ['WARNING', 'WARNING'],
+    ['MUTE', 'MUTE'],
+    ['KICK', 'KICK']
+  ]);
+
+  const normalizeLabel = (value) => {
+    const key = String(value || '').trim().toUpperCase();
+    return labelMap.get(key) || value;
+  };
+
+  const replaceExactText = (root, from, to) => {
+    root.querySelectorAll('span, h1, h2, h3, b, strong, button, a, div').forEach((node) => {
+      if (node.children.length > 0) return;
+      if (node.textContent.trim() === from) node.textContent = to;
+    });
+  };
+
+  const applyMineacleBansPolish = () => {
+    const root = document.body;
+
+    document.querySelectorAll('.js-ban-search-form').forEach((form) => {
+      form.classList.add('mineacle-integrated-search');
+      const field = form.querySelector('.searchbar, .ban-search-field');
+      const button = form.querySelector('button[type="submit"], .btn:not(.search-clear):not(.ban-search-clear)');
+      const input = form.querySelector('.js-ban-search, input');
+      if (field) field.classList.add('mineacle-search-field-live');
+      if (button) {
+        button.classList.add('mineacle-search-button-live');
+        button.textContent = 'Search';
+      }
+      if (input) input.setAttribute('placeholder', 'Search Minecraft username');
+    });
+
+    replaceExactText(root, 'SEARCH RECORDS', 'BAN LOOKUP');
+    replaceExactText(root, 'Search Records', 'Ban Lookup');
+    replaceExactText(root, 'Active bans', 'Public Ban Records');
+    replaceExactText(root, 'Active Bans', 'Public Ban Records');
+    replaceExactText(root, 'Active Ban Records', 'Public Ban Records');
+
+    root.querySelectorAll('.ban-type-pill, .ban-status, .status-pill, .ban-pill, .mineacle-ban-status-single, .mineacle-ban-type-single').forEach((node) => {
+      const next = normalizeLabel(node.textContent);
+      if (next && next !== node.textContent) node.textContent = next;
+    });
+  };
+
+  const run = () => window.requestAnimationFrame(applyMineacleBansPolish);
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', run);
+  } else {
+    run();
+  }
+
+  document.addEventListener('click', () => window.setTimeout(applyMineacleBansPolish, 0));
+
+  const observer = new MutationObserver(applyMineacleBansPolish);
+  observer.observe(document.documentElement, { childList: true, subtree: true });
+})();
