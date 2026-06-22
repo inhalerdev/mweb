@@ -151,7 +151,7 @@
         renderPagination();
     }
 
-    function actionButton(ban, index) {
+    function actionButton(ban) {
         if (ban.can_pay && ban.action_type !== "view" && !ban.ipban && !ban.temporary) {
             return `<a class="btn gold ban-unban-cta" href="${escapeHtml(safeUrl(ban.unban_url, "https://store.mineacle.net"))}" aria-label="Pay to unban" title="Pay to unban">Unban</a>`;
         }
@@ -196,7 +196,7 @@
                         <button class="badge ban-type-pill ${escapeHtml(ban.status_type)} js-info-button" type="button" data-info-index="${index}" aria-label="View ${escapeHtml(statusLabel(ban))} details">${escapeHtml(statusLabel(ban))}</button>
                         <span class="ban-meta">${escapeHtml(ban.duration)}</span>
                     </div>
-                    <div class="ban-action">${actionButton(ban, index)}</div>
+                    <div class="ban-action">${actionButton(ban)}</div>
                 </div>
             </article>
         `).join("");
