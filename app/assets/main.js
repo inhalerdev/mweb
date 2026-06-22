@@ -102,6 +102,11 @@
         return "Permanent Ban";
     }
 
+    function durationMetaLabel(ban) {
+        if (!ban || !ban.temporary) return "";
+        return ban.duration || "";
+    }
+
     function renderPagination() {
         if (!banPagination || !prevPageButton || !nextPageButton || !pageInfo) return;
 
@@ -119,8 +124,21 @@
         nextPageButton.classList.toggle("disabled", !currentPagination.has_next);
     }
 
+    function moveBanCountToBottom() {
+        if (!banCount) return;
+
+        const target = document.querySelector(".bans-v3-results, .bans-section");
+        if (target && banCount.parentElement !== target) {
+            target.appendChild(banCount);
+            banCount.classList.add("mineacle-ban-count-bottom");
+        }
+    }
+
     function setCountText(text) {
-        if (banCount) banCount.textContent = text;
+        if (banCount) {
+            moveBanCountToBottom();
+            banCount.textContent = text;
+        }
     }
 
     function renderEmptyState() {
@@ -194,7 +212,7 @@
                 <div class="ban-cell ban-type-cell">
                     <div class="ban-type-copy">
                         <button class="badge ban-type-pill ${escapeHtml(ban.status_type)} js-info-button" type="button" data-info-index="${index}" aria-label="View ${escapeHtml(statusLabel(ban))} details">${escapeHtml(statusLabel(ban))}</button>
-                        <span class="ban-meta">${escapeHtml(ban.duration)}</span>
+                        ${durationMetaLabel(ban) ? `<span class="ban-meta">${escapeHtml(durationMetaLabel(ban))}</span>` : ""}
                     </div>
                     <div class="ban-action">${actionButton(ban)}</div>
                 </div>
