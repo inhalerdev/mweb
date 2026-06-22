@@ -27519,3 +27519,67 @@ body *{
 }
 
 /* Mineacle Bans v3.9.87: IntelliJ cleanup removed duplicate background-image declarations from flat-color override block */
+
+
+/* Mineacle Bans v3.9.88: freeze ban type label during row hover */
+@media (min-width:981px){
+  /*
+    The row hover was still cascading into the ban type pill through older
+    .ban-row:hover .badge / .ban-row:hover .ban-type-pill selectors.
+    This locks the pill to the exact same flat state in every parent-hover state.
+  */
+  html body .ban-type-cell .badge.ban-type-pill,
+  html body .ban-type-cell .badge.ban-type-pill:hover,
+  html body .ban-type-cell .badge.ban-type-pill:focus,
+  html body .ban-type-cell .badge.ban-type-pill:active,
+  html body .ban-row:hover .ban-type-cell .badge.ban-type-pill,
+  html body .ban-row:hover .ban-type-cell .badge.ban-type-pill:hover,
+  html body .ban-row:hover .ban-type-cell .badge.ban-type-pill:focus,
+  html body .ban-row:hover .ban-type-cell .badge.ban-type-pill:active,
+  html body article.ban-row.mineacle-ban-row-square.ban-table-data-row:hover .ban-type-cell .badge.ban-type-pill,
+  html body .js-ban-table article.ban-row.mineacle-ban-row-square.ban-table-data-row:hover .ban-type-cell .badge.ban-type-pill,
+  html body .bans-section article.ban-row.mineacle-ban-row-square.ban-table-data-row:hover .ban-type-cell .badge.ban-type-pill,
+  html body .bans-v3-results article.ban-row.mineacle-ban-row-square.ban-table-data-row:hover .ban-type-cell .badge.ban-type-pill{
+    background:#171720!important;
+    background-image:none!important;
+    color:rgba(255,255,255,.78)!important;
+    border-color:rgba(255,255,255,.075)!important;
+    box-shadow:none!important;
+    filter:none!important;
+    opacity:1!important;
+    transform:none!important;
+    text-shadow:none!important;
+    cursor:default!important;
+    pointer-events:none!important;
+  }
+
+  html body .ban-type-cell .badge.ban-type-pill::before,
+  html body .ban-type-cell .badge.ban-type-pill::after,
+  html body .ban-row:hover .ban-type-cell .badge.ban-type-pill::before,
+  html body .ban-row:hover .ban-type-cell .badge.ban-type-pill::after,
+  html body article.ban-row.mineacle-ban-row-square.ban-table-data-row:hover .ban-type-cell .badge.ban-type-pill::before,
+  html body article.ban-row.mineacle-ban-row-square.ban-table-data-row:hover .ban-type-cell .badge.ban-type-pill::after{
+    display:none!important;
+    content:none!important;
+    background:none!important;
+    box-shadow:none!important;
+    opacity:0!important;
+  }
+}
+
+@media (max-width:980px){
+  html body .ban-type-cell .badge.ban-type-pill,
+  html body .ban-type-cell .badge.ban-type-pill:hover,
+  html body .ban-row:hover .ban-type-cell .badge.ban-type-pill,
+  html body article.ban-row.mineacle-ban-row-square.ban-table-data-row:hover .ban-type-cell .badge.ban-type-pill{
+    background:#171720!important;
+    background-image:none!important;
+    color:rgba(255,255,255,.78)!important;
+    border-color:rgba(255,255,255,.075)!important;
+    box-shadow:none!important;
+    filter:none!important;
+    opacity:1!important;
+    transform:none!important;
+    pointer-events:none!important;
+  }
+}
