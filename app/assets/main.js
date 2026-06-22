@@ -161,7 +161,7 @@
         }
 
         if (ban.can_pay && ban.action_type !== "view") {
-            return `<a class="btn red" href="${escapeHtml(safeUrl(ban.unban_url, "https://store.mineacle.net"))}">${escapeHtml(ban.price)} Unban</a>`;
+            return `<a class="btn red ban-unban-cta" href="${escapeHtml(safeUrl(ban.unban_url, "https://store.mineacle.net"))}" aria-label="Pay to unban" title="Pay to unban">Unban</a>`;
         }
 
         return `<button class="btn soft info-btn js-info-button" type="button" data-info-index="${index}">View</button>`;
@@ -767,6 +767,7 @@ const normalizeLabels = () => {
       const text = button.textContent.trim().toUpperCase();
       if (text.includes('$') || text.includes('UNBAN') || text.includes('PAY')) {
         button.textContent = 'Unban';
+        button.classList.add('ban-unban-cta');
         button.setAttribute('aria-label', 'Pay to unban');
         button.setAttribute('title', 'Pay to unban');
       }

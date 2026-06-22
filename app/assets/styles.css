@@ -24556,3 +24556,104 @@ body *{
     transform:none!important;
   }
 }
+
+
+/* Mineacle Bans v3.9.69: render Unban CTA without price flash + red unban button */
+@media (min-width:981px){
+  /* Unban button: red variant, same stable bevel/effects family as Store, no lift. */
+  html body .ban-row .btn.red,
+  html body .ban-row .ban-unban-cta,
+  html body .ban-action .btn.red,
+  html body .ban-action .ban-unban-cta,
+  html body .ban-row a.btn.red,
+  html body .ban-row a[href*="store"],
+  html body .ban-row a[href*="tebex"],
+  html body .ban-action a[href*="store"],
+  html body .ban-action a[href*="tebex"]{
+    width:var(--mineacle-store-btn-w, var(--mcx-row-button-w, 78px))!important;
+    min-width:var(--mineacle-store-btn-w, var(--mcx-row-button-w, 78px))!important;
+    max-width:var(--mineacle-store-btn-w, var(--mcx-row-button-w, 78px))!important;
+    height:var(--mineacle-store-btn-h, var(--mcx-row-control-h, 34px))!important;
+    min-height:var(--mineacle-store-btn-h, var(--mcx-row-control-h, 34px))!important;
+    max-height:var(--mineacle-store-btn-h, var(--mcx-row-control-h, 34px))!important;
+    padding:0!important;
+    margin:0!important;
+    border-radius:4px!important;
+    border:1px solid rgba(255,210,210,.18)!important;
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    box-sizing:border-box!important;
+    color:#ffffff!important;
+    font-family:"Open Sans", Arial, Helvetica, sans-serif!important;
+    font-size:var(--mcx-nav-text-size, 14px)!important;
+    font-weight:var(--mcx-nav-text-weight, 700)!important;
+    letter-spacing:var(--mcx-nav-text-spacing, .02em)!important;
+    line-height:1!important;
+    text-align:center!important;
+    text-transform:uppercase!important;
+    white-space:nowrap!important;
+    text-decoration:none!important;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,0) 34%),
+      linear-gradient(180deg, #ff4b4b 0%, #d52635 55%, #951622 100%)!important;
+    box-shadow:
+      inset 0 2px 0 rgba(255,255,255,.18),
+      inset 0 -2px 0 rgba(92,0,10,.34),
+      0 2px 0 rgba(70,0,8,.54),
+      0 6px 12px rgba(255,50,62,.12)!important;
+    transform:none!important;
+    filter:none!important;
+    transition:filter .14s ease, box-shadow .14s ease, background .14s ease!important;
+  }
+
+  html body .ban-row .btn.red:hover,
+  html body .ban-row .ban-unban-cta:hover,
+  html body .ban-action .btn.red:hover,
+  html body .ban-action .ban-unban-cta:hover,
+  html body .ban-row a.btn.red:hover,
+  html body .ban-row a[href*="store"]:hover,
+  html body .ban-row a[href*="tebex"]:hover,
+  html body .ban-action a[href*="store"]:hover,
+  html body .ban-action a[href*="tebex"]:hover{
+    transform:none!important;
+    filter:brightness(1.04) saturate(1.03)!important;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,0) 34%),
+      linear-gradient(180deg, #ff5555 0%, #df2d3c 55%, #9f1825 100%)!important;
+    box-shadow:
+      inset 0 2px 0 rgba(255,255,255,.22),
+      inset 0 -2px 0 rgba(92,0,10,.34),
+      0 2px 0 rgba(70,0,8,.54),
+      0 0 14px rgba(255,66,78,.16)!important;
+  }
+
+  html body .ban-row .btn.red:active,
+  html body .ban-row .ban-unban-cta:active,
+  html body .ban-action .btn.red:active,
+  html body .ban-action .ban-unban-cta:active,
+  html body .ban-row a.btn.red:active,
+  html body .ban-row a[href*="store"]:active,
+  html body .ban-row a[href*="tebex"]:active,
+  html body .ban-action a[href*="store"]:active,
+  html body .ban-action a[href*="tebex"]:active{
+    transform:none!important;
+    filter:brightness(.88) saturate(.96)!important;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,0) 34%),
+      linear-gradient(180deg, #d83939 0%, #ae1e2b 55%, #76111b 100%)!important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.13),
+      inset 0 -2px 0 rgba(92,0,10,.36),
+      0 2px 0 rgba(70,0,8,.50),
+      0 0 10px rgba(255,66,78,.10)!important;
+  }
+
+  /* Keep the search button purple Store-style; only Unban is red. */
+  html body .js-ban-search-form button[type="submit"],
+  html body .js-ban-search-form .mineacle-search-button-live{
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,0) 34%),
+      linear-gradient(180deg, #bd2bff 0%, #9018e5 55%, #5e0aa8 100%)!important;
+  }
+}
