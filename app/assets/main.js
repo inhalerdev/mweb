@@ -192,7 +192,7 @@
 
     function actionButton(ban) {
         if (ban.can_pay && ban.action_type !== "view" && !ban.ipban && !ban.temporary) {
-            return `<a class="btn gold ban-unban-cta" href="${escapeHtml(safeUrl(ban.unban_url, "https://store.mineacle.net"))}" aria-label="Pay to unban" title="Pay to unban">Buy Unban</a>`;
+            return `<a class="btn gold ban-unban-cta mineacle-buy-unban-button mineacle-buy-unban-row" href="${escapeHtml(safeUrl(ban.unban_url, "https://store.mineacle.net"))}" aria-label="Pay to unban" title="Pay to unban">BUY UNBAN</a>`;
         }
 
         return "";
@@ -497,7 +497,7 @@
                 note.textContent = `Temporary bans cannot be paid for. This punishment expires on ${ban.expires || "the listed expiration date"}`;
             } else if (ban.can_pay) {
                 if (actions) {
-                    actions.innerHTML = `<a class="mineacle-ban-pay-single ban-unban-cta" href="${escapeHtml(safeUrl(ban.unban_url, "https://store.mineacle.net"))}" aria-label="Pay to unban" title="Pay to unban">Buy Unban</a>`;
+                    actions.innerHTML = `<a class="mineacle-ban-pay-single ban-unban-cta mineacle-buy-unban-button mineacle-buy-unban-modal" href="${escapeHtml(safeUrl(ban.unban_url, "https://store.mineacle.net"))}" aria-label="Pay to unban" title="Pay to unban">BUY UNBAN</a>`;
                 }
                 if (actionRow) {
                     actionRow.classList.remove("no-action");

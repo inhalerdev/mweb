@@ -31810,3 +31810,211 @@ html body .mineacle-punish-title .mineacle-ban-status-single{
   align-self:flex-start!important;
   margin:0!important;
 }
+
+
+/* Mineacle Bans v4.0.09: hard fix Buy Unban button sizing/overflow */
+
+/*
+  Direct Buy Unban component.
+  This overrides older .btn, .gold, .ban-unban-cta, row, and modal rules.
+  Both inline row and popup modal use this exact same button.
+*/
+:root{
+  --mcl-buy-unban-w:98px;
+  --mcl-buy-unban-h:32px;
+  --mcl-buy-unban-radius:7px;
+  --mcl-buy-unban-static:#c82d43;
+  --mcl-buy-unban-hover:#db3b52;
+  --mcl-buy-unban-active:#9f2234;
+  --mcl-buy-unban-border:rgba(255,255,255,.14);
+  --mcl-buy-unban-border-hover:rgba(255,255,255,.22);
+  --mcl-buy-unban-border-active:rgba(255,255,255,.10);
+}
+
+html body a.mineacle-buy-unban-button,
+html body .ban-action a.mineacle-buy-unban-button,
+html body .mineacle-punish-actions a.mineacle-buy-unban-button,
+html body .ban-unban-cta.mineacle-buy-unban-button,
+html body .mineacle-ban-pay-single.mineacle-buy-unban-button,
+html body .btn.gold.mineacle-buy-unban-button{
+  box-sizing:border-box!important;
+  width:var(--mcl-buy-unban-w)!important;
+  min-width:var(--mcl-buy-unban-w)!important;
+  max-width:var(--mcl-buy-unban-w)!important;
+  height:var(--mcl-buy-unban-h)!important;
+  min-height:var(--mcl-buy-unban-h)!important;
+  max-height:var(--mcl-buy-unban-h)!important;
+  padding:0!important;
+  margin:0!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  flex:0 0 var(--mcl-buy-unban-w)!important;
+  border-radius:var(--mcl-buy-unban-radius)!important;
+  border:1px solid var(--mcl-buy-unban-border)!important;
+  background:var(--mcl-buy-unban-static)!important;
+  background-image:none!important;
+  color:#fff!important;
+  font-size:11px!important;
+  font-weight:700!important;
+  line-height:1!important;
+  letter-spacing:.025em!important;
+  text-align:center!important;
+  text-decoration:none!important;
+  text-transform:uppercase!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:clip!important;
+  box-shadow:none!important;
+  text-shadow:none!important;
+  transform:none!important;
+  filter:none!important;
+  transition:background-color .12s ease,border-color .12s ease,color .12s ease!important;
+}
+
+html body a.mineacle-buy-unban-button:hover,
+html body a.mineacle-buy-unban-button:focus-visible,
+html body .ban-action a.mineacle-buy-unban-button:hover,
+html body .ban-action a.mineacle-buy-unban-button:focus-visible,
+html body .mineacle-punish-actions a.mineacle-buy-unban-button:hover,
+html body .mineacle-punish-actions a.mineacle-buy-unban-button:focus-visible,
+html body .ban-unban-cta.mineacle-buy-unban-button:hover,
+html body .ban-unban-cta.mineacle-buy-unban-button:focus-visible,
+html body .mineacle-ban-pay-single.mineacle-buy-unban-button:hover,
+html body .mineacle-ban-pay-single.mineacle-buy-unban-button:focus-visible,
+html body .btn.gold.mineacle-buy-unban-button:hover,
+html body .btn.gold.mineacle-buy-unban-button:focus-visible{
+  width:var(--mcl-buy-unban-w)!important;
+  min-width:var(--mcl-buy-unban-w)!important;
+  max-width:var(--mcl-buy-unban-w)!important;
+  height:var(--mcl-buy-unban-h)!important;
+  min-height:var(--mcl-buy-unban-h)!important;
+  max-height:var(--mcl-buy-unban-h)!important;
+  padding:0!important;
+  background:var(--mcl-buy-unban-hover)!important;
+  background-image:none!important;
+  border-color:var(--mcl-buy-unban-border-hover)!important;
+  color:#fff!important;
+  box-shadow:none!important;
+  text-shadow:none!important;
+  transform:none!important;
+  filter:none!important;
+}
+
+html body a.mineacle-buy-unban-button:active,
+html body .ban-action a.mineacle-buy-unban-button:active,
+html body .mineacle-punish-actions a.mineacle-buy-unban-button:active,
+html body .ban-unban-cta.mineacle-buy-unban-button:active,
+html body .mineacle-ban-pay-single.mineacle-buy-unban-button:active,
+html body .btn.gold.mineacle-buy-unban-button:active{
+  width:var(--mcl-buy-unban-w)!important;
+  min-width:var(--mcl-buy-unban-w)!important;
+  max-width:var(--mcl-buy-unban-w)!important;
+  height:var(--mcl-buy-unban-h)!important;
+  min-height:var(--mcl-buy-unban-h)!important;
+  max-height:var(--mcl-buy-unban-h)!important;
+  padding:0!important;
+  background:var(--mcl-buy-unban-active)!important;
+  background-image:none!important;
+  border-color:var(--mcl-buy-unban-border-active)!important;
+  color:#fff!important;
+  box-shadow:none!important;
+  text-shadow:none!important;
+  transform:none!important;
+  filter:none!important;
+}
+
+/*
+  Inline row layout fix:
+  Reserve a real button column so BUY UNBAN cannot be squeezed or clipped.
+*/
+html body .ban-table-data-row > .ban-type-cell,
+html body article.ban-row .ban-type-cell,
+html body .js-ban-table .ban-type-cell{
+  display:grid!important;
+  grid-template-columns:minmax(0, 1fr) var(--mcl-buy-unban-w)!important;
+  align-items:center!important;
+  justify-content:stretch!important;
+  column-gap:18px!important;
+  overflow:visible!important;
+  min-width:0!important;
+}
+
+html body .ban-type-cell .ban-type-copy{
+  min-width:0!important;
+  justify-self:start!important;
+  align-self:center!important;
+}
+
+html body .ban-type-cell .ban-action{
+  width:var(--mcl-buy-unban-w)!important;
+  min-width:var(--mcl-buy-unban-w)!important;
+  max-width:var(--mcl-buy-unban-w)!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  justify-self:end!important;
+  overflow:visible!important;
+  flex:0 0 var(--mcl-buy-unban-w)!important;
+}
+
+/* Give the overall type column enough space for label + button. */
+html body article.ban-row.mineacle-ban-row-square.ban-table-data-row,
+html body .ban-table-header-row{
+  --mineacle-ban-table-type:minmax(360px, 1fr)!important;
+}
+
+/*
+  Modal footer layout fix:
+  Reserve the same exact Buy Unban button column in the popup.
+*/
+html body .mineacle-punish-action-row.has-action,
+html body .mineacle-ban-action-row-single.has-action{
+  display:grid!important;
+  grid-template-columns:minmax(0, 1fr) var(--mcl-buy-unban-w)!important;
+  align-items:center!important;
+  column-gap:18px!important;
+  overflow:visible!important;
+}
+
+html body .mineacle-punish-actions,
+html body .mineacle-ban-actions-single{
+  width:var(--mcl-buy-unban-w)!important;
+  min-width:var(--mcl-buy-unban-w)!important;
+  max-width:var(--mcl-buy-unban-w)!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  justify-self:end!important;
+  overflow:visible!important;
+}
+
+html body .mineacle-punish-note{
+  min-width:0!important;
+  overflow-wrap:normal!important;
+}
+
+@media(max-width:760px){
+  :root{
+    --mcl-buy-unban-w:98px;
+    --mcl-buy-unban-h:32px;
+  }
+
+  html body .ban-table-data-row > .ban-type-cell,
+  html body article.ban-row .ban-type-cell,
+  html body .js-ban-table .ban-type-cell{
+    grid-template-columns:minmax(0, 1fr) var(--mcl-buy-unban-w)!important;
+    column-gap:12px!important;
+  }
+
+  html body .mineacle-punish-action-row.has-action,
+  html body .mineacle-ban-action-row-single.has-action{
+    grid-template-columns:1fr!important;
+    justify-items:center!important;
+  }
+
+  html body .mineacle-punish-actions,
+  html body .mineacle-ban-actions-single{
+    justify-self:center!important;
+  }
+}
