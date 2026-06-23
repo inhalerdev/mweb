@@ -32199,3 +32199,281 @@ html body .mineacle-ban-actions-single{
   overflow:visible!important;
   flex:0 0 auto!important;
 }
+
+
+/* Mineacle Bans v4.0.11: flat Play/Store buttons + taller sharper Buy Unban */
+
+/*
+  Nav button visual standard:
+  Store and Play are forced to the same flat, solid-color style language
+  as the Buy Unban button. No gradient, glow, lift, scale, or shadow.
+*/
+:root{
+  --mcl-nav-flat-height:34px;
+  --mcl-nav-flat-radius:7px;
+  --mcl-nav-flat-font-size:13px;
+  --mcl-nav-flat-font-weight:700;
+  --mcl-nav-flat-letter-spacing:.035em;
+  --mcl-nav-flat-padding-x:16px;
+
+  --mcl-nav-flat-border:rgba(255,255,255,.14);
+  --mcl-nav-flat-border-hover:rgba(255,255,255,.22);
+  --mcl-nav-flat-border-active:rgba(255,255,255,.10);
+
+  --mcl-store-flat:#9b22f0;
+  --mcl-store-flat-hover:#ad35ff;
+  --mcl-store-flat-active:#7616ba;
+
+  --mcl-play-flat:#239f51;
+  --mcl-play-flat-hover:#2ab85f;
+  --mcl-play-flat-active:#18783b;
+
+  --mcl-buy-unban-height-v411:36px;
+  --mcl-buy-unban-radius-v411:5px;
+  --mcl-buy-unban-red:#c82d43;
+  --mcl-buy-unban-red-hover:#db3b52;
+  --mcl-buy-unban-red-active:#9f2234;
+}
+
+/* Store button: flat purple, same geometry/static-hover-click behavior */
+html body .mcx-store,
+html body a.mcx-store,
+html body button.mcx-store,
+html body .nav-store-button,
+html body .nav-mc-button,
+html body .btn.store,
+html body .btn.purple{
+  box-sizing:border-box!important;
+  width:auto!important;
+  min-width:max-content!important;
+  max-width:none!important;
+  height:var(--mcl-nav-flat-height)!important;
+  min-height:var(--mcl-nav-flat-height)!important;
+  max-height:var(--mcl-nav-flat-height)!important;
+  padding:0 var(--mcl-nav-flat-padding-x)!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  border-radius:var(--mcl-nav-flat-radius)!important;
+  border:1px solid var(--mcl-nav-flat-border)!important;
+  background:var(--mcl-store-flat)!important;
+  background-image:none!important;
+  color:#fff!important;
+  font-size:var(--mcl-nav-flat-font-size)!important;
+  font-weight:var(--mcl-nav-flat-font-weight)!important;
+  line-height:1!important;
+  letter-spacing:var(--mcl-nav-flat-letter-spacing)!important;
+  text-align:center!important;
+  text-decoration:none!important;
+  text-transform:uppercase!important;
+  white-space:nowrap!important;
+  overflow:visible!important;
+  box-shadow:none!important;
+  text-shadow:none!important;
+  transform:none!important;
+  filter:none!important;
+  transition:background-color .12s ease,border-color .12s ease,color .12s ease!important;
+}
+
+html body .mcx-store:hover,
+html body .mcx-store:focus-visible,
+html body a.mcx-store:hover,
+html body a.mcx-store:focus-visible,
+html body button.mcx-store:hover,
+html body button.mcx-store:focus-visible,
+html body .nav-store-button:hover,
+html body .nav-store-button:focus-visible,
+html body .nav-mc-button:hover,
+html body .nav-mc-button:focus-visible,
+html body .btn.store:hover,
+html body .btn.store:focus-visible,
+html body .btn.purple:hover,
+html body .btn.purple:focus-visible{
+  background:var(--mcl-store-flat-hover)!important;
+  background-image:none!important;
+  border-color:var(--mcl-nav-flat-border-hover)!important;
+  color:#fff!important;
+  box-shadow:none!important;
+  text-shadow:none!important;
+  transform:none!important;
+  filter:none!important;
+}
+
+html body .mcx-store:active,
+html body a.mcx-store:active,
+html body button.mcx-store:active,
+html body .nav-store-button:active,
+html body .nav-mc-button:active,
+html body .btn.store:active,
+html body .btn.purple:active{
+  background:var(--mcl-store-flat-active)!important;
+  background-image:none!important;
+  border-color:var(--mcl-nav-flat-border-active)!important;
+  color:#fff!important;
+  box-shadow:none!important;
+  text-shadow:none!important;
+  transform:none!important;
+  filter:none!important;
+}
+
+/* Play button: flat green, same geometry/static-hover-click behavior */
+html body .mcx-play,
+html body a.mcx-play,
+html body button.mcx-play,
+html body .play-copy-button,
+html body .copy-ip-button,
+html body [data-copy-ip]{
+  box-sizing:border-box!important;
+  width:auto!important;
+  min-width:max-content!important;
+  max-width:none!important;
+  height:var(--mcl-nav-flat-height)!important;
+  min-height:var(--mcl-nav-flat-height)!important;
+  max-height:var(--mcl-nav-flat-height)!important;
+  padding:0 var(--mcl-nav-flat-padding-x)!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  border-radius:var(--mcl-nav-flat-radius)!important;
+  border:1px solid var(--mcl-nav-flat-border)!important;
+  background:var(--mcl-play-flat)!important;
+  background-image:none!important;
+  color:#fff!important;
+  font-size:var(--mcl-nav-flat-font-size)!important;
+  font-weight:var(--mcl-nav-flat-font-weight)!important;
+  line-height:1!important;
+  letter-spacing:var(--mcl-nav-flat-letter-spacing)!important;
+  text-align:center!important;
+  text-decoration:none!important;
+  text-transform:uppercase!important;
+  white-space:nowrap!important;
+  overflow:visible!important;
+  box-shadow:none!important;
+  text-shadow:none!important;
+  transform:none!important;
+  filter:none!important;
+  transition:background-color .12s ease,border-color .12s ease,color .12s ease!important;
+}
+
+html body .mcx-play:hover,
+html body .mcx-play:focus-visible,
+html body a.mcx-play:hover,
+html body a.mcx-play:focus-visible,
+html body button.mcx-play:hover,
+html body button.mcx-play:focus-visible,
+html body .play-copy-button:hover,
+html body .play-copy-button:focus-visible,
+html body .copy-ip-button:hover,
+html body .copy-ip-button:focus-visible,
+html body [data-copy-ip]:hover,
+html body [data-copy-ip]:focus-visible{
+  background:var(--mcl-play-flat-hover)!important;
+  background-image:none!important;
+  border-color:var(--mcl-nav-flat-border-hover)!important;
+  color:#fff!important;
+  box-shadow:none!important;
+  text-shadow:none!important;
+  transform:none!important;
+  filter:none!important;
+}
+
+html body .mcx-play:active,
+html body a.mcx-play:active,
+html body button.mcx-play:active,
+html body .play-copy-button:active,
+html body .copy-ip-button:active,
+html body [data-copy-ip]:active{
+  background:var(--mcl-play-flat-active)!important;
+  background-image:none!important;
+  border-color:var(--mcl-nav-flat-border-active)!important;
+  color:#fff!important;
+  box-shadow:none!important;
+  text-shadow:none!important;
+  transform:none!important;
+  filter:none!important;
+}
+
+/*
+  Buy Unban adjustment:
+  Slightly taller than Play/Store, and a little sharper/less rounded.
+*/
+html body a.mineacle-buy-unban-button,
+html body .ban-action a.mineacle-buy-unban-button,
+html body .mineacle-punish-actions a.mineacle-buy-unban-button,
+html body .ban-unban-cta.mineacle-buy-unban-button,
+html body .mineacle-ban-pay-single.mineacle-buy-unban-button,
+html body .btn.gold.mineacle-buy-unban-button,
+html body a.ban-unban-cta,
+html body a.mineacle-ban-pay-single{
+  height:var(--mcl-buy-unban-height-v411)!important;
+  min-height:var(--mcl-buy-unban-height-v411)!important;
+  max-height:var(--mcl-buy-unban-height-v411)!important;
+  border-radius:var(--mcl-buy-unban-radius-v411)!important;
+  padding:0 var(--mcl-nav-flat-padding-x)!important;
+  background:var(--mcl-buy-unban-red)!important;
+  background-image:none!important;
+  border:1px solid var(--mcl-nav-flat-border)!important;
+  color:#fff!important;
+  font-size:var(--mcl-nav-flat-font-size)!important;
+  font-weight:var(--mcl-nav-flat-font-weight)!important;
+  line-height:1!important;
+  letter-spacing:var(--mcl-nav-flat-letter-spacing)!important;
+  box-shadow:none!important;
+  text-shadow:none!important;
+  transform:none!important;
+  filter:none!important;
+}
+
+html body a.mineacle-buy-unban-button:hover,
+html body a.mineacle-buy-unban-button:focus-visible,
+html body .ban-action a.mineacle-buy-unban-button:hover,
+html body .ban-action a.mineacle-buy-unban-button:focus-visible,
+html body .mineacle-punish-actions a.mineacle-buy-unban-button:hover,
+html body .mineacle-punish-actions a.mineacle-buy-unban-button:focus-visible,
+html body .ban-unban-cta.mineacle-buy-unban-button:hover,
+html body .ban-unban-cta.mineacle-buy-unban-button:focus-visible,
+html body .mineacle-ban-pay-single.mineacle-buy-unban-button:hover,
+html body .mineacle-ban-pay-single.mineacle-buy-unban-button:focus-visible,
+html body .btn.gold.mineacle-buy-unban-button:hover,
+html body .btn.gold.mineacle-buy-unban-button:focus-visible,
+html body a.ban-unban-cta:hover,
+html body a.ban-unban-cta:focus-visible,
+html body a.mineacle-ban-pay-single:hover,
+html body a.mineacle-ban-pay-single:focus-visible{
+  height:var(--mcl-buy-unban-height-v411)!important;
+  min-height:var(--mcl-buy-unban-height-v411)!important;
+  max-height:var(--mcl-buy-unban-height-v411)!important;
+  border-radius:var(--mcl-buy-unban-radius-v411)!important;
+  padding:0 var(--mcl-nav-flat-padding-x)!important;
+  background:var(--mcl-buy-unban-red-hover)!important;
+  background-image:none!important;
+  border-color:var(--mcl-nav-flat-border-hover)!important;
+  color:#fff!important;
+  box-shadow:none!important;
+  text-shadow:none!important;
+  transform:none!important;
+  filter:none!important;
+}
+
+html body a.mineacle-buy-unban-button:active,
+html body .ban-action a.mineacle-buy-unban-button:active,
+html body .mineacle-punish-actions a.mineacle-buy-unban-button:active,
+html body .ban-unban-cta.mineacle-buy-unban-button:active,
+html body .mineacle-ban-pay-single.mineacle-buy-unban-button:active,
+html body .btn.gold.mineacle-buy-unban-button:active,
+html body a.ban-unban-cta:active,
+html body a.mineacle-ban-pay-single:active{
+  height:var(--mcl-buy-unban-height-v411)!important;
+  min-height:var(--mcl-buy-unban-height-v411)!important;
+  max-height:var(--mcl-buy-unban-height-v411)!important;
+  border-radius:var(--mcl-buy-unban-radius-v411)!important;
+  padding:0 var(--mcl-nav-flat-padding-x)!important;
+  background:var(--mcl-buy-unban-red-active)!important;
+  background-image:none!important;
+  border-color:var(--mcl-nav-flat-border-active)!important;
+  color:#fff!important;
+  box-shadow:none!important;
+  text-shadow:none!important;
+  transform:none!important;
+  filter:none!important;
+}
