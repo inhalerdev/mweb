@@ -29622,247 +29622,509 @@ body *{
 }
 
 
-/* Mineacle Bans v4.0.01: Open Sans typography + nav-style subtle modal/info controls + Discord character */
-
-/* Site-wide typography pass: Open Sans regular/bold only */
-html body,
-html body *{
-  font-family:"Open Sans", Arial, Helvetica, sans-serif!important;
+/* Mineacle Bans v4.0.02: flat static/hover/click button and label states */
+:root{
+  --mcl-flat-purple:#9b22f0;
+  --mcl-flat-purple-hover:#aa35ff;
+  --mcl-flat-purple-active:#7b18c4;
+  --mcl-flat-green:#22a852;
+  --mcl-flat-green-hover:#29bc61;
+  --mcl-flat-green-active:#18833f;
+  --mcl-flat-blue:#5865f2;
+  --mcl-flat-blue-hover:#6875ff;
+  --mcl-flat-blue-active:#4751c7;
+  --mcl-flat-gold:#d89b22;
+  --mcl-flat-gold-hover:#e6ad32;
+  --mcl-flat-gold-active:#aa7616;
+  --mcl-flat-control:#1a1a23;
+  --mcl-flat-control-hover:#20202a;
+  --mcl-flat-control-active:#14141b;
+  --mcl-flat-red-bg:#24131b;
+  --mcl-flat-red-bg-hover:#28161e;
+  --mcl-flat-red-bg-active:#1d0f15;
+  --mcl-flat-red-border:rgba(255,104,147,.38);
+  --mcl-flat-red-text:#ffd0de;
+  --mcl-flat-yellow-bg:#251d12;
+  --mcl-flat-yellow-bg-hover:#2b2215;
+  --mcl-flat-yellow-bg-active:#1d160d;
+  --mcl-flat-yellow-border:rgba(255,195,96,.40);
+  --mcl-flat-yellow-text:#ffe2aa;
+  --mcl-flat-ip-bg:#25121a;
+  --mcl-flat-ip-border:rgba(255,104,147,.42);
+  --mcl-flat-ip-text:#ffbdd1;
+  --mcl-flat-border:rgba(255,255,255,.105);
+  --mcl-flat-border-hover:rgba(255,255,255,.18);
 }
 
-html body{
-  font-weight:400!important;
-}
-
-html body h1,
-html body h2,
-html body h3,
-html body h4,
-html body h5,
-html body h6,
-html body strong,
-html body b,
 html body button,
 html body .btn,
-html body a[class*="btn"],
-html body .mcx-link,
-html body .mcx-store,
-html body .mcx-play,
-html body .mcx-discord,
+html body a.btn,
+html body [class*="button"],
+html body [class*="Button"],
+html body [class*="pill"],
+html body [class*="Pill"],
+html body [class*="badge"],
+html body [class*="Badge"],
 html body .mineacle-ban-status-single,
 html body .mineacle-row-ban-type-pill,
-html body .ban-name,
-html body .ban-table-heading,
-html body .mineacle-punish-kicker,
-html body .mineacle-punish-detail span,
-html body .mineacle-punish-reason span,
-html body .mineacle-punish-discord b{
-  font-weight:700!important;
+html body .ban-type-pill,
+html body .status-pill,
+html body .badge,
+html body .js-ban-meta,
+html body .mineacle-ban-count-bottom{
+  transform:none!important;
+  filter:none!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  text-shadow:none!important;
 }
 
-/* More Info close X and row info i: subtle static nav-button behavior */
-@media (min-width:761px){
-  :root{
-    --mineacle-close-size:36px;
-    --mineacle-row-info-size:27px;
-    --mineacle-soft-button-bg:#1a1a23;
-    --mineacle-soft-button-bg-hover:#20202a;
-    --mineacle-soft-button-bg-active:#14141b;
-    --mineacle-soft-button-border:rgba(255,255,255,.105);
-    --mineacle-soft-button-border-hover:rgba(255,255,255,.18);
-  }
-
-  html body .mineacle-ban-close-single,
-  html body button.mineacle-row-info-button{
-    display:inline-grid!important;
-    place-items:center!important;
-    padding:0!important;
-    border-radius:8px!important;
-    border:1px solid var(--mineacle-soft-button-border)!important;
-    background:var(--mineacle-soft-button-bg)!important;
-    background-image:none!important;
-    color:rgba(255,255,255,.84)!important;
-    box-shadow:
-      inset 0 1px 0 rgba(255,255,255,.060),
-      0 4px 10px rgba(0,0,0,.16)!important;
-    filter:none!important;
-    transform:none!important;
-    text-shadow:none!important;
-    outline:none!important;
-    cursor:pointer!important;
-    transition:
-      background-color .12s ease,
-      border-color .12s ease,
-      box-shadow .12s ease,
-      color .12s ease,
-      filter .12s ease!important;
-  }
-
-  html body .mineacle-ban-close-single:not(.mineacle-row-info-button){
-    width:var(--mineacle-close-size)!important;
-    height:var(--mineacle-close-size)!important;
-    min-width:var(--mineacle-close-size)!important;
-    min-height:var(--mineacle-close-size)!important;
-    max-width:var(--mineacle-close-size)!important;
-    max-height:var(--mineacle-close-size)!important;
-    color:transparent!important;
-    line-height:1!important;
-    position:relative!important;
-    overflow:hidden!important;
-  }
-
-  html body button.mineacle-row-info-button{
-    width:var(--mineacle-row-info-size)!important;
-    height:var(--mineacle-row-info-size)!important;
-    min-width:var(--mineacle-row-info-size)!important;
-    min-height:var(--mineacle-row-info-size)!important;
-    max-width:var(--mineacle-row-info-size)!important;
-    max-height:var(--mineacle-row-info-size)!important;
-    font-size:12px!important;
-    line-height:1!important;
-    color:rgba(255,255,255,.84)!important;
-  }
-
-  html body .mineacle-ban-close-single:not(.mineacle-row-info-button)::before{
-    content:"×"!important;
-    position:absolute!important;
-    inset:0!important;
-    display:grid!important;
-    place-items:center!important;
-    color:rgba(255,255,255,.84)!important;
-    font-family:"Open Sans", Arial, Helvetica, sans-serif!important;
-    font-size:25px!important;
-    font-weight:700!important;
-    line-height:1!important;
-    transform:translateY(-1px)!important;
-    pointer-events:none!important;
-    text-shadow:none!important;
-  }
-
-  html body .mineacle-ban-close-single:hover,
-  html body .mineacle-ban-close-single:focus-visible,
-  html body button.mineacle-row-info-button:hover,
-  html body button.mineacle-row-info-button:focus-visible{
-    border-color:var(--mineacle-soft-button-border-hover)!important;
-    background:var(--mineacle-soft-button-bg-hover)!important;
-    background-image:none!important;
-    color:#ffffff!important;
-    filter:brightness(1.04)!important;
-    transform:none!important;
-    box-shadow:
-      inset 0 1px 0 rgba(255,255,255,.075),
-      0 5px 12px rgba(0,0,0,.18)!important;
-    outline:none!important;
-  }
-
-  html body .mineacle-ban-close-single:hover::before,
-  html body .mineacle-ban-close-single:focus-visible::before{
-    color:#ffffff!important;
-  }
-
-  html body .mineacle-ban-close-single:active,
-  html body button.mineacle-row-info-button:active{
-    border-color:rgba(255,255,255,.12)!important;
-    background:var(--mineacle-soft-button-bg-active)!important;
-    background-image:none!important;
-    color:rgba(255,255,255,.90)!important;
-    filter:brightness(.90)!important;
-    transform:none!important;
-    box-shadow:
-      inset 0 2px 5px rgba(0,0,0,.32),
-      0 2px 6px rgba(0,0,0,.14)!important;
-  }
-
-  html body .mineacle-ban-close-single:active::before{
-    color:rgba(255,255,255,.90)!important;
-    transform:translateY(0)!important;
-  }
-
-  /* Parent row hover cannot light the info icon unless the cursor is directly on the icon. */
-  html body .ban-row:hover button.mineacle-row-info-button:not(:hover):not(:focus-visible),
-  html body .ban-table-data-row:hover button.mineacle-row-info-button:not(:hover):not(:focus-visible),
-  html body .js-ban-table .ban-row:hover button.mineacle-row-info-button:not(:hover):not(:focus-visible){
-    border-color:var(--mineacle-soft-button-border)!important;
-    background:var(--mineacle-soft-button-bg)!important;
-    background-image:none!important;
-    color:rgba(255,255,255,.84)!important;
-    filter:none!important;
-    transform:none!important;
-    box-shadow:
-      inset 0 1px 0 rgba(255,255,255,.060),
-      0 4px 10px rgba(0,0,0,.16)!important;
-  }
-
-  /* Compact Discord appeal button now shows the Discord character image. */
-  html body .mineacle-punish-discord{
-    grid-template-columns:42px minmax(0, 1fr)!important;
-  }
-
-  html body .mineacle-punish-discord-character{
-    width:42px!important;
-    height:42px!important;
-    display:block!important;
-    object-fit:contain!important;
-    border-radius:10px!important;
-    background:#5865f2!important;
-    box-shadow:none!important;
-  }
-
-  html body .mineacle-punish-discord-mark{
-    display:none!important;
-  }
+html body button:hover,
+html body button:focus,
+html body button:focus-visible,
+html body button:active,
+html body .btn:hover,
+html body .btn:focus,
+html body .btn:focus-visible,
+html body .btn:active,
+html body a.btn:hover,
+html body a.btn:focus,
+html body a.btn:focus-visible,
+html body a.btn:active,
+html body [class*="button"]:hover,
+html body [class*="button"]:focus,
+html body [class*="button"]:focus-visible,
+html body [class*="button"]:active,
+html body [class*="Button"]:hover,
+html body [class*="Button"]:focus,
+html body [class*="Button"]:focus-visible,
+html body [class*="Button"]:active,
+html body [class*="pill"]:hover,
+html body [class*="pill"]:focus,
+html body [class*="pill"]:focus-visible,
+html body [class*="pill"]:active,
+html body [class*="Pill"]:hover,
+html body [class*="Pill"]:focus,
+html body [class*="Pill"]:focus-visible,
+html body [class*="Pill"]:active,
+html body [class*="badge"]:hover,
+html body [class*="badge"]:focus,
+html body [class*="badge"]:focus-visible,
+html body [class*="badge"]:active,
+html body [class*="Badge"]:hover,
+html body [class*="Badge"]:focus,
+html body [class*="Badge"]:focus-visible,
+html body [class*="Badge"]:active,
+html body .mineacle-ban-status-single:hover,
+html body .mineacle-ban-status-single:focus,
+html body .mineacle-ban-status-single:focus-visible,
+html body .mineacle-ban-status-single:active,
+html body .mineacle-row-ban-type-pill:hover,
+html body .mineacle-row-ban-type-pill:focus,
+html body .mineacle-row-ban-type-pill:focus-visible,
+html body .mineacle-row-ban-type-pill:active,
+html body .ban-type-pill:hover,
+html body .ban-type-pill:focus,
+html body .ban-type-pill:focus-visible,
+html body .ban-type-pill:active,
+html body .status-pill:hover,
+html body .status-pill:focus,
+html body .status-pill:focus-visible,
+html body .status-pill:active,
+html body .badge:hover,
+html body .badge:focus,
+html body .badge:focus-visible,
+html body .badge:active{
+  transform:none!important;
+  filter:none!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  text-shadow:none!important;
 }
 
-@media (max-width:760px){
-  html body .mineacle-ban-close-single,
-  html body button.mineacle-row-info-button{
-    border:1px solid rgba(255,255,255,.105)!important;
-    background:#1a1a23!important;
-    background-image:none!important;
-    color:rgba(255,255,255,.84)!important;
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.060), 0 4px 10px rgba(0,0,0,.16)!important;
-    transform:none!important;
-    filter:none!important;
-  }
+/* Purple nav/store/search */
+html body .mcx-store,
+html body .nav-store-button,
+html body .nav-mc-button,
+html body .js-ban-search-form button[type="submit"],
+html body .js-ban-search-form .mineacle-search-button-live,
+html body .mineacle-search-button-live,
+html body .js-ban-clear.is-search,
+html body .btn.purple,
+html body .btn.store{
+  background:var(--mcl-flat-purple)!important;
+  border-color:rgba(255,255,255,.13)!important;
+  color:#fff!important;
+  box-shadow:none!important;
+}
 
-  html body .mineacle-ban-close-single:hover,
-  html body .mineacle-ban-close-single:focus-visible,
-  html body button.mineacle-row-info-button:hover,
-  html body button.mineacle-row-info-button:focus-visible{
-    border-color:rgba(255,255,255,.18)!important;
-    background:#20202a!important;
-    background-image:none!important;
-    filter:brightness(1.04)!important;
-    transform:none!important;
-  }
+html body .mcx-store:hover,
+html body .mcx-store:focus-visible,
+html body .nav-store-button:hover,
+html body .nav-store-button:focus-visible,
+html body .nav-mc-button:hover,
+html body .nav-mc-button:focus-visible,
+html body .js-ban-search-form button[type="submit"]:hover,
+html body .js-ban-search-form button[type="submit"]:focus-visible,
+html body .js-ban-search-form .mineacle-search-button-live:hover,
+html body .js-ban-search-form .mineacle-search-button-live:focus-visible,
+html body .mineacle-search-button-live:hover,
+html body .mineacle-search-button-live:focus-visible,
+html body .js-ban-clear.is-search:hover,
+html body .js-ban-clear.is-search:focus-visible,
+html body .btn.purple:hover,
+html body .btn.purple:focus-visible,
+html body .btn.store:hover,
+html body .btn.store:focus-visible{
+  background:var(--mcl-flat-purple-hover)!important;
+  border-color:rgba(255,255,255,.18)!important;
+  color:#fff!important;
+  transform:none!important;
+  box-shadow:none!important;
+}
 
-  html body .mineacle-ban-close-single:active,
-  html body button.mineacle-row-info-button:active{
-    background:#14141b!important;
-    filter:brightness(.90)!important;
-    transform:none!important;
-  }
+html body .mcx-store:active,
+html body .nav-store-button:active,
+html body .nav-mc-button:active,
+html body .js-ban-search-form button[type="submit"]:active,
+html body .js-ban-search-form .mineacle-search-button-live:active,
+html body .mineacle-search-button-live:active,
+html body .js-ban-clear.is-search:active,
+html body .btn.purple:active,
+html body .btn.store:active{
+  background:var(--mcl-flat-purple-active)!important;
+  border-color:rgba(255,255,255,.11)!important;
+}
 
-  html body button.mineacle-row-info-button{
-    width:27px!important;
-    height:27px!important;
-    min-width:27px!important;
-    min-height:27px!important;
-    max-width:27px!important;
-    max-height:27px!important;
-    font-size:12px!important;
-  }
+/* Clear red state */
+html body .js-ban-search-form button[type="submit"].is-clear,
+html body .js-ban-search-form .mineacle-search-button-live.is-clear,
+html body .mineacle-search-button-live.is-clear,
+html body .js-ban-clear.is-clear{
+  background:#c82d43!important;
+  border-color:rgba(255,255,255,.13)!important;
+  color:#fff!important;
+}
 
-  html body .mineacle-punish-discord-character{
-    width:42px!important;
-    height:42px!important;
-    display:block!important;
-    object-fit:contain!important;
-    border-radius:10px!important;
-    background:#5865f2!important;
-  }
+html body .js-ban-search-form button[type="submit"].is-clear:hover,
+html body .js-ban-search-form button[type="submit"].is-clear:focus-visible,
+html body .js-ban-search-form .mineacle-search-button-live.is-clear:hover,
+html body .js-ban-search-form .mineacle-search-button-live.is-clear:focus-visible,
+html body .mineacle-search-button-live.is-clear:hover,
+html body .mineacle-search-button-live.is-clear:focus-visible,
+html body .js-ban-clear.is-clear:hover,
+html body .js-ban-clear.is-clear:focus-visible{
+  background:#db3a51!important;
+  border-color:rgba(255,255,255,.18)!important;
+}
 
-  html body .mineacle-punish-discord-mark{
-    display:none!important;
-  }
+html body .js-ban-search-form button[type="submit"].is-clear:active,
+html body .js-ban-search-form .mineacle-search-button-live.is-clear:active,
+html body .mineacle-search-button-live.is-clear:active,
+html body .js-ban-clear.is-clear:active{
+  background:#9f2234!important;
+  border-color:rgba(255,255,255,.11)!important;
+}
+
+/* Play green */
+html body .mcx-play,
+html body .play-copy-button,
+html body .copy-ip-button,
+html body [data-copy-ip]{
+  background:var(--mcl-flat-green)!important;
+  border-color:rgba(255,255,255,.13)!important;
+  color:#fff!important;
+}
+
+html body .mcx-play:hover,
+html body .mcx-play:focus-visible,
+html body .play-copy-button:hover,
+html body .play-copy-button:focus-visible,
+html body .copy-ip-button:hover,
+html body .copy-ip-button:focus-visible,
+html body [data-copy-ip]:hover,
+html body [data-copy-ip]:focus-visible{
+  background:var(--mcl-flat-green-hover)!important;
+  border-color:rgba(255,255,255,.18)!important;
+}
+
+html body .mcx-play:active,
+html body .play-copy-button:active,
+html body .copy-ip-button:active,
+html body [data-copy-ip]:active{
+  background:var(--mcl-flat-green-active)!important;
+  border-color:rgba(255,255,255,.11)!important;
+}
+
+/* Discord blue */
+html body .mcx-discord,
+html body .discord-square,
+html body .nav-mc-icon-button,
+html body .mineacle-punish-discord,
+html body .mineacle-ban-discord-single{
+  background:var(--mcl-flat-blue)!important;
+  border-color:rgba(255,255,255,.13)!important;
+  color:#fff!important;
+}
+
+html body .mcx-discord:hover,
+html body .mcx-discord:focus-visible,
+html body .discord-square:hover,
+html body .discord-square:focus-visible,
+html body .nav-mc-icon-button:hover,
+html body .nav-mc-icon-button:focus-visible,
+html body .mineacle-punish-discord:hover,
+html body .mineacle-punish-discord:focus-visible,
+html body .mineacle-ban-discord-single:hover,
+html body .mineacle-ban-discord-single:focus-visible{
+  background:var(--mcl-flat-blue-hover)!important;
+  border-color:rgba(255,255,255,.18)!important;
+}
+
+html body .mcx-discord:active,
+html body .discord-square:active,
+html body .nav-mc-icon-button:active,
+html body .mineacle-punish-discord:active,
+html body .mineacle-ban-discord-single:active{
+  background:var(--mcl-flat-blue-active)!important;
+  border-color:rgba(255,255,255,.11)!important;
+}
+
+/* Unban gold */
+html body .ban-unban-cta,
+html body .mineacle-ban-pay-single,
+html body .mineacle-punish-actions .ban-unban-cta,
+html body .ban-action .btn,
+html body .btn.gold{
+  background:var(--mcl-flat-gold)!important;
+  border-color:rgba(255,255,255,.16)!important;
+  color:#fff!important;
+}
+
+html body .ban-unban-cta:hover,
+html body .ban-unban-cta:focus-visible,
+html body .mineacle-ban-pay-single:hover,
+html body .mineacle-ban-pay-single:focus-visible,
+html body .mineacle-punish-actions .ban-unban-cta:hover,
+html body .mineacle-punish-actions .ban-unban-cta:focus-visible,
+html body .ban-action .btn:hover,
+html body .ban-action .btn:focus-visible,
+html body .btn.gold:hover,
+html body .btn.gold:focus-visible{
+  background:var(--mcl-flat-gold-hover)!important;
+  border-color:rgba(255,255,255,.20)!important;
+}
+
+html body .ban-unban-cta:active,
+html body .mineacle-ban-pay-single:active,
+html body .mineacle-punish-actions .ban-unban-cta:active,
+html body .ban-action .btn:active,
+html body .btn.gold:active{
+  background:var(--mcl-flat-gold-active)!important;
+  border-color:rgba(255,255,255,.11)!important;
+}
+
+/* Info and close controls */
+html body .mineacle-ban-close-single,
+html body button.mineacle-row-info-button,
+html body .info-btn,
+html body .js-info-button.info-btn,
+html body .icon-btn{
+  background:var(--mcl-flat-control)!important;
+  background-image:none!important;
+  border-color:var(--mcl-flat-border)!important;
+  color:rgba(255,255,255,.84)!important;
+  box-shadow:none!important;
+  transform:none!important;
+  filter:none!important;
+}
+
+html body .mineacle-ban-close-single:hover,
+html body .mineacle-ban-close-single:focus-visible,
+html body button.mineacle-row-info-button:hover,
+html body button.mineacle-row-info-button:focus-visible,
+html body .info-btn:hover,
+html body .info-btn:focus-visible,
+html body .js-info-button.info-btn:hover,
+html body .js-info-button.info-btn:focus-visible,
+html body .icon-btn:hover,
+html body .icon-btn:focus-visible{
+  background:var(--mcl-flat-control-hover)!important;
+  background-image:none!important;
+  border-color:var(--mcl-flat-border-hover)!important;
+  color:#fff!important;
+  box-shadow:none!important;
+  transform:none!important;
+  filter:none!important;
+}
+
+html body .mineacle-ban-close-single:active,
+html body button.mineacle-row-info-button:active,
+html body .info-btn:active,
+html body .js-info-button.info-btn:active,
+html body .icon-btn:active{
+  background:var(--mcl-flat-control-active)!important;
+  background-image:none!important;
+  border-color:rgba(255,255,255,.11)!important;
+  color:rgba(255,255,255,.90)!important;
+}
+
+html body .ban-row:hover button.mineacle-row-info-button:not(:hover):not(:focus-visible),
+html body .ban-table-data-row:hover button.mineacle-row-info-button:not(:hover):not(:focus-visible),
+html body .js-ban-table .ban-row:hover button.mineacle-row-info-button:not(:hover):not(:focus-visible),
+html body .ban-row:hover .info-btn:not(:hover):not(:focus-visible),
+html body .ban-table-data-row:hover .info-btn:not(:hover):not(:focus-visible){
+  background:var(--mcl-flat-control)!important;
+  background-image:none!important;
+  border-color:var(--mcl-flat-border)!important;
+  color:rgba(255,255,255,.84)!important;
+  box-shadow:none!important;
+  transform:none!important;
+  filter:none!important;
+}
+
+/* Labels red/permanent */
+html body .mineacle-ban-status-single,
+html body .mineacle-ban-status-single.perm,
+html body .mineacle-ban-status-single.permanent,
+html body .mineacle-ban-status-single.active,
+html body .mineacle-ban-status-single.ban-type-perm,
+html body .mineacle-row-ban-type-pill,
+html body .mineacle-row-ban-type-pill.perm,
+html body .mineacle-row-ban-type-pill.permanent,
+html body .mineacle-row-ban-type-pill.active,
+html body .mineacle-row-ban-type-pill.ban-type-perm,
+html body .ban-type-pill,
+html body .ban-type-pill.perm,
+html body .ban-type-pill.permanent,
+html body .ban-type-pill.active,
+html body .status-pill,
+html body .badge.ban-type-pill,
+html body .badge.active,
+html body .badge.perm{
+  background:var(--mcl-flat-red-bg)!important;
+  background-image:none!important;
+  border-color:var(--mcl-flat-red-border)!important;
+  color:var(--mcl-flat-red-text)!important;
+  box-shadow:none!important;
+}
+
+html body .mineacle-ban-status-single:hover,
+html body .mineacle-ban-status-single.perm:hover,
+html body .mineacle-ban-status-single.permanent:hover,
+html body .mineacle-ban-status-single.active:hover,
+html body .mineacle-row-ban-type-pill:hover,
+html body .mineacle-row-ban-type-pill.perm:hover,
+html body .mineacle-row-ban-type-pill.permanent:hover,
+html body .mineacle-row-ban-type-pill.active:hover,
+html body .ban-type-pill:hover,
+html body .ban-type-pill.perm:hover,
+html body .ban-type-pill.permanent:hover,
+html body .ban-type-pill.active:hover,
+html body .status-pill:hover,
+html body .badge.ban-type-pill:hover,
+html body .badge.active:hover{
+  background:var(--mcl-flat-red-bg-hover)!important;
+  background-image:none!important;
+  border-color:var(--mcl-flat-red-border)!important;
+  color:var(--mcl-flat-red-text)!important;
+  box-shadow:none!important;
+}
+
+html body .mineacle-ban-status-single:active,
+html body .mineacle-row-ban-type-pill:active,
+html body .ban-type-pill:active,
+html body .status-pill:active,
+html body .badge.ban-type-pill:active{
+  background:var(--mcl-flat-red-bg-active)!important;
+  background-image:none!important;
+  color:var(--mcl-flat-red-text)!important;
+}
+
+/* Labels yellow/temp */
+html body .mineacle-ban-status-single.temp,
+html body .mineacle-ban-status-single.temporary,
+html body .mineacle-ban-status-single.ban-type-temp,
+html body .mineacle-row-ban-type-pill.temp,
+html body .mineacle-row-ban-type-pill.temporary,
+html body .mineacle-row-ban-type-pill.ban-type-temp,
+html body .ban-type-pill.temp,
+html body .ban-type-pill.temporary,
+html body .ban-type-pill.ban-type-temp,
+html body .badge.temp,
+html body .badge.temporary,
+html body .badge.ban-type-temp{
+  background:var(--mcl-flat-yellow-bg)!important;
+  background-image:none!important;
+  border-color:var(--mcl-flat-yellow-border)!important;
+  color:var(--mcl-flat-yellow-text)!important;
+  box-shadow:none!important;
+}
+
+html body .mineacle-ban-status-single.temp:hover,
+html body .mineacle-ban-status-single.temporary:hover,
+html body .mineacle-ban-status-single.ban-type-temp:hover,
+html body .mineacle-row-ban-type-pill.temp:hover,
+html body .mineacle-row-ban-type-pill.temporary:hover,
+html body .mineacle-row-ban-type-pill.ban-type-temp:hover,
+html body .ban-type-pill.temp:hover,
+html body .ban-type-pill.temporary:hover,
+html body .ban-type-pill.ban-type-temp:hover,
+html body .badge.temp:hover,
+html body .badge.temporary:hover,
+html body .badge.ban-type-temp:hover{
+  background:var(--mcl-flat-yellow-bg-hover)!important;
+  background-image:none!important;
+  border-color:var(--mcl-flat-yellow-border)!important;
+  color:var(--mcl-flat-yellow-text)!important;
+  box-shadow:none!important;
+}
+
+html body .mineacle-ban-status-single.temp:active,
+html body .mineacle-ban-status-single.temporary:active,
+html body .mineacle-ban-status-single.ban-type-temp:active,
+html body .mineacle-row-ban-type-pill.temp:active,
+html body .mineacle-row-ban-type-pill.temporary:active,
+html body .mineacle-row-ban-type-pill.ban-type-temp:active,
+html body .ban-type-pill.temp:active,
+html body .ban-type-pill.temporary:active,
+html body .ban-type-pill.ban-type-temp:active,
+html body .badge.temp:active,
+html body .badge.temporary:active,
+html body .badge.ban-type-temp:active{
+  background:var(--mcl-flat-yellow-bg-active)!important;
+  background-image:none!important;
+  color:var(--mcl-flat-yellow-text)!important;
+}
+
+/* Labels IP */
+html body .mineacle-ban-status-single.ip,
+html body .mineacle-ban-status-single.ban-type-ip,
+html body .mineacle-row-ban-type-pill.ip,
+html body .mineacle-row-ban-type-pill.ban-type-ip,
+html body .ban-type-pill.ip,
+html body .ban-type-pill.ban-type-ip,
+html body .badge.ip,
+html body .badge.ban-type-ip{
+  background:var(--mcl-flat-ip-bg)!important;
+  background-image:none!important;
+  border-color:var(--mcl-flat-ip-border)!important;
+  color:var(--mcl-flat-ip-text)!important;
+  box-shadow:none!important;
+}
+
+html body .mineacle-ban-status-single::before,
+html body .mineacle-ban-status-single::after,
+html body .mineacle-row-ban-type-pill::before,
+html body .mineacle-row-ban-type-pill::after,
+html body .ban-type-pill::before,
+html body .ban-type-pill::after,
+html body .badge::before,
+html body .badge::after,
+html body .status-pill::before,
+html body .status-pill::after{
+  content:none!important;
+  display:none!important;
+  background:none!important;
+  box-shadow:none!important;
 }
