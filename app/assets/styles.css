@@ -29274,3 +29274,349 @@ body *{
     justify-self:center!important;
   }
 }
+
+
+/* Mineacle Bans v4.0.00: redesigned compact More Info modal */
+@media (min-width:761px){
+  html body .mineacle-ban-modal-single.is-open{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    padding:28px!important;
+    background:rgba(0,0,0,.72)!important;
+    backdrop-filter:none!important;
+    -webkit-backdrop-filter:none!important;
+  }
+
+  html body .mineacle-punish-modal-card{
+    position:relative!important;
+    width:min(860px, calc(100vw - 64px))!important;
+    max-height:calc(100vh - 64px)!important;
+    overflow:auto!important;
+    border-radius:18px!important;
+    border:1px solid rgba(255,255,255,.085)!important;
+    background:#111117!important;
+    background-image:none!important;
+    box-shadow:0 28px 70px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.045)!important;
+    padding:24px!important;
+  }
+
+  html body .mineacle-punish-close.mineacle-ban-close-single{
+    position:absolute!important;
+    top:22px!important;
+    right:22px!important;
+    z-index:4!important;
+  }
+
+  html body .mineacle-punish-top{
+    display:grid!important;
+    grid-template-columns:minmax(0, 1fr) auto!important;
+    align-items:center!important;
+    gap:18px!important;
+    padding:0 58px 20px 0!important;
+    border-bottom:1px solid rgba(255,255,255,.065)!important;
+  }
+
+  html body .mineacle-punish-player{
+    display:grid!important;
+    grid-template-columns:54px minmax(0, 1fr)!important;
+    align-items:center!important;
+    gap:16px!important;
+    min-width:0!important;
+  }
+
+  html body .mineacle-punish-avatar{
+    width:54px!important;
+    height:54px!important;
+    border-radius:10px!important;
+    image-rendering:pixelated!important;
+    box-shadow:none!important;
+  }
+
+  html body .mineacle-punish-kicker{
+    display:block!important;
+    margin:0 0 4px!important;
+    color:#ff88ff!important;
+    font-size:10px!important;
+    font-weight:950!important;
+    letter-spacing:.14em!important;
+    line-height:1!important;
+    text-transform:uppercase!important;
+  }
+
+  html body .mineacle-punish-name{
+    margin:0!important;
+    color:#fff!important;
+    font-size:30px!important;
+    line-height:1.02!important;
+    font-weight:950!important;
+    letter-spacing:-.045em!important;
+    overflow-wrap:anywhere!important;
+  }
+
+  html body .mineacle-punish-status{
+    justify-self:end!important;
+  }
+
+  html body .mineacle-punish-reason{
+    margin:18px 0 14px!important;
+    padding:16px 18px!important;
+    border-radius:14px!important;
+    border:1px solid rgba(255,255,255,.075)!important;
+    background:#171720!important;
+    background-image:none!important;
+    box-shadow:none!important;
+  }
+
+  html body .mineacle-punish-reason span,
+  html body .mineacle-punish-detail span{
+    display:block!important;
+    margin:0 0 7px!important;
+    color:#ff88ff!important;
+    font-size:10px!important;
+    line-height:1!important;
+    font-weight:950!important;
+    letter-spacing:.14em!important;
+    text-transform:uppercase!important;
+  }
+
+  html body .mineacle-punish-reason strong{
+    display:block!important;
+    color:#fff!important;
+    font-size:19px!important;
+    line-height:1.22!important;
+    font-weight:900!important;
+    letter-spacing:-.025em!important;
+    overflow-wrap:anywhere!important;
+  }
+
+  html body .mineacle-punish-grid{
+    display:grid!important;
+    grid-template-columns:repeat(2, minmax(0, 1fr))!important;
+    gap:12px!important;
+    margin:0!important;
+  }
+
+  html body .mineacle-punish-detail{
+    min-height:74px!important;
+    padding:14px 16px!important;
+    border-radius:14px!important;
+    border:1px solid rgba(255,255,255,.075)!important;
+    background:#15151c!important;
+    background-image:none!important;
+    box-shadow:none!important;
+  }
+
+  html body .mineacle-punish-detail-wide{
+    grid-column:1 / -1!important;
+  }
+
+  html body .mineacle-punish-detail strong{
+    display:block!important;
+    color:#fff!important;
+    font-size:17px!important;
+    line-height:1.16!important;
+    font-weight:900!important;
+    letter-spacing:-.025em!important;
+    overflow-wrap:anywhere!important;
+  }
+
+  html body .mineacle-punish-footer{
+    margin:18px 0 0!important;
+    display:grid!important;
+    grid-template-columns:220px minmax(0, 1fr)!important;
+    align-items:center!important;
+    gap:16px!important;
+    padding-top:16px!important;
+    border-top:1px solid rgba(255,255,255,.065)!important;
+  }
+
+  html body .mineacle-punish-discord{
+    min-height:54px!important;
+    display:grid!important;
+    grid-template-columns:38px minmax(0, 1fr)!important;
+    align-items:center!important;
+    gap:10px!important;
+    padding:10px 12px!important;
+    border-radius:12px!important;
+    border:1px solid rgba(114,137,255,.22)!important;
+    background:#19192a!important;
+    background-image:none!important;
+    color:#fff!important;
+    text-decoration:none!important;
+    box-shadow:none!important;
+  }
+
+  html body .mineacle-punish-discord:hover,
+  html body .mineacle-punish-discord:focus-visible{
+    border-color:rgba(114,137,255,.40)!important;
+    background:#20203a!important;
+    color:#fff!important;
+    text-decoration:none!important;
+    outline:none!important;
+  }
+
+  html body .mineacle-punish-discord-mark{
+    width:38px!important;
+    height:38px!important;
+    display:grid!important;
+    place-items:center!important;
+    border-radius:10px!important;
+    background:#5865f2!important;
+    color:#fff!important;
+    font-size:18px!important;
+    font-weight:950!important;
+    line-height:1!important;
+  }
+
+  html body .mineacle-punish-discord b{
+    display:block!important;
+    margin:0!important;
+    color:#fff!important;
+    font-size:13px!important;
+    line-height:1.05!important;
+    font-weight:950!important;
+    letter-spacing:.035em!important;
+    text-transform:uppercase!important;
+  }
+
+  html body .mineacle-punish-discord small{
+    display:block!important;
+    margin:4px 0 0!important;
+    color:rgba(255,255,255,.68)!important;
+    font-size:12px!important;
+    line-height:1!important;
+    font-weight:800!important;
+  }
+
+  html body .mineacle-punish-action-row{
+    margin:0!important;
+    padding:0!important;
+    display:grid!important;
+    grid-template-columns:minmax(0, 1fr) auto!important;
+    align-items:center!important;
+    gap:16px!important;
+  }
+
+  html body .mineacle-punish-action-row.no-action{
+    grid-template-columns:1fr!important;
+  }
+
+  html body .mineacle-punish-note{
+    margin:0!important;
+    max-width:none!important;
+    justify-self:end!important;
+    text-align:right!important;
+    color:#bdb1cc!important;
+    font-size:13px!important;
+    line-height:1.35!important;
+    font-weight:850!important;
+    letter-spacing:.005em!important;
+  }
+
+  html body .mineacle-punish-action-row.no-action .mineacle-punish-note{
+    justify-self:start!important;
+    text-align:left!important;
+  }
+
+  html body .mineacle-punish-actions{
+    margin:0!important;
+    padding:0!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-end!important;
+    background:transparent!important;
+    border:0!important;
+    box-shadow:none!important;
+  }
+
+  html body .mineacle-punish-actions:empty{
+    display:none!important;
+  }
+
+  html body .mineacle-punish-actions .mineacle-ban-pay-single,
+  html body .mineacle-punish-actions .ban-unban-cta{
+    margin:0!important;
+    white-space:nowrap!important;
+  }
+
+  html body .mineacle-ban-appeal-single{
+    display:none!important;
+  }
+}
+
+@media (max-width:760px){
+  html body .mineacle-ban-modal-single.is-open{
+    align-items:flex-start!important;
+    padding:16px!important;
+    overflow:auto!important;
+  }
+
+  html body .mineacle-punish-modal-card{
+    width:100%!important;
+    max-height:none!important;
+    padding:18px!important;
+    border-radius:16px!important;
+    background:#111117!important;
+    background-image:none!important;
+  }
+
+  html body .mineacle-punish-close.mineacle-ban-close-single{
+    top:16px!important;
+    right:16px!important;
+  }
+
+  html body .mineacle-punish-top{
+    grid-template-columns:1fr!important;
+    padding:0 48px 16px 0!important;
+    gap:12px!important;
+  }
+
+  html body .mineacle-punish-player{
+    grid-template-columns:48px minmax(0, 1fr)!important;
+    gap:12px!important;
+  }
+
+  html body .mineacle-punish-avatar{
+    width:48px!important;
+    height:48px!important;
+  }
+
+  html body .mineacle-punish-name{
+    font-size:25px!important;
+  }
+
+  html body .mineacle-punish-status{
+    justify-self:start!important;
+  }
+
+  html body .mineacle-punish-grid{
+    grid-template-columns:1fr!important;
+  }
+
+  html body .mineacle-punish-detail-wide{
+    grid-column:auto!important;
+  }
+
+  html body .mineacle-punish-footer{
+    grid-template-columns:1fr!important;
+    align-items:stretch!important;
+  }
+
+  html body .mineacle-punish-action-row,
+  html body .mineacle-punish-action-row.has-action{
+    grid-template-columns:1fr!important;
+    justify-items:center!important;
+    gap:14px!important;
+  }
+
+  html body .mineacle-punish-note,
+  html body .mineacle-punish-action-row.no-action .mineacle-punish-note{
+    text-align:center!important;
+    justify-self:center!important;
+  }
+
+  html body .mineacle-punish-actions{
+    justify-content:center!important;
+  }
+}

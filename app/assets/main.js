@@ -319,39 +319,47 @@
         modal.className = "mineacle-ban-modal-single";
         modal.setAttribute("aria-hidden", "true");
         modal.innerHTML = `
-            <section class="mineacle-ban-card-single" role="dialog" aria-modal="true" aria-labelledby="singleModalName">
-                <div class="mineacle-ban-rail-single">
-                    <header class="mineacle-ban-head-single">
-                        <div class="mineacle-ban-player-single">
-                            <img class="mineacle-ban-avatar-single" id="singleModalAvatar" src="${escapeHtml(assetUrl(LOGO_FALLBACK))}" alt="">
-                            <div class="mineacle-ban-title-single">
-                                <h2 class="mineacle-ban-name-single" id="singleModalName">Player</h2>
-                                <span class="mineacle-ban-status-single" id="singleModalStatus">Ban</span>
-                            </div>
+            <section class="mineacle-ban-card-single mineacle-punish-modal-card" role="dialog" aria-modal="true" aria-labelledby="singleModalName">
+                <button class="mineacle-ban-close-single mineacle-punish-close" type="button" data-single-ban-close aria-label="Close ban details">×</button>
+
+                <header class="mineacle-punish-top">
+                    <div class="mineacle-punish-player">
+                        <img class="mineacle-ban-avatar-single mineacle-punish-avatar" id="singleModalAvatar" src="${escapeHtml(assetUrl(LOGO_FALLBACK))}" alt="">
+                        <div class="mineacle-punish-title">
+                            <span class="mineacle-punish-kicker">Punishment Details</span>
+                            <h2 class="mineacle-ban-name-single mineacle-punish-name" id="singleModalName">Player</h2>
                         </div>
-                        <button class="mineacle-ban-close-single" type="button" data-single-ban-close aria-label="Close ban details">×</button>
-                    </header>
+                    </div>
+                    <span class="mineacle-ban-status-single mineacle-punish-status" id="singleModalStatus">Ban</span>
+                </header>
 
-                    <section class="mineacle-ban-details-single" aria-label="Ban details">
-                        <article class="mineacle-ban-info-pill-single"><span>Type</span><strong id="singleModalType">Ban</strong></article>
-                        <article class="mineacle-ban-info-pill-single"><span>Reason</span><strong id="singleModalReason">No reason provided</strong></article>
-                        <article class="mineacle-ban-info-pill-single"><span>Duration</span><strong id="singleModalDuration">Unknown</strong></article>
-                        <article class="mineacle-ban-info-pill-single"><span>Date</span><strong id="singleModalDate">Unknown</strong></article>
-                        <article class="mineacle-ban-info-pill-single"><span>Appeal ID</span><strong id="singleModalAppeal">MCL-000000</strong></article>
-                        <article class="mineacle-ban-info-pill-single"><span>Support Email</span><strong id="singleModalEmail">${escapeHtml(SUPPORT_FALLBACK)}</strong></article>
-                    </section>
+                <section class="mineacle-punish-reason" aria-label="Ban reason">
+                    <span>Reason</span>
+                    <strong id="singleModalReason">No reason provided</strong>
+                </section>
 
-                    <a class="mineacle-ban-appeal-single" id="singleModalDiscord" href="${escapeHtml(DISCORD_FALLBACK)}" target="_blank" rel="noopener">
-                        <span class="mineacle-ban-appeal-art-single"><img id="singleModalMascot" src="${escapeHtml(assetUrl(MASCOT_FALLBACK))}" alt="Discord appeal support"></span>
-                        <span class="mineacle-ban-appeal-copy-single"><small>Appeal Support</small><strong>Join Discord to appeal</strong></span>
-                        <span class="mineacle-ban-appeal-count-single" id="singleModalDiscordCount">Online members</span>
+                <section class="mineacle-punish-grid" aria-label="Ban details">
+                    <article class="mineacle-punish-detail"><span>Type</span><strong id="singleModalType">Ban</strong></article>
+                    <article class="mineacle-punish-detail"><span>Duration</span><strong id="singleModalDuration">Unknown</strong></article>
+                    <article class="mineacle-punish-detail"><span>Date</span><strong id="singleModalDate">Unknown</strong></article>
+                    <article class="mineacle-punish-detail"><span>Appeal ID</span><strong id="singleModalAppeal">MCL-000000</strong></article>
+                    <article class="mineacle-punish-detail mineacle-punish-detail-wide"><span>Support Email</span><strong id="singleModalEmail">${escapeHtml(SUPPORT_FALLBACK)}</strong></article>
+                </section>
+
+                <footer class="mineacle-punish-footer">
+                    <a class="mineacle-punish-discord" id="singleModalDiscord" href="${escapeHtml(DISCORD_FALLBACK)}" target="_blank" rel="noopener">
+                        <span class="mineacle-punish-discord-mark">◎</span>
+                        <span>
+                            <b>Discord Appeal</b>
+                            <small id="singleModalDiscordCount">Discord</small>
+                        </span>
                     </a>
 
-                    <div class="mineacle-ban-action-row-single no-action" id="singleModalActionRow">
-                        <p class="mineacle-ban-note-single" id="singleModalNote">Use Discord if you need staff to review the punishment</p>
-                        <div class="mineacle-ban-actions-single" id="singleModalActions"></div>
+                    <div class="mineacle-ban-action-row-single mineacle-punish-action-row no-action" id="singleModalActionRow">
+                        <p class="mineacle-ban-note-single mineacle-punish-note" id="singleModalNote">Use Discord if you need staff to review the punishment</p>
+                        <div class="mineacle-ban-actions-single mineacle-punish-actions" id="singleModalActions"></div>
                     </div>
-                </div>
+                </footer>
             </section>
         `;
 
