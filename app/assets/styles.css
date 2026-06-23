@@ -29620,3 +29620,249 @@ body *{
     justify-content:center!important;
   }
 }
+
+
+/* Mineacle Bans v4.0.01: Open Sans typography + nav-style subtle modal/info controls + Discord character */
+
+/* Site-wide typography pass: Open Sans regular/bold only */
+html body,
+html body *{
+  font-family:"Open Sans", Arial, Helvetica, sans-serif!important;
+}
+
+html body{
+  font-weight:400!important;
+}
+
+html body h1,
+html body h2,
+html body h3,
+html body h4,
+html body h5,
+html body h6,
+html body strong,
+html body b,
+html body button,
+html body .btn,
+html body a[class*="btn"],
+html body .mcx-link,
+html body .mcx-store,
+html body .mcx-play,
+html body .mcx-discord,
+html body .mineacle-ban-status-single,
+html body .mineacle-row-ban-type-pill,
+html body .ban-name,
+html body .ban-table-heading,
+html body .mineacle-punish-kicker,
+html body .mineacle-punish-detail span,
+html body .mineacle-punish-reason span,
+html body .mineacle-punish-discord b{
+  font-weight:700!important;
+}
+
+/* More Info close X and row info i: subtle static nav-button behavior */
+@media (min-width:761px){
+  :root{
+    --mineacle-close-size:36px;
+    --mineacle-row-info-size:27px;
+    --mineacle-soft-button-bg:#1a1a23;
+    --mineacle-soft-button-bg-hover:#20202a;
+    --mineacle-soft-button-bg-active:#14141b;
+    --mineacle-soft-button-border:rgba(255,255,255,.105);
+    --mineacle-soft-button-border-hover:rgba(255,255,255,.18);
+  }
+
+  html body .mineacle-ban-close-single,
+  html body button.mineacle-row-info-button{
+    display:inline-grid!important;
+    place-items:center!important;
+    padding:0!important;
+    border-radius:8px!important;
+    border:1px solid var(--mineacle-soft-button-border)!important;
+    background:var(--mineacle-soft-button-bg)!important;
+    background-image:none!important;
+    color:rgba(255,255,255,.84)!important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.060),
+      0 4px 10px rgba(0,0,0,.16)!important;
+    filter:none!important;
+    transform:none!important;
+    text-shadow:none!important;
+    outline:none!important;
+    cursor:pointer!important;
+    transition:
+      background-color .12s ease,
+      border-color .12s ease,
+      box-shadow .12s ease,
+      color .12s ease,
+      filter .12s ease!important;
+  }
+
+  html body .mineacle-ban-close-single:not(.mineacle-row-info-button){
+    width:var(--mineacle-close-size)!important;
+    height:var(--mineacle-close-size)!important;
+    min-width:var(--mineacle-close-size)!important;
+    min-height:var(--mineacle-close-size)!important;
+    max-width:var(--mineacle-close-size)!important;
+    max-height:var(--mineacle-close-size)!important;
+    color:transparent!important;
+    line-height:1!important;
+    position:relative!important;
+    overflow:hidden!important;
+  }
+
+  html body button.mineacle-row-info-button{
+    width:var(--mineacle-row-info-size)!important;
+    height:var(--mineacle-row-info-size)!important;
+    min-width:var(--mineacle-row-info-size)!important;
+    min-height:var(--mineacle-row-info-size)!important;
+    max-width:var(--mineacle-row-info-size)!important;
+    max-height:var(--mineacle-row-info-size)!important;
+    font-size:12px!important;
+    line-height:1!important;
+    color:rgba(255,255,255,.84)!important;
+  }
+
+  html body .mineacle-ban-close-single:not(.mineacle-row-info-button)::before{
+    content:"×"!important;
+    position:absolute!important;
+    inset:0!important;
+    display:grid!important;
+    place-items:center!important;
+    color:rgba(255,255,255,.84)!important;
+    font-family:"Open Sans", Arial, Helvetica, sans-serif!important;
+    font-size:25px!important;
+    font-weight:700!important;
+    line-height:1!important;
+    transform:translateY(-1px)!important;
+    pointer-events:none!important;
+    text-shadow:none!important;
+  }
+
+  html body .mineacle-ban-close-single:hover,
+  html body .mineacle-ban-close-single:focus-visible,
+  html body button.mineacle-row-info-button:hover,
+  html body button.mineacle-row-info-button:focus-visible{
+    border-color:var(--mineacle-soft-button-border-hover)!important;
+    background:var(--mineacle-soft-button-bg-hover)!important;
+    background-image:none!important;
+    color:#ffffff!important;
+    filter:brightness(1.04)!important;
+    transform:none!important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.075),
+      0 5px 12px rgba(0,0,0,.18)!important;
+    outline:none!important;
+  }
+
+  html body .mineacle-ban-close-single:hover::before,
+  html body .mineacle-ban-close-single:focus-visible::before{
+    color:#ffffff!important;
+  }
+
+  html body .mineacle-ban-close-single:active,
+  html body button.mineacle-row-info-button:active{
+    border-color:rgba(255,255,255,.12)!important;
+    background:var(--mineacle-soft-button-bg-active)!important;
+    background-image:none!important;
+    color:rgba(255,255,255,.90)!important;
+    filter:brightness(.90)!important;
+    transform:none!important;
+    box-shadow:
+      inset 0 2px 5px rgba(0,0,0,.32),
+      0 2px 6px rgba(0,0,0,.14)!important;
+  }
+
+  html body .mineacle-ban-close-single:active::before{
+    color:rgba(255,255,255,.90)!important;
+    transform:translateY(0)!important;
+  }
+
+  /* Parent row hover cannot light the info icon unless the cursor is directly on the icon. */
+  html body .ban-row:hover button.mineacle-row-info-button:not(:hover):not(:focus-visible),
+  html body .ban-table-data-row:hover button.mineacle-row-info-button:not(:hover):not(:focus-visible),
+  html body .js-ban-table .ban-row:hover button.mineacle-row-info-button:not(:hover):not(:focus-visible){
+    border-color:var(--mineacle-soft-button-border)!important;
+    background:var(--mineacle-soft-button-bg)!important;
+    background-image:none!important;
+    color:rgba(255,255,255,.84)!important;
+    filter:none!important;
+    transform:none!important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.060),
+      0 4px 10px rgba(0,0,0,.16)!important;
+  }
+
+  /* Compact Discord appeal button now shows the Discord character image. */
+  html body .mineacle-punish-discord{
+    grid-template-columns:42px minmax(0, 1fr)!important;
+  }
+
+  html body .mineacle-punish-discord-character{
+    width:42px!important;
+    height:42px!important;
+    display:block!important;
+    object-fit:contain!important;
+    border-radius:10px!important;
+    background:#5865f2!important;
+    box-shadow:none!important;
+  }
+
+  html body .mineacle-punish-discord-mark{
+    display:none!important;
+  }
+}
+
+@media (max-width:760px){
+  html body .mineacle-ban-close-single,
+  html body button.mineacle-row-info-button{
+    border:1px solid rgba(255,255,255,.105)!important;
+    background:#1a1a23!important;
+    background-image:none!important;
+    color:rgba(255,255,255,.84)!important;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.060), 0 4px 10px rgba(0,0,0,.16)!important;
+    transform:none!important;
+    filter:none!important;
+  }
+
+  html body .mineacle-ban-close-single:hover,
+  html body .mineacle-ban-close-single:focus-visible,
+  html body button.mineacle-row-info-button:hover,
+  html body button.mineacle-row-info-button:focus-visible{
+    border-color:rgba(255,255,255,.18)!important;
+    background:#20202a!important;
+    background-image:none!important;
+    filter:brightness(1.04)!important;
+    transform:none!important;
+  }
+
+  html body .mineacle-ban-close-single:active,
+  html body button.mineacle-row-info-button:active{
+    background:#14141b!important;
+    filter:brightness(.90)!important;
+    transform:none!important;
+  }
+
+  html body button.mineacle-row-info-button{
+    width:27px!important;
+    height:27px!important;
+    min-width:27px!important;
+    min-height:27px!important;
+    max-width:27px!important;
+    max-height:27px!important;
+    font-size:12px!important;
+  }
+
+  html body .mineacle-punish-discord-character{
+    width:42px!important;
+    height:42px!important;
+    display:block!important;
+    object-fit:contain!important;
+    border-radius:10px!important;
+    background:#5865f2!important;
+  }
+
+  html body .mineacle-punish-discord-mark{
+    display:none!important;
+  }
+}

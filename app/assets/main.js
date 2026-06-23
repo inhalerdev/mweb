@@ -348,7 +348,7 @@
 
                 <footer class="mineacle-punish-footer">
                     <a class="mineacle-punish-discord" id="singleModalDiscord" href="${escapeHtml(DISCORD_FALLBACK)}" target="_blank" rel="noopener">
-                        <span class="mineacle-punish-discord-mark">◎</span>
+                        <img class="mineacle-punish-discord-character" id="singleModalMascot" src="${escapeHtml(assetUrl(MASCOT_FALLBACK))}" alt="" loading="lazy">
                         <span>
                             <b>Discord Appeal</b>
                             <small id="singleModalDiscordCount">Discord</small>
