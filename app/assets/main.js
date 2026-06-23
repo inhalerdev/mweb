@@ -192,7 +192,7 @@
 
     function actionButton(ban) {
         if (ban.can_pay && ban.action_type !== "view" && !ban.ipban && !ban.temporary) {
-            return `<a class="btn gold ban-unban-cta" href="${escapeHtml(safeUrl(ban.unban_url, "https://store.mineacle.net"))}" aria-label="Pay to unban" title="Pay to unban">Unban</a>`;
+            return `<a class="btn gold ban-unban-cta" href="${escapeHtml(safeUrl(ban.unban_url, "https://store.mineacle.net"))}" aria-label="Pay to unban" title="Pay to unban">Buy Unban</a>`;
         }
 
         return "";
@@ -328,9 +328,9 @@
                         <div class="mineacle-punish-title">
                             
                             <h2 class="mineacle-ban-name-single mineacle-punish-name" id="singleModalName">Player</h2>
+                            <span class="mineacle-ban-status-single mineacle-punish-status" id="singleModalStatus">Ban</span>
                         </div>
                     </div>
-                    <span class="mineacle-ban-status-single mineacle-punish-status" id="singleModalStatus">Ban</span>
                 </header>
 
                 <section class="mineacle-punish-reason" aria-label="Ban reason">
@@ -491,7 +491,7 @@
                 note.textContent = `Temporary bans cannot be paid for. This punishment expires on ${ban.expires || "the listed expiration date"}`;
             } else if (ban.can_pay) {
                 if (actions) {
-                    actions.innerHTML = `<a class="mineacle-ban-pay-single ban-unban-cta" href="${escapeHtml(safeUrl(ban.unban_url, "https://store.mineacle.net"))}" aria-label="Pay to unban" title="Pay to unban">Unban</a>`;
+                    actions.innerHTML = `<a class="mineacle-ban-pay-single ban-unban-cta" href="${escapeHtml(safeUrl(ban.unban_url, "https://store.mineacle.net"))}" aria-label="Pay to unban" title="Pay to unban">Buy Unban</a>`;
                 }
                 if (actionRow) {
                     actionRow.classList.remove("no-action");
