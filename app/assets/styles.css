@@ -36997,3 +36997,148 @@ html body button.mcx-play{
     opacity:1!important;
   }
 }
+
+
+/* Mineacle Bans v4.0.29: Discord pinned square, correct # MEMBERS reveal */
+
+/*
+  Fixes the clipped hover text:
+  - The visible 44px Discord square stays pinned in the same physical place
+  - The Discord icon stays pinned inside that square
+  - Only the extra text area expands LEFT
+  - Hover text has enough room to show "# MEMBERS" cleanly
+*/
+@media (min-width:981px){
+  :root{
+    --mcl-v429-discord-closed:44px;
+    --mcl-v429-discord-open:176px;
+    --mcl-v429-discord-icon:22px;
+    --mcl-v429-discord-icon-right:11px;
+    --mcl-v429-discord-text-left:14px;
+    --mcl-v429-discord-text-right:50px;
+    --mcl-v429-discord-label-w:118px;
+    --mcl-v429-btn-h:44px;
+    --mcl-v429-radius:9px;
+    --mcl-v429-discord:#5865f2;
+    --mcl-v429-discord-hover:#6571ff;
+    --mcl-v429-discord-active:#4751ca;
+  }
+
+  /* Reserve the full opened width so Play never moves. */
+  html body #siteHeader .mcx-desktop-actions{
+    grid-template-columns:var(--mcl-v429-discord-open) var(--mcl-v427-btn-w, 104px)!important;
+  }
+
+  html body #siteHeader .mcx-desktop-actions .mcx-discord{
+    grid-column:1!important;
+    justify-self:end!important;
+    align-self:center!important;
+    position:relative!important;
+    inset:auto!important;
+    box-sizing:border-box!important;
+    width:var(--mcl-v429-discord-closed)!important;
+    min-width:var(--mcl-v429-discord-closed)!important;
+    max-width:var(--mcl-v429-discord-closed)!important;
+    height:var(--mcl-v429-btn-h)!important;
+    min-height:var(--mcl-v429-btn-h)!important;
+    max-height:var(--mcl-v429-btn-h)!important;
+    padding:0!important;
+    display:block!important;
+    border:0!important;
+    outline:0!important;
+    border-radius:var(--mcl-v429-radius)!important;
+    background:var(--mcl-v429-discord)!important;
+    background-color:var(--mcl-v429-discord)!important;
+    color:#fff!important;
+    overflow:hidden!important;
+    cursor:pointer!important;
+    transform:none!important;
+    box-shadow:none!important;
+    text-shadow:none!important;
+    filter:none!important;
+    transition:
+      width .18s cubic-bezier(.18,.82,.22,1),
+      min-width .18s cubic-bezier(.18,.82,.22,1),
+      max-width .18s cubic-bezier(.18,.82,.22,1),
+      background-color .12s ease!important;
+  }
+
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:hover,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:focus-visible{
+    width:var(--mcl-v429-discord-open)!important;
+    min-width:var(--mcl-v429-discord-open)!important;
+    max-width:var(--mcl-v429-discord-open)!important;
+    background:var(--mcl-v429-discord-hover)!important;
+    background-color:var(--mcl-v429-discord-hover)!important;
+    transform:none!important;
+    box-shadow:none!important;
+    filter:none!important;
+  }
+
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:active{
+    background:var(--mcl-v429-discord-active)!important;
+    background-color:var(--mcl-v429-discord-active)!important;
+  }
+
+  /* Icon remains pinned inside the original 44px square on the right. */
+  html body #siteHeader .mcx-desktop-actions .mcx-discord img,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:hover img,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:focus-visible img,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:active img{
+    position:absolute!important;
+    right:var(--mcl-v429-discord-icon-right)!important;
+    left:auto!important;
+    top:50%!important;
+    bottom:auto!important;
+    transform:translateY(-50%)!important;
+    width:var(--mcl-v429-discord-icon)!important;
+    height:var(--mcl-v429-discord-icon)!important;
+    min-width:var(--mcl-v429-discord-icon)!important;
+    min-height:var(--mcl-v429-discord-icon)!important;
+    max-width:var(--mcl-v429-discord-icon)!important;
+    max-height:var(--mcl-v429-discord-icon)!important;
+    display:block!important;
+    object-fit:contain!important;
+    margin:0!important;
+    padding:0!important;
+    opacity:1!important;
+    filter:brightness(0) invert(1)!important;
+    pointer-events:none!important;
+    box-shadow:none!important;
+  }
+
+  /* Text gets a dedicated area left of the pinned square. */
+  html body #siteHeader .mcx-desktop-actions .mcx-discord-members{
+    position:absolute!important;
+    left:var(--mcl-v429-discord-text-left)!important;
+    right:var(--mcl-v429-discord-text-right)!important;
+    top:50%!important;
+    bottom:auto!important;
+    transform:translateY(-50%)!important;
+    display:block!important;
+    width:auto!important;
+    max-width:0!important;
+    height:auto!important;
+    opacity:0!important;
+    overflow:hidden!important;
+    white-space:nowrap!important;
+    pointer-events:none!important;
+    text-align:right!important;
+    color:#fff!important;
+    font-size:11px!important;
+    font-weight:800!important;
+    line-height:1!important;
+    letter-spacing:.012em!important;
+    text-transform:uppercase!important;
+    text-overflow:clip!important;
+    transition:
+      max-width .18s cubic-bezier(.18,.82,.22,1),
+      opacity .12s ease!important;
+  }
+
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:hover .mcx-discord-members,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:focus-visible .mcx-discord-members{
+    max-width:var(--mcl-v429-discord-label-w)!important;
+    opacity:1!important;
+  }
+}
