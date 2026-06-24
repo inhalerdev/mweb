@@ -33452,3 +33452,343 @@ html body button.mcx-play{
   min-width:var(--mcl-nav-play-copy-width-v415, 92px)!important;
   max-width:var(--mcl-nav-play-copy-width-v415, 92px)!important;
 }
+
+
+/* Mineacle Bans v4.0.17: restore clean pre-4.0 nav action spacing with flat buttons */
+
+/*
+  Final desktop nav behavior:
+  - Discord and Play are positioned like the clean pre-4.0 nav instead of flex-pushing each other
+  - Discord sits a full nav-link gap away from Play
+  - Discord is a flat square by default
+  - Discord expands LEFT on hover/focus because its right edge is locked
+  - Play stays fixed and still says COPIED on click without resizing
+  - Store / Discord / Play keep the new flat no-glow/no-gradient style
+*/
+@media (min-width:981px){
+  :root{
+    --mcl-v417-action-h:44px;
+    --mcl-v417-action-radius:9px;
+    --mcl-v417-action-gap:28px;
+    --mcl-v417-right-x:76px;
+
+    --mcl-v417-button-w:104px;
+    --mcl-v417-discord-w:44px;
+    --mcl-v417-discord-open-w:188px;
+
+    --mcl-v417-store:#a424f2;
+    --mcl-v417-store-hover:#b034ff;
+    --mcl-v417-store-active:#8420c8;
+
+    --mcl-v417-discord:#5865f2;
+    --mcl-v417-discord-hover:#6571ff;
+    --mcl-v417-discord-active:#4751ca;
+
+    --mcl-v417-play:#239f51;
+    --mcl-v417-play-hover:#2ab85f;
+    --mcl-v417-play-active:#18783b;
+  }
+
+  /*
+    Absolute right-side layout restores the old clean spacing.
+    Discord expansion no longer affects Play because both buttons have locked positions.
+  */
+  html body #siteHeader.mcx-header .mcx-play,
+  html body #siteHeader.mcx-header button.mcx-play,
+  html body #siteHeader .mcx-play,
+  html body #siteHeader button.mcx-play,
+  html body .mcx-play,
+  html body button.mcx-play{
+    position:absolute!important;
+    right:var(--mcl-v417-right-x)!important;
+    top:50%!important;
+    transform:translateY(-50%)!important;
+    box-sizing:border-box!important;
+    width:var(--mcl-v417-button-w)!important;
+    min-width:var(--mcl-v417-button-w)!important;
+    max-width:var(--mcl-v417-button-w)!important;
+    height:var(--mcl-v417-action-h)!important;
+    min-height:var(--mcl-v417-action-h)!important;
+    max-height:var(--mcl-v417-action-h)!important;
+    padding:0!important;
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    flex:none!important;
+    border:0!important;
+    outline:0!important;
+    border-radius:var(--mcl-v417-action-radius)!important;
+    background:var(--mcl-v417-play)!important;
+    color:#fff!important;
+    font-size:14px!important;
+    font-weight:700!important;
+    line-height:1!important;
+    letter-spacing:.035em!important;
+    text-transform:uppercase!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    box-shadow:none!important;
+    text-shadow:none!important;
+    filter:none!important;
+    cursor:pointer!important;
+    transition:background-color .12s ease,color .12s ease!important;
+    z-index:5100!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-play:hover,
+  html body #siteHeader.mcx-header .mcx-play:focus-visible,
+  html body #siteHeader.mcx-header button.mcx-play:hover,
+  html body #siteHeader.mcx-header button.mcx-play:focus-visible,
+  html body #siteHeader .mcx-play:hover,
+  html body #siteHeader .mcx-play:focus-visible,
+  html body #siteHeader button.mcx-play:hover,
+  html body #siteHeader button.mcx-play:focus-visible,
+  html body .mcx-play:hover,
+  html body .mcx-play:focus-visible,
+  html body button.mcx-play:hover,
+  html body button.mcx-play:focus-visible{
+    background:var(--mcl-v417-play-hover)!important;
+    color:#fff!important;
+    border:0!important;
+    outline:0!important;
+    box-shadow:none!important;
+    text-shadow:none!important;
+    filter:none!important;
+    transform:translateY(-50%)!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-play:active,
+  html body #siteHeader.mcx-header button.mcx-play:active,
+  html body #siteHeader .mcx-play:active,
+  html body #siteHeader button.mcx-play:active,
+  html body .mcx-play:active,
+  html body button.mcx-play:active,
+  html body #siteHeader.mcx-header .mcx-play.copied,
+  html body #siteHeader.mcx-header button.mcx-play.copied,
+  html body #siteHeader .mcx-play.copied,
+  html body #siteHeader button.mcx-play.copied,
+  html body .mcx-play.copied,
+  html body button.mcx-play.copied{
+    background:var(--mcl-v417-play-active)!important;
+    color:#fff!important;
+    border:0!important;
+    outline:0!important;
+    box-shadow:none!important;
+    text-shadow:none!important;
+    filter:none!important;
+    transform:translateY(-50%)!important;
+    width:var(--mcl-v417-button-w)!important;
+    min-width:var(--mcl-v417-button-w)!important;
+    max-width:var(--mcl-v417-button-w)!important;
+    height:var(--mcl-v417-action-h)!important;
+    min-height:var(--mcl-v417-action-h)!important;
+    max-height:var(--mcl-v417-action-h)!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-discord,
+  html body #siteHeader .mcx-discord,
+  html body .mcx-discord{
+    position:absolute!important;
+    right:calc(var(--mcl-v417-right-x) + var(--mcl-v417-button-w) + var(--mcl-v417-action-gap))!important;
+    top:50%!important;
+    transform:translateY(-50%)!important;
+    box-sizing:border-box!important;
+    width:var(--mcl-v417-discord-w)!important;
+    min-width:var(--mcl-v417-discord-w)!important;
+    max-width:var(--mcl-v417-discord-w)!important;
+    height:var(--mcl-v417-action-h)!important;
+    min-height:var(--mcl-v417-action-h)!important;
+    max-height:var(--mcl-v417-action-h)!important;
+    padding:0!important;
+    display:block!important;
+    flex:none!important;
+    border:0!important;
+    outline:0!important;
+    border-radius:var(--mcl-v417-action-radius)!important;
+    background:var(--mcl-v417-discord)!important;
+    color:#fff!important;
+    overflow:hidden!important;
+    box-shadow:none!important;
+    text-shadow:none!important;
+    filter:none!important;
+    cursor:pointer!important;
+    transition:width .16s ease, min-width .16s ease, max-width .16s ease, background-color .12s ease!important;
+    z-index:5100!important;
+  }
+
+  /* Fixed right edge: this makes the wider hover state grow left. */
+  html body #siteHeader.mcx-header .mcx-discord:hover,
+  html body #siteHeader.mcx-header .mcx-discord:focus-visible,
+  html body #siteHeader .mcx-discord:hover,
+  html body #siteHeader .mcx-discord:focus-visible,
+  html body .mcx-discord:hover,
+  html body .mcx-discord:focus-visible{
+    width:var(--mcl-v417-discord-open-w)!important;
+    min-width:var(--mcl-v417-discord-open-w)!important;
+    max-width:var(--mcl-v417-discord-open-w)!important;
+    background:var(--mcl-v417-discord-hover)!important;
+    color:#fff!important;
+    border:0!important;
+    outline:0!important;
+    box-shadow:none!important;
+    text-shadow:none!important;
+    filter:none!important;
+    transform:translateY(-50%)!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-discord:active,
+  html body #siteHeader .mcx-discord:active,
+  html body .mcx-discord:active{
+    background:var(--mcl-v417-discord-active)!important;
+    color:#fff!important;
+    border:0!important;
+    outline:0!important;
+    box-shadow:none!important;
+    text-shadow:none!important;
+    filter:none!important;
+    transform:translateY(-50%)!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-discord img,
+  html body #siteHeader .mcx-discord img,
+  html body .mcx-discord img{
+    position:absolute!important;
+    right:11px!important;
+    top:50%!important;
+    transform:translateY(-50%)!important;
+    width:22px!important;
+    height:22px!important;
+    min-width:22px!important;
+    min-height:22px!important;
+    max-width:22px!important;
+    max-height:22px!important;
+    display:block!important;
+    object-fit:contain!important;
+    filter:brightness(0) invert(1)!important;
+    opacity:1!important;
+    margin:0!important;
+    padding:0!important;
+    box-shadow:none!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-discord-members,
+  html body #siteHeader .mcx-discord-members,
+  html body .mcx-discord-members{
+    position:absolute!important;
+    right:42px!important;
+    top:50%!important;
+    transform:translateY(-50%)!important;
+    display:block!important;
+    width:auto!important;
+    max-width:0!important;
+    height:auto!important;
+    opacity:0!important;
+    overflow:hidden!important;
+    white-space:nowrap!important;
+    pointer-events:none!important;
+    color:#fff!important;
+    font-size:12px!important;
+    font-weight:700!important;
+    line-height:1!important;
+    letter-spacing:.035em!important;
+    text-transform:uppercase!important;
+    transition:max-width .16s ease, opacity .12s ease!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-discord:hover .mcx-discord-members,
+  html body #siteHeader.mcx-header .mcx-discord:focus-visible .mcx-discord-members,
+  html body #siteHeader .mcx-discord:hover .mcx-discord-members,
+  html body #siteHeader .mcx-discord:focus-visible .mcx-discord-members,
+  html body .mcx-discord:hover .mcx-discord-members,
+  html body .mcx-discord:focus-visible .mcx-discord-members{
+    max-width:132px!important;
+    opacity:1!important;
+  }
+
+  /* Store keeps the same old clean size, but with flat color. */
+  html body #siteHeader.mcx-header .mcx-store,
+  html body #siteHeader.mcx-header .mcx-button.mcx-store,
+  html body #siteHeader .mcx-store,
+  html body #siteHeader .mcx-button.mcx-store,
+  html body .mcx-store,
+  html body .mcx-button.mcx-store{
+    width:var(--mcl-v417-button-w)!important;
+    min-width:var(--mcl-v417-button-w)!important;
+    max-width:var(--mcl-v417-button-w)!important;
+    height:var(--mcl-v417-action-h)!important;
+    min-height:var(--mcl-v417-action-h)!important;
+    max-height:var(--mcl-v417-action-h)!important;
+    padding:0!important;
+    border:0!important;
+    outline:0!important;
+    border-radius:var(--mcl-v417-action-radius)!important;
+    background:var(--mcl-v417-store)!important;
+    color:#fff!important;
+    font-size:14px!important;
+    font-weight:700!important;
+    line-height:1!important;
+    letter-spacing:.035em!important;
+    text-transform:uppercase!important;
+    box-shadow:none!important;
+    text-shadow:none!important;
+    filter:none!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-store:hover,
+  html body #siteHeader.mcx-header .mcx-store:focus-visible,
+  html body #siteHeader.mcx-header .mcx-button.mcx-store:hover,
+  html body #siteHeader.mcx-header .mcx-button.mcx-store:focus-visible,
+  html body #siteHeader .mcx-store:hover,
+  html body #siteHeader .mcx-store:focus-visible,
+  html body #siteHeader .mcx-button.mcx-store:hover,
+  html body #siteHeader .mcx-button.mcx-store:focus-visible,
+  html body .mcx-store:hover,
+  html body .mcx-store:focus-visible,
+  html body .mcx-button.mcx-store:hover,
+  html body .mcx-button.mcx-store:focus-visible{
+    background:var(--mcl-v417-store-hover)!important;
+    color:#fff!important;
+    border:0!important;
+    outline:0!important;
+    box-shadow:none!important;
+    text-shadow:none!important;
+    filter:none!important;
+  }
+
+  html body #siteHeader.mcx-header .mcx-store:active,
+  html body #siteHeader.mcx-header .mcx-button.mcx-store:active,
+  html body #siteHeader .mcx-store:active,
+  html body #siteHeader .mcx-button.mcx-store:active,
+  html body .mcx-store:active,
+  html body .mcx-button.mcx-store:active{
+    background:var(--mcl-v417-store-active)!important;
+    color:#fff!important;
+    border:0!important;
+    outline:0!important;
+    box-shadow:none!important;
+    text-shadow:none!important;
+    filter:none!important;
+  }
+
+  /* Kill old pseudo glow/border layers on the 3 nav action buttons. */
+  html body #siteHeader.mcx-header .mcx-store::before,
+  html body #siteHeader.mcx-header .mcx-store::after,
+  html body #siteHeader.mcx-header .mcx-discord::before,
+  html body #siteHeader.mcx-header .mcx-discord::after,
+  html body #siteHeader.mcx-header .mcx-play::before,
+  html body #siteHeader.mcx-header .mcx-play::after,
+  html body .mcx-store::before,
+  html body .mcx-store::after,
+  html body .mcx-discord::before,
+  html body .mcx-discord::after,
+  html body .mcx-play::before,
+  html body .mcx-play::after{
+    content:none!important;
+    display:none!important;
+    opacity:0!important;
+    background:none!important;
+    border:0!important;
+    box-shadow:none!important;
+    filter:none!important;
+  }
+}
