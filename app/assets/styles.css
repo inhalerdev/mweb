@@ -37142,3 +37142,196 @@ html body button.mcx-play{
     opacity:1!important;
   }
 }
+
+
+/* Mineacle Bans v4.0.30: zero-flicker Discord hover */
+
+/*
+  Root cause of the hover glitch was changing the physical anchor width while the
+  cursor was over it. This version does not resize the clickable anchor on hover.
+
+  Mechanics:
+  - Discord's anchor always occupies the open-width reserved slot
+  - The visible closed state is only the pinned 44px square on the right
+  - On hover, a pseudo-background expands left visually
+  - The icon never moves
+  - The text fades in inside the left extension
+  - Play never moves
+*/
+@media (min-width:981px){
+  :root{
+    --mcl-v430-discord-closed:44px;
+    --mcl-v430-discord-open:176px;
+    --mcl-v430-discord-extension:132px;
+    --mcl-v430-discord-icon:22px;
+    --mcl-v430-discord-icon-right:11px;
+    --mcl-v430-discord-text-left:14px;
+    --mcl-v430-discord-text-right:50px;
+    --mcl-v430-discord-label-w:118px;
+    --mcl-v430-btn-h:44px;
+    --mcl-v430-radius:9px;
+    --mcl-v430-discord:#5865f2;
+    --mcl-v430-discord-hover:#6571ff;
+    --mcl-v430-discord-active:#4751ca;
+  }
+
+  /*
+    Reserve open width but do not use width animation.
+    The anchor box is stable, so the browser never re-enters/leaves hover rapidly.
+  */
+  html body #siteHeader .mcx-desktop-actions{
+    grid-template-columns:var(--mcl-v430-discord-open) var(--mcl-v427-btn-w, 104px)!important;
+  }
+
+  html body #siteHeader .mcx-desktop-actions .mcx-discord,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:hover,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:focus-visible,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:active{
+    grid-column:1!important;
+    justify-self:end!important;
+    align-self:center!important;
+    position:relative!important;
+    inset:auto!important;
+    box-sizing:border-box!important;
+    width:var(--mcl-v430-discord-open)!important;
+    min-width:var(--mcl-v430-discord-open)!important;
+    max-width:var(--mcl-v430-discord-open)!important;
+    height:var(--mcl-v430-btn-h)!important;
+    min-height:var(--mcl-v430-btn-h)!important;
+    max-height:var(--mcl-v430-btn-h)!important;
+    padding:0!important;
+    display:block!important;
+    border:0!important;
+    outline:0!important;
+    border-radius:0!important;
+    background:transparent!important;
+    background-color:transparent!important;
+    color:#fff!important;
+    overflow:visible!important;
+    cursor:pointer!important;
+    transform:none!important;
+    box-shadow:none!important;
+    text-shadow:none!important;
+    filter:none!important;
+    transition:none!important;
+  }
+
+  /*
+    Visual button surface:
+    closed = 44px square pinned on right
+    hover = expands left to the full 176px
+  */
+  html body #siteHeader .mcx-desktop-actions .mcx-discord::before{
+    content:""!important;
+    display:block!important;
+    position:absolute!important;
+    right:0!important;
+    left:auto!important;
+    top:0!important;
+    bottom:auto!important;
+    width:var(--mcl-v430-discord-closed)!important;
+    min-width:var(--mcl-v430-discord-closed)!important;
+    max-width:var(--mcl-v430-discord-closed)!important;
+    height:var(--mcl-v430-btn-h)!important;
+    min-height:var(--mcl-v430-btn-h)!important;
+    max-height:var(--mcl-v430-btn-h)!important;
+    border-radius:var(--mcl-v430-radius)!important;
+    background:var(--mcl-v430-discord)!important;
+    background-color:var(--mcl-v430-discord)!important;
+    opacity:1!important;
+    z-index:0!important;
+    pointer-events:none!important;
+    box-shadow:none!important;
+    filter:none!important;
+    transition:
+      width .18s cubic-bezier(.18,.82,.22,1),
+      background-color .12s ease!important;
+  }
+
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:hover::before,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:focus-visible::before{
+    width:var(--mcl-v430-discord-open)!important;
+    min-width:var(--mcl-v430-discord-open)!important;
+    max-width:var(--mcl-v430-discord-open)!important;
+    background:var(--mcl-v430-discord-hover)!important;
+    background-color:var(--mcl-v430-discord-hover)!important;
+  }
+
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:active::before{
+    background:var(--mcl-v430-discord-active)!important;
+    background-color:var(--mcl-v430-discord-active)!important;
+  }
+
+  /* Keep icon pinned inside the original right-side 44px square. */
+  html body #siteHeader .mcx-desktop-actions .mcx-discord img,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:hover img,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:focus-visible img,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:active img{
+    position:absolute!important;
+    right:var(--mcl-v430-discord-icon-right)!important;
+    left:auto!important;
+    top:50%!important;
+    bottom:auto!important;
+    transform:translateY(-50%)!important;
+    width:var(--mcl-v430-discord-icon)!important;
+    height:var(--mcl-v430-discord-icon)!important;
+    min-width:var(--mcl-v430-discord-icon)!important;
+    min-height:var(--mcl-v430-discord-icon)!important;
+    max-width:var(--mcl-v430-discord-icon)!important;
+    max-height:var(--mcl-v430-discord-icon)!important;
+    display:block!important;
+    object-fit:contain!important;
+    margin:0!important;
+    padding:0!important;
+    opacity:1!important;
+    filter:brightness(0) invert(1)!important;
+    pointer-events:none!important;
+    box-shadow:none!important;
+    z-index:2!important;
+  }
+
+  /* Reveal "# MEMBERS" inside the left extension. */
+  html body #siteHeader .mcx-desktop-actions .mcx-discord-members{
+    position:absolute!important;
+    left:var(--mcl-v430-discord-text-left)!important;
+    right:var(--mcl-v430-discord-text-right)!important;
+    top:50%!important;
+    bottom:auto!important;
+    transform:translateY(-50%)!important;
+    display:block!important;
+    width:auto!important;
+    max-width:0!important;
+    height:auto!important;
+    opacity:0!important;
+    overflow:hidden!important;
+    white-space:nowrap!important;
+    pointer-events:none!important;
+    text-align:right!important;
+    color:#fff!important;
+    font-size:11px!important;
+    font-weight:800!important;
+    line-height:1!important;
+    letter-spacing:.012em!important;
+    text-transform:uppercase!important;
+    text-overflow:clip!important;
+    z-index:2!important;
+    transition:
+      max-width .18s cubic-bezier(.18,.82,.22,1),
+      opacity .12s ease!important;
+  }
+
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:hover .mcx-discord-members,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:focus-visible .mcx-discord-members{
+    max-width:var(--mcl-v430-discord-label-w)!important;
+    opacity:1!important;
+  }
+
+  /*
+    Safety override: older patches killed pseudo elements globally.
+    This ensures only the Discord extension pseudo is allowed back on.
+  */
+  html body #siteHeader .mcx-desktop-actions .mcx-discord::after{
+    content:none!important;
+    display:none!important;
+  }
+}
