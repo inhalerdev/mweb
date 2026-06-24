@@ -36842,3 +36842,158 @@ html body button.mcx-play{
     filter:none!important;
   }
 }
+
+
+/* Mineacle Bans v4.0.28: pinned Discord square + left extension */
+
+/*
+  Request:
+  - Keep the Discord logo and the main square static/pinned in place
+  - Button expands only to the LEFT
+  - Reveal copy only says "# MEMBERS"
+  - Keep the ratio tighter than the long JOIN text version
+*/
+@media (min-width:981px){
+  :root{
+    --mcl-v428-discord-closed:44px;
+    --mcl-v428-discord-open:148px;
+    --mcl-v428-discord-icon:22px;
+    --mcl-v428-discord-icon-right:11px;
+    --mcl-v428-discord-text-left:12px;
+    --mcl-v428-discord-text-right:44px;
+    --mcl-v428-discord-label-w:92px;
+    --mcl-v428-btn-h:44px;
+    --mcl-v428-radius:9px;
+    --mcl-v428-discord:#5865f2;
+    --mcl-v428-discord-hover:#6571ff;
+    --mcl-v428-discord-active:#4751ca;
+  }
+
+  /*
+    Keep the reserved slot wide enough for the open state.
+    Because the actual button is justify-self:end, it grows left while the
+    right-side square/icon stay physically pinned.
+  */
+  html body #siteHeader .mcx-desktop-actions{
+    grid-template-columns:var(--mcl-v428-discord-open) var(--mcl-v427-btn-w, 104px)!important;
+  }
+
+  html body #siteHeader .mcx-desktop-actions .mcx-discord,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:hover,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:focus-visible,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:active{
+    grid-column:1!important;
+    justify-self:end!important;
+    align-self:center!important;
+    position:relative!important;
+    inset:auto!important;
+    box-sizing:border-box!important;
+    height:var(--mcl-v428-btn-h)!important;
+    min-height:var(--mcl-v428-btn-h)!important;
+    max-height:var(--mcl-v428-btn-h)!important;
+    padding:0!important;
+    display:block!important;
+    border:0!important;
+    outline:0!important;
+    border-radius:var(--mcl-v428-radius)!important;
+    overflow:hidden!important;
+    transform:none!important;
+    box-shadow:none!important;
+    text-shadow:none!important;
+    filter:none!important;
+    transition:
+      width .18s cubic-bezier(.18,.82,.22,1),
+      min-width .18s cubic-bezier(.18,.82,.22,1),
+      max-width .18s cubic-bezier(.18,.82,.22,1),
+      background-color .12s ease!important;
+  }
+
+  html body #siteHeader .mcx-desktop-actions .mcx-discord{
+    width:var(--mcl-v428-discord-closed)!important;
+    min-width:var(--mcl-v428-discord-closed)!important;
+    max-width:var(--mcl-v428-discord-closed)!important;
+    background:var(--mcl-v428-discord)!important;
+    background-color:var(--mcl-v428-discord)!important;
+  }
+
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:hover,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:focus-visible{
+    width:var(--mcl-v428-discord-open)!important;
+    min-width:var(--mcl-v428-discord-open)!important;
+    max-width:var(--mcl-v428-discord-open)!important;
+    background:var(--mcl-v428-discord-hover)!important;
+    background-color:var(--mcl-v428-discord-hover)!important;
+  }
+
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:active{
+    background:var(--mcl-v428-discord-active)!important;
+    background-color:var(--mcl-v428-discord-active)!important;
+  }
+
+  /*
+    Pin the icon inside the original 44px square.
+    It does not move when the button opens.
+  */
+  html body #siteHeader .mcx-desktop-actions .mcx-discord img,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:hover img,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:focus-visible img,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:active img{
+    position:absolute!important;
+    right:var(--mcl-v428-discord-icon-right)!important;
+    left:auto!important;
+    top:50%!important;
+    bottom:auto!important;
+    transform:translateY(-50%)!important;
+    width:var(--mcl-v428-discord-icon)!important;
+    height:var(--mcl-v428-discord-icon)!important;
+    min-width:var(--mcl-v428-discord-icon)!important;
+    min-height:var(--mcl-v428-discord-icon)!important;
+    max-width:var(--mcl-v428-discord-icon)!important;
+    max-height:var(--mcl-v428-discord-icon)!important;
+    display:block!important;
+    object-fit:contain!important;
+    margin:0!important;
+    padding:0!important;
+    opacity:1!important;
+    filter:brightness(0) invert(1)!important;
+    pointer-events:none!important;
+    box-shadow:none!important;
+  }
+
+  /*
+    Reveal "# MEMBERS" to the left of the pinned square.
+    Text aligns toward the pinned icon so it reads cleanly.
+  */
+  html body #siteHeader .mcx-desktop-actions .mcx-discord-members{
+    position:absolute!important;
+    left:var(--mcl-v428-discord-text-left)!important;
+    right:var(--mcl-v428-discord-text-right)!important;
+    top:50%!important;
+    bottom:auto!important;
+    transform:translateY(-50%)!important;
+    display:block!important;
+    width:auto!important;
+    max-width:0!important;
+    height:auto!important;
+    opacity:0!important;
+    overflow:hidden!important;
+    white-space:nowrap!important;
+    pointer-events:none!important;
+    text-align:right!important;
+    color:#fff!important;
+    font-size:11px!important;
+    font-weight:800!important;
+    line-height:1!important;
+    letter-spacing:.018em!important;
+    text-transform:uppercase!important;
+    transition:
+      max-width .18s cubic-bezier(.18,.82,.22,1),
+      opacity .12s ease!important;
+  }
+
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:hover .mcx-discord-members,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:focus-visible .mcx-discord-members{
+    max-width:var(--mcl-v428-discord-label-w)!important;
+    opacity:1!important;
+  }
+}
