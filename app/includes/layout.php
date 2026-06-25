@@ -15,7 +15,7 @@ function mineacle_page_head(string $title): void {
     echo '<title>Mineacle | ' . h($title) . '</title>';
     echo '<meta name="description" content="Mineacle public bans portal">';
     echo '<link rel="icon" type="image/png" href="assets/mineacle-square-logo.png?v=bansfull3.8.27.277.266.255.244.233.222.211.200.199.188.177.166.144.8.7.6.5.4.3.2">';
-    echo '<link rel="stylesheet" href="assets/styles.css?v=banssingle4.0.39">';
+    echo '<link rel="stylesheet" href="assets/styles.css?v=banssingle4.0.40">';
     echo '</head>';
 }
 
@@ -78,10 +78,54 @@ function mineacle_footer(): void {
     echo '</div>';
     echo '</div>';
     echo '</footer>';
-    echo '<script src="assets/main.js?v=banssingle4.0.39"></script>';
-    echo '<script src="assets/hero-scroll.js?v=banssingle4.0.39"></script>';
-    echo '<script src="assets/nav-server-status.js?v=banssingle4.0.39"></script>';
+    echo '<script src="assets/main.js?v=banssingle4.0.40"></script>';
+    echo '<script src="assets/hero-scroll.js?v=banssingle4.0.40"></script>';
+    echo '<script src="assets/nav-server-status.js?v=banssingle4.0.40"></script>';
+    
     echo <<<'HTML'
+<script>
+(function(){
+  function disableMobileLogoClick(){
+    var mq = window.matchMedia('(max-width: 980px)');
+    var logo = document.querySelector('#siteHeader .mcx-logo');
+    if (!logo) return;
+
+    function apply(){
+      if (mq.matches) {
+        logo.setAttribute('aria-disabled', 'true');
+        logo.setAttribute('tabindex', '-1');
+      } else {
+        logo.removeAttribute('aria-disabled');
+        logo.removeAttribute('tabindex');
+      }
+    }
+
+    logo.addEventListener('click', function(event){
+      if (mq.matches) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    }, true);
+
+    apply();
+
+    if (mq.addEventListener) {
+      mq.addEventListener('change', apply);
+    } else if (mq.addListener) {
+      mq.addListener(apply);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', disableMobileLogoClick);
+  } else {
+    disableMobileLogoClick();
+  }
+})();
+</script>
+HTML;
+
+echo <<<'HTML'
 <script>
 (function(){
   function installDiscordHoverGate(){
@@ -251,7 +295,7 @@ HTML;
 
     var img = section.querySelector('.client-guard-title-img, .client-guard-section-title img');
     if (img) {
-      img.src = 'assets/mineacle-clientguard-logo-v2.png?v=banssingle4.0.39';
+      img.src = 'assets/mineacle-clientguard-logo-v2.png?v=banssingle4.0.40';
       img.alt = 'Mineacle Client Guard';
       img.classList.add('client-guard-title-img');
     }
