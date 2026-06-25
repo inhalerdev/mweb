@@ -38714,3 +38714,15 @@ html body .mineacle-info-hitbox-small:focus-visible{
   border-color:var(--mcl-v442-neutral-border-hover)!important;
   color:#fff!important;
 }
+
+
+/* Mineacle Bans v4.0.43: page-load fix for v4.0.42 */
+
+/*
+  The v4.0.42 CSS sizing fixes remain active.
+  The broken repeated text/class MutationObserver was replaced with a throttled,
+  idempotent normalizer so the page can load normally.
+*/
+html body .mineacle-buy-unban-size-lock{
+  will-change:auto!important;
+}

@@ -15,7 +15,7 @@ function mineacle_page_head(string $title): void {
     echo '<title>Mineacle | ' . h($title) . '</title>';
     echo '<meta name="description" content="Mineacle public bans portal">';
     echo '<link rel="icon" type="image/png" href="assets/mineacle-square-logo.png?v=bansfull3.8.27.277.266.255.244.233.222.211.200.199.188.177.166.144.8.7.6.5.4.3.2">';
-    echo '<link rel="stylesheet" href="assets/styles.css?v=banssingle4.0.42">';
+    echo '<link rel="stylesheet" href="assets/styles.css?v=banssingle4.0.43">';
     echo '</head>';
 }
 
@@ -78,42 +78,84 @@ function mineacle_footer(): void {
     echo '</div>';
     echo '</div>';
     echo '</footer>';
-    echo '<script src="assets/main.js?v=banssingle4.0.42"></script>';
-    echo '<script src="assets/hero-scroll.js?v=banssingle4.0.42"></script>';
-    echo '<script src="assets/nav-server-status.js?v=banssingle4.0.42"></script>';
-    
-    
-    
+    echo '<script src="assets/main.js?v=banssingle4.0.43"></script>';
+    echo '<script src="assets/hero-scroll.js?v=banssingle4.0.43"></script>';
+    echo '<script src="assets/nav-server-status.js?v=banssingle4.0.43"></script>';
     echo <<<'HTML'
 <script>
 (function(){
+  var scheduled = false;
+
   function normalizeBanControlSizing(){
+    scheduled = false;
+
     document.querySelectorAll('a.ban-unban-cta, a.mineacle-ban-pay-single, .ban-action a, .mineacle-ban-actions-single a, .mineacle-punish-actions a').forEach(function(button){
+      var classMatch = button.classList.contains('ban-unban-cta') || button.classList.contains('mineacle-ban-pay-single');
       var text = (button.textContent || '').trim().toLowerCase();
-      if (text === 'unban' || text === 'buy unban' || button.classList.contains('ban-unban-cta') || button.classList.contains('mineacle-ban-pay-single')) {
+
+      if (!classMatch && text !== 'unban' && text !== 'buy unban') return;
+
+      if (button.textContent.trim() !== 'BUY UNBAN') {
         button.textContent = 'BUY UNBAN';
+      }
+
+      if (!button.classList.contains('mineacle-buy-unban-size-lock')) {
         button.classList.add('mineacle-buy-unban-size-lock');
       }
     });
 
     document.querySelectorAll('.info-btn, .js-info-button, button.mineacle-row-info-button').forEach(function(button){
-      button.classList.add('mineacle-info-hitbox-small');
+      if (!button.classList.contains('mineacle-info-hitbox-small')) {
+        button.classList.add('mineacle-info-hitbox-small');
+      }
+    });
+  }
+
+  function scheduleNormalize(){
+    if (scheduled) return;
+    scheduled = true;
+    window.requestAnimationFrame(normalizeBanControlSizing);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', scheduleNormalize);
+  } else {
+    scheduleNormalize();
+  }
+
+  document.addEventListener('click', function(event){
+    if (event.target && event.target.closest && event.target.closest('.js-info-button, .info-btn, [data-info-index], .js-ban-search-form, .js-ban-table')) {
+      window.setTimeout(scheduleNormalize, 0);
+    }
+  });
+
+  /*
+    Safe observer:
+    - Watches only the ban table/results region when available
+    - Throttled by requestAnimationFrame
+    - Does not repeatedly overwrite unchanged text/classes
+  */
+  function installObserver(){
+    var target = document.querySelector('.js-ban-table, #banList, .bans-section, body');
+    if (!target || target.dataset.mineacleControlObserver === '1') return;
+
+    target.dataset.mineacleControlObserver = '1';
+
+    new MutationObserver(scheduleNormalize).observe(target, {
+      childList: true,
+      subtree: true
     });
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', normalizeBanControlSizing);
+    document.addEventListener('DOMContentLoaded', installObserver);
   } else {
-    normalizeBanControlSizing();
+    installObserver();
   }
-
-  new MutationObserver(normalizeBanControlSizing).observe(document.documentElement, {
-    childList: true,
-    subtree: true
-  });
 })();
 </script>
 HTML;
+
 
 echo <<<'HTML'
 <script>
@@ -424,7 +466,7 @@ HTML;
 
     var img = section.querySelector('.client-guard-title-img, .client-guard-section-title img');
     if (img) {
-      img.src = 'assets/mineacle-clientguard-logo-v2.png?v=banssingle4.0.42';
+      img.src = 'assets/mineacle-clientguard-logo-v2.png?v=banssingle4.0.43';
       img.alt = 'Mineacle Client Guard';
       img.classList.add('client-guard-title-img');
     }
