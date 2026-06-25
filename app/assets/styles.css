@@ -39503,3 +39503,94 @@ html body #banModal.mineacle-ban-modal-single .mineacle-ban-appeal-count-single{
     display:none!important;
   }
 }
+
+
+/* Mineacle Bans v4.0.48: modal X centering + bottom Discord hard-center */
+
+/*
+  Fixes:
+  - X glyph is centered inside the close button square
+  - Discord Appeal is centered on the modal bottom centerline
+*/
+@media (min-width:761px){
+  :root{
+    --mcl-v448-close-size:34px;
+    --mcl-v448-discord-w:250px;
+    --mcl-v448-discord-h:56px;
+  }
+
+  /* Center the X glyph inside the close button, regardless of inherited line-height. */
+  html body #banModal.mineacle-ban-modal-single .mineacle-ban-close-single,
+  html body #banModal.mineacle-ban-modal-single .mineacle-ban-close-single:hover,
+  html body #banModal.mineacle-ban-modal-single .mineacle-ban-close-single:focus-visible,
+  html body #banModal.mineacle-ban-modal-single .mineacle-ban-close-single:active,
+  html body #banModal.mineacle-ban-modal-single .mineacle-punish-close,
+  html body #banModal.mineacle-ban-modal-single .mineacle-punish-close:hover,
+  html body #banModal.mineacle-ban-modal-single .mineacle-punish-close:focus-visible,
+  html body #banModal.mineacle-ban-modal-single .mineacle-punish-close:active{
+    box-sizing:border-box!important;
+    width:var(--mcl-v448-close-size)!important;
+    min-width:var(--mcl-v448-close-size)!important;
+    max-width:var(--mcl-v448-close-size)!important;
+    height:var(--mcl-v448-close-size)!important;
+    min-height:var(--mcl-v448-close-size)!important;
+    max-height:var(--mcl-v448-close-size)!important;
+    padding:0!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    text-align:center!important;
+    font-size:24px!important;
+    font-weight:800!important;
+    line-height:1!important;
+    letter-spacing:0!important;
+    vertical-align:middle!important;
+    overflow:hidden!important;
+  }
+
+  /*
+    Bottom Discord button hard-center:
+    older modal rules were still letting it behave like left-aligned content.
+    This uses a translate centerline lock so it centers even if the parent is not grid/flex centered.
+  */
+  html body #banModal.mineacle-ban-modal-single .mineacle-ban-appeal-single,
+  html body #banModal.mineacle-ban-modal-single .mineacle-ban-rail-single > .mineacle-ban-appeal-single,
+  html body #banModal.mineacle-ban-modal-single .mineacle-punish-modal-card .mineacle-ban-appeal-single{
+    position:relative!important;
+    left:50%!important;
+    right:auto!important;
+    transform:translateX(-50%)!important;
+    box-sizing:border-box!important;
+    display:flex!important;
+    flex-direction:row!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:12px!important;
+    width:var(--mcl-v448-discord-w)!important;
+    min-width:var(--mcl-v448-discord-w)!important;
+    max-width:var(--mcl-v448-discord-w)!important;
+    height:var(--mcl-v448-discord-h)!important;
+    min-height:var(--mcl-v448-discord-h)!important;
+    max-height:var(--mcl-v448-discord-h)!important;
+    margin:20px 0 0!important;
+    padding:0 16px!important;
+    float:none!important;
+    clear:both!important;
+    justify-self:auto!important;
+    align-self:auto!important;
+  }
+
+  html body #banModal.mineacle-ban-modal-single .mineacle-ban-appeal-art-single,
+  html body #banModal.mineacle-ban-modal-single .mineacle-ban-appeal-copy-single{
+    flex:0 0 auto!important;
+  }
+
+  html body #banModal.mineacle-ban-modal-single .mineacle-ban-appeal-copy-single{
+    min-width:0!important;
+    text-align:left!important;
+  }
+
+  html body #banModal.mineacle-ban-modal-single .mineacle-ban-appeal-count-single{
+    display:none!important;
+  }
+}
