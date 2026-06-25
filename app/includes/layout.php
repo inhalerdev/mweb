@@ -15,7 +15,7 @@ function mineacle_page_head(string $title): void {
     echo '<title>Mineacle | ' . h($title) . '</title>';
     echo '<meta name="description" content="Mineacle public bans portal">';
     echo '<link rel="icon" type="image/png" href="assets/mineacle-square-logo.png?v=bansfull3.8.27.277.266.255.244.233.222.211.200.199.188.177.166.144.8.7.6.5.4.3.2">';
-    echo '<link rel="stylesheet" href="assets/styles.css?v=banssingle4.0.35">';
+    echo '<link rel="stylesheet" href="assets/styles.css?v=banssingle4.0.36">';
     echo '</head>';
 }
 
@@ -76,18 +76,17 @@ function mineacle_footer(): void {
     echo '</div>';
     echo '</div>';
     echo '</footer>';
-    echo '<script src="assets/main.js?v=banssingle4.0.35"></script>';
-    echo '<script src="assets/hero-scroll.js?v=banssingle4.0.35"></script>';
-    echo '<script src="assets/nav-server-status.js?v=banssingle4.0.35"></script>';
-    
+    echo '<script src="assets/main.js?v=banssingle4.0.36"></script>';
+    echo '<script src="assets/hero-scroll.js?v=banssingle4.0.36"></script>';
+    echo '<script src="assets/nav-server-status.js?v=banssingle4.0.36"></script>';
     echo <<<'HTML'
 <script>
 (function(){
   function installDiscordHoverGate(){
     var button = document.querySelector('#siteHeader .mcx-discord');
-    if (!button || button.dataset.mineacleDiscordHoverGate === '1') return;
+    if (!button || button.dataset.mineacleDiscordHoverGate === '2') return;
 
-    button.dataset.mineacleDiscordHoverGate = '1';
+    button.dataset.mineacleDiscordHoverGate = '2';
 
     function squareHit(event){
       var rect = button.getBoundingClientRect();
@@ -96,23 +95,49 @@ function mineacle_footer(): void {
              event.clientY >= rect.top && event.clientY <= rect.bottom;
     }
 
+    function refreshHotState(event){
+      var hot = squareHit(event);
+      button.classList.toggle('is-square-hot', hot);
+      return hot;
+    }
+
     function openFromSquare(event){
       if (button.classList.contains('is-open')) return;
-      if (squareHit(event)) {
+      if (refreshHotState(event)) {
         button.classList.add('is-open');
       }
     }
 
     button.addEventListener('pointerenter', openFromSquare);
-    button.addEventListener('pointermove', openFromSquare);
+    button.addEventListener('pointermove', function(event){
+      refreshHotState(event);
+      openFromSquare(event);
+    });
     button.addEventListener('pointerleave', function(){
       button.classList.remove('is-open');
+      button.classList.remove('is-square-hot');
     });
+
+    button.addEventListener('pointerdown', function(event){
+      if (!button.classList.contains('is-open') && !squareHit(event)) {
+        event.preventDefault();
+      }
+    });
+
+    button.addEventListener('click', function(event){
+      if (!button.classList.contains('is-open') && !squareHit(event)) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    }, true);
+
     button.addEventListener('focus', function(){
       button.classList.add('is-open');
+      button.classList.add('is-square-hot');
     });
     button.addEventListener('blur', function(){
       button.classList.remove('is-open');
+      button.classList.remove('is-square-hot');
     });
   }
 
@@ -124,6 +149,7 @@ function mineacle_footer(): void {
 })();
 </script>
 HTML;
+
 
 echo <<<'HTML'
 <script>
@@ -226,7 +252,7 @@ HTML;
 
     var img = section.querySelector('.client-guard-title-img, .client-guard-section-title img');
     if (img) {
-      img.src = 'assets/mineacle-clientguard-logo-v2.png?v=banssingle4.0.35';
+      img.src = 'assets/mineacle-clientguard-logo-v2.png?v=banssingle4.0.36';
       img.alt = 'Mineacle Client Guard';
       img.classList.add('client-guard-title-img');
     }

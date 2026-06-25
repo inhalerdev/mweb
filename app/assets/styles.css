@@ -37771,3 +37771,54 @@ html body button.mcx-play{
     display:none!important;
   }
 }
+
+
+/* Mineacle Bans v4.0.36: inactive Discord extension is not clickable */
+
+/*
+  The Discord anchor still uses a stable full-width hover slot to prevent flicker,
+  but the invisible left extension is no longer a usable/clickable area while closed.
+  JS blocks clicks unless the cursor started on the pinned 44x44 square or the button
+  has already opened.
+*/
+@media (min-width:981px){
+  html body #siteHeader .mcx-desktop-actions .mcx-discord,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:hover,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:focus-visible,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:active{
+    cursor:default!important;
+  }
+
+  html body #siteHeader .mcx-desktop-actions .mcx-discord.is-square-hot,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord.is-open,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:focus-visible{
+    cursor:pointer!important;
+  }
+
+  /* Hover alone does not visually open the extension anymore. */
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:hover::before{
+    width:var(--mcl-v435-discord-closed, 44px)!important;
+    min-width:var(--mcl-v435-discord-closed, 44px)!important;
+    max-width:var(--mcl-v435-discord-closed, 44px)!important;
+    background:var(--mcl-v435-discord, #5865f2)!important;
+  }
+
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:hover .mcx-discord-members{
+    opacity:0!important;
+  }
+
+  html body #siteHeader .mcx-desktop-actions .mcx-discord.is-open::before,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord.is-square-hot::before,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:focus-visible::before{
+    width:var(--mcl-v435-discord-open, 190px)!important;
+    min-width:var(--mcl-v435-discord-open, 190px)!important;
+    max-width:var(--mcl-v435-discord-open, 190px)!important;
+    background:var(--mcl-v435-discord-hover, #6571ff)!important;
+  }
+
+  html body #siteHeader .mcx-desktop-actions .mcx-discord.is-open .mcx-discord-members,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord.is-square-hot .mcx-discord-members,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:focus-visible .mcx-discord-members{
+    opacity:1!important;
+  }
+}
