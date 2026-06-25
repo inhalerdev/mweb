@@ -15,7 +15,7 @@ function mineacle_page_head(string $title): void {
     echo '<title>Mineacle | ' . h($title) . '</title>';
     echo '<meta name="description" content="Mineacle public bans portal">';
     echo '<link rel="icon" type="image/png" href="assets/mineacle-square-logo.png?v=bansfull3.8.27.277.266.255.244.233.222.211.200.199.188.177.166.144.8.7.6.5.4.3.2">';
-    echo '<link rel="stylesheet" href="assets/styles.css?v=banssingle4.0.36">';
+    echo '<link rel="stylesheet" href="assets/styles.css?v=banssingle4.0.37">';
     echo '</head>';
 }
 
@@ -40,10 +40,12 @@ function mineacle_header(string $active = 'bans'): void {
     echo '<a class="mcx-button mcx-store ' . ($active === 'store' ? 'is-active' : '') . '" href="' . $store . '">Store</a>';
     echo '</div>';
     echo '<div class="mcx-desktop-actions">';
-    echo '<a class="mcx-discord" href="' . $discord . '" target="_blank" rel="noopener" aria-label="Join Discord">';
+    echo '<span class="mcx-discord-wrap" id="navDiscordWrap" aria-label="Discord members">';
     echo '<span class="mcx-discord-members" id="navDiscordOnline" aria-hidden="true">MEMBERS</span>';
+    echo '<a class="mcx-discord" href="' . $discord . '" target="_blank" rel="noopener" aria-label="Join Discord">';
     echo '<img src="assets/discord.svg?v=bansfull3.8.27.277.266.255.244.233.222.211.200.199" alt="">';
     echo '</a>';
+    echo '</span>';
     echo '<button class="mcx-play" type="button" data-copy-ip="' . $ip . '">Play</button>';
     echo '</div>';
     echo '<button class="mobile-nav-toggle" type="button" aria-label="Open navigation" aria-controls="mainNav" aria-expanded="false"><span></span><span></span><span></span></button>';
@@ -76,68 +78,42 @@ function mineacle_footer(): void {
     echo '</div>';
     echo '</div>';
     echo '</footer>';
-    echo '<script src="assets/main.js?v=banssingle4.0.36"></script>';
-    echo '<script src="assets/hero-scroll.js?v=banssingle4.0.36"></script>';
-    echo '<script src="assets/nav-server-status.js?v=banssingle4.0.36"></script>';
+    echo '<script src="assets/main.js?v=banssingle4.0.37"></script>';
+    echo '<script src="assets/hero-scroll.js?v=banssingle4.0.37"></script>';
+    echo '<script src="assets/nav-server-status.js?v=banssingle4.0.37"></script>';
     echo <<<'HTML'
 <script>
 (function(){
   function installDiscordHoverGate(){
-    var button = document.querySelector('#siteHeader .mcx-discord');
-    if (!button || button.dataset.mineacleDiscordHoverGate === '2') return;
+    var wrap = document.getElementById('navDiscordWrap') || document.querySelector('#siteHeader .mcx-discord-wrap');
+    if (!wrap || wrap.dataset.mineacleDiscordHoverGate === '3') return;
 
-    button.dataset.mineacleDiscordHoverGate = '2';
+    wrap.dataset.mineacleDiscordHoverGate = '3';
 
     function squareHit(event){
-      var rect = button.getBoundingClientRect();
+      var rect = wrap.getBoundingClientRect();
       var squareWidth = 44;
       return event.clientX >= rect.right - squareWidth && event.clientX <= rect.right &&
              event.clientY >= rect.top && event.clientY <= rect.bottom;
     }
 
-    function refreshHotState(event){
-      var hot = squareHit(event);
-      button.classList.toggle('is-square-hot', hot);
-      return hot;
-    }
-
     function openFromSquare(event){
-      if (button.classList.contains('is-open')) return;
-      if (refreshHotState(event)) {
-        button.classList.add('is-open');
+      if (wrap.classList.contains('is-open')) return;
+      if (squareHit(event)) {
+        wrap.classList.add('is-open');
       }
     }
 
-    button.addEventListener('pointerenter', openFromSquare);
-    button.addEventListener('pointermove', function(event){
-      refreshHotState(event);
-      openFromSquare(event);
+    wrap.addEventListener('pointerenter', openFromSquare);
+    wrap.addEventListener('pointermove', openFromSquare);
+    wrap.addEventListener('pointerleave', function(){
+      wrap.classList.remove('is-open');
     });
-    button.addEventListener('pointerleave', function(){
-      button.classList.remove('is-open');
-      button.classList.remove('is-square-hot');
+    wrap.addEventListener('focusin', function(){
+      wrap.classList.add('is-open');
     });
-
-    button.addEventListener('pointerdown', function(event){
-      if (!button.classList.contains('is-open') && !squareHit(event)) {
-        event.preventDefault();
-      }
-    });
-
-    button.addEventListener('click', function(event){
-      if (!button.classList.contains('is-open') && !squareHit(event)) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-    }, true);
-
-    button.addEventListener('focus', function(){
-      button.classList.add('is-open');
-      button.classList.add('is-square-hot');
-    });
-    button.addEventListener('blur', function(){
-      button.classList.remove('is-open');
-      button.classList.remove('is-square-hot');
+    wrap.addEventListener('focusout', function(){
+      wrap.classList.remove('is-open');
     });
   }
 
@@ -252,7 +228,7 @@ HTML;
 
     var img = section.querySelector('.client-guard-title-img, .client-guard-section-title img');
     if (img) {
-      img.src = 'assets/mineacle-clientguard-logo-v2.png?v=banssingle4.0.36';
+      img.src = 'assets/mineacle-clientguard-logo-v2.png?v=banssingle4.0.37';
       img.alt = 'Mineacle Client Guard';
       img.classList.add('client-guard-title-img');
     }

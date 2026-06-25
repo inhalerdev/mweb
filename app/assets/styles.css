@@ -37822,3 +37822,187 @@ html body button.mcx-play{
     opacity:1!important;
   }
 }
+
+
+/* Mineacle Bans v4.0.37: Discord extension is no longer a link */
+
+/*
+  The left extension is now a non-link wrapper.
+  Browser status bar only shows the Discord URL over the real 44x44 <a> square.
+  The non-link extension can still show the member count after the square opens it.
+*/
+@media (min-width:981px){
+  :root{
+    --mcl-v437-discord-open:190px;
+    --mcl-v437-discord-closed:44px;
+    --mcl-v437-discord-icon:22px;
+    --mcl-v437-btn-h:44px;
+    --mcl-v437-radius:9px;
+    --mcl-v437-discord:#5865f2;
+    --mcl-v437-discord-hover:#6571ff;
+    --mcl-v437-discord-active:#4751ca;
+  }
+
+  html body #siteHeader .mcx-desktop-actions{
+    grid-template-columns:var(--mcl-v437-discord-open) var(--mcl-v435-btn-w, 104px)!important;
+    column-gap:28px!important;
+    overflow:visible!important;
+  }
+
+  html body #siteHeader .mcx-desktop-actions .mcx-discord-wrap,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord-wrap:hover,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord-wrap:focus-within{
+    grid-column:1!important;
+    justify-self:end!important;
+    align-self:center!important;
+    position:relative!important;
+    box-sizing:border-box!important;
+    width:var(--mcl-v437-discord-open)!important;
+    min-width:var(--mcl-v437-discord-open)!important;
+    max-width:var(--mcl-v437-discord-open)!important;
+    height:var(--mcl-v437-btn-h)!important;
+    min-height:var(--mcl-v437-btn-h)!important;
+    max-height:var(--mcl-v437-btn-h)!important;
+    display:block!important;
+    padding:0!important;
+    margin:0!important;
+    border:0!important;
+    outline:0!important;
+    background:transparent!important;
+    overflow:visible!important;
+    cursor:default!important;
+    pointer-events:auto!important;
+    transform:none!important;
+    box-shadow:none!important;
+    text-shadow:none!important;
+    filter:none!important;
+    transition:none!important;
+  }
+
+  html body #siteHeader .mcx-desktop-actions .mcx-discord-wrap::before{
+    content:""!important;
+    display:block!important;
+    position:absolute!important;
+    right:0!important;
+    top:0!important;
+    width:var(--mcl-v437-discord-closed)!important;
+    min-width:var(--mcl-v437-discord-closed)!important;
+    max-width:var(--mcl-v437-discord-closed)!important;
+    height:var(--mcl-v437-btn-h)!important;
+    min-height:var(--mcl-v437-btn-h)!important;
+    max-height:var(--mcl-v437-btn-h)!important;
+    border-radius:var(--mcl-v437-radius)!important;
+    background:var(--mcl-v437-discord)!important;
+    opacity:1!important;
+    pointer-events:none!important;
+    z-index:0!important;
+    transition:width .16s cubic-bezier(.19,1,.22,1), background .12s ease!important;
+  }
+
+  html body #siteHeader .mcx-desktop-actions .mcx-discord-wrap.is-open::before,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord-wrap:focus-within::before{
+    width:var(--mcl-v437-discord-open)!important;
+    min-width:var(--mcl-v437-discord-open)!important;
+    max-width:var(--mcl-v437-discord-open)!important;
+    background:var(--mcl-v437-discord-hover)!important;
+  }
+
+  /* Actual clickable link is only the pinned 44x44 square. */
+  html body #siteHeader .mcx-desktop-actions .mcx-discord-wrap > .mcx-discord,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord-wrap > .mcx-discord:hover,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord-wrap > .mcx-discord:focus-visible,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord-wrap > .mcx-discord:active{
+    position:absolute!important;
+    right:0!important;
+    top:0!important;
+    left:auto!important;
+    bottom:auto!important;
+    box-sizing:border-box!important;
+    width:var(--mcl-v437-discord-closed)!important;
+    min-width:var(--mcl-v437-discord-closed)!important;
+    max-width:var(--mcl-v437-discord-closed)!important;
+    height:var(--mcl-v437-btn-h)!important;
+    min-height:var(--mcl-v437-btn-h)!important;
+    max-height:var(--mcl-v437-btn-h)!important;
+    display:block!important;
+    padding:0!important;
+    margin:0!important;
+    border:0!important;
+    outline:0!important;
+    border-radius:var(--mcl-v437-radius)!important;
+    background:transparent!important;
+    overflow:hidden!important;
+    cursor:pointer!important;
+    pointer-events:auto!important;
+    transform:none!important;
+    box-shadow:none!important;
+    text-shadow:none!important;
+    filter:none!important;
+    z-index:3!important;
+    transition:none!important;
+  }
+
+  html body #siteHeader .mcx-desktop-actions .mcx-discord-wrap > .mcx-discord img{
+    position:absolute!important;
+    right:11px!important;
+    top:50%!important;
+    left:auto!important;
+    bottom:auto!important;
+    transform:translateY(-50%)!important;
+    width:var(--mcl-v437-discord-icon)!important;
+    height:var(--mcl-v437-discord-icon)!important;
+    min-width:var(--mcl-v437-discord-icon)!important;
+    min-height:var(--mcl-v437-discord-icon)!important;
+    max-width:var(--mcl-v437-discord-icon)!important;
+    max-height:var(--mcl-v437-discord-icon)!important;
+    display:block!important;
+    object-fit:contain!important;
+    margin:0!important;
+    padding:0!important;
+    opacity:1!important;
+    filter:brightness(0) invert(1)!important;
+    pointer-events:none!important;
+    z-index:4!important;
+  }
+
+  html body #siteHeader .mcx-desktop-actions .mcx-discord-wrap > .mcx-discord-members{
+    position:absolute!important;
+    left:14px!important;
+    right:50px!important;
+    top:0!important;
+    box-sizing:border-box!important;
+    width:auto!important;
+    height:var(--mcl-v437-btn-h)!important;
+    min-height:var(--mcl-v437-btn-h)!important;
+    max-height:var(--mcl-v437-btn-h)!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    opacity:0!important;
+    overflow:hidden!important;
+    white-space:nowrap!important;
+    pointer-events:none!important;
+    text-align:center!important;
+    color:#fff!important;
+    font-family:"Open Sans", Arial, Helvetica, sans-serif!important;
+    font-size:14px!important;
+    font-weight:700!important;
+    line-height:1!important;
+    letter-spacing:.035em!important;
+    text-transform:uppercase!important;
+    z-index:2!important;
+    transition:opacity .12s ease!important;
+  }
+
+  html body #siteHeader .mcx-desktop-actions .mcx-discord-wrap.is-open > .mcx-discord-members,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord-wrap:focus-within > .mcx-discord-members{
+    opacity:1!important;
+  }
+
+  /* Disable older anchor-level Discord hover paint. */
+  html body #siteHeader .mcx-desktop-actions .mcx-discord-wrap > .mcx-discord::before,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord-wrap > .mcx-discord::after{
+    content:none!important;
+    display:none!important;
+  }
+}
