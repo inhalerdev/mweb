@@ -15,7 +15,7 @@ function mineacle_page_head(string $title): void {
     echo '<title>Mineacle | ' . h($title) . '</title>';
     echo '<meta name="description" content="Mineacle public bans portal">';
     echo '<link rel="icon" type="image/png" href="assets/mineacle-square-logo.png?v=bansfull3.8.27.277.266.255.244.233.222.211.200.199.188.177.166.144.8.7.6.5.4.3.2">';
-    echo '<link rel="stylesheet" href="assets/styles.css?v=banssingle4.0.44">';
+    echo '<link rel="stylesheet" href="assets/styles.css?v=banssingle4.0.45">';
     echo '</head>';
 }
 
@@ -78,10 +78,87 @@ function mineacle_footer(): void {
     echo '</div>';
     echo '</div>';
     echo '</footer>';
-    echo '<script src="assets/main.js?v=banssingle4.0.44"></script>';
-    echo '<script src="assets/hero-scroll.js?v=banssingle4.0.44"></script>';
-    echo '<script src="assets/nav-server-status.js?v=banssingle4.0.44"></script>';
+    echo '<script src="assets/main.js?v=banssingle4.0.45"></script>';
+    echo '<script src="assets/hero-scroll.js?v=banssingle4.0.45"></script>';
+    echo '<script src="assets/nav-server-status.js?v=banssingle4.0.45"></script>';
+    
     echo <<<'HTML'
+<script>
+(function(){
+  var observerInstalled = false;
+  var scheduled = false;
+
+  function syncModalTypeStatusPill(){
+    scheduled = false;
+
+    var status = document.getElementById('singleModalStatus');
+    var type = document.getElementById('singleModalType');
+    if (!status || !type) return;
+
+    var statusText = (status.textContent || '').trim();
+    if (!statusText) return;
+
+    var normalizedClass = (status.className || '')
+      .replace(/\bmineacle-ban-status-single\b/g, '')
+      .replace(/\bmineacle-modal-status-pill\b/g, '')
+      .trim();
+
+    status.setAttribute('aria-hidden', 'true');
+    status.classList.add('mineacle-modal-status-hidden');
+
+    if ((type.textContent || '').trim() !== statusText) {
+      type.textContent = statusText;
+    }
+
+    type.className = ('mineacle-modal-type-status-pill ' + normalizedClass).trim();
+
+    var field = type.closest('.mineacle-ban-info-pill-single, article');
+    if (field) {
+      field.classList.add('mineacle-modal-type-status-field');
+    }
+  }
+
+  function scheduleSync(){
+    if (scheduled) return;
+    scheduled = true;
+    window.requestAnimationFrame(syncModalTypeStatusPill);
+  }
+
+  function installObserver(){
+    var modal = document.getElementById('banModal');
+    if (!modal || observerInstalled) return;
+
+    observerInstalled = true;
+    new MutationObserver(scheduleSync).observe(modal, {
+      childList: true,
+      subtree: true,
+      characterData: true
+    });
+  }
+
+  document.addEventListener('click', function(event){
+    if (event.target && event.target.closest && event.target.closest('.info-btn, .js-info-button, button.mineacle-row-info-button, [data-info-index]')) {
+      window.setTimeout(function(){
+        installObserver();
+        scheduleSync();
+      }, 0);
+    }
+  });
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function(){
+      installObserver();
+      scheduleSync();
+    });
+  } else {
+    installObserver();
+    scheduleSync();
+  }
+})();
+</script>
+HTML;
+
+echo <<<'HTML'
 <script>
 (function(){
   var scheduled = false;
@@ -466,7 +543,7 @@ HTML;
 
     var img = section.querySelector('.client-guard-title-img, .client-guard-section-title img');
     if (img) {
-      img.src = 'assets/mineacle-clientguard-logo-v2.png?v=banssingle4.0.44';
+      img.src = 'assets/mineacle-clientguard-logo-v2.png?v=banssingle4.0.45';
       img.alt = 'Mineacle Client Guard';
       img.classList.add('client-guard-title-img');
     }

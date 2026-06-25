@@ -38914,3 +38914,150 @@ html body #banModal.mineacle-ban-modal-single .mineacle-ban-appeal-count-single{
   font-size:12px!important;
   font-weight:700!important;
 }
+
+
+/* Mineacle Bans v4.0.45: modal type pill + centered Discord footer */
+
+/*
+  Requested from screenshot:
+  - Remove the top ban label beside the player name
+  - Put the ban label into the Type field, replacing "Player Ban"
+  - Keep the copied label sizing/style consistent with the main row ban label
+  - Center the Discord Appeal button at the bottom of the More Info modal
+*/
+:root{
+  --mcl-v445-pill-h:44px;
+  --mcl-v445-pill-min-w:146px;
+  --mcl-v445-pill-pad-x:18px;
+  --mcl-v445-pill-radius:9px;
+  --mcl-v445-pill-font:14px;
+  --mcl-v445-pill-weight:700;
+  --mcl-v445-pill-spacing:.035em;
+  --mcl-v445-ban-bg:#24131b;
+  --mcl-v445-ban-border:rgba(255,104,147,.38);
+  --mcl-v445-ban-text:#ffd0de;
+}
+
+/* Hide the old top status pill; the Type field now owns the ban label. */
+html body #banModal.mineacle-ban-modal-single .mineacle-ban-title-single .mineacle-ban-status-single,
+html body #banModal.mineacle-ban-modal-single .mineacle-ban-title-single .mineacle-modal-status-hidden,
+html body #banModal.mineacle-ban-modal-single .mineacle-punish-title .mineacle-ban-status-single,
+html body #banModal.mineacle-ban-modal-single .mineacle-punish-title .mineacle-punish-status{
+  display:none!important;
+  visibility:hidden!important;
+  opacity:0!important;
+  pointer-events:none!important;
+  width:0!important;
+  min-width:0!important;
+  max-width:0!important;
+  height:0!important;
+  min-height:0!important;
+  max-height:0!important;
+  margin:0!important;
+  padding:0!important;
+  overflow:hidden!important;
+}
+
+/* Give the title block a clean single-line name once the top pill is gone. */
+html body #banModal.mineacle-ban-modal-single .mineacle-ban-title-single,
+html body #banModal.mineacle-ban-modal-single .mineacle-punish-title{
+  gap:0!important;
+  justify-content:center!important;
+}
+
+/* The Type card now displays the status pill instead of plain "Player Ban" text. */
+html body #banModal.mineacle-ban-modal-single .mineacle-modal-type-status-field{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  justify-content:center!important;
+  gap:10px!important;
+}
+
+html body #banModal.mineacle-ban-modal-single .mineacle-modal-type-status-pill,
+html body #banModal.mineacle-ban-modal-single #singleModalType.mineacle-modal-type-status-pill{
+  box-sizing:border-box!important;
+  width:auto!important;
+  min-width:var(--mcl-v445-pill-min-w)!important;
+  max-width:none!important;
+  height:var(--mcl-v445-pill-h)!important;
+  min-height:var(--mcl-v445-pill-h)!important;
+  max-height:var(--mcl-v445-pill-h)!important;
+  padding:0 var(--mcl-v445-pill-pad-x)!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  border-radius:var(--mcl-v445-pill-radius)!important;
+  background:var(--mcl-v445-ban-bg)!important;
+  border:1px solid var(--mcl-v445-ban-border)!important;
+  color:var(--mcl-v445-ban-text)!important;
+  font-family:"Open Sans", Arial, Helvetica, sans-serif!important;
+  font-size:var(--mcl-v445-pill-font)!important;
+  font-weight:var(--mcl-v445-pill-weight)!important;
+  line-height:1!important;
+  letter-spacing:var(--mcl-v445-pill-spacing)!important;
+  text-transform:uppercase!important;
+  white-space:nowrap!important;
+  box-shadow:none!important;
+  text-shadow:none!important;
+  transform:none!important;
+  filter:none!important;
+}
+
+/* Bottom of More Info modal: no paid unban, centered Discord appeal only. */
+html body #banModal.mineacle-ban-modal-single .mineacle-ban-actions-single,
+html body #banModal.mineacle-ban-modal-single .mineacle-punish-actions,
+html body #banModal.mineacle-ban-modal-single .mineacle-ban-action-row-single,
+html body #banModal.mineacle-ban-modal-single .mineacle-punish-action-row,
+html body #banModal.mineacle-ban-modal-single a.mineacle-ban-pay-single,
+html body #banModal.mineacle-ban-modal-single a.ban-unban-cta,
+html body #banModal.mineacle-ban-modal-single .mineacle-ban-note-single{
+  display:none!important;
+  visibility:hidden!important;
+  opacity:0!important;
+  pointer-events:none!important;
+}
+
+/* Force the appeal button to be centered as a block-level button, not left-aligned inline content. */
+html body #banModal.mineacle-ban-modal-single .mineacle-ban-appeal-single{
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:12px!important;
+  width:250px!important;
+  min-width:250px!important;
+  max-width:250px!important;
+  height:56px!important;
+  min-height:56px!important;
+  max-height:56px!important;
+  margin:18px auto 0!important;
+  padding:0 16px!important;
+  justify-self:center!important;
+  align-self:center!important;
+  border-radius:10px!important;
+  transform:none!important;
+  box-shadow:none!important;
+  filter:none!important;
+}
+
+html body #banModal.mineacle-ban-modal-single .mineacle-ban-rail-single > .mineacle-ban-appeal-single{
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+html body #banModal.mineacle-ban-modal-single .mineacle-ban-appeal-art-single{
+  flex:0 0 auto!important;
+}
+
+html body #banModal.mineacle-ban-modal-single .mineacle-ban-appeal-copy-single{
+  flex:0 0 auto!important;
+  min-width:0!important;
+  text-align:left!important;
+  line-height:1.05!important;
+}
+
+html body #banModal.mineacle-ban-modal-single .mineacle-ban-appeal-count-single{
+  display:none!important;
+}
