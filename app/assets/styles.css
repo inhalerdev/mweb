@@ -39321,3 +39321,185 @@ html body #banModal.mineacle-ban-modal-single .mineacle-ban-appeal-count-single{
     grid-row:auto!important;
   }
 }
+
+
+/* Mineacle Bans v4.0.47: modal header/close/Discord alignment */
+
+/*
+  Requested:
+  - Center Discord Appeal button at bottom
+  - Remove separator line below player head/name
+  - Vertically center player name to the player head
+  - Move close button inward so it lines up inside the popup content boundary
+*/
+@media (min-width:761px){
+  :root{
+    --mcl-v447-modal-w:720px;
+    --mcl-v447-modal-pad:24px;
+    --mcl-v447-close-size:34px;
+    --mcl-v447-discord-w:250px;
+    --mcl-v447-discord-h:56px;
+  }
+
+  html body #banModal.mineacle-ban-modal-single .mineacle-ban-card-single,
+  html body #banModal.mineacle-ban-modal-single .mineacle-punish-modal-card{
+    position:relative!important;
+    width:min(var(--mcl-v447-modal-w), calc(100vw - 48px))!important;
+    max-width:min(var(--mcl-v447-modal-w), calc(100vw - 48px))!important;
+    padding:var(--mcl-v447-modal-pad)!important;
+    box-sizing:border-box!important;
+  }
+
+  /*
+    Header no longer has the separator line under the avatar/name.
+    The name/avatar group remains centered in the card.
+  */
+  html body #banModal.mineacle-ban-modal-single .mineacle-ban-head-single,
+  html body #banModal.mineacle-ban-modal-single .mineacle-punish-top{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    min-height:72px!important;
+    padding:0 calc(var(--mcl-v447-close-size) + 18px) 18px!important;
+    margin:0!important;
+    border:0!important;
+    border-bottom:0!important;
+    box-shadow:none!important;
+    background:transparent!important;
+  }
+
+  html body #banModal.mineacle-ban-modal-single .mineacle-ban-head-single::before,
+  html body #banModal.mineacle-ban-modal-single .mineacle-ban-head-single::after,
+  html body #banModal.mineacle-ban-modal-single .mineacle-punish-top::before,
+  html body #banModal.mineacle-ban-modal-single .mineacle-punish-top::after{
+    content:none!important;
+    display:none!important;
+  }
+
+  /*
+    Avatar + name are one centered identity group.
+    Name is vertically centered against the middle of the avatar.
+  */
+  html body #banModal.mineacle-ban-modal-single .mineacle-ban-player-single,
+  html body #banModal.mineacle-ban-modal-single .mineacle-punish-player{
+    display:flex!important;
+    flex-direction:row!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:12px!important;
+    width:auto!important;
+    max-width:calc(100% - 96px)!important;
+    margin:0 auto!important;
+    transform:none!important;
+  }
+
+  html body #banModal.mineacle-ban-modal-single .mineacle-ban-avatar-single,
+  html body #banModal.mineacle-ban-modal-single .mineacle-punish-avatar{
+    flex:0 0 64px!important;
+    width:64px!important;
+    height:64px!important;
+    min-width:64px!important;
+    min-height:64px!important;
+    max-width:64px!important;
+    max-height:64px!important;
+    margin:0!important;
+    align-self:center!important;
+  }
+
+  html body #banModal.mineacle-ban-modal-single .mineacle-ban-title-single,
+  html body #banModal.mineacle-ban-modal-single .mineacle-punish-title{
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:flex-start!important;
+    justify-content:center!important;
+    align-self:center!important;
+    min-height:64px!important;
+    height:64px!important;
+    margin:0!important;
+    padding:0!important;
+    gap:0!important;
+    text-align:left!important;
+  }
+
+  html body #banModal.mineacle-ban-modal-single .mineacle-ban-name-single,
+  html body #banModal.mineacle-ban-modal-single .mineacle-punish-name{
+    display:block!important;
+    margin:0!important;
+    padding:0!important;
+    line-height:1!important;
+    transform:none!important;
+    white-space:nowrap!important;
+  }
+
+  /*
+    Close button is pulled inward and aligned with the popup content boundary,
+    not hanging out at the outer top corner.
+  */
+  html body #banModal.mineacle-ban-modal-single .mineacle-ban-close-single,
+  html body #banModal.mineacle-ban-modal-single .mineacle-punish-close{
+    position:absolute!important;
+    top:var(--mcl-v447-modal-pad)!important;
+    right:var(--mcl-v447-modal-pad)!important;
+    width:var(--mcl-v447-close-size)!important;
+    min-width:var(--mcl-v447-close-size)!important;
+    max-width:var(--mcl-v447-close-size)!important;
+    height:var(--mcl-v447-close-size)!important;
+    min-height:var(--mcl-v447-close-size)!important;
+    max-height:var(--mcl-v447-close-size)!important;
+    z-index:10!important;
+    margin:0!important;
+  }
+
+  /*
+    Center Discord Appeal on the actual modal centerline.
+    Remove old inline/grid left alignment and any extra right-side filler behavior.
+  */
+  html body #banModal.mineacle-ban-modal-single .mineacle-ban-appeal-single{
+    position:relative!important;
+    left:auto!important;
+    right:auto!important;
+    transform:none!important;
+    box-sizing:border-box!important;
+    display:flex!important;
+    flex-direction:row!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:12px!important;
+    width:var(--mcl-v447-discord-w)!important;
+    min-width:var(--mcl-v447-discord-w)!important;
+    max-width:var(--mcl-v447-discord-w)!important;
+    height:var(--mcl-v447-discord-h)!important;
+    min-height:var(--mcl-v447-discord-h)!important;
+    max-height:var(--mcl-v447-discord-h)!important;
+    margin:20px auto 0!important;
+    padding:0 16px!important;
+    justify-self:center!important;
+    align-self:center!important;
+    grid-column:1 / -1!important;
+  }
+
+  html body #banModal.mineacle-ban-modal-single .mineacle-ban-rail-single,
+  html body #banModal.mineacle-ban-modal-single .mineacle-punish-modal-card{
+    justify-items:stretch!important;
+  }
+
+  html body #banModal.mineacle-ban-modal-single .mineacle-ban-rail-single > .mineacle-ban-appeal-single{
+    margin-left:auto!important;
+    margin-right:auto!important;
+    justify-self:center!important;
+  }
+
+  html body #banModal.mineacle-ban-modal-single .mineacle-ban-appeal-art-single,
+  html body #banModal.mineacle-ban-modal-single .mineacle-ban-appeal-copy-single{
+    flex:0 0 auto!important;
+  }
+
+  html body #banModal.mineacle-ban-modal-single .mineacle-ban-appeal-copy-single{
+    min-width:0!important;
+    text-align:left!important;
+  }
+
+  html body #banModal.mineacle-ban-modal-single .mineacle-ban-appeal-count-single{
+    display:none!important;
+  }
+}
