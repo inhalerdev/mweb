@@ -37538,3 +37538,236 @@ html body button.mcx-play{
     display:none!important;
   }
 }
+
+
+/* Mineacle Bans v4.0.35: Discord square-gated hover + unified nav text sizing */
+
+/*
+  Fix:
+  - The Discord extension no longer opens when hovering the invisible left extension area first.
+  - It opens only after the pointer enters the pinned 44x44 Discord square.
+  - Once opened, it stays open while the cursor is inside the full Discord slot.
+  - Nav links, Store, Discord text, Play, and Copied use the same 14px text size.
+*/
+@media (min-width:981px){
+  :root{
+    --mcl-v435-nav-font:14px;
+    --mcl-v435-btn-h:44px;
+    --mcl-v435-btn-w:104px;
+    --mcl-v435-radius:9px;
+
+    --mcl-v435-discord-closed:44px;
+    --mcl-v435-discord-open:190px;
+    --mcl-v435-discord-icon:22px;
+    --mcl-v435-discord-icon-right:11px;
+    --mcl-v435-discord-text-left:14px;
+    --mcl-v435-discord-text-right:50px;
+
+    --mcl-v435-discord:#5865f2;
+    --mcl-v435-discord-hover:#6571ff;
+    --mcl-v435-discord-active:#4751ca;
+  }
+
+  /*
+    Unified text sizing across the navbar.
+    Buttons and links stay on the same vertical centerline.
+  */
+  html body #siteHeader .mcx-desktop-links .mcx-link,
+  html body #siteHeader .mcx-desktop-links .mcx-store,
+  html body #siteHeader .mcx-desktop-links .mcx-button.mcx-store,
+  html body #siteHeader .mcx-desktop-actions .mcx-play,
+  html body #siteHeader .mcx-desktop-actions button.mcx-play,
+  html body #siteHeader .mcx-desktop-actions .mcx-play.copied,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord-members{
+    font-family:"Open Sans", Arial, Helvetica, sans-serif!important;
+    font-size:var(--mcl-v435-nav-font)!important;
+    font-weight:700!important;
+    line-height:1!important;
+    letter-spacing:.035em!important;
+    text-transform:uppercase!important;
+  }
+
+  html body #siteHeader .mcx-desktop-links .mcx-link,
+  html body #siteHeader .mcx-desktop-links .mcx-store,
+  html body #siteHeader .mcx-desktop-links .mcx-button.mcx-store,
+  html body #siteHeader .mcx-desktop-actions .mcx-play,
+  html body #siteHeader .mcx-desktop-actions button.mcx-play{
+    height:var(--mcl-v435-btn-h)!important;
+    min-height:var(--mcl-v435-btn-h)!important;
+    max-height:var(--mcl-v435-btn-h)!important;
+    align-items:center!important;
+    justify-content:center!important;
+  }
+
+  html body #siteHeader .mcx-desktop-links .mcx-store,
+  html body #siteHeader .mcx-desktop-links .mcx-button.mcx-store,
+  html body #siteHeader .mcx-desktop-actions .mcx-play,
+  html body #siteHeader .mcx-desktop-actions button.mcx-play,
+  html body #siteHeader .mcx-desktop-actions .mcx-play.copied,
+  html body #siteHeader .mcx-desktop-actions button.mcx-play.copied{
+    width:var(--mcl-v435-btn-w)!important;
+    min-width:var(--mcl-v435-btn-w)!important;
+    max-width:var(--mcl-v435-btn-w)!important;
+    border-radius:var(--mcl-v435-radius)!important;
+    padding:0!important;
+  }
+
+  /*
+    Reserve the open width. The anchor is a stable hit area, but it does not open
+    on :hover anymore. JS only adds .is-open after the cursor enters the square.
+  */
+  html body #siteHeader .mcx-desktop-actions{
+    grid-template-columns:var(--mcl-v435-discord-open) var(--mcl-v435-btn-w)!important;
+    column-gap:28px!important;
+    align-items:center!important;
+    overflow:visible!important;
+  }
+
+  html body #siteHeader .mcx-desktop-actions .mcx-discord,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:hover,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:focus-visible,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:active{
+    grid-column:1!important;
+    justify-self:end!important;
+    align-self:center!important;
+    position:relative!important;
+    inset:auto!important;
+    box-sizing:border-box!important;
+    width:var(--mcl-v435-discord-open)!important;
+    min-width:var(--mcl-v435-discord-open)!important;
+    max-width:var(--mcl-v435-discord-open)!important;
+    height:var(--mcl-v435-btn-h)!important;
+    min-height:var(--mcl-v435-btn-h)!important;
+    max-height:var(--mcl-v435-btn-h)!important;
+    padding:0!important;
+    margin:0!important;
+    display:block!important;
+    border:0!important;
+    outline:0!important;
+    border-radius:0!important;
+    background:transparent!important;
+    color:#fff!important;
+    overflow:visible!important;
+    cursor:pointer!important;
+    transform:none!important;
+    box-shadow:none!important;
+    text-shadow:none!important;
+    filter:none!important;
+    transition:none!important;
+  }
+
+  /*
+    Closed visual surface is the pinned 44x44 square.
+    Important: :hover alone does NOT open it anymore.
+  */
+  html body #siteHeader .mcx-desktop-actions .mcx-discord::before,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:hover::before{
+    content:""!important;
+    display:block!important;
+    position:absolute!important;
+    right:0!important;
+    left:auto!important;
+    top:0!important;
+    bottom:auto!important;
+    box-sizing:border-box!important;
+    width:var(--mcl-v435-discord-closed)!important;
+    min-width:var(--mcl-v435-discord-closed)!important;
+    max-width:var(--mcl-v435-discord-closed)!important;
+    height:var(--mcl-v435-btn-h)!important;
+    min-height:var(--mcl-v435-btn-h)!important;
+    max-height:var(--mcl-v435-btn-h)!important;
+    border:0!important;
+    border-radius:var(--mcl-v435-radius)!important;
+    background:var(--mcl-v435-discord)!important;
+    opacity:1!important;
+    z-index:0!important;
+    pointer-events:none!important;
+    box-shadow:none!important;
+    filter:none!important;
+    transform:none!important;
+    transition:width .16s cubic-bezier(.19,1,.22,1), background .12s ease!important;
+  }
+
+  /*
+    Open only after JS adds .is-open from entering the right-side square.
+    Focus-visible keeps keyboard accessibility.
+  */
+  html body #siteHeader .mcx-desktop-actions .mcx-discord.is-open::before,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:focus-visible::before{
+    width:var(--mcl-v435-discord-open)!important;
+    min-width:var(--mcl-v435-discord-open)!important;
+    max-width:var(--mcl-v435-discord-open)!important;
+    background:var(--mcl-v435-discord-hover)!important;
+  }
+
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:active::before{
+    background:var(--mcl-v435-discord-active)!important;
+  }
+
+  html body #siteHeader .mcx-desktop-actions .mcx-discord img,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:hover img,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord.is-open img,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:focus-visible img,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:active img{
+    position:absolute!important;
+    right:11px!important;
+    left:auto!important;
+    top:50%!important;
+    bottom:auto!important;
+    transform:translateY(-50%)!important;
+    width:var(--mcl-v435-discord-icon)!important;
+    height:var(--mcl-v435-discord-icon)!important;
+    min-width:var(--mcl-v435-discord-icon)!important;
+    min-height:var(--mcl-v435-discord-icon)!important;
+    max-width:var(--mcl-v435-discord-icon)!important;
+    max-height:var(--mcl-v435-discord-icon)!important;
+    display:block!important;
+    object-fit:contain!important;
+    margin:0!important;
+    padding:0!important;
+    opacity:1!important;
+    filter:brightness(0) invert(1)!important;
+    pointer-events:none!important;
+    box-shadow:none!important;
+    z-index:2!important;
+  }
+
+  html body #siteHeader .mcx-desktop-actions .mcx-discord-members,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:hover .mcx-discord-members{
+    position:absolute!important;
+    left:var(--mcl-v435-discord-text-left)!important;
+    right:var(--mcl-v435-discord-text-right)!important;
+    top:0!important;
+    bottom:auto!important;
+    transform:none!important;
+    box-sizing:border-box!important;
+    width:auto!important;
+    min-width:0!important;
+    max-width:none!important;
+    height:var(--mcl-v435-btn-h)!important;
+    min-height:var(--mcl-v435-btn-h)!important;
+    max-height:var(--mcl-v435-btn-h)!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    opacity:0!important;
+    overflow:hidden!important;
+    white-space:nowrap!important;
+    pointer-events:none!important;
+    text-align:center!important;
+    color:#fff!important;
+    text-overflow:clip!important;
+    z-index:2!important;
+    transition:opacity .12s ease!important;
+  }
+
+  html body #siteHeader .mcx-desktop-actions .mcx-discord.is-open .mcx-discord-members,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord:focus-visible .mcx-discord-members{
+    opacity:1!important;
+  }
+
+  html body #siteHeader .mcx-desktop-actions .mcx-discord::after{
+    content:none!important;
+    display:none!important;
+  }
+}
