@@ -38041,3 +38041,26 @@ html body button.mcx-play{
     cursor:pointer!important;
   }
 }
+
+
+/* Mineacle Bans v4.0.39: Discord text closes instantly with extension */
+
+/*
+  Fixes off-hover timing:
+  - When Discord closes, member text disappears immediately
+  - Extension can still animate closed smoothly
+  - On hover/open, text fades in quickly after the square opens
+*/
+@media (min-width:981px){
+  html body #siteHeader .mcx-desktop-actions .mcx-discord-wrap:not(.is-open):not(:focus-within) > .mcx-discord-members,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord-wrap:hover:not(.is-open):not(:focus-within) > .mcx-discord-members{
+    opacity:0!important;
+    transition:opacity 0s linear!important;
+  }
+
+  html body #siteHeader .mcx-desktop-actions .mcx-discord-wrap.is-open > .mcx-discord-members,
+  html body #siteHeader .mcx-desktop-actions .mcx-discord-wrap:focus-within > .mcx-discord-members{
+    opacity:1!important;
+    transition:opacity .07s ease!important;
+  }
+}
