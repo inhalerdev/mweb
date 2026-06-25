@@ -15,7 +15,7 @@ function mineacle_page_head(string $title): void {
     echo '<title>Mineacle | ' . h($title) . '</title>';
     echo '<meta name="description" content="Mineacle public bans portal">';
     echo '<link rel="icon" type="image/png" href="assets/mineacle-square-logo.png?v=bansfull3.8.27.277.266.255.244.233.222.211.200.199.188.177.166.144.8.7.6.5.4.3.2">';
-    echo '<link rel="stylesheet" href="assets/styles.css?v=banssingle4.0.45">';
+    echo '<link rel="stylesheet" href="assets/styles.css?v=banssingle4.0.46">';
     echo '</head>';
 }
 
@@ -78,11 +78,125 @@ function mineacle_footer(): void {
     echo '</div>';
     echo '</div>';
     echo '</footer>';
-    echo '<script src="assets/main.js?v=banssingle4.0.45"></script>';
-    echo '<script src="assets/hero-scroll.js?v=banssingle4.0.45"></script>';
-    echo '<script src="assets/nav-server-status.js?v=banssingle4.0.45"></script>';
+    echo '<script src="assets/main.js?v=banssingle4.0.46"></script>';
+    echo '<script src="assets/hero-scroll.js?v=banssingle4.0.46"></script>';
+    echo '<script src="assets/nav-server-status.js?v=banssingle4.0.46"></script>';
+    
     
     echo <<<'HTML'
+<script>
+(function(){
+  var scheduled = false;
+  var observerInstalled = false;
+
+  function normalizeLabel(value){
+    return String(value || '').trim().toLowerCase().replace(/\s+/g, ' ');
+  }
+
+  function tagModalDetailCards(){
+    scheduled = false;
+
+    var modal = document.getElementById('banModal');
+    if (!modal) return;
+
+    var status = document.getElementById('singleModalStatus');
+    var typeValue = document.getElementById('singleModalType');
+    var durationValue = document.getElementById('singleModalDuration');
+    var appealValue = document.getElementById('singleModalAppeal');
+    var emailValue = document.getElementById('singleModalEmail');
+
+    var statusText = normalizeLabel(status ? status.textContent : '');
+    var durationText = normalizeLabel(durationValue ? durationValue.textContent : '');
+    var isPermanent = statusText.indexOf('permanent') !== -1 || durationText === 'permanent';
+
+    modal.classList.toggle('is-permanent-modal', isPermanent);
+
+    modal.querySelectorAll('.mineacle-ban-info-pill-single, .mineacle-punish-detail, article').forEach(function(card){
+      var labelNode = card.querySelector('span');
+      var label = normalizeLabel(labelNode ? labelNode.textContent : '');
+
+      card.classList.toggle('mineacle-modal-reason-card', label === 'reason');
+      card.classList.toggle('mineacle-modal-type-card', label === 'type');
+      card.classList.toggle('mineacle-modal-duration-card', label === 'duration');
+      card.classList.toggle('mineacle-modal-date-card', label === 'date');
+      card.classList.toggle('mineacle-modal-appeal-card', label === 'appeal id');
+      card.classList.toggle('mineacle-modal-email-card', label === 'support email');
+
+      if (label === 'duration') {
+        card.hidden = isPermanent;
+        card.setAttribute('aria-hidden', isPermanent ? 'true' : 'false');
+      }
+    });
+
+    if (status && typeValue) {
+      var statusDisplay = (status.textContent || '').trim();
+      if (statusDisplay && (typeValue.textContent || '').trim() !== statusDisplay) {
+        typeValue.textContent = statusDisplay;
+      }
+      typeValue.classList.add('mineacle-modal-type-status-pill');
+    }
+
+    if (appealValue) {
+      appealValue.classList.add('mineacle-modal-appeal-value');
+    }
+
+    if (emailValue) {
+      emailValue.classList.add('mineacle-email-copy-value');
+      var emailCard = emailValue.closest('.mineacle-ban-info-pill-single, .mineacle-punish-detail, article');
+      if (emailCard) {
+        emailCard.classList.add('mineacle-email-copy-field');
+        if (!emailCard.hasAttribute('tabindex')) {
+          emailCard.setAttribute('tabindex', '0');
+        }
+        emailCard.setAttribute('role', 'button');
+        emailCard.setAttribute('aria-label', 'Copy support email');
+        emailCard.setAttribute('title', 'Click to copy support email');
+      }
+    }
+  }
+
+  function scheduleTag(){
+    if (scheduled) return;
+    scheduled = true;
+    window.requestAnimationFrame(tagModalDetailCards);
+  }
+
+  function installObserver(){
+    var modal = document.getElementById('banModal');
+    if (!modal || observerInstalled) return;
+
+    observerInstalled = true;
+
+    new MutationObserver(scheduleTag).observe(modal, {
+      childList: true,
+      subtree: true,
+      characterData: true
+    });
+  }
+
+  document.addEventListener('click', function(event){
+    if (event.target && event.target.closest && event.target.closest('.info-btn, .js-info-button, button.mineacle-row-info-button, [data-info-index]')) {
+      window.setTimeout(function(){
+        installObserver();
+        scheduleTag();
+      }, 0);
+    }
+  });
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function(){
+      installObserver();
+      scheduleTag();
+    });
+  } else {
+    installObserver();
+    scheduleTag();
+  }
+})();
+</script>
+HTML;
+
+echo <<<'HTML'
 <script>
 (function(){
   var observerInstalled = false;
@@ -543,7 +657,7 @@ HTML;
 
     var img = section.querySelector('.client-guard-title-img, .client-guard-section-title img');
     if (img) {
-      img.src = 'assets/mineacle-clientguard-logo-v2.png?v=banssingle4.0.45';
+      img.src = 'assets/mineacle-clientguard-logo-v2.png?v=banssingle4.0.46';
       img.alt = 'Mineacle Client Guard';
       img.classList.add('client-guard-title-img');
     }

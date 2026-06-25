@@ -39061,3 +39061,263 @@ html body #banModal.mineacle-ban-modal-single .mineacle-ban-appeal-copy-single{
 html body #banModal.mineacle-ban-modal-single .mineacle-ban-appeal-count-single{
   display:none!important;
 }
+
+
+/* Mineacle Bans v4.0.46: slimmer More Info modal layout */
+
+/*
+  Requested:
+  - Slim the popup to match the marked red box
+  - Center the player identity/name dynamically in the modal header
+  - Remove Duration for permanent bans
+  - Move Appeal ID into the old Duration position
+  - Move Support Email up into the two-column details grid
+  - Center Discord Appeal at the bottom
+*/
+:root{
+  --mcl-v446-modal-w:720px;
+  --mcl-v446-modal-pad:24px;
+  --mcl-v446-modal-gap:12px;
+  --mcl-v446-pill-h:44px;
+  --mcl-v446-pill-min-w:146px;
+  --mcl-v446-pill-radius:9px;
+}
+
+/* Slim modal width and reduce unused side spacing. */
+html body #banModal.mineacle-ban-modal-single .mineacle-ban-card-single,
+html body #banModal.mineacle-ban-modal-single .mineacle-punish-modal-card{
+  width:min(var(--mcl-v446-modal-w), calc(100vw - 48px))!important;
+  max-width:min(var(--mcl-v446-modal-w), calc(100vw - 48px))!important;
+  padding:var(--mcl-v446-modal-pad)!important;
+  border-radius:18px!important;
+  box-sizing:border-box!important;
+}
+
+/*
+  Header:
+  Avatar + player name are centered as a group.
+  Close button remains fixed to the top-right.
+*/
+html body #banModal.mineacle-ban-modal-single .mineacle-ban-head-single,
+html body #banModal.mineacle-ban-modal-single .mineacle-punish-top{
+  position:relative!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-height:72px!important;
+  padding:0 54px 20px!important;
+  border-bottom:1px solid rgba(255,255,255,.085)!important;
+  text-align:center!important;
+}
+
+html body #banModal.mineacle-ban-modal-single .mineacle-ban-player-single,
+html body #banModal.mineacle-ban-modal-single .mineacle-punish-player{
+  display:inline-grid!important;
+  grid-template-columns:64px auto!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:12px!important;
+  width:auto!important;
+  max-width:100%!important;
+  margin:0 auto!important;
+}
+
+html body #banModal.mineacle-ban-modal-single .mineacle-ban-title-single,
+html body #banModal.mineacle-ban-modal-single .mineacle-punish-title{
+  display:flex!important;
+  align-items:flex-start!important;
+  justify-content:center!important;
+  gap:0!important;
+  min-width:0!important;
+  text-align:left!important;
+}
+
+html body #banModal.mineacle-ban-modal-single .mineacle-ban-name-single,
+html body #banModal.mineacle-ban-modal-single .mineacle-punish-name{
+  margin:0!important;
+  padding:0!important;
+  line-height:1!important;
+  white-space:nowrap!important;
+}
+
+/* Close button placement after header re-centering. */
+html body #banModal.mineacle-ban-modal-single .mineacle-ban-close-single,
+html body #banModal.mineacle-ban-modal-single .mineacle-punish-close{
+  position:absolute!important;
+  top:0!important;
+  right:0!important;
+  z-index:5!important;
+}
+
+/* Old top status pill stays removed; Type owns the status label now. */
+html body #banModal.mineacle-ban-modal-single .mineacle-ban-title-single .mineacle-ban-status-single,
+html body #banModal.mineacle-ban-modal-single .mineacle-ban-title-single .mineacle-modal-status-hidden,
+html body #banModal.mineacle-ban-modal-single .mineacle-punish-title .mineacle-ban-status-single,
+html body #banModal.mineacle-ban-modal-single .mineacle-punish-title .mineacle-punish-status{
+  display:none!important;
+  visibility:hidden!important;
+  opacity:0!important;
+  width:0!important;
+  height:0!important;
+  min-width:0!important;
+  min-height:0!important;
+  max-width:0!important;
+  max-height:0!important;
+  padding:0!important;
+  margin:0!important;
+  overflow:hidden!important;
+}
+
+/* Details grid: slim, two columns, compact row spacing. */
+html body #banModal.mineacle-ban-modal-single .mineacle-ban-details-single,
+html body #banModal.mineacle-ban-modal-single .mineacle-punish-grid{
+  display:grid!important;
+  grid-template-columns:repeat(2, minmax(0, 1fr))!important;
+  gap:var(--mcl-v446-modal-gap)!important;
+  margin-top:18px!important;
+}
+
+/* Reason stays full-width on top. */
+html body #banModal.mineacle-ban-modal-single .mineacle-modal-reason-card,
+html body #banModal.mineacle-ban-modal-single .mineacle-punish-detail-wide{
+  grid-column:1 / -1!important;
+}
+
+/*
+  Permanent bans:
+  remove Duration completely, then move Appeal ID into the old right-side
+  Duration position and Support Email up into the next right slot.
+*/
+html body #banModal.mineacle-ban-modal-single.is-permanent-modal .mineacle-modal-duration-card{
+  display:none!important;
+  visibility:hidden!important;
+  opacity:0!important;
+  pointer-events:none!important;
+}
+
+html body #banModal.mineacle-ban-modal-single .mineacle-modal-type-card{
+  grid-column:1!important;
+  grid-row:2!important;
+}
+
+html body #banModal.mineacle-ban-modal-single .mineacle-modal-appeal-card{
+  grid-column:2!important;
+  grid-row:2!important;
+}
+
+html body #banModal.mineacle-ban-modal-single .mineacle-modal-date-card{
+  grid-column:1!important;
+  grid-row:3!important;
+}
+
+html body #banModal.mineacle-ban-modal-single .mineacle-modal-email-card{
+  grid-column:2!important;
+  grid-row:3!important;
+}
+
+/* If a temporary punishment exists, allow Duration to use the right-side slot. */
+html body #banModal.mineacle-ban-modal-single:not(.is-permanent-modal) .mineacle-modal-duration-card{
+  grid-column:2!important;
+  grid-row:2!important;
+}
+
+html body #banModal.mineacle-ban-modal-single:not(.is-permanent-modal) .mineacle-modal-appeal-card{
+  grid-column:1!important;
+  grid-row:3!important;
+}
+
+html body #banModal.mineacle-ban-modal-single:not(.is-permanent-modal) .mineacle-modal-email-card{
+  grid-column:2!important;
+  grid-row:3!important;
+}
+
+/* Make detail cards fit the slimmer modal. */
+html body #banModal.mineacle-ban-modal-single .mineacle-ban-info-pill-single,
+html body #banModal.mineacle-ban-modal-single .mineacle-punish-detail{
+  min-height:74px!important;
+  padding:16px!important;
+  box-sizing:border-box!important;
+}
+
+/* Type field uses the same status pill style, not plain text. */
+html body #banModal.mineacle-ban-modal-single #singleModalType.mineacle-modal-type-status-pill,
+html body #banModal.mineacle-ban-modal-single .mineacle-modal-type-status-pill{
+  box-sizing:border-box!important;
+  min-width:var(--mcl-v446-pill-min-w)!important;
+  height:var(--mcl-v446-pill-h)!important;
+  min-height:var(--mcl-v446-pill-h)!important;
+  max-height:var(--mcl-v446-pill-h)!important;
+  padding:0 18px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  border-radius:var(--mcl-v446-pill-radius)!important;
+  background:#24131b!important;
+  border:1px solid rgba(255,104,147,.38)!important;
+  color:#ffd0de!important;
+  font-size:14px!important;
+  font-weight:700!important;
+  line-height:1!important;
+  letter-spacing:.035em!important;
+  text-transform:uppercase!important;
+  white-space:nowrap!important;
+}
+
+/* Footer: Discord Appeal is the only action and is centered on the modal center line. */
+html body #banModal.mineacle-ban-modal-single .mineacle-ban-actions-single,
+html body #banModal.mineacle-ban-modal-single .mineacle-punish-actions,
+html body #banModal.mineacle-ban-modal-single .mineacle-ban-action-row-single,
+html body #banModal.mineacle-ban-modal-single .mineacle-punish-action-row,
+html body #banModal.mineacle-ban-modal-single a.mineacle-ban-pay-single,
+html body #banModal.mineacle-ban-modal-single a.ban-unban-cta,
+html body #banModal.mineacle-ban-modal-single .mineacle-ban-note-single{
+  display:none!important;
+  visibility:hidden!important;
+  opacity:0!important;
+  pointer-events:none!important;
+}
+
+html body #banModal.mineacle-ban-modal-single .mineacle-ban-appeal-single{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:12px!important;
+  width:250px!important;
+  min-width:250px!important;
+  max-width:250px!important;
+  height:56px!important;
+  min-height:56px!important;
+  max-height:56px!important;
+  margin:20px auto 0!important;
+  padding:0 16px!important;
+  justify-self:center!important;
+  align-self:center!important;
+  border-radius:10px!important;
+  box-sizing:border-box!important;
+}
+
+html body #banModal.mineacle-ban-modal-single .mineacle-ban-rail-single > .mineacle-ban-appeal-single{
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+/* Hide count text in the button so it reads cleaner while centered. */
+html body #banModal.mineacle-ban-modal-single .mineacle-ban-appeal-count-single{
+  display:none!important;
+}
+
+/* Mobile fallback keeps the slim modal usable. */
+@media(max-width:760px){
+  html body #banModal.mineacle-ban-modal-single .mineacle-ban-details-single,
+  html body #banModal.mineacle-ban-modal-single .mineacle-punish-grid{
+    grid-template-columns:1fr!important;
+  }
+
+  html body #banModal.mineacle-ban-modal-single .mineacle-modal-type-card,
+  html body #banModal.mineacle-ban-modal-single .mineacle-modal-appeal-card,
+  html body #banModal.mineacle-ban-modal-single .mineacle-modal-date-card,
+  html body #banModal.mineacle-ban-modal-single .mineacle-modal-email-card{
+    grid-column:1!important;
+    grid-row:auto!important;
+  }
+}
