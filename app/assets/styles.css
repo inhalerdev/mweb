@@ -39712,3 +39712,130 @@ html body #banModal.mineacle-ban-modal-single .mineacle-punish-footer > .mineacl
   justify-self:center!important;
   align-self:center!important;
 }
+
+
+/* Mineacle Bans v4.0.51: modal parity polish */
+:root{
+  --mcl-v451-label-h:26px;
+  --mcl-v451-label-pad-x:10px;
+  --mcl-v451-label-radius:6px;
+  --mcl-v451-label-font:10px;
+}
+
+html body .mineacle-row-ban-type-pill,
+html body .ban-type-cell .badge.ban-type-pill,
+html body #banModal.mineacle-ban-modal-single #singleModalType.mineacle-modal-type-status-pill,
+html body #banModal.mineacle-ban-modal-single .mineacle-modal-type-status-pill{
+  box-sizing:border-box!important;
+  width:max-content!important;
+  min-width:0!important;
+  max-width:max-content!important;
+  height:var(--mcl-v451-label-h)!important;
+  min-height:var(--mcl-v451-label-h)!important;
+  max-height:var(--mcl-v451-label-h)!important;
+  padding:0 var(--mcl-v451-label-pad-x)!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  border-radius:var(--mcl-v451-label-radius)!important;
+  background:var(--mcl-flat-red-bg)!important;
+  background-image:none!important;
+  border:1px solid var(--mcl-flat-red-border)!important;
+  color:var(--mcl-flat-red-text)!important;
+  font-family:"Open Sans", Arial, Helvetica, sans-serif!important;
+  font-size:var(--mcl-v451-label-font)!important;
+  font-weight:700!important;
+  line-height:1!important;
+  letter-spacing:.06em!important;
+  text-transform:uppercase!important;
+  white-space:nowrap!important;
+  box-shadow:none!important;
+  text-shadow:none!important;
+  transform:none!important;
+  filter:none!important;
+}
+
+html body .mineacle-row-ban-type-pill.temp,
+html body .mineacle-row-ban-type-pill.temporary,
+html body .mineacle-row-ban-type-pill.ban-type-temp,
+html body .ban-type-cell .badge.ban-type-pill.temp,
+html body .ban-type-cell .badge.ban-type-pill.temporary,
+html body .ban-type-cell .badge.ban-type-pill.ban-type-temp,
+html body #banModal.mineacle-ban-modal-single #singleModalType.mineacle-modal-type-status-pill.temp,
+html body #banModal.mineacle-ban-modal-single #singleModalType.mineacle-modal-type-status-pill.temporary,
+html body #banModal.mineacle-ban-modal-single #singleModalType.mineacle-modal-type-status-pill.ban-type-temp{
+  background:var(--mcl-flat-yellow-bg)!important;
+  background-image:none!important;
+  border-color:var(--mcl-flat-yellow-border)!important;
+  color:var(--mcl-flat-yellow-text)!important;
+}
+
+html body .mineacle-row-ban-type-pill.ip,
+html body .mineacle-row-ban-type-pill.ban-type-ip,
+html body .ban-type-cell .badge.ban-type-pill.ip,
+html body .ban-type-cell .badge.ban-type-pill.ban-type-ip,
+html body #banModal.mineacle-ban-modal-single #singleModalType.mineacle-modal-type-status-pill.ip,
+html body #banModal.mineacle-ban-modal-single #singleModalType.mineacle-modal-type-status-pill.ban-type-ip{
+  background:var(--mcl-flat-ip-bg)!important;
+  background-image:none!important;
+  border-color:var(--mcl-flat-ip-border)!important;
+  color:var(--mcl-flat-ip-text)!important;
+}
+
+html body #banModal.mineacle-ban-modal-single .mineacle-modal-type-status-field{
+  gap:8px!important;
+}
+
+html body #banModal.mineacle-ban-modal-single .mineacle-punish-footer{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+}
+
+html body #banModal.mineacle-ban-modal-single .mineacle-punish-footer > .mineacle-punish-discord{
+  width:min(250px, 100%)!important;
+  max-width:250px!important;
+  margin:0 auto!important;
+}
+
+html body #banModal.mineacle-ban-modal-single .mineacle-ban-close-single,
+html body #banModal.mineacle-ban-modal-single .mineacle-punish-close{
+  position:absolute!important;
+  width:36px!important;
+  min-width:36px!important;
+  max-width:36px!important;
+  height:36px!important;
+  min-height:36px!important;
+  max-height:36px!important;
+  padding:0!important;
+  display:grid!important;
+  place-items:center!important;
+  border-radius:6px!important;
+  font-size:0!important;
+  line-height:0!important;
+  color:#fff!important;
+  overflow:hidden!important;
+}
+
+html body #banModal.mineacle-ban-modal-single .mineacle-ban-close-single::before,
+html body #banModal.mineacle-ban-modal-single .mineacle-ban-close-single::after,
+html body #banModal.mineacle-ban-modal-single .mineacle-punish-close::before,
+html body #banModal.mineacle-ban-modal-single .mineacle-punish-close::after{
+  content:""!important;
+  position:absolute!important;
+  left:50%!important;
+  top:50%!important;
+  width:16px!important;
+  height:3px!important;
+  border-radius:999px!important;
+  background:currentColor!important;
+  transform:translate(-50%,-50%) rotate(45deg)!important;
+  transform-origin:center!important;
+  box-shadow:none!important;
+}
+
+html body #banModal.mineacle-ban-modal-single .mineacle-ban-close-single::after,
+html body #banModal.mineacle-ban-modal-single .mineacle-punish-close::after{
+  transform:translate(-50%,-50%) rotate(-45deg)!important;
+}
