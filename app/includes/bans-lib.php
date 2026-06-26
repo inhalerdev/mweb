@@ -174,55 +174,371 @@ function mineacle_bind(PDOStatement $stmt, array $params): void {
     }
 }
 
-function fetch_litebans_bans_page(string $search = '', int $page = 1): array {
+function mineacle_table_columns(PDO $pdo, string $table): array {
+    static $cache = [];
+
+    $table = mineacle_table($table);
+    if (array_key_exists($table, $cache)) {
+        return $cache[$table];
+    }
+
+    try {
+        $rows = $pdo->query('SHOW COLUMNS FROM `' . $table . '`')->fetchAll();
+    } catch (Throwable) {
+        return $cache[$table] = [];
+    }
+
+    $columns = [];
+    foreach ($rows as $row) {
+        $field = (string) ($row['Field'] ?? '');
+        if ($field !== '') {
+            $columns[strtolower($field)] = $field;
+        }
+    }
+
+    return $cache[$table] = $columns;
+}
+
+function mineacle_column(array $columns, string|array $names): ?string {
+    foreach ((array) $names as $name) {
+        $key = strtolower((string) $name);
+        if (isset($columns[$key])) {
+            return $columns[$key];
+        }
+    }
+
+    return null;
+}
+
+function mineacle_has_column(array $columns, string|array $names): bool {
+    return mineacle_column($columns, $names) !== null;
+}
+
+function mineacle_select_column(string $alias, array $columns, string|array $names, string $as, string $fallback = 'NULL'): string {
+    $column = mineacle_column($columns, $names);
+    $expr = $column === null ? $fallback : $alias . '.`' . $column . '`';
+
+    return $expr . ' AS `' . $as . '`';
+}
+
+function mineacle_history_name_sql(PDO $pdo, string $historyTable, array $banColumns): string {
+    $historyColumns = mineacle_table_columns($pdo, $historyTable);
+    $historyUuid = mineacle_column($historyColumns, 'uuid');
+    $historyName = mineacle_column($historyColumns, 'name');
+    $historyDate = mineacle_column($historyColumns, ['date', 'time']);
+    $banUuid = mineacle_column($banColumns, 'uuid');
+
+    if ($historyUuid === null || $historyName === null || $banUuid === null) {
+        return '\'\' AS `player_name`';
+    }
+
+    $order = $historyDate === null ? '' : ' ORDER BY h.`' . $historyDate . '` DESC';
+
+    return 'COALESCE((
+        SELECT h.`' . $historyName . '`
+        FROM `' . mineacle_table($historyTable) . '` h
+        WHERE h.`' . $historyUuid . '` = b.`' . $banUuid . '`
+        ' . $order . '
+        LIMIT 1
+    ), \'\') AS `player_name`';
+}
+
+function mineacle_ban_select_sql(PDO $pdo, string $historyTable, array $banColumns): string {
+    return implode(",\n            ", [
+        mineacle_select_column('b', $banColumns, 'id', 'id', '0'),
+        mineacle_select_column('b', $banColumns, 'uuid', 'uuid', '\'\''),
+        mineacle_select_column('b', $banColumns, 'reason', 'reason', '\'No reason provided\''),
+        mineacle_select_column('b', $banColumns, 'time', 'time', '0'),
+        mineacle_select_column('b', $banColumns, 'until', 'until', '0'),
+        mineacle_select_column('b', $banColumns, 'active', 'active', '1'),
+        mineacle_select_column('b', $banColumns, 'ipban', 'ipban', '0'),
+        mineacle_select_column('b', $banColumns, ['banned_by_name', 'staff_name', 'executor_name'], 'staff_name', '\'\''),
+        mineacle_select_column('b', $banColumns, ['banned_by_uuid', 'staff_uuid', 'executor_uuid'], 'staff_uuid', '\'\''),
+        mineacle_select_column('b', $banColumns, ['removed_by_name', 'removed_by'], 'removed_by_name', '\'\''),
+        mineacle_select_column('b', $banColumns, ['removed_by_uuid'], 'removed_by_uuid', '\'\''),
+        mineacle_select_column('b', $banColumns, ['removed_by_date', 'removed_date'], 'removed_by_date', '0'),
+        mineacle_select_column('b', $banColumns, ['server_origin', 'server'], 'server_origin', '\'\''),
+        mineacle_select_column('b', $banColumns, ['server_scope', 'server'], 'server_scope', '\'\''),
+        mineacle_select_column('b', $banColumns, 'server', 'server', '\'\''),
+        mineacle_select_column('b', $banColumns, 'silent', 'silent', '0'),
+        mineacle_history_name_sql($pdo, $historyTable, $banColumns),
+    ]);
+}
+
+function mineacle_active_condition(array $columns, string $alias, string $nowParam = 'now_seconds'): string {
+    $parts = [];
+
+    $active = mineacle_column($columns, 'active');
+    if ($active !== null) {
+        $parts[] = $alias . '.`' . $active . '` = 1';
+    }
+
+    $until = mineacle_column($columns, 'until');
+    if ($until !== null) {
+        $untilRef = $alias . '.`' . $until . '`';
+        $parts[] = '(' . $untilRef . ' <= 0
+            OR ' . mineacle_litebans_until_seconds_sql($untilRef) . ' > :' . $nowParam . '
+            OR ' . $untilRef . ' IN (2147483647, 2147483647000)
+        )';
+    }
+
+    return $parts === [] ? '1 = 1' : implode(' AND ', $parts);
+}
+
+function mineacle_add_ban_search(array &$where, array &$params, array $banColumns, string $historyTable, string $search): void {
+    $search = trim($search);
+    if ($search === '') {
+        return;
+    }
+
+    $like = '%' . $search . '%';
+    $conditions = [];
+    $index = 0;
+
+    foreach ([
+        'uuid',
+        'reason',
+        'banned_by_name',
+        'banned_by_uuid',
+        'removed_by_name',
+        'server_origin',
+        'server_scope',
+        'server',
+    ] as $columnName) {
+        $column = mineacle_column($banColumns, $columnName);
+        if ($column === null) {
+            continue;
+        }
+
+        $param = 'search_' . $index++;
+        $conditions[] = 'b.`' . $column . '` LIKE :' . $param;
+        $params[$param] = $like;
+    }
+
+    $pdo = mineacle_db();
+    $historyColumns = mineacle_table_columns($pdo, $historyTable);
+    $historyUuid = mineacle_column($historyColumns, 'uuid');
+    $historyName = mineacle_column($historyColumns, 'name');
+    $banUuid = mineacle_column($banColumns, 'uuid');
+
+    if ($historyUuid !== null && $historyName !== null && $banUuid !== null) {
+        $param = 'search_' . $index++;
+        $conditions[] = 'EXISTS (
+            SELECT 1
+            FROM `' . mineacle_table($historyTable) . '` hs
+            WHERE hs.`' . $historyUuid . '` = b.`' . $banUuid . '`
+            AND hs.`' . $historyName . '` LIKE :' . $param . '
+        )';
+        $params[$param] = $like;
+    }
+
+    if ($conditions !== []) {
+        $where[] = '(' . implode(' OR ', $conditions) . ')';
+    }
+}
+
+function mineacle_staff_display(mixed $name, mixed $uuid): string {
+    $name = trim((string) $name);
+    if ($name !== '') {
+        return $name;
+    }
+
+    $uuid = trim((string) $uuid);
+    if ($uuid === '' || strcasecmp($uuid, 'console') === 0) {
+        return 'Console';
+    }
+
+    return $uuid;
+}
+
+function mineacle_server_display(mixed $value, string $fallback = 'Global'): string {
+    $server = trim((string) $value);
+    if ($server === '' || $server === '*' || strcasecmp($server, 'global') === 0) {
+        return $fallback;
+    }
+
+    return $server;
+}
+
+function mineacle_format_litebans_date(mixed $value): string {
+    $seconds = mineacle_epoch_seconds($value);
+    if ($seconds <= 0) {
+        return 'Unknown';
+    }
+
+    return (new DateTimeImmutable('@' . $seconds))
+        ->setTimezone(mineacle_display_timezone())
+        ->format('Y-m-d H:i:s');
+}
+
+function mineacle_map_ban_row(array $row, array $config, int $nowSeconds): array {
+    $id = (string) ($row['id'] ?? '');
+    $uuid = trim((string) ($row['uuid'] ?? ''));
+    $name = trim((string) ($row['player_name'] ?? ''));
+    if ($name === '') {
+        $name = $uuid === '' || str_starts_with($uuid, '#') ? '#offline#' : $uuid;
+    }
+
+    $time = (string) ($row['time'] ?? '0');
+    $until = (string) ($row['until'] ?? '0');
+    $untilSeconds = mineacle_epoch_seconds($until);
+    $timeSeconds = mineacle_epoch_seconds($time);
+    $isIpBan = ((int) ($row['ipban'] ?? 0)) === 1;
+    $activeRaw = ((int) ($row['active'] ?? 1)) === 1;
+    $permanent = mineacle_litebans_is_permanent($until);
+    $temporary = !$permanent && $untilSeconds > 0;
+    $currentlyActive = $activeRaw && ($permanent || $untilSeconds <= 0 || $untilSeconds > $nowSeconds);
+    $expired = $activeRaw && $temporary && $untilSeconds > 0 && $untilSeconds <= $nowSeconds;
+
+    if (!$activeRaw) {
+        $status = 'Removed';
+        $statusState = 'removed';
+    } elseif ($expired) {
+        $status = 'Expired';
+        $statusState = 'expired';
+    } else {
+        $status = 'Active';
+        $statusState = 'active';
+    }
+
+    $serverOrigin = mineacle_server_display($row['server_origin'] ?? '', 'Global');
+    $serverScope = mineacle_server_display($row['server_scope'] ?? '', $serverOrigin);
+    $server = mineacle_server_display($row['server'] ?? '', $serverOrigin);
+
+    $flags = [];
+    if ($isIpBan) {
+        $flags[] = 'IP Ban';
+    }
+    if (((int) ($row['silent'] ?? 0)) === 1) {
+        $flags[] = 'Silent';
+    }
+
+    $canPay = $currentlyActive && !$isIpBan && $permanent;
+    $staff = mineacle_staff_display($row['staff_name'] ?? '', $row['staff_uuid'] ?? '');
+    $removedBy = !$activeRaw ? mineacle_staff_display($row['removed_by_name'] ?? '', $row['removed_by_uuid'] ?? '') : '';
+
+    return [
+        'id' => $id,
+        'uuid' => $uuid,
+        'username' => $name,
+        'skin' => mineacle_skin_url($uuid !== '' ? $uuid : $name),
+        'reason' => (string) (($row['reason'] ?? '') !== '' ? $row['reason'] : 'No reason provided'),
+        'type' => $isIpBan ? 'IP Ban' : 'Ban',
+        'duration' => $permanent ? 'Permanent' : mineacle_format_duration($until, $time),
+        'date' => mineacle_format_litebans_date($time),
+        'expires' => !$activeRaw ? '-' : ($permanent ? 'Permanent' : mineacle_format_litebans_date($until)),
+        'status' => $status,
+        'status_state' => $statusState,
+        'status_type' => $isIpBan ? 'ip' : ($temporary ? 'temporary' : 'permanent'),
+        'ipban' => $isIpBan,
+        'temporary' => $temporary && $currentlyActive,
+        'permanent' => $permanent,
+        'active' => $currentlyActive,
+        'removed' => !$activeRaw,
+        'expired' => $expired,
+        'staff' => $staff,
+        'removed_by' => $removedBy,
+        'removed_date' => !$activeRaw ? mineacle_format_litebans_date($row['removed_by_date'] ?? 0) : '',
+        'server' => $server,
+        'server_origin' => $serverOrigin,
+        'server_scope' => $serverScope,
+        'flags' => $flags,
+        'flags_text' => $flags === [] ? 'None' : implode(', ', $flags),
+        'appeal_id' => 'MCL-' . str_pad($id === '' ? '0' : $id, 6, '0', STR_PAD_LEFT),
+        'support_email' => (string) ($config['site']['support_email'] ?? 'support@mineacle.net'),
+        'discord' => (string) ($config['site']['discord'] ?? 'https://discord.gg/VwbwWftefM'),
+        'appeal_email' => (string) (($config['site']['appeal_email'] ?? 'support@mineacle.net')),
+        'appeal_discord' => (string) (($config['site']['appeal_discord'] ?? ($config['site']['discord'] ?? 'https://discord.gg/VwbwWftefM'))),
+        'can_pay' => $canPay,
+        'action_type' => $canPay ? 'pay' : 'view',
+        'action_label' => $canPay ? 'Pay to Unban' : 'View',
+        'price' => $canPay ? (string) ($config['payments']['permanent_unban_price'] ?? '$19.99') : '',
+        'unban_url' => $canPay ? strtr((string) ($config['site']['unban_checkout_url'] ?? '#'), [
+            '{id}' => $id,
+            '{uuid}' => $uuid,
+            '{username}' => $name,
+        ]) : '#',
+        'time_raw' => $time,
+        'until_raw' => $until,
+        'time_seconds' => $timeSeconds,
+        'until_seconds' => $untilSeconds,
+        'database_now_seconds' => $nowSeconds,
+    ];
+}
+
+function mineacle_count_table(PDO $pdo, string $table, string $where = '', array $params = []): int {
+    $table = mineacle_table($table);
+    if (mineacle_table_columns($pdo, $table) === []) {
+        return 0;
+    }
+
+    $sql = 'SELECT COUNT(*) FROM `' . $table . '` t' . ($where === '' ? '' : ' ' . $where);
+
+    try {
+        $stmt = $pdo->prepare($sql);
+        mineacle_bind($stmt, $params);
+        $stmt->execute();
+        return (int) $stmt->fetchColumn();
+    } catch (Throwable) {
+        return 0;
+    }
+}
+
+function fetch_litebans_stats(): array {
     $config = mineacle_config();
     $pdo = mineacle_db();
+    $litebans = $config['litebans'] ?? [];
+    $nowSeconds = mineacle_database_now_seconds($pdo);
 
-    $bansTable = mineacle_table((string) (($config['litebans']['bans_table'] ?? null) ?: 'litebans_bans'));
-    $historyTable = mineacle_table((string) (($config['litebans']['history_table'] ?? null) ?: 'litebans_history'));
+    $bansTable = mineacle_table((string) (($litebans['bans_table'] ?? null) ?: 'litebans_bans'));
+    $mutesTable = mineacle_table((string) (($litebans['mutes_table'] ?? null) ?: 'litebans_mutes'));
+    $warningsTable = mineacle_table((string) (($litebans['warnings_table'] ?? null) ?: 'litebans_warnings'));
+    $kicksTable = mineacle_table((string) (($litebans['kicks_table'] ?? null) ?: 'litebans_kicks'));
+
+    $banColumns = mineacle_table_columns($pdo, $bansTable);
+    $muteColumns = mineacle_table_columns($pdo, $mutesTable);
+    $activeBansWhere = mineacle_active_condition($banColumns, 't');
+    $activeMutesWhere = mineacle_active_condition($muteColumns, 't');
+    $activeBansParams = str_contains($activeBansWhere, ':now_seconds') ? ['now_seconds' => $nowSeconds] : [];
+    $activeMutesParams = str_contains($activeMutesWhere, ':now_seconds') ? ['now_seconds' => $nowSeconds] : [];
+
+    return [
+        'active_bans' => mineacle_count_table($pdo, $bansTable, 'WHERE ' . $activeBansWhere, $activeBansParams),
+        'total_bans' => mineacle_count_table($pdo, $bansTable),
+        'active_mutes' => mineacle_count_table($pdo, $mutesTable, 'WHERE ' . $activeMutesWhere, $activeMutesParams),
+        'total_mutes' => mineacle_count_table($pdo, $mutesTable),
+        'total_warnings' => mineacle_count_table($pdo, $warningsTable),
+        'total_kicks' => mineacle_count_table($pdo, $kicksTable),
+    ];
+}
+
+function fetch_litebans_bans_page(string $search = '', int $page = 1, string $scope = 'all'): array {
+    $config = mineacle_config();
+    $pdo = mineacle_db();
+    $litebans = $config['litebans'] ?? [];
+
+    $bansTable = mineacle_table((string) (($litebans['bans_table'] ?? null) ?: 'litebans_bans'));
+    $historyTable = mineacle_table((string) (($litebans['history_table'] ?? null) ?: 'litebans_history'));
+    $banColumns = mineacle_table_columns($pdo, $bansTable);
 
     $limit = max(1, min(100, (int) ($config['page']['limit'] ?? 25)));
     $page = max(1, $page);
     $offset = ($page - 1) * $limit;
-
-    // Match LiteBans use_database_time behavior by using MySQL's current epoch for active temp-ban filtering.
     $nowSeconds = mineacle_database_now_seconds($pdo);
-    $untilSecondsSql = mineacle_litebans_until_seconds_sql('b.`until`');
 
-    $where = [
-        'b.`active` = 1',
-        '(
-            b.`until` <= 0
-            OR ' . $untilSecondsSql . ' > :now_seconds
-            OR b.`until` IN (2147483647, 2147483647000)
-        )',
-    ];
+    $where = [];
+    $params = [];
 
-    $params = [
-        'now_seconds' => $nowSeconds,
-    ];
-
-    $search = trim($search);
-    if ($search !== '') {
-        $like = '%' . $search . '%';
-
-        $where[] = '(
-            b.`uuid` LIKE :search_uuid
-            OR b.`reason` LIKE :search_reason
-            OR EXISTS (
-                SELECT 1
-                FROM `' . $historyTable . '` hs
-                WHERE hs.`uuid` = b.`uuid`
-                AND hs.`name` LIKE :search_name
-            )
-        )';
-
-        $params['search_uuid'] = $like;
-        $params['search_reason'] = $like;
-        $params['search_name'] = $like;
+    if ($scope === 'active') {
+        $activeWhere = mineacle_active_condition($banColumns, 'b');
+        $where[] = $activeWhere;
+        if (str_contains($activeWhere, ':now_seconds')) {
+            $params['now_seconds'] = $nowSeconds;
+        }
     }
 
-    $whereSql = 'WHERE ' . implode(' AND ', $where);
+    mineacle_add_ban_search($where, $params, $banColumns, $historyTable, $search);
+    $whereSql = $where === [] ? '' : 'WHERE ' . implode(' AND ', $where);
 
     $countSql = 'SELECT COUNT(*) FROM `' . $bansTable . '` b ' . $whereSql;
     $countStmt = $pdo->prepare($countSql);
@@ -230,24 +546,14 @@ function fetch_litebans_bans_page(string $search = '', int $page = 1): array {
     $countStmt->execute();
     $total = (int) $countStmt->fetchColumn();
 
+    $orderColumn = mineacle_column($banColumns, 'time') ?? mineacle_column($banColumns, 'id') ?? '';
+    $orderSql = $orderColumn === '' ? '' : 'ORDER BY b.`' . $orderColumn . '` DESC';
+
     $sql = 'SELECT
-            b.`id`,
-            b.`uuid`,
-            b.`reason`,
-            b.`time`,
-            b.`until`,
-            b.`active`,
-            b.`ipban`,
-            COALESCE((
-                SELECT h.`name`
-                FROM `' . $historyTable . '` h
-                WHERE h.`uuid` = b.`uuid`
-                ORDER BY h.`date` DESC
-                LIMIT 1
-            ), \'\') AS player_name
+            ' . mineacle_ban_select_sql($pdo, $historyTable, $banColumns) . '
         FROM `' . $bansTable . '` b
         ' . $whereSql . '
-        ORDER BY b.`time` DESC
+        ' . $orderSql . '
         LIMIT :limit OFFSET :offset';
 
     $stmtParams = $params;
@@ -259,91 +565,15 @@ function fetch_litebans_bans_page(string $search = '', int $page = 1): array {
     $stmt->execute();
 
     $bans = [];
-
     foreach ($stmt->fetchAll() as $row) {
-        $uuid = trim((string) ($row['uuid'] ?? ''));
-        $name = trim((string) ($row['player_name'] ?? ''));
-        if ($name === '') {
-            $name = '#offline#';
-        }
-
-        $isIpBan = ((int) ($row['ipban'] ?? 0)) === 1;
-        $until = (string) ($row['until'] ?? '0');
-        $time = (string) ($row['time'] ?? '0');
-        $untilSeconds = mineacle_epoch_seconds($until);
-        $timeSeconds = mineacle_epoch_seconds($time);
-        $permanent = mineacle_litebans_is_permanent($until);
-        $temporary = !$isIpBan && !$permanent && $untilSeconds > $nowSeconds;
-
-        if ($isIpBan) {
-            $type = 'IP Ban';
-            $status = 'Permanently Banned';
-            $statusType = 'ip';
-            $canPay = false;
-            $actionLabel = 'No Action';
-            $actionType = 'ip';
-        } elseif ($temporary) {
-            $type = 'Temporary Ban';
-            $status = 'Temporarily Banned';
-            $statusType = 'temporary';
-            $canPay = false;
-            $actionLabel = 'Wait It Out';
-            $actionType = 'wait';
-        } else {
-            $type = 'Player Ban';
-            $status = 'Permanently Banned';
-            $statusType = 'active';
-            $canPay = true;
-            $actionLabel = 'Pay to Unban';
-            $actionType = 'pay';
-        }
-
-        $bans[] = [
-            'id' => (string) ($row['id'] ?? ''),
-            'uuid' => $uuid,
-            'username' => $isIpBan && $name === '#offline#' ? '#offline#' : $name,
-            'skin' => mineacle_skin_url($uuid !== '' ? $uuid : $name),
-            'reason' => (string) ($row['reason'] ?? 'No reason provided'),
-            'type' => $type,
-            'duration' => mineacle_format_duration($until, $time),
-            'date' => mineacle_format_date($time),
-            'expires' => $temporary ? mineacle_format_date($until) : 'Never',
-            'status' => $status,
-            'status_type' => $statusType,
-            'ipban' => $isIpBan,
-            'temporary' => $temporary,
-            'permanent' => $permanent,
-            'appeal_id' => 'MCL-' . str_pad((string) ($row['id'] ?? '0'), 6, '0', STR_PAD_LEFT),
-            'support_email' => (string) ($config['site']['support_email'] ?? 'support@mineacle.net'),
-            'discord' => (string) ($config['site']['discord'] ?? 'https://discord.gg/4xrYFxdSWg'),
-            'can_pay' => $canPay,
-            'action_label' => $actionLabel,
-            'appeal_email' => (string) (($config['site']['appeal_email'] ?? 'support@mineacle.net')),
-            'appeal_discord' => (string) (($config['site']['appeal_discord'] ?? ($config['site']['discord'] ?? 'https://discord.gg/VwbwWftefM'))),
-            'action_type' => $actionType,
-            'price' => $canPay
-                ? (string) ($config['payments']['permanent_unban_price'] ?? '$19.99')
-                : '',
-            'unban_url' => $canPay ? strtr((string) ($config['site']['unban_checkout_url'] ?? '#'), [
-                '{id}' => (string) ($row['id'] ?? ''),
-                '{uuid}' => $uuid,
-                '{username}' => $name,
-            ]) : '#',
-
-            // Debug-safe timestamp fields. These are not shown directly in the UI, but can be inspected
-            // in DevTools with window.mineacleCurrentBans[0] if a displayed date looks wrong.
-            'time_raw' => (string) $time,
-            'until_raw' => (string) $until,
-            'time_seconds' => $timeSeconds,
-            'until_seconds' => $untilSeconds,
-            'database_now_seconds' => $nowSeconds,
-        ];
+        $bans[] = mineacle_map_ban_row($row, $config, $nowSeconds);
     }
 
     $totalPages = max(1, (int) ceil($total / $limit));
 
     return [
         'bans' => $bans,
+        'stats' => fetch_litebans_stats(),
         'pagination' => [
             'page' => $page,
             'per_page' => $limit,
@@ -352,5 +582,69 @@ function fetch_litebans_bans_page(string $search = '', int $page = 1): array {
             'has_prev' => $page > 1,
             'has_next' => $page < $totalPages,
         ],
+    ];
+}
+
+function fetch_litebans_ban_detail(int $id): ?array {
+    if ($id <= 0) {
+        return null;
+    }
+
+    $config = mineacle_config();
+    $pdo = mineacle_db();
+    $litebans = $config['litebans'] ?? [];
+    $bansTable = mineacle_table((string) (($litebans['bans_table'] ?? null) ?: 'litebans_bans'));
+    $historyTable = mineacle_table((string) (($litebans['history_table'] ?? null) ?: 'litebans_history'));
+    $banColumns = mineacle_table_columns($pdo, $bansTable);
+    $idColumn = mineacle_column($banColumns, 'id');
+
+    if ($idColumn === null) {
+        return null;
+    }
+
+    $nowSeconds = mineacle_database_now_seconds($pdo);
+    $sql = 'SELECT
+            ' . mineacle_ban_select_sql($pdo, $historyTable, $banColumns) . '
+        FROM `' . $bansTable . '` b
+        WHERE b.`' . $idColumn . '` = :id
+        LIMIT 1';
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    $row = $stmt->fetch();
+
+    if (!$row) {
+        return null;
+    }
+
+    $ban = mineacle_map_ban_row($row, $config, $nowSeconds);
+    $other = [];
+    $uuidColumn = mineacle_column($banColumns, 'uuid');
+
+    if ($uuidColumn !== null && $ban['uuid'] !== '') {
+        $orderColumn = mineacle_column($banColumns, 'time') ?? $idColumn;
+        $otherSql = 'SELECT
+                ' . mineacle_ban_select_sql($pdo, $historyTable, $banColumns) . '
+            FROM `' . $bansTable . '` b
+            WHERE b.`' . $uuidColumn . '` = :uuid
+            AND b.`' . $idColumn . '` <> :id
+            ORDER BY b.`' . $orderColumn . '` DESC
+            LIMIT 12';
+
+        $otherStmt = $pdo->prepare($otherSql);
+        $otherStmt->bindValue(':uuid', $ban['uuid'], PDO::PARAM_STR);
+        $otherStmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $otherStmt->execute();
+
+        foreach ($otherStmt->fetchAll() as $otherRow) {
+            $other[] = mineacle_map_ban_row($otherRow, $config, $nowSeconds);
+        }
+    }
+
+    return [
+        'ban' => $ban,
+        'other_punishments' => $other,
+        'stats' => fetch_litebans_stats(),
     ];
 }

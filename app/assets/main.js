@@ -20,6 +20,9 @@
     const prevPageButton = byIdOrClass("prevPage", ".js-ban-prev");
     const nextPageButton = byIdOrClass("nextPage", ".js-ban-next");
     const pageInfo = byIdOrClass("pageInfo", ".js-ban-page");
+    const statsGrid = document.getElementById("mineacleStatsGrid");
+    const recentBanList = document.getElementById("recentBanList");
+    const recentBanCount = document.getElementById("recentBanCount");
 
     const currentScript = document.currentScript || document.querySelector('script[src$="assets/main.js"], script[src*="/main.js"]');
     const assetRoot = currentScript ? new URL(".", currentScript.src) : new URL("assets/", window.location.href);
@@ -128,6 +131,78 @@
         return ban.duration || "";
     }
 
+    function formatNumber(value) {
+        const number = Number(value);
+        if (!Number.isFinite(number)) return "--";
+        return number.toLocaleString();
+    }
+
+    function renderStats(stats = {}) {
+        if (!statsGrid) return;
+
+        const cards = [
+            {
+                className: "is-red",
+                value: stats.active_bans,
+                label: "Active Bans",
+                meta: `of ${formatNumber(stats.total_bans)}`
+            },
+            {
+                className: "is-gold",
+                value: stats.active_mutes,
+                label: "Active Mutes",
+                meta: `of ${formatNumber(stats.total_mutes)}`
+            },
+            {
+                className: "is-cyan",
+                value: stats.total_warnings,
+                label: "Total Warnings",
+                meta: "all time"
+            },
+            {
+                className: "is-slate",
+                value: stats.total_kicks,
+                label: "Total Kicks",
+                meta: "all time"
+            }
+        ];
+
+        statsGrid.innerHTML = cards.map((card) => `
+            <article class="mineacle-lb-stat-card ${card.className}">
+                <strong>${formatNumber(card.value)}</strong>
+                <span>${escapeHtml(card.label)}</span>
+                <small>${escapeHtml(card.meta)}</small>
+            </article>
+        `).join("");
+    }
+
+    function renderRecentBans(rows) {
+        if (!recentBanList) return;
+
+        const recent = Array.isArray(rows) ? rows.slice(0, 3) : [];
+        if (recentBanCount) recentBanCount.textContent = String(recent.length);
+
+        if (!recent.length) {
+            recentBanList.innerHTML = `
+                <div class="mineacle-lb-loading">
+                    No recent records found
+                </div>
+            `;
+            return;
+        }
+
+        recentBanList.innerHTML = recent.map((ban, index) => `
+            <button class="mineacle-lb-recent-item" type="button" data-info-index="${index}" aria-label="View ${escapeHtml(ban.username)} ban details">
+                <img src="${escapeHtml(ban.skin)}" alt="" loading="lazy">
+                <span>
+                    <strong>${escapeHtml(ban.username)}</strong>
+                    <small>${escapeHtml(ban.date)}</small>
+                </span>
+                <em>${escapeHtml(statusLabel(ban))}</em>
+            </button>
+        `).join("");
+    }
+
     function renderPagination() {
         if (!banPagination || !prevPageButton || !nextPageButton || !pageInfo) return;
 
@@ -157,7 +232,9 @@
 
     function setCountText(text) {
         if (banCount) {
-            moveBanCountToBottom();
+            if (!document.querySelector(".mineacle-bans-shell")) {
+                moveBanCountToBottom();
+            }
             banCount.textContent = text;
         }
     }
@@ -166,6 +243,7 @@
         if (!banList) return;
         currentRows = [];
         window.mineacleCurrentBans = currentRows;
+        renderRecentBans([]);
         banList.innerHTML = `
             <div class="empty compact-state">
                 <strong>No matching active bans found</strong>
@@ -180,6 +258,7 @@
         if (!banList) return;
         currentRows = [];
         window.mineacleCurrentBans = currentRows;
+        renderRecentBans([]);
         currentPagination = { page: 1, per_page: 25, total: 0, total_pages: 1, has_prev: false, has_next: false };
         banList.innerHTML = `
             <div class="error compact-state">
@@ -203,6 +282,7 @@
 
         currentRows = Array.isArray(rows) ? rows.map(normalizeBan) : [];
         window.mineacleCurrentBans = currentRows;
+        renderRecentBans(currentRows);
 
         if (!currentRows.length) {
             renderEmptyState();
@@ -279,6 +359,7 @@
 
             currentPagination = payload.pagination || currentPagination;
             currentPage = Number(currentPagination.page || currentPage);
+            renderStats(payload.stats || {});
             renderBans(payload.bans || []);
         } catch (error) {
             console.error("Mineacle bans request failed", error);
