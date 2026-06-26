@@ -1,0 +1,11 @@
+{
+  "name": "Mineacle Bans",
+  "short_name": "Mineacle Bans",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0710",
+  "theme_color": "#13071c",
+  "icons": [
+    { "src": "assets/images/mineacle-square-logo.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

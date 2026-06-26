@@ -1,56 +1,79 @@
 <?php
+
 declare(strict_types=1);
 
-function mineacle_config(): array {
-    static $config = null;
-    if ($config !== null) return $config;
+require_once __DIR__ . '/config.php';
 
-    $path = __DIR__ . '/config.php';
-    if (!is_file($path)) throw new RuntimeException('Missing includes/config.php');
-
-    $config = require $path;
-    if (!is_array($config)) throw new RuntimeException('includes/config.php must return an array');
-
-    return $config;
-}
-
-function h(mixed $value): string {
+function h(?string $value): string
+{
     return htmlspecialchars((string) $value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
 
-function mineacle_security_headers(bool $api = false): void {
+function mineacle_security_headers(string $type = 'html'): void
+{
+    if (headers_sent()) {
+        return;
+    }
+
     header('X-Content-Type-Options: nosniff');
     header('X-Frame-Options: DENY');
     header('Referrer-Policy: strict-origin-when-cross-origin');
     header('Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()');
-    if ($api) header('Content-Type: application/json; charset=utf-8');
-}
 
-function mineacle_db(): PDO {
-    static $pdo = null;
-    if ($pdo instanceof PDO) return $pdo;
-
-    $config = mineacle_config();
-    $mysql = $config['mysql'] ?? [];
-
-    $host = trim((string) ($mysql['host'] ?? ''));
-    $port = (int) ($mysql['port'] ?? 3306);
-    $database = trim((string) ($mysql['database'] ?? ''));
-    $username = trim((string) ($mysql['username'] ?? ''));
-    $password = (string) ($mysql['password'] ?? '');
-    $charset = trim((string) ($mysql['charset'] ?? 'utf8mb4'));
-
-    if ($host === '' || $database === '' || $username === '' || $password === '') {
-        throw new RuntimeException('Database configuration is incomplete');
+    if ($type === 'json') {
+        header('Content-Type: application/json; charset=utf-8');
+        header('Vary: Accept-Encoding');
+        return;
     }
 
-    $dsn = sprintf('mysql:host=%s;port=%d;dbname=%s;charset=%s', $host, $port, $database, $charset);
+    header("Content-Security-Policy: default-src 'self'; img-src 'self' data: https://crafatar.com https://minotar.net https://mc-heads.net; connect-src 'self' https://discord.com https://discordapp.com; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'");
+}
+
+function mineacle_json_response(array $payload, int $status = 200, int $maxAge = 0): never
+{
+    mineacle_security_headers('json');
+    http_response_code($status);
+
+    if ($maxAge > 0) {
+        header('Cache-Control: public, max-age=' . $maxAge . ', stale-while-revalidate=20');
+    } else {
+        header('Cache-Control: no-store, max-age=0');
+    }
+
+    echo json_encode($payload, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
+function mineacle_pdo(): PDO
+{
+    static $pdo = null;
+    if ($pdo instanceof PDO) {
+        return $pdo;
+    }
+
+    $config = mineacle_config();
+    $db = $config['mysql'];
+
+    foreach (['host', 'database', 'username'] as $required) {
+        if (empty($db[$required])) {
+            throw new RuntimeException('Database configuration is incomplete');
+        }
+    }
+
+    $dsn = sprintf(
+        'mysql:host=%s;port=%d;dbname=%s;charset=%s',
+        $db['host'],
+        (int) $db['port'],
+        $db['database'],
+        $db['charset'] ?: 'utf8mb4'
+    );
 
     try {
-        $pdo = new PDO($dsn, $username, $password, [
+        $pdo = new PDO($dsn, (string) $db['username'], (string) $db['password'], [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             PDO::ATTR_EMULATE_PREPARES => false,
+            PDO::ATTR_PERSISTENT => false,
         ]);
     } catch (PDOException $e) {
         throw new RuntimeException('Database connection failed', 0, $e);
