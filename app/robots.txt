@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /includes/
+Disallow: /storage/
+Sitemap: https://bans.mineacle.net/sitemap.xml
