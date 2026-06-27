@@ -337,3 +337,114 @@
     gap: 10px;
   }
 }
+
+/* Mineacle Bans search form refinement: use provided icons and a thinner, tighter layout. */
+@media (min-width: 761px) {
+  .mineacle-bans-search {
+    grid-template-columns: minmax(0, 1fr) clamp(180px, 16vw, 250px) !important;
+    column-gap: clamp(18px, 2.8vw, 40px) !important;
+    min-height: 92px !important;
+    padding: 0 0 30px !important;
+  }
+
+  .mineacle-bans-search-field {
+    height: 58px !important;
+    min-height: 58px !important;
+    grid-template-columns: 62px minmax(0, 1fr) !important;
+    border-radius: 10px !important;
+  }
+
+  .mineacle-bans-search-field::before {
+    content: "";
+    width: 62px;
+    height: 56px;
+    display: block;
+    border-right: 1px solid rgba(188, 77, 255, .24);
+    border-radius: 9px 0 0 9px;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.018)),
+      rgba(255,255,255,.035);
+    mask: none;
+    -webkit-mask: none;
+    position: relative;
+  }
+
+  .mineacle-bans-search-field > img,
+  .mineacle-bans-search-user-icon {
+    display: none !important;
+  }
+
+  .mineacle-bans-search-field {
+    position: relative;
+  }
+
+  .mineacle-bans-search-field .mineacle-bans-search-input-wrap,
+  .mineacle-bans-search-field .search-input-wrap {
+    display: contents;
+  }
+
+  .mineacle-bans-search-field::before {
+    background:
+      url("search-user-icon.png") center / 26px 26px no-repeat,
+      linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.018)),
+      rgba(255,255,255,.035);
+    filter: brightness(0) invert(1);
+  }
+
+  .mineacle-bans-search-field::after {
+    content: "You can search by player name or full UUID";
+    top: calc(100% + 9px);
+    font-size: clamp(12px, 1vw, 15px);
+    line-height: 1.2;
+    font-weight: 600;
+  }
+
+  .mineacle-bans-search-field input {
+    height: 56px !important;
+    padding: 0 18px !important;
+    font-size: clamp(16px, 1.3vw, 22px) !important;
+    font-weight: 700 !important;
+  }
+
+  .mineacle-bans-search-action {
+    width: 100% !important;
+    height: 58px !important;
+    min-height: 58px !important;
+    padding: 0 24px !important;
+    border-radius: 10px !important;
+    align-self: start !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    font-size: clamp(15px, 1.1vw, 19px) !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    color: #fff !important;
+    letter-spacing: .01em !important;
+  }
+
+  .mineacle-bans-search-action::before {
+    content: "" !important;
+    width: 20px !important;
+    height: 20px !important;
+    display: inline-block !important;
+    flex: 0 0 20px !important;
+    background: url("search-search-icon.png") center / contain no-repeat !important;
+    filter: brightness(0) invert(1) !important;
+    margin: 0 !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .mineacle-bans-search-field::before {
+    background:
+      url("search-user-icon.png") center / 18px 18px no-repeat,
+      linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.018)),
+      rgba(255,255,255,.035);
+    filter: brightness(0) invert(1);
+  }
+
+  .mineacle-bans-search-action::before {
+    background: url("search-search-icon.png") center / contain no-repeat !important;
+    filter: brightness(0) invert(1) !important;
+  }
+}
