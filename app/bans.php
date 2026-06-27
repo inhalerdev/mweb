@@ -42,13 +42,20 @@ mineacle_page_head('Bans');
 
     <div class="mineacle-bans-main">
         <header class="mineacle-bans-topbar">
-            <form class="mineacle-bans-search" id="banSearchForm" role="search">
-                <label class="sr-only" for="banSearch">Search punishments</label>
-                <div class="mineacle-bans-search-field">
-                    <input id="banSearch" type="text" name="q" autocomplete="off" placeholder="Search active banned players, UUID, staff, reason, or server">
-                </div>
-                <button class="mineacle-bans-search-action" id="banSearchAction" type="button" aria-label="Search" title="Search">Search</button>
-            </form>
+            <div class="mineacle-bans-search-modules">
+                <form class="mineacle-bans-search mineacle-bans-search-module" id="banSearchForm" role="search">
+                    <label class="sr-only" for="banSearch">Search punishments</label>
+                    <div class="mineacle-bans-search-field">
+                        <input id="banSearch" type="text" name="q" autocomplete="off" placeholder="Search active banned players, UUID, staff, reason, or server">
+                        <button class="mineacle-bans-search-action" id="banSearchAction" type="button" aria-label="Search" title="Search">Search</button>
+                    </div>
+                </form>
+
+                <button class="mineacle-player-count-module" id="mineaclePlayerCountModule" type="button" data-copy-ip="mineacle.net" data-display-ip="MINEACLE.NET" aria-label="Mineacle server status">
+                    <span class="mineacle-player-count-ip" id="mineaclePlayerCountIp">MINEACLE.NET</span>
+                    <span class="mineacle-player-count-online">CURRENTLY ONLINE: <b id="mineaclePlayerCountValue">0</b></span>
+                </button>
+            </div>
         </header>
     </div>
 </main>

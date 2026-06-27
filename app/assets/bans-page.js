@@ -4,30 +4,25 @@
   const form = document.getElementById("banSearchForm");
   const input = document.getElementById("banSearch");
   const action = document.getElementById("banSearchAction");
-  const field = form ? form.querySelector(".mineacle-bans-search-field") : null;
+  const playerModule = document.getElementById("mineaclePlayerCountModule");
+  const ipNode = document.getElementById("mineaclePlayerCountIp");
+  const onlineCountNode = document.getElementById("mineaclePlayerCountValue");
 
-  if (!form || !input || !action || !field) return;
+  if (!form || !input || !action) return;
 
   let controller = null;
   let typingTimer = null;
   let queryTimer = null;
+  let copiedTimer = null;
 
-  const inlineMeta = document.createElement("div");
-  inlineMeta.className = "mineacle-search-inline-meta";
-  inlineMeta.setAttribute("aria-label", "Mineacle server status");
-  inlineMeta.innerHTML = `
-    <span class="mineacle-search-inline-brand">MINEACLE.NET</span>
-    <span class="mineacle-search-inline-online">CURRENTLY ONLINE: <b data-mineacle-online-count>0</b></span>
-  `;
-  field.appendChild(inlineMeta);
-
-  const onlineCountNode = inlineMeta.querySelector("[data-mineacle-online-count]");
+  const copyIp = playerModule ? (playerModule.dataset.copyIp || "mineacle.net") : "mineacle.net";
+  const displayIp = playerModule ? (playerModule.dataset.displayIp || copyIp).toUpperCase() : "MINEACLE.NET";
 
   const setHasValue = () => {
     const hasValue = input.value.trim().length > 0;
     form.classList.toggle("has-value", hasValue);
-    action.setAttribute("aria-label", "Search");
-    action.setAttribute("title", "Search");
+    action.setAttribute("aria-label", hasValue ? "Clear search" : "Search");
+    action.setAttribute("title", hasValue ? "Clear search" : "Search");
   };
 
   const clearSearch = () => {
@@ -125,6 +120,44 @@
     }
   };
 
+  const fallbackCopy = (text) => {
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.setAttribute("readonly", "readonly");
+    textarea.style.position = "fixed";
+    textarea.style.left = "-9999px";
+    document.body.appendChild(textarea);
+    textarea.select();
+
+    try {
+      document.execCommand("copy");
+    } finally {
+      textarea.remove();
+    }
+  };
+
+  const copyText = async (text) => {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(text);
+      return;
+    }
+
+    fallbackCopy(text);
+  };
+
+  const showCopied = () => {
+    if (!playerModule || !ipNode) return;
+    if (copiedTimer) window.clearTimeout(copiedTimer);
+
+    playerModule.classList.add("is-copied");
+    ipNode.textContent = "IP COPIED";
+
+    copiedTimer = window.setTimeout(() => {
+      playerModule.classList.remove("is-copied");
+      ipNode.textContent = displayIp;
+    }, 1400);
+  };
+
   input.addEventListener("input", () => {
     setHasValue();
     setTyping();
@@ -137,6 +170,11 @@
   });
 
   action.addEventListener("click", () => {
+    if (input.value.trim().length > 0) {
+      clearSearch();
+      return;
+    }
+
     setHasValue();
     input.focus();
     queryDatabase();
@@ -148,6 +186,17 @@
     queryDatabase();
   });
 
+  if (playerModule) {
+    playerModule.addEventListener("click", async () => {
+      try {
+        await copyText(copyIp);
+      } finally {
+        showCopied();
+      }
+    });
+  }
+
+  if (ipNode) ipNode.textContent = displayIp;
   setHasValue();
   updateOnlineCount();
   window.setInterval(updateOnlineCount, 30000);
