@@ -10,6 +10,7 @@ $bans = h((string) ($site['bans'] ?? 'https://bans.mineacle.net'));
 $stats = h((string) ($site['stats'] ?? 'https://stats.mineacle.net'));
 $vote = h((string) ($site['vote'] ?? 'https://vote.mineacle.net'));
 $store = h((string) ($site['store'] ?? 'https://store.mineacle.net'));
+$discord = h((string) ($site['discord'] ?? 'https://discord.gg/VwbwWftefM'));
 
 mineacle_page_head('Bans');
 
@@ -32,6 +33,9 @@ mineacle_page_head('Bans');
             </a>
             <a class="mineacle-bans-rail-link" href="<?php echo $store; ?>" aria-label="Store" title="Store">
                 <img src="assets/store.svg?v=bansclean1.0.6" alt="">
+            </a>
+            <a class="mineacle-bans-rail-link mineacle-bans-rail-discord" href="<?php echo $discord; ?>" target="_blank" rel="noopener" aria-label="Discord" title="Discord">
+                <img src="assets/discord.svg?v=bansclean1.0.6" alt="">
             </a>
         </nav>
     </aside>
