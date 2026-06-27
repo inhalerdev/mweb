@@ -1,4 +1,4 @@
-/* Mineacle Bans rail refinement: fixed full-height rail with Discord docked at the bottom. */
+/* Mineacle Bans rail/content alignment: fixed full-height rail, full-width content lane, aligned footer. */
 @media (min-width: 761px) {
   :root {
     --mineacle-rail-edge-gap: 28px;
@@ -61,13 +61,38 @@
     filter: brightness(0) invert(1);
   }
 
+  .mineacle-bans-shell {
+    width: var(--shell-width) !important;
+    min-height: 0 !important;
+    margin: 0 auto !important;
+    padding: var(--mineacle-rail-edge-gap) 0 36px calc(var(--rail-width) + var(--rail-gap)) !important;
+    display: block !important;
+  }
+
+  .mineacle-bans-main {
+    width: 100% !important;
+  }
+
+  .mineacle-bans-topbar {
+    width: 100% !important;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .mineacle-bans-search {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+  }
+
   .mineacle-footer-island {
     position: relative;
     z-index: 1;
     width: var(--mineacle-content-width) !important;
-    max-width: var(--mineacle-content-width);
+    max-width: var(--mineacle-content-width) !important;
     margin-left: var(--mineacle-content-left) !important;
     margin-right: var(--shell-left) !important;
+    margin-bottom: var(--mineacle-rail-edge-gap) !important;
   }
 }
 
@@ -79,6 +104,11 @@
   .mineacle-bans-rail {
     padding: 14px 0;
     gap: 12px;
+  }
+
+  .mineacle-bans-shell {
+    padding-top: var(--mineacle-rail-edge-gap) !important;
+    padding-bottom: 24px !important;
   }
 
   .mineacle-bans-rail-logo {
