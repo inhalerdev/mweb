@@ -4,12 +4,24 @@
   const form = document.getElementById("banSearchForm");
   const input = document.getElementById("banSearch");
   const action = document.getElementById("banSearchAction");
+  const field = form ? form.querySelector(".mineacle-bans-search-field") : null;
 
-  if (!form || !input || !action) return;
+  if (!form || !input || !action || !field) return;
 
   let controller = null;
   let typingTimer = null;
   let queryTimer = null;
+
+  const inlineMeta = document.createElement("div");
+  inlineMeta.className = "mineacle-search-inline-meta";
+  inlineMeta.setAttribute("aria-label", "Mineacle server status");
+  inlineMeta.innerHTML = `
+    <span class="mineacle-search-inline-brand">MINEACLE.NET</span>
+    <span class="mineacle-search-inline-online">CURRENTLY ONLINE: <b data-mineacle-online-count>0</b></span>
+  `;
+  field.appendChild(inlineMeta);
+
+  const onlineCountNode = inlineMeta.querySelector("[data-mineacle-online-count]");
 
   const setHasValue = () => {
     const hasValue = input.value.trim().length > 0;
@@ -70,6 +82,49 @@
     }, 300);
   };
 
+  const normalizeOnlineCount = (payload) => {
+    if (!payload || typeof payload !== "object") return 0;
+
+    const candidates = [
+      payload.players_online,
+      payload.online_players,
+      payload.onlineCount,
+      payload.player_count,
+      payload.count,
+      payload.players && payload.players.online
+    ];
+
+    for (const candidate of candidates) {
+      if (typeof candidate === "number" && Number.isFinite(candidate)) {
+        return Math.max(0, Math.floor(candidate));
+      }
+
+      if (typeof candidate === "string" && candidate.trim() !== "") {
+        const value = Number(candidate);
+        if (Number.isFinite(value)) return Math.max(0, Math.floor(value));
+      }
+    }
+
+    return 0;
+  };
+
+  const updateOnlineCount = async () => {
+    if (!onlineCountNode) return;
+
+    try {
+      const response = await fetch("api/server-status.php", {
+        headers: { "Accept": "application/json" },
+        cache: "no-store"
+      });
+
+      if (!response.ok) return;
+      const payload = await response.json();
+      onlineCountNode.textContent = String(normalizeOnlineCount(payload));
+    } catch (_) {
+      onlineCountNode.textContent = "0";
+    }
+  };
+
   input.addEventListener("input", () => {
     setHasValue();
     setTyping();
@@ -94,4 +149,6 @@
   });
 
   setHasValue();
+  updateOnlineCount();
+  window.setInterval(updateOnlineCount, 30000);
 })();

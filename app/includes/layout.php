@@ -17,7 +17,7 @@ function mineacle_page_head(string $title): void {
     echo '<link rel="icon" type="image/png" href="assets/fav.png?v=bansclean1.0.6">';
     mineacle_critical_styles();
     echo '<link rel="stylesheet" href="assets/bans-page.css?v=bansclean1.0.10">';
-    echo '<link rel="stylesheet" href="assets/bans-rail-dock.css?v=bansclean1.0.17">';
+    echo '<link rel="stylesheet" href="assets/bans-rail-dock.css?v=bansclean1.0.19">';
     echo '</head>';
     echo '<body>';
 }
@@ -107,6 +107,6 @@ function mineacle_footer(): void {
     echo '<span>Not affiliated with Microsoft or Mojang AB.</span>';
     echo '</div>';
     echo '</footer>';
-    echo '<script src="assets/bans-page.js?v=bansclean1.0.9"></script>';
+    echo '<script src="assets/bans-page.js?v=bansclean1.0.10"></script>';
     echo '</body></html>';
 }
