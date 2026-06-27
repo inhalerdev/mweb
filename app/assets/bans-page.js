@@ -14,8 +14,8 @@
   const setHasValue = () => {
     const hasValue = input.value.trim().length > 0;
     form.classList.toggle("has-value", hasValue);
-    action.setAttribute("aria-label", hasValue ? "Clear search" : "Search");
-    action.setAttribute("title", hasValue ? "Clear search" : "Search");
+    action.setAttribute("aria-label", "Search");
+    action.setAttribute("title", "Search");
   };
 
   const clearSearch = () => {
@@ -82,11 +82,7 @@
   });
 
   action.addEventListener("click", () => {
-    if (input.value.trim().length > 0) {
-      clearSearch();
-      return;
-    }
-
+    setHasValue();
     input.focus();
     queryDatabase();
   });
