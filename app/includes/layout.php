@@ -16,7 +16,7 @@ function mineacle_page_head(string $title): void {
     echo '<meta name="description" content="Mineacle public bans portal">';
     echo '<link rel="icon" type="image/png" href="assets/mineacle-square-logo.png?v=bansfull3.8.27.277.266.255.244.233.222.211.200.199.188.177.166.144.8.7.6.5.4.3.2">';
     echo '<link rel="stylesheet" href="assets/styles.css?v=banssingle4.1.0">';
-    echo '<link rel="stylesheet" href="assets/bans-redesign.css?v=bansredesign1.0.0">';
+    echo '<link rel="stylesheet" href="assets/bans-redesign.css?v=bansredesign1.0.1">';
     echo '</head>';
 }
 
@@ -63,20 +63,48 @@ function mineacle_header(string $active = 'bans'): void {
 
 function mineacle_footer(): void {
     $config = mineacle_config();
+    $home = h((string) ($config['site']['home'] ?? 'https://mineacle.net/home'));
+    $store = h((string) ($config['site']['store'] ?? 'https://store.mineacle.net'));
+    $bans = h((string) ($config['site']['bans'] ?? 'https://bans.mineacle.net'));
+    $stats = h((string) ($config['site']['stats'] ?? 'https://stats.mineacle.net'));
     $discord = h((string) ($config['site']['discord'] ?? 'https://discord.gg/VwbwWftefM'));
     $x = h((string) ($config['site']['x'] ?? 'https://x.com/mineaclenetwork'));
+    $supportEmail = h((string) ($config['site']['support_email'] ?? 'support@mineacle.net'));
 
     echo '<footer class="site-footer redesigned-footer">';
     echo '<div class="footer-inner">';
-    echo '<div class="footer-brand"><img class="footer-brand-logo" src="assets/mineacle-main-logo.png?v=bansfull3.8.27.277.266.255.244.233.222.211.200.199.188.177.166.144.8.7.6.5.4.3.2" alt="Mineacle Network"></div>';
-    echo '<div class="footer-legal">';
-    echo '<p class="footer-copy">Copyright © Mineacle Network 2026. All Rights Reserved.</p>';
-    echo '<p class="footer-disclaimer">We are not affiliated with Microsoft or Mojang AB.</p>';
+    echo '<section class="footer-brand" aria-label="Mineacle Network">';
+    echo '<img class="footer-brand-logo" src="assets/mineacle-bans-hero-logo.png?v=bansredesign1.0.1" alt="Mineacle Network">';
+    echo '<h2>Mineacle</h2>';
+    echo '<p>Search active banned players and review public punishment records.</p>';
     echo '<div class="footer-socials" aria-label="Mineacle social links">';
-    echo '<a class="footer-social-link" href="' . $discord . '" target="_blank" rel="noopener" aria-label="Join Mineacle Discord"><img src="assets/discord.svg?v=bansfull3.8.27.277.266.255.244.233.222.211.200.199.188.177.166.144.8.7.6.5.4.3.2" alt=""></a>';
-    echo '<a class="footer-social-link" href="' . $x . '" target="_blank" rel="noopener" aria-label="Follow Mineacle on X"><img src="assets/x.svg?v=bansfull3.8.27.277.266.255.244.233.222.211.200.199.188.177.166.144.8.7.6.5.4.3.2" alt=""></a>';
+    echo '<a class="footer-social-link" href="' . $discord . '" target="_blank" rel="noopener" aria-label="Join Mineacle Discord"><img src="assets/discord.svg?v=bansredesign1.0.1" alt=""></a>';
+    echo '<a class="footer-social-link" href="' . $x . '" target="_blank" rel="noopener" aria-label="Follow Mineacle on X"><img src="assets/x.svg?v=bansredesign1.0.1" alt=""></a>';
     echo '</div>';
+    echo '</section>';
+    echo '<nav class="footer-column" aria-label="Quick links">';
+    echo '<h3>Quick Links</h3>';
+    echo '<a href="' . $home . '">Home</a>';
+    echo '<a href="' . $store . '">Store</a>';
+    echo '<a href="' . $bans . '">Bans</a>';
+    echo '<a href="' . $stats . '">Stats</a>';
+    echo '</nav>';
+    echo '<nav class="footer-column" aria-label="Support">';
+    echo '<h3>Support</h3>';
+    echo '<a href="' . $discord . '" target="_blank" rel="noopener">Discord</a>';
+    echo '<a href="mailto:' . $supportEmail . '">Contact</a>';
+    echo '<a href="' . $bans . '#ban-results">Records</a>';
+    echo '</nav>';
+    echo '<nav class="footer-column" aria-label="Legal">';
+    echo '<h3>Legal</h3>';
+    echo '<a href="#">Terms of Use</a>';
+    echo '<a href="#">Privacy Policy</a>';
+    echo '<a href="#">Appeal Policy</a>';
+    echo '</nav>';
     echo '</div>';
+    echo '<div class="footer-bottom">';
+    echo '<span><img src="assets/mineacle-square-logo.png?v=bansredesign1.0.1" alt=""> Copyright © 2026 Mineacle Network. All Rights Reserved.</span>';
+    echo '<span>Not affiliated with Microsoft or Mojang AB.</span>';
     echo '</div>';
     echo '</footer>';
     echo '<script src="assets/main.js?v=bansredesign1.0.0"></script>';

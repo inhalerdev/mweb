@@ -174,21 +174,23 @@ html body .mineacle-bans-shell .mineacle-bans-search {
   max-width: none;
   margin: 0;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 112px;
+  grid-template-columns: minmax(0, 1fr) 68px;
   gap: 0;
-  align-items: stretch;
-  border: 1px solid var(--mineacle-border);
+  align-items: center;
+  min-height: 76px;
+  padding: 0 10px 0 0;
+  border: 1px solid rgba(125, 148, 255, .16);
   border-radius: 8px;
-  background: var(--mineacle-panel-strong);
-  box-shadow: 0 18px 42px rgba(0, 0, 0, .28);
+  background: rgba(4, 7, 39, .95);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, .32), inset 0 1px 0 rgba(255, 255, 255, .045);
   overflow: hidden;
 }
 
 html body .mineacle-bans-shell .mineacle-bans-search-field {
-  min-height: 72px;
-  height: 72px;
+  min-height: 74px;
+  height: 74px;
   display: grid;
-  grid-template-columns: 70px minmax(0, 1fr) 44px;
+  grid-template-columns: minmax(0, 1fr) 42px;
   align-items: center;
   border: 0 !important;
   border-radius: 0 !important;
@@ -196,24 +198,19 @@ html body .mineacle-bans-shell .mineacle-bans-search-field {
 }
 
 .mineacle-bans-search-field img {
-  width: 28px;
-  height: 28px;
-  justify-self: center;
-  display: block;
-  object-fit: contain;
-  opacity: .82;
+  display: none;
 }
 
 html body .mineacle-bans-shell .mineacle-bans-search-field input {
   width: 100%;
-  height: 72px;
-  padding: 0 14px 0 0 !important;
+  height: 74px;
+  padding: 0 14px 0 30px !important;
   border: 0 !important;
   outline: 0 !important;
   background: transparent !important;
   color: #f8f9ff !important;
   font: inherit;
-  font-size: 18px !important;
+  font-size: 19px !important;
   font-weight: 800 !important;
 }
 
@@ -222,9 +219,9 @@ html body .mineacle-bans-shell .mineacle-bans-search-field input::placeholder {
 }
 
 html body .mineacle-bans-shell .mineacle-bans-search-field .ban-search-clear {
-  width: 32px !important;
-  height: 32px !important;
-  margin: 0 10px 0 0 !important;
+  width: 34px !important;
+  height: 34px !important;
+  margin: 0 4px 0 0 !important;
   display: none !important;
   border: 1px solid rgba(255, 255, 255, .12) !important;
   border-radius: 7px !important;
@@ -239,23 +236,55 @@ html body .mineacle-bans-shell .mineacle-bans-search-field .ban-search-clear.sho
 
 html body .mineacle-bans-shell .mineacle-bans-search-action,
 html body .mineacle-bans-shell .mineacle-lb-primary-action {
-  min-height: 72px !important;
-  height: 72px !important;
-  border: 0 !important;
-  border-left: 1px solid rgba(255, 255, 255, .08) !important;
-  border-radius: 0 !important;
-  background: linear-gradient(135deg, #8693ff, #243cff 58%, #15259f) !important;
-  color: #fff !important;
-  padding: 0 18px !important;
-  font-size: 15px !important;
+  width: 50px !important;
+  min-width: 50px !important;
+  max-width: 50px !important;
+  min-height: 50px !important;
+  height: 50px !important;
+  display: grid !important;
+  place-items: center !important;
+  justify-self: end;
+  border: 1px solid rgba(210, 219, 255, .18) !important;
+  border-radius: 7px !important;
+  background: linear-gradient(135deg, #91a0ff 0%, #5569ff 42%, #2736d9 100%) !important;
+  color: transparent !important;
+  padding: 0 !important;
+  font-size: 0 !important;
   font-weight: 900 !important;
-  text-transform: uppercase !important;
+  text-indent: -999px;
   letter-spacing: 0 !important;
   cursor: pointer;
+  box-shadow: 0 10px 22px rgba(35, 52, 210, .34), inset 0 2px 0 rgba(255, 255, 255, .22);
+  overflow: hidden;
+}
+
+html body .mineacle-bans-shell .mineacle-bans-search-action::before,
+html body .mineacle-bans-shell .mineacle-lb-primary-action::before {
+  content: "";
+  width: 24px;
+  height: 24px;
+  display: block;
+  background: url("search-icon.png") center / contain no-repeat;
+  filter: brightness(0) invert(1);
+  opacity: .94;
 }
 
 html body .mineacle-bans-shell .mineacle-bans-search-action.is-clear {
   background: linear-gradient(135deg, #ff8795, #ec4058 60%, #9e1e36) !important;
+}
+
+html body .mineacle-bans-shell .mineacle-bans-search-action.is-clear::before {
+  content: "x";
+  width: auto;
+  height: auto;
+  color: #fff;
+  background: none;
+  filter: none;
+  font-size: 20px;
+  line-height: 1;
+  font-weight: 950;
+  text-indent: 0;
+  opacity: 1;
 }
 
 .mineacle-bans-user-panel {
@@ -915,11 +944,162 @@ html body .mineacle-bans-shell .page-indicator {
 
 .site-footer.redesigned-footer {
   width: min(calc(100% - 174px), 1740px) !important;
-  margin: 0 32px 38px 142px !important;
+  margin: 34px 32px 38px 142px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
   border: 1px solid rgba(138, 160, 255, .16) !important;
   border-radius: 8px !important;
-  background: rgba(5, 7, 39, .9) !important;
-  box-shadow: 0 24px 70px rgba(0, 0, 0, .28) !important;
+  background:
+    linear-gradient(180deg, rgba(7, 10, 52, .96), rgba(4, 6, 31, .98)) !important;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, .36), inset 0 1px 0 rgba(255, 255, 255, .045) !important;
+}
+
+html body .site-footer.redesigned-footer .footer-inner {
+  min-height: 284px;
+  display: grid !important;
+  grid-template-columns: minmax(260px, 1.35fr) repeat(3, minmax(170px, .72fr));
+  gap: 48px;
+  align-items: start;
+  padding: 46px 52px 34px !important;
+  margin: 0 !important;
+}
+
+html body .site-footer.redesigned-footer .footer-brand {
+  min-width: 0;
+  display: block !important;
+}
+
+html body .site-footer.redesigned-footer .footer-brand-logo {
+  width: 58px !important;
+  height: 58px !important;
+  max-width: 58px !important;
+  max-height: 58px !important;
+  display: block !important;
+  object-fit: contain !important;
+  margin: 0 0 18px !important;
+  filter: drop-shadow(0 12px 18px rgba(65, 83, 236, .24)) !important;
+}
+
+html body .site-footer.redesigned-footer .footer-brand h2 {
+  margin: 0 0 12px;
+  color: #fff;
+  font-size: 30px;
+  line-height: 1.08;
+  font-weight: 950;
+  letter-spacing: 0;
+}
+
+html body .site-footer.redesigned-footer .footer-brand p {
+  width: min(100%, 360px);
+  margin: 0;
+  color: rgba(217, 223, 255, .72);
+  font-size: 16px;
+  line-height: 1.55;
+  font-weight: 780;
+}
+
+html body .site-footer.redesigned-footer .footer-socials {
+  display: flex !important;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+html body .site-footer.redesigned-footer .footer-social-link {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, .06);
+  text-decoration: none;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .04);
+}
+
+html body .site-footer.redesigned-footer .footer-social-link:hover,
+html body .site-footer.redesigned-footer .footer-social-link:focus-visible {
+  border-color: rgba(145, 160, 255, .38);
+  background: rgba(54, 69, 193, .28);
+  outline: 0;
+}
+
+html body .site-footer.redesigned-footer .footer-social-link img {
+  width: 20px;
+  height: 20px;
+  display: block;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+html body .site-footer.redesigned-footer .footer-column {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+}
+
+html body .site-footer.redesigned-footer .footer-column h3 {
+  position: relative;
+  margin: 0 0 12px;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 950;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+html body .site-footer.redesigned-footer .footer-column h3::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -12px;
+  width: 34px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #8794ff, rgba(135, 148, 255, 0));
+  box-shadow: 0 0 12px rgba(95, 110, 255, .45);
+}
+
+html body .site-footer.redesigned-footer .footer-column a {
+  width: fit-content;
+  color: rgba(221, 226, 255, .72);
+  font-size: 15px;
+  line-height: 1.25;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+html body .site-footer.redesigned-footer .footer-column a:hover,
+html body .site-footer.redesigned-footer .footer-column a:focus-visible {
+  color: #fff;
+  outline: 0;
+}
+
+html body .site-footer.redesigned-footer .footer-bottom {
+  min-height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 0 52px 28px;
+  color: rgba(220, 226, 255, .56);
+  font-size: 13px;
+  line-height: 1.3;
+  font-weight: 800;
+}
+
+html body .site-footer.redesigned-footer .footer-bottom span {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+html body .site-footer.redesigned-footer .footer-bottom img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  opacity: .6;
 }
 
 .mineacle-ban-modal-single {
@@ -1165,7 +1345,7 @@ html body #banModal.mineacle-ban-modal-single .mineacle-punish-note {
   }
 
   html body .mineacle-bans-shell .mineacle-bans-search {
-    grid-template-columns: minmax(0, 1fr) 92px;
+    grid-template-columns: minmax(0, 1fr) 62px;
   }
 
   .mineacle-bans-user-panel {
@@ -1193,7 +1373,23 @@ html body #banModal.mineacle-ban-modal-single .mineacle-punish-note {
 
   .site-footer.redesigned-footer {
     width: calc(100% - 32px) !important;
-    margin: 0 16px 28px !important;
+    margin: 28px 16px 28px !important;
+  }
+
+  html body .site-footer.redesigned-footer .footer-inner {
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 34px 28px;
+    padding: 34px 30px 24px !important;
+  }
+
+  html body .site-footer.redesigned-footer .footer-brand {
+    grid-column: 1 / -1;
+  }
+
+  html body .site-footer.redesigned-footer .footer-bottom {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 0 30px 28px;
   }
 }
 
@@ -1222,7 +1418,9 @@ html body #banModal.mineacle-ban-modal-single .mineacle-punish-note {
   }
 
   html body .mineacle-bans-shell .mineacle-bans-search {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr) 56px;
+    min-height: 60px;
+    padding-right: 7px;
   }
 
   html body .mineacle-bans-shell .mineacle-bans-search-field,
@@ -1231,11 +1429,28 @@ html body #banModal.mineacle-ban-modal-single .mineacle-punish-note {
     min-height: 60px;
   }
 
+  html body .mineacle-bans-shell .mineacle-bans-search-field {
+    grid-template-columns: minmax(0, 1fr) 36px;
+  }
+
+  html body .mineacle-bans-shell .mineacle-bans-search-field input {
+    padding-left: 18px !important;
+    font-size: 15px !important;
+  }
+
   html body .mineacle-bans-shell .mineacle-bans-search-action {
-    min-height: 48px !important;
-    height: 48px !important;
+    width: 44px !important;
+    min-width: 44px !important;
+    max-width: 44px !important;
+    min-height: 44px !important;
+    height: 44px !important;
     border-left: 0 !important;
-    border-top: 1px solid rgba(255, 255, 255, .08) !important;
+    border-top: 0 !important;
+  }
+
+  html body .mineacle-bans-shell .mineacle-bans-search-action::before {
+    width: 21px;
+    height: 21px;
   }
 
   .mineacle-bans-user-panel {
@@ -1305,5 +1520,24 @@ html body #banModal.mineacle-ban-modal-single .mineacle-punish-note {
   html body #banModal.mineacle-ban-modal-single .mineacle-punish-grid,
   html body #banModal.mineacle-ban-modal-single .mineacle-punish-footer {
     grid-template-columns: 1fr;
+  }
+
+  html body .site-footer.redesigned-footer .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 30px 22px 24px !important;
+  }
+
+  html body .site-footer.redesigned-footer .footer-brand {
+    grid-column: auto;
+  }
+
+  html body .site-footer.redesigned-footer .footer-brand-logo {
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  html body .site-footer.redesigned-footer .footer-bottom {
+    padding: 0 22px 24px;
   }
 }
