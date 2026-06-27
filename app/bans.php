@@ -47,14 +47,14 @@ mineacle_page_head('Bans');
 
     <div class="mineacle-bans-main">
         <header class="mineacle-bans-topbar">
-            <form class="mineacle-lb-search js-ban-search-form mineacle-bans-search" id="banSearchForm" role="search">
+            <form class="mineacle-bans-search" id="banSearchForm" role="search">
                 <label class="sr-only" for="banSearch">Search punishments</label>
-                <div class="mineacle-lb-search-field mineacle-bans-search-field">
+                <div class="mineacle-bans-search-field">
                     <img src="assets/search-icon.png" alt="" aria-hidden="true">
-                    <input id="banSearch" class="js-ban-search" type="text" name="q" autocomplete="off" placeholder="Search active banned players, UUID, staff, reason, or server">
-                    <button class="ban-search-clear js-ban-clear" id="clearSearch" type="button" aria-label="Clear search" title="Clear search">x</button>
+                    <input id="banSearch" type="text" name="q" autocomplete="off" placeholder="Search active banned players, UUID, staff, reason, or server">
+                    <button class="mineacle-bans-clear" id="clearSearch" type="button" aria-label="Clear search" title="Clear search">x</button>
                 </div>
-                <button class="mineacle-lb-primary-action mineacle-bans-search-action" type="submit">Search</button>
+                <button class="mineacle-bans-search-action" type="submit">Search</button>
             </form>
         </header>
     </div>
