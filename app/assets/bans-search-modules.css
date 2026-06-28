@@ -588,3 +588,27 @@
   }
 }
 
+
+
+/* Mineacle footer final polish: footer island border stays fixed; logo is visual-only, not a home link. */
+.mineacle-footer-island,
+.mineacle-footer-island:hover,
+.mineacle-footer-island:focus,
+.mineacle-footer-island:focus-within,
+.mineacle-footer-island:active {
+  border-color: var(--line-strong, rgba(218, 121, 255, .42)) !important;
+  background: linear-gradient(180deg, rgba(25, 4, 66, .98), rgba(8, 2, 28, .98)) !important;
+  box-shadow:
+    0 28px 70px rgba(0, 0, 0, .46),
+    inset 0 1px 0 rgba(255, 255, 255, .06) !important;
+}
+
+.mineacle-footer-brand-logo {
+  cursor: default !important;
+  text-decoration: none !important;
+}
+
+.mineacle-footer-brand-logo:focus,
+.mineacle-footer-brand-logo:focus-visible {
+  outline: 0 !important;
+}

@@ -18,7 +18,7 @@ function mineacle_page_head(string $title): void {
     mineacle_critical_styles();
     echo '<link rel="stylesheet" href="assets/bans-page.css?v=bansclean1.0.10">';
     echo '<link rel="stylesheet" href="assets/bans-rail-dock.css?v=bansclean1.0.19">';
-    echo '<link rel="stylesheet" href="assets/bans-search-modules.css?v=bansclean1.0.6">';
+    echo '<link rel="stylesheet" href="assets/bans-search-modules.css?v=bansclean1.0.7">';
     echo '</head>';
     echo '<body>';
 }
@@ -59,7 +59,6 @@ function mineacle_header(string $active = 'bans'): void {
 function mineacle_footer(): void {
     $config = mineacle_config();
     $site = $config['site'] ?? [];
-    $home = h((string) ($site['home'] ?? 'https://mineacle.net/home'));
     $store = h((string) ($site['store'] ?? 'https://store.mineacle.net'));
     $bans = h((string) ($site['bans'] ?? 'https://bans.mineacle.net'));
     $stats = h((string) ($site['stats'] ?? 'https://stats.mineacle.net'));
@@ -70,9 +69,9 @@ function mineacle_footer(): void {
 
     echo '<footer class="mineacle-footer-island" aria-label="Mineacle footer">';
     echo '<section class="mineacle-footer-brand">';
-    echo '<a class="mineacle-footer-brand-logo" href="' . $home . '" aria-label="Mineacle Studios">';
+    echo '<div class="mineacle-footer-brand-logo" aria-label="Mineacle Studios">';
     echo '<img src="assets/m-studios-transparent.png?v=bansclean1.0.8" alt="Mineacle Studios">';
-    echo '</a>';
+    echo '</div>';
     echo '<h2>Mineacle</h2>';
     echo '<p>Search active banned players from the public bans database.</p>';
     echo '<div class="mineacle-footer-socials">';
