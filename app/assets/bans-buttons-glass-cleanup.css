@@ -1,0 +1,298 @@
+/* Final polish: buttons are not glass; panels use cleaner, proportional glass edge highlights. */
+:root {
+  --mcx-panel-top: rgba(18, 5, 39, .96);
+  --mcx-panel-bottom: rgba(9, 3, 19, .98);
+  --mcx-panel-shadow: 0 28px 76px rgba(0, 0, 0, .38), inset 0 1px 0 rgba(255, 255, 255, .035);
+  --mcx-panel-shadow-hover: 0 30px 80px rgba(0, 0, 0, .42), inset 0 1px 0 rgba(255, 255, 255, .045);
+  --mcx-btn-bg: rgba(17, 12, 42, .88);
+  --mcx-btn-bg-hover: rgba(28, 20, 66, .94);
+  --mcx-btn-active-a: #9fb7ff;
+  --mcx-btn-active-b: #6b5dff;
+  --mcx-btn-active-c: #843cff;
+}
+
+/* Panels: keep footer-like dark glass without oversized/glitched center highlights. */
+.mineacle-bans-search-field,
+.mineacle-player-count-module,
+.mineacle-bans-table-wrap,
+.mineacle-bans-table-shell,
+.mineacle-bans-results,
+.mineacle-bans-panel,
+.mineacle-bans-card,
+.mineacle-bans-pagination,
+.mineacle-modal-card,
+.mineacle-ban-modal,
+.mineacle-ban-info-modal,
+.mineacle-bans-empty,
+.mineacle-bans-hero,
+.mineacle-bans-feature,
+.mineacle-bans-stat,
+.mineacle-bans-section,
+.mineacle-bans-surface {
+  border: 0 !important;
+  border-radius: 8px !important;
+  background: linear-gradient(180deg, var(--mcx-panel-top), var(--mcx-panel-bottom)) !important;
+  box-shadow: var(--mcx-panel-shadow) !important;
+  overflow: hidden !important;
+}
+
+/* Search bar gets a long, subtle edge line. Not the short icon-button highlight. */
+.mineacle-bans-search-field::before {
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  z-index: 2 !important;
+  left: clamp(18px, 2.4vw, 42px) !important;
+  right: clamp(18px, 2.4vw, 42px) !important;
+  top: 0 !important;
+  width: auto !important;
+  height: 1px !important;
+  pointer-events: none !important;
+  background: linear-gradient(90deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,.045) 8%,
+    rgba(255,255,255,.13) 24%,
+    rgba(255,255,255,.20) 50%,
+    rgba(255,255,255,.13) 76%,
+    rgba(255,255,255,.045) 92%,
+    rgba(255,255,255,0) 100%) !important;
+  opacity: .78 !important;
+}
+
+.mineacle-bans-search-field::after {
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  z-index: 2 !important;
+  left: clamp(26px, 3vw, 56px) !important;
+  right: clamp(26px, 3vw, 56px) !important;
+  bottom: 0 !important;
+  width: auto !important;
+  height: 1px !important;
+  pointer-events: none !important;
+  background: linear-gradient(90deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,.025) 16%,
+    rgba(255,255,255,.065) 50%,
+    rgba(255,255,255,.025) 84%,
+    rgba(255,255,255,0) 100%) !important;
+  opacity: .78 !important;
+}
+
+/* Smaller modules use smaller, proportional edge highlights. */
+.mineacle-player-count-module::before,
+.mineacle-bans-table-wrap::before,
+.mineacle-bans-table-shell::before,
+.mineacle-bans-results::before,
+.mineacle-bans-panel::before,
+.mineacle-bans-card::before,
+.mineacle-bans-pagination::before,
+.mineacle-modal-card::before,
+.mineacle-ban-modal::before,
+.mineacle-ban-info-modal::before,
+.mineacle-bans-empty::before,
+.mineacle-bans-hero::before,
+.mineacle-bans-feature::before,
+.mineacle-bans-stat::before,
+.mineacle-bans-section::before,
+.mineacle-bans-surface::before {
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  z-index: 2 !important;
+  left: 18px !important;
+  right: 18px !important;
+  top: 0 !important;
+  width: auto !important;
+  height: 1px !important;
+  pointer-events: none !important;
+  background: linear-gradient(90deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,.055) 12%,
+    rgba(255,255,255,.16) 50%,
+    rgba(255,255,255,.055) 88%,
+    rgba(255,255,255,0) 100%) !important;
+  opacity: .82 !important;
+}
+
+.mineacle-player-count-module::after,
+.mineacle-bans-table-wrap::after,
+.mineacle-bans-table-shell::after,
+.mineacle-bans-results::after,
+.mineacle-bans-panel::after,
+.mineacle-bans-card::after,
+.mineacle-bans-pagination::after,
+.mineacle-modal-card::after,
+.mineacle-ban-modal::after,
+.mineacle-ban-info-modal::after,
+.mineacle-bans-empty::after,
+.mineacle-bans-hero::after,
+.mineacle-bans-feature::after,
+.mineacle-bans-stat::after,
+.mineacle-bans-section::after,
+.mineacle-bans-surface::after {
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  z-index: 2 !important;
+  left: 24px !important;
+  right: 24px !important;
+  bottom: 0 !important;
+  width: auto !important;
+  height: 1px !important;
+  pointer-events: none !important;
+  background: linear-gradient(90deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,.018) 16%,
+    rgba(255,255,255,.055) 50%,
+    rgba(255,255,255,.018) 84%,
+    rgba(255,255,255,0) 100%) !important;
+  opacity: .72 !important;
+}
+
+.mineacle-bans-search-field:hover,
+.mineacle-bans-search-field:focus-within,
+.mineacle-player-count-module:hover,
+.mineacle-player-count-module:focus-visible,
+.mineacle-bans-table-wrap:hover,
+.mineacle-bans-table-shell:hover,
+.mineacle-bans-results:hover,
+.mineacle-bans-panel:hover,
+.mineacle-bans-card:hover,
+.mineacle-bans-pagination:hover,
+.mineacle-modal-card:hover,
+.mineacle-ban-modal:hover,
+.mineacle-ban-info-modal:hover,
+.mineacle-bans-empty:hover,
+.mineacle-bans-hero:hover,
+.mineacle-bans-feature:hover,
+.mineacle-bans-stat:hover,
+.mineacle-bans-section:hover,
+.mineacle-bans-surface:hover {
+  background: linear-gradient(180deg, rgba(21, 8, 45, .97), rgba(10, 3, 22, .99)) !important;
+  box-shadow: var(--mcx-panel-shadow-hover) !important;
+  filter: none !important;
+}
+
+/* Rail icon buttons: flat dark icon tiles, not glass panels. */
+.mineacle-bans-rail-link,
+.mineacle-footer-socials a {
+  position: relative !important;
+  overflow: visible !important;
+  border: 0 !important;
+  background: var(--mcx-btn-bg) !important;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, .24), inset 0 1px 0 rgba(255,255,255,.035) !important;
+  transition: transform .14s ease, background .14s ease, box-shadow .14s ease, filter .14s ease !important;
+}
+
+.mineacle-bans-rail-link::before,
+.mineacle-bans-rail-link::after,
+.mineacle-footer-socials a::before,
+.mineacle-footer-socials a::after {
+  content: none !important;
+  display: none !important;
+}
+
+.mineacle-bans-rail-link:hover,
+.mineacle-bans-rail-link:focus-visible,
+.mineacle-footer-socials a:hover,
+.mineacle-footer-socials a:focus-visible {
+  background: var(--mcx-btn-bg-hover) !important;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, .30), inset 0 1px 0 rgba(255,255,255,.055) !important;
+  transform: translateY(-1px) !important;
+  outline: 0 !important;
+}
+
+.mineacle-bans-rail-link:active,
+.mineacle-footer-socials a:active {
+  transform: translateY(1px) scale(.985) !important;
+}
+
+.mineacle-bans-rail-link.is-active {
+  background: linear-gradient(135deg, var(--mcx-btn-active-a), var(--mcx-btn-active-b) 48%, var(--mcx-btn-active-c)) !important;
+  box-shadow: 0 0 0 4px rgba(120, 92, 255, .20), 0 16px 32px rgba(77, 62, 213, .36), inset 0 1px 0 rgba(255,255,255,.30) !important;
+}
+
+.mineacle-bans-rail-link img,
+.mineacle-footer-socials img {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* Search action button is a real button, not glass. Keep the icon centered and clean. */
+.mineacle-bans-search-action {
+  position: absolute !important;
+  display: grid !important;
+  place-items: center !important;
+  border: 0 !important;
+  border-radius: 8px !important;
+  background: linear-gradient(135deg, #aebfff, #6b5dff 48%, #8243ff) !important;
+  box-shadow: 0 14px 28px rgba(90, 72, 230, .34), inset 0 1px 0 rgba(255,255,255,.32) !important;
+  overflow: hidden !important;
+}
+
+.mineacle-bans-search-action::before {
+  content: "" !important;
+  position: relative !important;
+  inset: auto !important;
+  left: auto !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: auto !important;
+  z-index: 3 !important;
+  display: block !important;
+  width: 25px !important;
+  height: 25px !important;
+  margin: 0 !important;
+  background: url("search-magnify-icon.png") center / contain no-repeat !important;
+  filter: brightness(0) invert(1) !important;
+  opacity: 1 !important;
+}
+
+.mineacle-bans-search-action::after {
+  content: none !important;
+  display: none !important;
+}
+
+.mineacle-bans-search-action:hover,
+.mineacle-bans-search-action:focus-visible {
+  background: linear-gradient(135deg, #bed0ff, #7567ff 48%, #9254ff) !important;
+  box-shadow: 0 16px 32px rgba(90, 72, 230, .40), 0 0 24px rgba(126, 101, 255, .22), inset 0 1px 0 rgba(255,255,255,.36) !important;
+  transform: none !important;
+  outline: 0 !important;
+}
+
+.mineacle-bans-search-action:active {
+  transform: translateY(1px) scale(.985) !important;
+}
+
+/* Copied IP state stays green and ignores hover overrides. */
+.mineacle-player-count-module.is-copied,
+.mineacle-player-count-module.is-copied:hover,
+.mineacle-player-count-module.is-copied:focus-visible,
+.mineacle-player-count-module.is-copied:active {
+  background: linear-gradient(180deg, rgba(32, 122, 80, .96), rgba(14, 75, 48, .98)) !important;
+  box-shadow: 0 28px 76px rgba(0, 0, 0, .34), inset 0 1px 0 rgba(255,255,255,.07) !important;
+  filter: none !important;
+}
+
+.mineacle-player-count-module.is-copied::before {
+  background: linear-gradient(90deg,
+    rgba(255,255,255,0) 0%,
+    rgba(225,255,238,.08) 12%,
+    rgba(225,255,238,.24) 50%,
+    rgba(225,255,238,.08) 88%,
+    rgba(255,255,255,0) 100%) !important;
+}
+
+@media (max-width: 760px) {
+  .mineacle-bans-search-field::before {
+    left: 16px !important;
+    right: 16px !important;
+  }
+
+  .mineacle-bans-search-field::after {
+    left: 22px !important;
+    right: 22px !important;
+  }
+}
