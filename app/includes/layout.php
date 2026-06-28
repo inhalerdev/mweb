@@ -22,7 +22,7 @@ function mineacle_page_head(string $title): void {
     echo '<link rel="stylesheet" href="assets/bans-footer-logo-tight.css?v=bansclean1.0.1">';
     echo '<link rel="stylesheet" href="assets/bans-static-glass.css?v=bansclean1.0.1">';
     echo '<link rel="stylesheet" href="assets/bans-modules-footer-match.css?v=bansclean1.0.1">';
-    echo '<link rel="stylesheet" href="assets/bans-buttons-glass-cleanup.css?v=bansclean1.0.2">';
+    echo '<link rel="stylesheet" href="assets/bans-buttons-glass-cleanup.css?v=bansclean1.0.3">';
     echo '</head>';
     echo '<body>';
 }
