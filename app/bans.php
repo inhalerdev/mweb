@@ -18,18 +18,18 @@ mineacle_page_head('Bans', 'Search Mineacle active ban records and learn how Min
 <main class="app-shell" data-app data-server-ip="<?php echo $ip; ?>">
     <aside class="rail" aria-label="Mineacle navigation">
         <a class="rail-logo" href="<?php echo $bans; ?>" aria-label="Mineacle Bans">
-            <img src="assets/icons/mineacle-m.svg?v=6.4.0" alt="Mineacle">
+            <img src="assets/icons/mineacle-m.svg?v=6.5.0" alt="Mineacle">
         </a>
 
         <nav class="rail-nav" aria-label="Primary links">
-            <a class="rail-link active" href="<?php echo $bans; ?>" aria-label="Bans" title="Bans"><img src="assets/icons/hammer.svg?v=6.4.0" alt=""></a>
-            <a class="rail-link" href="<?php echo $stats; ?>" aria-label="Stats" title="Stats"><img src="assets/icons/users.svg?v=6.4.0" alt=""></a>
-            <a class="rail-link" href="<?php echo $vote; ?>" aria-label="Vote" title="Vote"><img src="assets/icons/star.svg?v=6.4.0" alt=""></a>
-            <a class="rail-link" href="<?php echo $store; ?>" aria-label="Store" title="Store"><img src="assets/icons/store.svg?v=6.4.0" alt=""></a>
+            <a class="rail-link active" href="<?php echo $bans; ?>" aria-label="Bans" title="Bans"><img src="assets/icons/hammer.svg?v=6.5.0" alt=""></a>
+            <a class="rail-link" href="<?php echo $stats; ?>" aria-label="Stats" title="Stats"><img src="assets/icons/users.svg?v=6.5.0" alt=""></a>
+            <a class="rail-link" href="<?php echo $vote; ?>" aria-label="Vote" title="Vote"><img src="assets/icons/star.svg?v=6.5.0" alt=""></a>
+            <a class="rail-link" href="<?php echo $store; ?>" aria-label="Store" title="Store"><img src="assets/icons/store.svg?v=6.5.0" alt=""></a>
         </nav>
 
         <a class="rail-link rail-discord" href="<?php echo $discord; ?>" target="_blank" rel="noopener" aria-label="Discord" title="Discord">
-            <img src="assets/icons/discord.svg?v=6.4.0" alt="">
+            <img src="assets/icons/discord.svg?v=6.5.0" alt="">
         </a>
     </aside>
 
@@ -38,45 +38,47 @@ mineacle_page_head('Bans', 'Search Mineacle active ban records and learn how Min
             <form class="search-module module" id="banSearchForm" role="search">
                 <label class="sr-only" for="banSearch">Search active records</label>
                 <input id="banSearch" name="q" autocomplete="off" placeholder="Search player, UUID, staff, reason, or server">
-                <button class="search-button" id="banSearchAction" type="submit" aria-label="Search and open player profile"><img src="assets/icons/search.svg?v=6.4.0" alt=""></button>
+                <button class="search-button" id="banSearchAction" type="submit" aria-label="Search and open player profile"><img src="assets/icons/search.svg?v=6.5.0" alt=""></button>
             </form>
         </header>
 
-        <section class="hero-module module" aria-labelledby="heroTitle">
-            <div class="hero-copy">
-                <p class="eyebrow">Mineacle Network</p>
-                <h1 id="heroTitle">Public Active Ban Records</h1>
-                <p>Search active bans, review player punishment records, and see how Mineacle protects fair survival gameplay</p>
-                <div class="hero-actions">
-                    <button class="ip-pill" id="copyIpButton" type="button" data-copy-ip="<?php echo $ip; ?>">
-                        <span class="ip-pill-main" id="copyIpMain">MINEACLE.NET</span>
-                        <span class="ip-pill-sub">CURRENTLY ONLINE: <b id="onlineCount">0</b></span>
-                    </button>
-                    <a class="hero-support" href="<?php echo $discord; ?>" target="_blank" rel="noopener">Discord Support</a>
+        <section class="top-stage" aria-label="Mineacle overview">
+            <section class="hero-module module" aria-labelledby="heroTitle">
+                <div class="hero-copy">
+                    <p class="eyebrow">The End protected survival network</p>
+                    <h1 id="heroTitle">Public Active Ban Records</h1>
+                    <p>Transparent active ban records, fast player lookups, and a cleaner view of how Mineacle Client Guard helps protect survival gameplay, the player economy, and the wider Mineacle community</p>
+                    <div class="hero-actions">
+                        <button class="ip-pill" id="copyIpButton" type="button" data-copy-ip="<?php echo $ip; ?>">
+                            <span class="ip-pill-main" id="copyIpMain">MINEACLE.NET</span>
+                            <span class="ip-pill-sub">CURRENTLY ONLINE: <b id="onlineCount">0</b></span>
+                        </button>
+                        <a class="hero-support" href="<?php echo $discord; ?>" target="_blank" rel="noopener">Discord Support</a>
+                    </div>
                 </div>
-            </div>
-            <div class="hero-mark" aria-hidden="true"><img src="assets/icons/mineacle-m.svg?v=6.4.0" alt=""></div>
-        </section>
+                <div class="hero-mark" aria-hidden="true"><img src="assets/icons/mineacle-m.svg?v=6.5.0" alt=""></div>
+            </section>
 
-        <section class="info-grid" aria-label="Mineacle Client Guard protection modules">
-            <button class="info-card module" type="button" data-info="client" aria-haspopup="dialog">
-                <span class="info-index">01</span>
-                <strong>Client Guard</strong>
-                <small>Allowed clients, suspicious brand checks, and safer login signals</small>
-                <em>View details →</em>
-            </button>
-            <button class="info-card module" type="button" data-info="combat" aria-haspopup="dialog">
-                <span class="info-index">02</span>
-                <strong>Combat Protection</strong>
-                <small>Helps identify unfair combat, movement, and interaction behavior</small>
-                <em>View details →</em>
-            </button>
-            <button class="info-card module" type="button" data-info="community" aria-haspopup="dialog">
-                <span class="info-index">03</span>
-                <strong>Community Safety</strong>
-                <small>Protects the economy, PvP, builds, and long-term server trust</small>
-                <em>View details →</em>
-            </button>
+            <section class="info-grid" aria-label="Mineacle Client Guard protection modules">
+                <button class="info-card module" type="button" data-info="client" aria-haspopup="dialog">
+                    <span class="info-index">01</span>
+                    <strong>Client Guard</strong>
+                    <small>Allowed clients, suspicious brand checks, and safer login signals for survival access</small>
+                    <em>View details →</em>
+                </button>
+                <button class="info-card module" type="button" data-info="combat" aria-haspopup="dialog">
+                    <span class="info-index">02</span>
+                    <strong>Combat Protection</strong>
+                    <small>Helps identify unfair combat, movement, reach, and impossible interaction patterns</small>
+                    <em>View details →</em>
+                </button>
+                <button class="info-card module" type="button" data-info="community" aria-haspopup="dialog">
+                    <span class="info-index">03</span>
+                    <strong>Community Safety</strong>
+                    <small>Protects the economy, PvP, player trust, and long-term health of the Mineacle community</small>
+                    <em>View details →</em>
+                </button>
+            </section>
         </section>
 
         <section class="table-module module" aria-labelledby="recentBansTitle">
@@ -104,12 +106,12 @@ mineacle_page_head('Bans', 'Search Mineacle active ban records and learn how Min
 
         <footer class="footer-module module" aria-label="Mineacle footer">
             <section class="footer-brand">
-                <img class="footer-logo" src="assets/mineacle-studios.png?v=6.4.0" alt="Mineacle Studios">
+                <img class="footer-logo" src="assets/mineacle-studios.png?v=6.5.0" alt="Mineacle Studios">
                 <h2>Mineacle</h2>
                 <p>Transparent active ban records for a protected Minecraft survival community</p>
                 <div class="footer-socials">
-                    <a href="<?php echo $discord; ?>" target="_blank" rel="noopener" aria-label="Discord"><img src="assets/icons/discord.svg?v=6.4.0" alt=""></a>
-                    <a href="<?php echo $x; ?>" target="_blank" rel="noopener" aria-label="X"><img src="assets/icons/x.svg?v=6.4.0" alt=""></a>
+                    <a href="<?php echo $discord; ?>" target="_blank" rel="noopener" aria-label="Discord"><img src="assets/icons/discord.svg?v=6.5.0" alt=""></a>
+                    <a href="<?php echo $x; ?>" target="_blank" rel="noopener" aria-label="X"><img src="assets/icons/x.svg?v=6.5.0" alt=""></a>
                 </div>
             </section>
             <nav class="footer-column" aria-label="Quick links"><h3>Quick Links</h3><a href="<?php echo $bans; ?>">Bans</a><a href="<?php echo $stats; ?>">Stats</a><a href="<?php echo $vote; ?>">Vote</a><a href="<?php echo $store; ?>">Store</a></nav>
