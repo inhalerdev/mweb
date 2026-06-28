@@ -117,7 +117,7 @@
     display: block !important;
     margin: 0 !important;
     flex: 0 0 18px !important;
-    background: url("magnifying-glass-solid-full.svg") center / contain no-repeat !important;
+    background: url("search-magnify-icon.png") center / contain no-repeat !important;
     filter: brightness(0) invert(1) !important;
   }
 
@@ -261,7 +261,7 @@
 
   .mineacle-bans-search-action::before,
   .mineacle-bans-search.has-value .mineacle-bans-search-action::before {
-    background: url("magnifying-glass-solid-full.svg") center / contain no-repeat !important;
+    background: url("search-magnify-icon.png") center / contain no-repeat !important;
     filter: brightness(0) invert(1) !important;
   }
 
