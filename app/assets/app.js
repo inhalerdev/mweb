@@ -1,9 +1,11 @@
 (() => {
+  'use strict';
+
   const app = document.querySelector('[data-app]');
   if (!app) return;
 
   const $ = (id) => document.getElementById(id);
-  const state = { page: 1, search: '', loading: false };
+  const state = { page: 1, search: '', loading: false, lastRows: [] };
 
   const form = $('banSearchForm');
   const input = $('banSearch');
@@ -21,39 +23,38 @@
   const infoText = {
     client: {
       title: 'Mineacle Client Guard',
-      body: 'Mineacle Client Guard checks the client environment at a high level so the server can reject or review clients that do not match the allowed play experience. It is designed to reduce unfair modded clients without exposing exact detection logic publicly.',
+      body: 'Mineacle Client Guard helps verify that players are joining from an acceptable client environment. The public site explains what we protect without exposing bypass-sensitive detection logic.',
       points: [
-        ['Client brand checks', 'Looks for unreadable, missing, or suspicious client-brand signals'],
-        ['Allowed environment focus', 'Supports normal player access while helping staff identify risky clients'],
-        ['Private enforcement details', 'Detection thresholds and bypass-sensitive details are not shown on the public website']
+        ['Client brand review', 'Looks for missing, unreadable, or suspicious client brand signals'],
+        ['Allowed client focus', 'Designed to keep normal Minecraft clients smooth while flagging risky environments'],
+        ['Private thresholds', 'Exact checks, thresholds, and internal enforcement logic stay private for server security'],
+        ['Staff visibility', 'Suspicious signals can be surfaced to staff for review and enforcement']
       ]
     },
     combat: {
-      title: 'Combat and Movement Protection',
-      body: 'Mineacle watches for suspicious combat and movement behavior that can damage PvP integrity, player trust, and the survival economy.',
+      title: 'Combat Protection',
+      body: 'Mineacle protects PvP, duels, and survival combat from behavior that gives players an unfair advantage.',
       points: [
-        ['Combat fairness', 'Reviews unusual combat patterns and impossible interaction behavior'],
-        ['Movement safety', 'Helps catch movement anomalies such as unauthorized flight or extreme movement'],
-        ['Admin visibility', 'Suspicious signals can be surfaced for staff review and enforcement']
+        ['Combat fairness', 'Reviews impossible or highly suspicious combat interaction patterns'],
+        ['Movement checks', 'Helps detect unsafe movement patterns like unauthorized flight or extreme velocity'],
+        ['PvP integrity', 'Protects the value of real fights, item risk, and player-earned progression'],
+        ['Evidence-first flow', 'Designed around useful signals instead of noisy public accusations']
       ]
     },
     community: {
       title: 'Community Safety',
-      body: 'The goal is not just punishment. It is protecting real players, builds, PvP, trading, and the long-term server economy.',
+      body: 'Mineacle enforcement protects more than leaderboards. It protects builds, trades, the economy, and the trust players need in a long-term survival server.',
       points: [
-        ['Economy protection', 'Reduces automation and unfair advantage that can distort player progress'],
-        ['World protection', 'Discourages risky client behavior and tools that threaten survival worlds'],
-        ['Transparent records', 'Public ban records help players understand active enforcement without exposing private staff data']
+        ['Economy protection', 'Reduces unfair automation and client advantages that can distort player progress'],
+        ['World protection', 'Discourages risky tools that threaten survival worlds and player builds'],
+        ['Transparent records', 'Public active records help players see that enforcement is active'],
+        ['Community trust', 'Keeps the server fair for new players, competitive players, and long-term grinders']
       ]
     }
   };
 
   const esc = (value) => String(value ?? '').replace(/[&<>'"]/g, (char) => ({
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    "'": '&#039;',
-    '"': '&quot;'
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#039;', '"': '&quot;'
   }[char]));
 
   const setModal = (html) => {
@@ -68,6 +69,20 @@
     modal.hidden = true;
     modalContent.innerHTML = '';
     document.body.style.overflow = '';
+  };
+
+  const bindProfileTabs = () => {
+    const tabs = modalContent?.querySelectorAll('[data-profile-tab]');
+    const panes = modalContent?.querySelectorAll('[data-profile-pane]');
+    if (!tabs || !panes) return;
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const target = tab.getAttribute('data-profile-tab');
+        tabs.forEach((item) => item.classList.toggle('active', item === tab));
+        panes.forEach((pane) => pane.classList.toggle('active', pane.getAttribute('data-profile-pane') === target));
+      });
+    });
   };
 
   const renderInfoModal = (item) => {
@@ -95,20 +110,21 @@
 
   const renderRows = (rows) => {
     if (!tbody) return;
+    state.lastRows = Array.isArray(rows) ? rows : [];
 
-    if (!Array.isArray(rows) || rows.length === 0) {
+    if (state.lastRows.length === 0) {
       tbody.innerHTML = '<tr><td colspan="7" class="loading-cell">No active bans found</td></tr>';
       return;
     }
 
-    tbody.innerHTML = rows.map((ban) => `<tr>
+    tbody.innerHTML = state.lastRows.map((ban) => `<tr>
       <td><div class="player-cell"><img loading="lazy" src="${esc(ban.skin)}" alt=""><span>${esc(ban.username)}</span></div></td>
-      <td class="reason-cell">${esc(ban.reason)}</td>
+      <td class="reason-cell" title="${esc(ban.reason)}">${esc(ban.reason)}</td>
       <td>${esc(ban.staff)}</td>
       <td>${esc(ban.server)}</td>
       <td>${esc(ban.date)}</td>
       <td><span class="status-pill ${esc(ban.status_type)}">${esc(ban.status)}</span></td>
-      <td><button class="row-button" type="button" data-ban-id="${esc(ban.id)}">Info</button></td>
+      <td><button class="row-button" type="button" data-ban-id="${esc(ban.id)}">View Profile</button></td>
     </tr>`).join('');
   };
 
@@ -131,7 +147,11 @@
     if (meta) meta.textContent = 'Records unavailable';
   };
 
-  const loadBans = async () => {
+  const renderNoProfileModal = (query) => {
+    setModal(`<h2 id="modalTitle">No active public record</h2><p>No active ban profile was found for <strong>${esc(query)}</strong>. Future profile tabs will support connected bans, mutes, kicks, warnings, and in-game stats once those data sources are linked.</p><div class="detail-grid"><div class="detail-item"><span>Search</span><strong>${esc(query)}</strong></div><div class="detail-item"><span>Status</span><strong>No active ban result</strong></div></div>`);
+  };
+
+  const loadBans = async (options = {}) => {
     if (state.loading) return;
     state.loading = true;
     if (meta) meta.textContent = 'Loading records';
@@ -156,6 +176,14 @@
       if (meta) {
         meta.textContent = `${total} result${total === 1 ? '' : 's'} • ${active} active ban${active === 1 ? '' : 's'}`;
       }
+
+      if (options.openProfile === true && state.search !== '') {
+        if (Array.isArray(data.bans) && data.bans.length > 0 && data.bans[0].id) {
+          await loadBanDetail(data.bans[0].id, true);
+        } else {
+          renderNoProfileModal(state.search);
+        }
+      }
     } catch (error) {
       renderTableError();
     } finally {
@@ -163,48 +191,103 @@
     }
   };
 
-  const renderBanDetail = (ban) => {
+  const renderBanProfile = (ban) => {
     const pay = ban.can_pay
       ? `<a href="${esc(ban.unban_url)}" target="_blank" rel="noopener">${esc(ban.price)} Unban Checkout</a>`
       : '';
 
-    setModal(`<h2 id="modalTitle">${esc(ban.username)}</h2><p>${esc(ban.reason)}</p><div class="detail-grid">
-      <div class="detail-item"><span>Appeal ID</span><strong>${esc(ban.appeal_id)}</strong></div>
-      <div class="detail-item"><span>Status</span><strong>${esc(ban.status)} ${esc(ban.type)}</strong></div>
-      <div class="detail-item"><span>Staff</span><strong>${esc(ban.staff)}</strong></div>
-      <div class="detail-item"><span>Server</span><strong>${esc(ban.server)}</strong></div>
-      <div class="detail-item"><span>Issued</span><strong>${esc(ban.date)}</strong></div>
-      <div class="detail-item"><span>Expires</span><strong>${esc(ban.expires)}</strong></div>
-      <div class="detail-item"><span>Flags</span><strong>${esc(ban.flags_text)}</strong></div>
-      <div class="detail-item"><span>Support</span><strong>${esc(ban.support_email)}</strong></div>
-    </div><div class="modal-actions"><a href="${esc(ban.discord)}" target="_blank" rel="noopener">Discord Support</a>${pay}</div>`);
+    setModal(`<div class="profile-modal">
+      <header class="profile-header">
+        <img class="profile-avatar" src="${esc(ban.skin)}" alt="${esc(ban.username)}">
+        <div>
+          <p class="eyebrow">Player Profile</p>
+          <h2 id="modalTitle">${esc(ban.username)}</h2>
+          <p>Public Mineacle profile shell for punishments and future connected in-game stats</p>
+          <div class="profile-chips">
+            <span class="profile-chip">${esc(ban.status)}</span>
+            <span class="profile-chip">${esc(ban.type)}</span>
+            <span class="profile-chip">${esc(ban.duration)}</span>
+          </div>
+        </div>
+      </header>
+
+      <nav class="profile-tabs" aria-label="Player profile sections">
+        <button class="profile-tab active" type="button" data-profile-tab="overview">Overview</button>
+        <button class="profile-tab" type="button" data-profile-tab="bans">Bans</button>
+        <button class="profile-tab" type="button" data-profile-tab="mutes">Mutes</button>
+        <button class="profile-tab" type="button" data-profile-tab="kicks">Kicks</button>
+        <button class="profile-tab" type="button" data-profile-tab="stats">Stats</button>
+      </nav>
+
+      <section class="profile-pane active" data-profile-pane="overview">
+        <h3>Record Overview</h3>
+        <div class="detail-grid">
+          <div class="detail-item"><span>Appeal ID</span><strong>${esc(ban.appeal_id)}</strong></div>
+          <div class="detail-item"><span>Status</span><strong>${esc(ban.status)} ${esc(ban.type)}</strong></div>
+          <div class="detail-item"><span>Reason</span><strong>${esc(ban.reason)}</strong></div>
+          <div class="detail-item"><span>Staff</span><strong>${esc(ban.staff)}</strong></div>
+          <div class="detail-item"><span>Server</span><strong>${esc(ban.server)}</strong></div>
+          <div class="detail-item"><span>Issued</span><strong>${esc(ban.date)}</strong></div>
+          <div class="detail-item"><span>Expires</span><strong>${esc(ban.expires)}</strong></div>
+          <div class="detail-item"><span>Flags</span><strong>${esc(ban.flags_text)}</strong></div>
+        </div>
+      </section>
+
+      <section class="profile-pane" data-profile-pane="bans">
+        <h3>Active Ban History</h3>
+        <div class="profile-list">
+          <div class="profile-record"><strong>${esc(ban.date)}</strong><span>${esc(ban.reason)}</span><span class="status-pill ${esc(ban.status_type)}">${esc(ban.status)}</span></div>
+        </div>
+      </section>
+
+      <section class="profile-pane" data-profile-pane="mutes">
+        <h3>Mutes</h3>
+        <div class="profile-placeholder">This tab is ready for the LiteBans mute connection. Once connected, it can show active and recent mutes, mute reasons, staff, dates, and expiration data.</div>
+      </section>
+
+      <section class="profile-pane" data-profile-pane="kicks">
+        <h3>Kicks / Warnings</h3>
+        <div class="profile-placeholder">This tab is ready for LiteBans kicks and warnings. Once connected, it can show moderation events that do not belong in the active ban table.</div>
+      </section>
+
+      <section class="profile-pane" data-profile-pane="stats">
+        <h3>In-Game Stats</h3>
+        <div class="stats-grid">
+          <div class="stat-box"><span>Kills</span><strong>—</strong></div>
+          <div class="stat-box"><span>Deaths</span><strong>—</strong></div>
+          <div class="stat-box"><span>Playtime</span><strong>—</strong></div>
+          <div class="stat-box"><span>Balance</span><strong>—</strong></div>
+        </div>
+        <div class="profile-placeholder" style="margin-top:14px">This player stats tab is prepared for the MineacleCore stats database. Once connected, it can show trackable survival stats in a larger profile layout like competitive stats sites.</div>
+      </section>
+
+      <div class="modal-actions"><a href="${esc(ban.discord)}" target="_blank" rel="noopener">Discord Support</a>${pay}</div>
+    </div>`);
+
+    bindProfileTabs();
   };
 
   const loadBanDetail = async (id) => {
-    setModal('<h2 id="modalTitle">Loading record</h2><p>Fetching punishment details</p>');
+    setModal('<h2 id="modalTitle">Loading profile</h2><p>Fetching player punishment profile</p>');
 
     try {
       const response = await fetch(`api/bans.php?id=${encodeURIComponent(id)}`, { cache: 'no-store' });
       const data = await response.json();
 
       if (!data.success || !data.detail) {
-        setModal('<h2 id="modalTitle">Record unavailable</h2><p>That active ban record could not be loaded right now</p>');
+        setModal('<h2 id="modalTitle">Profile unavailable</h2><p>That active ban profile could not be loaded right now</p>');
         return;
       }
 
-      renderBanDetail(data.detail);
+      renderBanProfile(data.detail);
     } catch (error) {
-      setModal('<h2 id="modalTitle">Record unavailable</h2><p>That active ban record could not be loaded right now</p>');
+      setModal('<h2 id="modalTitle">Profile unavailable</h2><p>That active ban profile could not be loaded right now</p>');
     }
   };
 
   modalClose?.addEventListener('click', closeModal);
-  modal?.addEventListener('click', (event) => {
-    if (event.target === modal) closeModal();
-  });
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && modal && !modal.hidden) closeModal();
-  });
+  modal?.addEventListener('click', (event) => { if (event.target === modal) closeModal(); });
+  document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && modal && !modal.hidden) closeModal(); });
 
   document.querySelectorAll('[data-info]').forEach((button) => {
     button.addEventListener('click', () => {
@@ -245,7 +328,7 @@
     event.preventDefault();
     state.search = input ? input.value.trim() : '';
     state.page = 1;
-    loadBans();
+    loadBans({ openProfile: state.search !== '' });
   });
 
   let searchTimer;
@@ -254,20 +337,20 @@
     searchTimer = setTimeout(() => {
       state.search = input.value.trim();
       state.page = 1;
-      loadBans();
+      loadBans({ openProfile: false });
     }, 420);
   });
 
   prev?.addEventListener('click', () => {
     if (state.page > 1) {
       state.page -= 1;
-      loadBans();
+      loadBans({ openProfile: false });
     }
   });
 
   next?.addEventListener('click', () => {
     state.page += 1;
-    loadBans();
+    loadBans({ openProfile: false });
   });
 
   tbody?.addEventListener('click', (event) => {
@@ -277,6 +360,6 @@
   });
 
   loadStatus();
-  loadBans();
+  loadBans({ openProfile: false });
   setInterval(loadStatus, 30000);
 })();

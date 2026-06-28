@@ -30,6 +30,9 @@ return [
     'litebans' => [
         'bans_table' => getenv('LITEBANS_BANS_TABLE') ?: 'litebans_bans',
         'history_table' => getenv('LITEBANS_HISTORY_TABLE') ?: 'litebans_history',
+        'mutes_table' => getenv('LITEBANS_MUTES_TABLE') ?: 'litebans_mutes',
+        'warnings_table' => getenv('LITEBANS_WARNINGS_TABLE') ?: 'litebans_warnings',
+        'kicks_table' => getenv('LITEBANS_KICKS_TABLE') ?: 'litebans_kicks',
     ],
     'minecraft_status' => [
         'public_host' => getenv('MC_PUBLIC_HOST') ?: 'mineacle.net',
