@@ -118,7 +118,7 @@
     }
 
     tbody.innerHTML = state.lastRows.map((ban) => `<tr>
-      <td><div class="player-cell"><img loading="lazy" src="${esc(ban.skin)}" alt=""><span>${esc(ban.username)}</span></div></td>
+      <td><div class="player-cell"><img loading="lazy" src="${esc(ban.skin_head || ban.skin)}" alt=""><span>${esc(ban.username)}</span></div></td>
       <td class="reason-cell" title="${esc(ban.reason)}">${esc(ban.reason)}</td>
       <td>${esc(ban.staff)}</td>
       <td>${esc(ban.server)}</td>
@@ -198,7 +198,7 @@
 
     setModal(`<div class="profile-modal">
       <header class="profile-header">
-        <img class="profile-avatar" src="${esc(ban.skin)}" alt="${esc(ban.username)}">
+        <span class="profile-avatar-wrap"><img class="profile-avatar" src="${esc(ban.skin_bust || ban.skin_head || ban.skin)}" alt="${esc(ban.username)}"></span>
         <div>
           <p class="eyebrow">Player Profile</p>
           <h2 id="modalTitle">${esc(ban.username)}</h2>

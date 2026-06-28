@@ -155,9 +155,27 @@ function mineacle_server_display($value, string $fallback = 'Global'): string {
     $server = trim((string) $value); return ($server === '' || $server === '*' || strcasecmp($server, 'global') === 0) ? $fallback : $server;
 }
 
+function mineacle_skin_identifier(string $value): string {
+    $value = trim($value);
+    if ($value === '' || str_starts_with($value, '#')) {
+        return 'Steve';
+    }
+    return $value;
+}
+
+function mineacle_skin_head_url(string $value, int $size = 96): string {
+    $identifier = mineacle_skin_identifier($value);
+    $size = max(32, min(256, $size));
+    return 'https://mc-heads.net/avatar/' . rawurlencode($identifier) . '/' . $size;
+}
+
+function mineacle_skin_bust_url(string $value): string {
+    $identifier = mineacle_skin_identifier($value);
+    return 'https://mc-heads.net/body/' . rawurlencode($identifier) . '/right';
+}
+
 function mineacle_skin_url(string $value): string {
-    $value = trim($value); if ($value === '' || str_starts_with($value, '#')) $value = 'Steve';
-    return 'https://mc-heads.net/avatar/' . rawurlencode($value) . '/96';
+    return mineacle_skin_head_url($value, 96);
 }
 
 function mineacle_map_ban_row(array $row, array $config, int $nowSeconds): array {
@@ -177,7 +195,10 @@ function mineacle_map_ban_row(array $row, array $config, int $nowSeconds): array
     $staff = mineacle_staff_display($row['staff_name'] ?? '', $row['staff_uuid'] ?? '');
     $canPay = $currentlyActive && !$isIpBan && $permanent;
     return [
-        'id' => $id, 'uuid' => $uuid, 'username' => $name, 'skin' => mineacle_skin_url($uuid !== '' ? $uuid : $name),
+        'id' => $id, 'uuid' => $uuid, 'username' => $name,
+        'skin' => mineacle_skin_head_url($uuid !== '' ? $uuid : $name, 96),
+        'skin_head' => mineacle_skin_head_url($uuid !== '' ? $uuid : $name, 96),
+        'skin_bust' => mineacle_skin_bust_url($uuid !== '' ? $uuid : $name),
         'reason' => (string) (($row['reason'] ?? '') !== '' ? $row['reason'] : 'No reason provided'),
         'type' => $isIpBan ? 'IP Ban' : 'Ban', 'duration' => $permanent ? 'Permanent' : mineacle_format_duration($until, $time),
         'date' => mineacle_format_litebans_date($time), 'expires' => !$activeRaw ? '-' : ($permanent ? 'Permanent' : mineacle_format_litebans_date($until)),
