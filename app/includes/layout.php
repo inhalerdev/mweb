@@ -13,11 +13,11 @@ function mineacle_page_head(string $title, string $description = 'Search active 
     echo '<meta name="robots" content="index,follow">';
     echo '<link rel="icon" type="image/svg+xml" href="assets/brand/mineacle-fav.png?v=6.6.0">';
     echo '<link rel="preconnect" href="https://mc-heads.net">';
-    echo '<link rel="stylesheet" href="assets/styles.css?v=6.9.0">';
+    echo '<link rel="stylesheet" href="assets/styles.css?v=6.10.0">';
     echo '</head><body>';
 }
 
 function mineacle_page_end(): void {
-    echo '<script src="assets/app.js?v=6.9.0" defer></script>';
+    echo '<script src="assets/app.js?v=6.10.0" defer></script>';
     echo '</body></html>';
 }
