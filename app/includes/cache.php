@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+require_once __DIR__ . '/db.php';
 
 function mineacle_cache_enabled(): bool {
     return (bool) ((mineacle_config()['cache']['enabled'] ?? true) === true);
@@ -31,7 +32,7 @@ function mineacle_cache_set(string $key, array $payload): void {
     @file_put_contents($file, json_encode($payload, JSON_UNESCAPED_SLASHES), LOCK_EX);
 }
 
-function mineacle_json(array $payload, int $status = 200, int $publicMaxAge = 0): never {
+function mineacle_json(array $payload, int $status = 200, int $publicMaxAge = 0): void {
     http_response_code($status);
     mineacle_security_headers(true);
     header('Cache-Control: ' . ($publicMaxAge > 0 ? 'public, max-age=' . $publicMaxAge : 'no-store, no-cache, must-revalidate, max-age=0'));

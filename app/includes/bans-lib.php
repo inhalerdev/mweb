@@ -21,7 +21,7 @@ function mineacle_table_columns(PDO $pdo, string $table): array {
     return $cache[$table] = $columns;
 }
 
-function mineacle_column(array $columns, string|array $names): ?string {
+function mineacle_column(array $columns, $names): ?string {
     foreach ((array) $names as $name) {
         $key = strtolower((string) $name);
         if (isset($columns[$key])) return $columns[$key];
@@ -29,12 +29,12 @@ function mineacle_column(array $columns, string|array $names): ?string {
     return null;
 }
 
-function mineacle_select_column(string $alias, array $columns, string|array $names, string $as, string $fallback = 'NULL'): string {
+function mineacle_select_column(string $alias, array $columns, $names, string $as, string $fallback = 'NULL'): string {
     $column = mineacle_column($columns, $names);
     return ($column === null ? $fallback : $alias . '.`' . $column . '`') . ' AS `' . $as . '`';
 }
 
-function mineacle_epoch_seconds(mixed $value): int {
+function mineacle_epoch_seconds($value): int {
     $raw = trim((string) $value);
     if ($raw === '' || $raw === '0' || !preg_match('/^-?\d+$/', $raw) || $raw[0] === '-') return 0;
     $digits = strlen(ltrim($raw, '0'));
@@ -50,7 +50,7 @@ function mineacle_litebans_until_seconds_sql(string $field): string {
     return '(CASE WHEN ' . $field . ' >= 100000000000000000 THEN FLOOR(' . $field . ' / 1000000000) WHEN ' . $field . ' >= 100000000000000 THEN FLOOR(' . $field . ' / 1000000) WHEN ' . $field . ' >= 100000000000 THEN FLOOR(' . $field . ' / 1000) ELSE ' . $field . ' END)';
 }
 
-function mineacle_litebans_is_permanent(mixed $until): bool {
+function mineacle_litebans_is_permanent($until): bool {
     $raw = trim((string) $until);
     return $raw === '' || $raw === '0' || in_array($raw, ['2147483647', '2147483647000'], true);
 }
@@ -66,13 +66,13 @@ function mineacle_display_timezone(): DateTimeZone {
     try { return new DateTimeZone($timezone); } catch (Throwable) { return new DateTimeZone('America/Chicago'); }
 }
 
-function mineacle_format_litebans_date(mixed $value): string {
+function mineacle_format_litebans_date($value): string {
     $seconds = mineacle_epoch_seconds($value);
     if ($seconds <= 0) return 'Unknown';
     return (new DateTimeImmutable('@' . $seconds))->setTimezone(mineacle_display_timezone())->format('M j, Y g:i A T');
 }
 
-function mineacle_format_duration(mixed $until, mixed $time): string {
+function mineacle_format_duration($until, $time): string {
     if (mineacle_litebans_is_permanent($until)) return 'Permanent';
     $seconds = max(0, mineacle_epoch_seconds($until) - max(1, mineacle_epoch_seconds($time)));
     if ($seconds <= 0) return 'Expired';
@@ -146,12 +146,12 @@ function mineacle_add_ban_search(array &$where, array &$params, array $banColumn
     if ($conditions !== []) $where[] = '(' . implode(' OR ', $conditions) . ')';
 }
 
-function mineacle_staff_display(mixed $name, mixed $uuid): string {
+function mineacle_staff_display($name, $uuid): string {
     $name = trim((string) $name); if ($name !== '') return $name;
     $uuid = trim((string) $uuid); return ($uuid === '' || strcasecmp($uuid, 'console') === 0) ? 'Console' : $uuid;
 }
 
-function mineacle_server_display(mixed $value, string $fallback = 'Global'): string {
+function mineacle_server_display($value, string $fallback = 'Global'): string {
     $server = trim((string) $value); return ($server === '' || $server === '*' || strcasecmp($server, 'global') === 0) ? $fallback : $server;
 }
 

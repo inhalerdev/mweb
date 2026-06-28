@@ -1,11 +1,7 @@
-Options -Indexes
-DirectoryIndex index.php bans.php
+DirectoryIndex bans.php index.php
 <IfModule mod_rewrite.c>
 RewriteEngine On
+RewriteRule ^$ bans.php [L]
 RewriteRule ^bans/?$ bans.php [L]
 RewriteRule ^server-status/?$ server-status.php [L]
-</IfModule>
-<IfModule mod_headers.c>
-Header set X-Content-Type-Options "nosniff"
-Header set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>

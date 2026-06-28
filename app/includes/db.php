@@ -1,6 +1,23 @@
 <?php
 declare(strict_types=1);
 
+
+if (!function_exists('str_starts_with')) {
+    function str_starts_with($haystack, $needle): bool {
+        $haystack = (string) $haystack;
+        $needle = (string) $needle;
+        return $needle === '' || strpos($haystack, $needle) === 0;
+    }
+}
+
+if (!function_exists('str_contains')) {
+    function str_contains($haystack, $needle): bool {
+        $haystack = (string) $haystack;
+        $needle = (string) $needle;
+        return $needle === '' || strpos($haystack, $needle) !== false;
+    }
+}
+
 function mineacle_config(): array {
     static $config = null;
     if ($config !== null) return $config;
@@ -11,7 +28,7 @@ function mineacle_config(): array {
     return $config;
 }
 
-function h(mixed $value): string {
+function h($value): string {
     return htmlspecialchars((string) $value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
 
