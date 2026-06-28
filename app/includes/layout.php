@@ -18,7 +18,7 @@ function mineacle_page_head(string $title): void {
     mineacle_critical_styles();
     echo '<link rel="stylesheet" href="assets/bans-page.css?v=bansclean1.0.10">';
     echo '<link rel="stylesheet" href="assets/bans-rail-dock.css?v=bansclean1.0.19">';
-    echo '<link rel="stylesheet" href="assets/bans-search-modules.css?v=bansclean1.0.4">';
+    echo '<link rel="stylesheet" href="assets/bans-search-modules.css?v=bansclean1.0.5">';
     echo '</head>';
     echo '<body>';
 }
