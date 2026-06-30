@@ -1,0 +1,832 @@
+/* Local variable fallbacks keep standalone IDE CSS analysis clean. */
+:root {
+  --shell-width: min(calc(100vw - 64px), 1620px);
+  --shell-left: max(32px, calc((100vw - min(calc(100vw - 64px), 1620px)) / 2));
+  --rail-width: 104px;
+  --rail-gap: 28px;
+  --button-hover: #a735ff;
+  --text: #fff7ff;
+}
+
+/* Mineacle Bans rail/content alignment: fixed full-height rail, full-width content lane, aligned footer. */
+@media (min-width: 761px) {
+  :root {
+    --mineacle-rail-edge-gap: 28px;
+    --mineacle-content-left: calc(var(--shell-left) + var(--rail-width) + var(--rail-gap));
+    --mineacle-content-width: calc(var(--shell-width) - var(--rail-width) - var(--rail-gap));
+  }
+
+  .mineacle-bans-rail {
+    position: fixed !important;
+    top: var(--mineacle-rail-edge-gap) !important;
+    bottom: var(--mineacle-rail-edge-gap) !important;
+    left: var(--shell-left) !important;
+    width: var(--rail-width) !important;
+    height: auto !important;
+    min-height: 0 !important;
+    z-index: 50;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    align-content: stretch;
+    justify-items: center;
+    gap: 18px;
+    padding: 22px 0;
+  }
+
+  .mineacle-bans-rail-nav {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 14px;
+    margin-top: 0;
+  }
+
+  .mineacle-bans-rail-discord {
+    margin-top: auto;
+    border-color: rgba(88, 101, 242, .58);
+    background: linear-gradient(135deg, rgba(114, 137, 255, .98), rgba(88, 101, 242, .92) 58%, rgba(54, 69, 190, .94));
+    box-shadow:
+      0 0 0 5px rgba(88, 101, 242, .13),
+      0 18px 34px rgba(45, 59, 180, .34),
+      inset 0 1px 0 rgba(255, 255, 255, .18);
+  }
+
+  .mineacle-bans-rail-discord:hover,
+  .mineacle-bans-rail-discord:focus-visible {
+    border-color: rgba(168, 181, 255, .72);
+    background: linear-gradient(135deg, rgba(144, 160, 255, 1), rgba(99, 112, 255, .96) 58%, rgba(64, 78, 237, .98));
+    box-shadow:
+      0 0 0 5px rgba(88, 101, 242, .18),
+      0 20px 38px rgba(45, 59, 180, .4),
+      inset 0 1px 0 rgba(255, 255, 255, .22);
+  }
+
+  .mineacle-bans-rail-discord img {
+    width: 28px;
+    height: 28px;
+    filter: brightness(0) invert(1);
+  }
+
+  .mineacle-bans-shell {
+    width: var(--shell-width) !important;
+    min-height: 0 !important;
+    margin: 0 auto !important;
+    padding: var(--mineacle-rail-edge-gap) 0 36px calc(var(--rail-width) + var(--rail-gap)) !important;
+    display: block !important;
+  }
+
+  .mineacle-bans-main {
+    width: 100% !important;
+  }
+
+  .mineacle-bans-topbar {
+    width: 100% !important;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .mineacle-bans-search {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+  }
+
+  .mineacle-footer-island {
+    position: relative;
+    z-index: 1;
+    width: var(--mineacle-content-width) !important;
+    max-width: var(--mineacle-content-width) !important;
+    margin-left: var(--mineacle-content-left) !important;
+    margin-right: var(--shell-left) !important;
+    margin-bottom: var(--mineacle-rail-edge-gap) !important;
+  }
+}
+
+@media (min-width: 761px) and (max-height: 620px) {
+  :root {
+    --mineacle-rail-edge-gap: 16px;
+  }
+
+  .mineacle-bans-rail {
+    padding: 14px 0;
+    gap: 12px;
+  }
+
+  .mineacle-bans-shell {
+    padding-top: var(--mineacle-rail-edge-gap) !important;
+    padding-bottom: 24px !important;
+  }
+
+  .mineacle-bans-rail-logo {
+    width: 56px;
+    height: 56px;
+  }
+
+  .mineacle-bans-rail-logo img {
+    width: 49px;
+    height: 49px;
+  }
+
+  .mineacle-bans-rail-nav {
+    gap: 10px;
+  }
+
+  .mineacle-bans-rail-link {
+    width: 48px;
+    height: 48px;
+  }
+
+  .mineacle-bans-rail-link img,
+  .mineacle-bans-rail-discord img {
+    width: 23px;
+    height: 23px;
+  }
+
+  .mineacle-bans-rail-link:first-child img {
+    width: 29px;
+    height: 29px;
+  }
+}
+
+@media (max-width: 760px) {
+  .mineacle-bans-rail-discord {
+    margin-top: 0;
+    border-color: rgba(88, 101, 242, .48);
+    background: rgba(32, 8, 78, .76);
+  }
+}
+
+
+/* Mineacle Bans search form layout: icon input block + separate Search button. */
+@media (min-width: 761px) {
+  .mineacle-bans-search {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) clamp(190px, 17vw, 290px) !important;
+    align-items: start !important;
+    column-gap: clamp(22px, 4vw, 64px) !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 122px !important;
+    margin: 0 !important;
+    padding: 0 0 42px !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .mineacle-bans-search:focus-within,
+  .mineacle-bans-search.has-value {
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .mineacle-bans-search-field {
+    position: relative;
+    height: 76px !important;
+    min-height: 76px !important;
+    display: grid !important;
+    grid-template-columns: 82px minmax(0, 1fr) !important;
+    align-items: stretch !important;
+    overflow: visible !important;
+    border: 1px solid rgba(188, 77, 255, .30) !important;
+    border-radius: 10px !important;
+    background: rgba(9, 3, 19, .88) !important;
+    box-shadow:
+      0 20px 48px rgba(0, 0, 0, .28),
+      inset 0 1px 0 rgba(255, 255, 255, .045) !important;
+    transition: border-color .14s ease, background .14s ease, box-shadow .14s ease;
+  }
+
+  .mineacle-bans-search:focus-within .mineacle-bans-search-field,
+  .mineacle-bans-search.has-value .mineacle-bans-search-field {
+    border-color: rgba(218, 121, 255, .55) !important;
+    background: rgba(12, 4, 28, .96) !important;
+    box-shadow:
+      0 24px 56px rgba(0, 0, 0, .36),
+      0 0 0 5px rgba(157, 37, 255, .12),
+      inset 0 1px 0 rgba(255, 255, 255, .06) !important;
+  }
+
+  .mineacle-bans-search.is-typing .mineacle-bans-search-field {
+    border-color: rgba(255, 165, 247, .62) !important;
+  }
+
+  .mineacle-bans-search-field::before {
+    content: "";
+    width: 82px;
+    height: 74px;
+    display: block;
+    border-right: 1px solid rgba(188, 77, 255, .24);
+    border-radius: 9px 0 0 9px;
+    background:
+      radial-gradient(circle at 50% 28%, rgba(255, 247, 255, .94) 0 8px, transparent 9px),
+      radial-gradient(ellipse at 50% 71%, rgba(255, 247, 255, .94) 0 18px, transparent 19px),
+      linear-gradient(180deg, rgba(255, 255, 255, .045), rgba(255, 255, 255, .018)),
+      rgba(255, 255, 255, .035);
+    opacity: .98;
+  }
+
+  .mineacle-bans-search-field::after {
+    content: "You can search by player name or full UUID";
+    position: absolute;
+    left: 0;
+    top: calc(100% + 13px);
+    color: rgba(219, 222, 246, .70);
+    font-size: clamp(16px, 1.35vw, 22px);
+    line-height: 1.15;
+    font-weight: 650;
+    letter-spacing: .01em;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  .mineacle-bans-search-field input {
+    height: 74px !important;
+    padding: 0 24px !important;
+    color: var(--text) !important;
+    font-size: clamp(22px, 2.15vw, 34px) !important;
+    line-height: 1 !important;
+    font-weight: 700 !important;
+    letter-spacing: .01em !important;
+  }
+
+  .mineacle-bans-search-field input::placeholder {
+    color: rgba(219, 222, 246, .58) !important;
+  }
+
+  .mineacle-bans-search-field input:focus::placeholder {
+    color: rgba(219, 222, 246, .36) !important;
+  }
+
+  .mineacle-bans-search-action {
+    width: 100% !important;
+    height: 76px !important;
+    min-height: 76px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 14px !important;
+    justify-self: stretch !important;
+    align-self: start !important;
+    border: 1px solid rgba(245, 178, 255, .28) !important;
+    border-radius: 10px !important;
+    background: linear-gradient(135deg, #ff9ff4, #9b25ff 58%, #4b00d8) !important;
+    box-shadow:
+      0 18px 38px rgba(151, 34, 255, .34),
+      inset 0 2px 0 rgba(255, 255, 255, .24) !important;
+    color: #fff !important;
+    font-size: clamp(22px, 2vw, 31px) !important;
+    line-height: 1 !important;
+    font-weight: 850 !important;
+    letter-spacing: .01em !important;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, .24) !important;
+  }
+
+  .mineacle-bans-search-action::before,
+  .mineacle-bans-search.has-value .mineacle-bans-search-action::before {
+    content: "" !important;
+    width: 28px !important;
+    height: 28px !important;
+    flex: 0 0 28px !important;
+    display: block !important;
+    background: url("search.svg") center / contain no-repeat !important;
+    filter: brightness(0) invert(1) !important;
+  }
+
+  .mineacle-bans-search-action:hover,
+  .mineacle-bans-search-action:focus-visible {
+    background: linear-gradient(135deg, #ffc0f8, var(--button-hover) 58%, #6500ee) !important;
+    box-shadow:
+      0 20px 42px rgba(151, 34, 255, .42),
+      0 0 0 5px rgba(157, 37, 255, .12),
+      inset 0 2px 0 rgba(255, 255, 255, .26) !important;
+    outline: 0 !important;
+  }
+
+  .mineacle-bans-search-action:active {
+    transform: translateY(1px) !important;
+    box-shadow:
+      0 12px 28px rgba(151, 34, 255, .30),
+      inset 0 1px 0 rgba(255, 255, 255, .18) !important;
+  }
+}
+
+@media (min-width: 761px) and (max-width: 1080px) {
+  .mineacle-bans-search {
+    grid-template-columns: minmax(0, 1fr) 170px !important;
+    column-gap: 22px !important;
+  }
+
+  .mineacle-bans-search-field {
+    grid-template-columns: 70px minmax(0, 1fr) !important;
+  }
+
+  .mineacle-bans-search-field::before {
+    width: 70px;
+  }
+
+  .mineacle-bans-search-action {
+    gap: 10px !important;
+  }
+
+  .mineacle-bans-search-action::before,
+  .mineacle-bans-search.has-value .mineacle-bans-search-action::before {
+    width: 24px !important;
+    height: 24px !important;
+    flex-basis: 24px !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .mineacle-bans-search {
+    gap: 10px;
+  }
+}
+
+/* Mineacle Bans search form refinement: use provided icons and a thinner, tighter layout. */
+@media (min-width: 761px) {
+  .mineacle-bans-search {
+    grid-template-columns: minmax(0, 1fr) clamp(180px, 16vw, 250px) !important;
+    column-gap: clamp(18px, 2.8vw, 40px) !important;
+    min-height: 92px !important;
+    padding: 0 0 30px !important;
+  }
+
+  .mineacle-bans-search-field {
+    height: 58px !important;
+    min-height: 58px !important;
+    grid-template-columns: 62px minmax(0, 1fr) !important;
+    border-radius: 10px !important;
+  }
+
+  .mineacle-bans-search-field::before {
+    content: "";
+    width: 62px;
+    height: 56px;
+    display: block;
+    border-right: 1px solid rgba(188, 77, 255, .24);
+    border-radius: 9px 0 0 9px;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.018)),
+      rgba(255,255,255,.035);
+    mask: none;
+    -webkit-mask: none;
+    position: relative;
+  }
+
+  .mineacle-bans-search-field > img,
+  .mineacle-bans-search-user-icon {
+    display: none !important;
+  }
+
+  .mineacle-bans-search-field {
+    position: relative;
+  }
+
+  .mineacle-bans-search-field .mineacle-bans-search-input-wrap,
+  .mineacle-bans-search-field .search-input-wrap {
+    display: contents;
+  }
+
+  .mineacle-bans-search-field::before {
+    background:
+      url("search-user-icon.png") center / 26px 26px no-repeat,
+      linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.018)),
+      rgba(255,255,255,.035);
+    filter: brightness(0) invert(1);
+  }
+
+  .mineacle-bans-search-field::after {
+    content: "You can search by player name or full UUID";
+    top: calc(100% + 9px);
+    font-size: clamp(12px, 1vw, 15px);
+    line-height: 1.2;
+    font-weight: 600;
+  }
+
+  .mineacle-bans-search-field input {
+    height: 56px !important;
+    padding: 0 18px !important;
+    font-size: clamp(16px, 1.3vw, 22px) !important;
+    font-weight: 700 !important;
+  }
+
+  .mineacle-bans-search-action {
+    width: 100% !important;
+    height: 58px !important;
+    min-height: 58px !important;
+    padding: 0 24px !important;
+    border-radius: 10px !important;
+    align-self: start !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    font-size: clamp(15px, 1.1vw, 19px) !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    color: #fff !important;
+    letter-spacing: .01em !important;
+  }
+
+  .mineacle-bans-search-action::before {
+    content: "" !important;
+    width: 20px !important;
+    height: 20px !important;
+    display: inline-block !important;
+    flex: 0 0 20px !important;
+    background: url("search-search-icon.png") center / contain no-repeat !important;
+    filter: brightness(0) invert(1) !important;
+    margin: 0 !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .mineacle-bans-search-field::before {
+    background:
+      url("search-user-icon.png") center / 18px 18px no-repeat,
+      linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.018)),
+      rgba(255,255,255,.035);
+    filter: brightness(0) invert(1);
+  }
+
+  .mineacle-bans-search-action::before {
+    background: url("search-search-icon.png") center / contain no-repeat !important;
+    filter: brightness(0) invert(1) !important;
+  }
+}
+
+/* Mineacle Bans search bar restyle: thinner unified bar like reference, with inline MINEACLE.NET label */
+@media (min-width: 761px) {
+  .mineacle-bans-search {
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+    min-height: 60px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .mineacle-bans-search:focus-within,
+  .mineacle-bans-search.has-value,
+  .mineacle-bans-search.is-typing {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .mineacle-bans-search-field {
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+    height: 60px !important;
+    min-height: 60px !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(170, 184, 255, .22) !important;
+    border-radius: 10px !important;
+    background: linear-gradient(180deg, rgba(6, 6, 64, .96), rgba(4, 6, 42, .98)) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.06),
+      0 0 0 1px rgba(255,255,255,.03),
+      0 18px 36px rgba(0,0,0,.20) !important;
+  }
+
+  .mineacle-bans-search-field::before {
+    content: none !important;
+    display: none !important;
+  }
+
+  .mineacle-bans-search-field::after {
+    content: "MINEACLE.NET" !important;
+    position: absolute !important;
+    right: 74px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    color: rgba(214, 220, 255, .82) !important;
+    font-size: 11px !important;
+    line-height: 1 !important;
+    font-weight: 800 !important;
+    letter-spacing: .16em !important;
+    white-space: nowrap !important;
+    pointer-events: none !important;
+    text-transform: uppercase !important;
+  }
+
+  .mineacle-bans-search-field input {
+    width: 100% !important;
+    height: 58px !important;
+    min-width: 0 !important;
+    padding: 0 184px 0 18px !important;
+    border: 0 !important;
+    outline: 0 !important;
+    background: transparent !important;
+    color: #f4f6ff !important;
+    font-size: 18px !important;
+    line-height: 58px !important;
+    font-weight: 700 !important;
+    letter-spacing: .01em !important;
+  }
+
+  .mineacle-bans-search-field input::placeholder {
+    color: rgba(208, 214, 238, .52) !important;
+  }
+
+  .mineacle-bans-search-field input:focus::placeholder {
+    color: rgba(208, 214, 238, .36) !important;
+  }
+
+  .mineacle-bans-search-action {
+    position: absolute !important;
+    top: 7px !important;
+    right: 7px !important;
+    width: 46px !important;
+    height: 46px !important;
+    min-height: 46px !important;
+    padding: 0 !important;
+    display: grid !important;
+    place-items: center !important;
+    justify-content: center !important;
+    border: 1px solid rgba(185, 197, 255, .16) !important;
+    border-radius: 8px !important;
+    background: linear-gradient(180deg, rgba(112, 102, 255, .96), rgba(93, 79, 241, .98)) !important;
+    box-shadow:
+      0 8px 20px rgba(71, 66, 210, .32),
+      inset 0 1px 0 rgba(255,255,255,.18) !important;
+    color: transparent !important;
+    font-size: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .mineacle-bans-search-action::before {
+    content: "" !important;
+    width: 18px !important;
+    height: 18px !important;
+    display: block !important;
+    background: url("search.svg") center / contain no-repeat !important;
+    filter: brightness(0) invert(1) !important;
+    margin: 0 !important;
+    flex: 0 0 18px !important;
+  }
+
+  .mineacle-bans-search-action:hover,
+  .mineacle-bans-search-action:focus-visible {
+    background: linear-gradient(180deg, rgba(130, 121, 255, 1), rgba(104, 90, 249, 1)) !important;
+    box-shadow:
+      0 10px 22px rgba(71, 66, 210, .38),
+      inset 0 1px 0 rgba(255,255,255,.24) !important;
+    transform: none !important;
+    outline: 0 !important;
+  }
+
+  .mineacle-bans-search-action:active {
+    transform: translateY(1px) !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .mineacle-bans-search-field::before {
+    content: none !important;
+    display: none !important;
+  }
+
+  .mineacle-bans-search-field::after {
+    content: "MINEACLE.NET" !important;
+    position: absolute !important;
+    right: 54px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    color: rgba(214, 220, 255, .72) !important;
+    font-size: 9px !important;
+    line-height: 1 !important;
+    font-weight: 800 !important;
+    letter-spacing: .12em !important;
+    white-space: nowrap !important;
+    pointer-events: none !important;
+  }
+
+  .mineacle-bans-search-field,
+  .mineacle-bans-search-field input {
+    height: 52px !important;
+  }
+
+  .mineacle-bans-search-field input {
+    padding: 0 132px 0 16px !important;
+    font-size: 14px !important;
+  }
+
+  .mineacle-bans-search-action {
+    width: 40px !important;
+    height: 40px !important;
+    min-height: 40px !important;
+  }
+
+  .mineacle-bans-search-action::before {
+    width: 16px !important;
+    height: 16px !important;
+    background: url("search.svg") center / contain no-repeat !important;
+    filter: brightness(0) invert(1) !important;
+  }
+}
+
+/* Final search bar style: single dark bar, inline brand + online count, compact right search button. */
+@media (min-width: 761px) {
+  .mineacle-bans-search {
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+    min-height: 60px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .mineacle-bans-search:focus-within,
+  .mineacle-bans-search.has-value,
+  .mineacle-bans-search.is-typing {
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .mineacle-bans-search-field {
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+    height: 60px !important;
+    min-height: 60px !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(170, 184, 255, .22) !important;
+    border-radius: 10px !important;
+    background: linear-gradient(180deg, rgba(6, 6, 64, .96), rgba(4, 6, 42, .98)) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.06),
+      0 0 0 1px rgba(255,255,255,.03),
+      0 18px 36px rgba(0,0,0,.20) !important;
+  }
+
+  .mineacle-bans-search-field::before,
+  .mineacle-bans-search-field::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  .mineacle-bans-search-field input {
+    width: 100% !important;
+    height: 58px !important;
+    min-width: 0 !important;
+    padding: 0 270px 0 18px !important;
+    border: 0 !important;
+    outline: 0 !important;
+    background: transparent !important;
+    color: #f4f6ff !important;
+    font-size: 18px !important;
+    line-height: 58px !important;
+    font-weight: 700 !important;
+    letter-spacing: .01em !important;
+  }
+
+  .mineacle-bans-search-field input::placeholder {
+    color: rgba(208, 214, 238, .52) !important;
+  }
+
+  .mineacle-bans-search-field input:focus::placeholder {
+    color: rgba(208, 214, 238, .36) !important;
+  }
+
+  .mineacle-search-inline-meta {
+    position: absolute;
+    right: 68px;
+    top: 50%;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 4px;
+    transform: translateY(-50%);
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+    text-align: right;
+  }
+
+  .mineacle-search-inline-brand {
+    color: rgba(246, 248, 255, .88);
+    font-size: 11px;
+    line-height: 1;
+    font-weight: 900;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+  }
+
+  .mineacle-search-inline-online {
+    color: rgba(174, 184, 221, .68);
+    font-size: 9px;
+    line-height: 1;
+    font-weight: 850;
+    letter-spacing: .10em;
+    text-transform: uppercase;
+  }
+
+  .mineacle-search-inline-online b {
+    color: rgba(246, 248, 255, .88);
+    font-weight: 950;
+  }
+
+  .mineacle-bans-search-action {
+    position: absolute !important;
+    top: 7px !important;
+    right: 7px !important;
+    z-index: 3 !important;
+    width: 46px !important;
+    height: 46px !important;
+    min-height: 46px !important;
+    padding: 0 !important;
+    display: grid !important;
+    place-items: center !important;
+    justify-content: center !important;
+    border: 1px solid rgba(185, 197, 255, .16) !important;
+    border-radius: 8px !important;
+    background: linear-gradient(180deg, rgba(112, 102, 255, .96), rgba(93, 79, 241, .98)) !important;
+    box-shadow:
+      0 8px 20px rgba(71, 66, 210, .32),
+      inset 0 1px 0 rgba(255,255,255,.18) !important;
+    color: transparent !important;
+    font-size: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .mineacle-bans-search-action::before,
+  .mineacle-bans-search.has-value .mineacle-bans-search-action::before {
+    content: "" !important;
+    width: 18px !important;
+    height: 18px !important;
+    display: block !important;
+    background: url("search.svg") center / contain no-repeat !important;
+    filter: brightness(0) invert(1) !important;
+    margin: 0 !important;
+    flex: 0 0 18px !important;
+  }
+
+  .mineacle-bans-search-action:hover,
+  .mineacle-bans-search-action:focus-visible {
+    background: linear-gradient(180deg, rgba(130, 121, 255, 1), rgba(104, 90, 249, 1)) !important;
+    box-shadow:
+      0 10px 22px rgba(71, 66, 210, .38),
+      inset 0 1px 0 rgba(255,255,255,.24) !important;
+    transform: none !important;
+    outline: 0 !important;
+  }
+
+  .mineacle-bans-search-action:active {
+    transform: translateY(1px) !important;
+  }
+}
+
+@media (min-width: 761px) and (max-width: 980px) {
+  .mineacle-bans-search-field input {
+    padding-right: 170px !important;
+  }
+
+  .mineacle-search-inline-meta {
+    right: 62px;
+  }
+
+  .mineacle-search-inline-online {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .mineacle-bans-search-field::before,
+  .mineacle-bans-search-field::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  .mineacle-search-inline-meta {
+    display: none !important;
+  }
+
+  .mineacle-bans-search-field input {
+    padding: 0 58px 0 16px !important;
+  }
+
+  .mineacle-bans-search-action::before,
+  .mineacle-bans-search.has-value .mineacle-bans-search-action::before {
+    background: url("search.svg") center / contain no-repeat !important;
+    filter: brightness(0) invert(1) !important;
+  }
+}

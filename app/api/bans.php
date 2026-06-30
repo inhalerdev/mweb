@@ -1,34 +1,55 @@
 <?php
+
 declare(strict_types=1);
-require_once __DIR__ . '/../includes/cache.php';
+
 require_once __DIR__ . '/../includes/bans-lib.php';
+
+header('Content-Type: application/json; charset=utf-8');
 
 try {
     $search = trim((string) ($_GET['search'] ?? $_GET['q'] ?? ''));
-    if (strlen($search) > 64) $search = substr($search, 0, 64);
-    $id = max(0, (int) ($_GET['id'] ?? $_GET['ban_id'] ?? 0));
-    $config = mineacle_config();
 
+    if (strlen($search) > 32) {
+        $search = substr($search, 0, 32);
+    }
+
+    $id = max(0, (int) ($_GET['id'] ?? $_GET['ban_id'] ?? 0));
     if ($id > 0) {
-        $ttl = (int) ($config['cache']['detail_ttl'] ?? 45);
-        $cacheKey = 'ban_detail_v6_' . $id;
-        $cached = mineacle_cache_get($cacheKey, $ttl);
-        if ($cached !== null) mineacle_json($cached, 200, min(30, $ttl));
         $detail = fetch_litebans_ban_detail($id);
-        if ($detail === null) mineacle_json(['success' => false, 'error' => 'Ban record not found'], 404);
-        $payload = ['success' => true, 'detail' => $detail]; mineacle_cache_set($cacheKey, $payload); mineacle_json($payload, 200, min(30, $ttl));
+
+        if ($detail === null) {
+            http_response_code(404);
+            echo json_encode([
+                'success' => false,
+                'error' => 'Ban record not found',
+            ], JSON_UNESCAPED_SLASHES);
+            exit;
+        }
+
+        echo json_encode([
+            'success' => true,
+            'detail' => $detail,
+        ], JSON_UNESCAPED_SLASHES);
+        exit;
     }
 
     $page = max(1, (int) ($_GET['page'] ?? 1));
-    $ttl = (int) ($config['cache']['list_ttl'] ?? 12);
-    $cacheKey = 'ban_list_v6_' . $page . '_' . sha1(strtolower($search));
-    $cached = mineacle_cache_get($cacheKey, $ttl);
-    if ($cached !== null) mineacle_json($cached, 200, min(15, $ttl));
-    $payload = fetch_litebans_bans_page($search, $page);
-    $response = ['success' => true, 'bans' => $payload['bans'], 'stats' => $payload['stats'] ?? [], 'pagination' => $payload['pagination']];
-    mineacle_cache_set($cacheKey, $response);
-    mineacle_json($response, 200, min(15, $ttl));
+    $scope = 'active';
+
+    $payload = fetch_litebans_bans_page($search, $page, $scope);
+
+    echo json_encode([
+        'success' => true,
+        'bans' => $payload['bans'],
+        'stats' => $payload['stats'] ?? [],
+        'pagination' => $payload['pagination'],
+    ], JSON_UNESCAPED_SLASHES);
 } catch (Throwable $e) {
+    http_response_code(500);
     error_log('[MineacleBans] ' . $e->getMessage());
-    mineacle_json(['success' => false, 'error' => 'Unable to load bans right now'], 500);
+
+    echo json_encode([
+        'success' => false,
+        'error' => 'Unable to load bans right now',
+    ], JSON_UNESCAPED_SLASHES);
 }

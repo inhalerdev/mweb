@@ -1,0 +1,386 @@
+/*
+  Mineacle static glass effect pass.
+  Stronger than the earlier subtle patch: no hard module borders, matte translucent modules,
+  faded white edge highlights, and visible hover/click states inspired by the reference UI.
+*/
+
+:root {
+  --mcx-glass-bg: rgba(18, 15, 38, .82);
+  --mcx-glass-bg-deep: rgba(10, 7, 24, .88);
+  --mcx-glass-bg-hover: rgba(24, 20, 49, .86);
+  --mcx-glass-edge: rgba(255, 255, 255, .38);
+  --mcx-glass-edge-soft: rgba(255, 255, 255, .12);
+  --mcx-glass-purple: rgba(131, 99, 255, .26);
+  --mcx-glass-shadow: 0 22px 54px rgba(0, 0, 0, .30), inset 0 1px 0 rgba(255, 255, 255, .055);
+  --mcx-glass-shadow-hover: 0 26px 64px rgba(0, 0, 0, .34), inset 0 1px 0 rgba(255, 255, 255, .075);
+  --mcx-glass-radius: 10px;
+}
+
+/* Base glass modules */
+.mineacle-bans-rail,
+.mineacle-bans-search-field,
+.mineacle-player-count-module,
+.mineacle-footer-island,
+.mineacle-footer-socials a,
+.mineacle-bans-table-wrap,
+.mineacle-bans-table-shell,
+.mineacle-bans-results,
+.mineacle-bans-panel,
+.mineacle-bans-card,
+.mineacle-bans-pagination,
+.mineacle-modal-card {
+  border: 0 !important;
+  background:
+    radial-gradient(circle at 28% 0%, rgba(165, 126, 255, .10), transparent 38%),
+    linear-gradient(180deg, var(--mcx-glass-bg), var(--mcx-glass-bg-deep)) !important;
+  box-shadow: var(--mcx-glass-shadow) !important;
+  position: relative;
+}
+
+@supports ((-webkit-backdrop-filter: blur(8px)) or (backdrop-filter: blur(8px))) {
+  .mineacle-bans-rail,
+  .mineacle-bans-search-field,
+  .mineacle-player-count-module,
+  .mineacle-footer-island,
+  .mineacle-footer-socials a,
+  .mineacle-bans-table-wrap,
+  .mineacle-bans-table-shell,
+  .mineacle-bans-results,
+  .mineacle-bans-panel,
+  .mineacle-bans-card,
+  .mineacle-bans-pagination,
+  .mineacle-modal-card {
+    -webkit-backdrop-filter: blur(18px) saturate(128%);
+    backdrop-filter: blur(18px) saturate(128%);
+  }
+}
+
+/* Faded glass edge lines: top + bottom, no boxed border */
+.mineacle-bans-rail::before,
+.mineacle-bans-search-field::before,
+.mineacle-player-count-module::before,
+.mineacle-footer-island::before,
+.mineacle-footer-socials a::before,
+.mineacle-bans-table-wrap::before,
+.mineacle-bans-table-shell::before,
+.mineacle-bans-results::before,
+.mineacle-bans-panel::before,
+.mineacle-bans-card::before,
+.mineacle-bans-pagination::before,
+.mineacle-modal-card::before {
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  z-index: 2;
+  left: 14px;
+  right: 14px;
+  top: 0;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,.10) 8%,
+    rgba(255,255,255,.30) 28%,
+    rgba(255,255,255,.46) 50%,
+    rgba(255,255,255,.30) 72%,
+    rgba(255,255,255,.10) 92%,
+    rgba(255,255,255,0) 100%);
+  opacity: .92;
+}
+
+.mineacle-bans-rail::after,
+.mineacle-bans-search-field::after,
+.mineacle-player-count-module::after,
+.mineacle-footer-island::after,
+.mineacle-footer-socials a::after,
+.mineacle-bans-table-wrap::after,
+.mineacle-bans-table-shell::after,
+.mineacle-bans-results::after,
+.mineacle-bans-panel::after,
+.mineacle-bans-card::after,
+.mineacle-bans-pagination::after,
+.mineacle-modal-card::after {
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  z-index: 2;
+  left: 20px;
+  right: 20px;
+  bottom: 0;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,.05) 16%,
+    rgba(255,255,255,.16) 50%,
+    rgba(255,255,255,.05) 84%,
+    rgba(255,255,255,0) 100%);
+  opacity: .68;
+}
+
+/* Ensure module contents stay above edge overlays. */
+.mineacle-bans-search-field > *,
+.mineacle-player-count-module > *,
+.mineacle-footer-island > *,
+.mineacle-footer-socials a > *,
+.mineacle-bans-rail > *,
+.mineacle-bans-table-wrap > *,
+.mineacle-bans-table-shell > *,
+.mineacle-bans-results > *,
+.mineacle-bans-panel > *,
+.mineacle-bans-card > *,
+.mineacle-bans-pagination > *,
+.mineacle-modal-card > * {
+  position: relative;
+  z-index: 3;
+}
+
+/* Search module: stronger reference-style glass */
+.mineacle-bans-search,
+.mineacle-bans-search-module {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.mineacle-bans-search-field {
+  border-radius: var(--mcx-glass-radius) !important;
+  background:
+    linear-gradient(90deg, rgba(95, 112, 255, .10), transparent 24%, transparent 74%, rgba(163, 82, 255, .12)),
+    linear-gradient(180deg, rgba(15, 15, 45, .84), rgba(8, 8, 30, .90)) !important;
+  box-shadow:
+    0 20px 48px rgba(0, 0, 0, .30),
+    inset 0 1px 0 rgba(255,255,255,.06),
+    inset 0 -1px 0 rgba(255,255,255,.05) !important;
+  transition: background .18s ease, box-shadow .18s ease, transform .18s ease, filter .18s ease;
+}
+
+.mineacle-bans-search:focus-within .mineacle-bans-search-field,
+.mineacle-bans-search-field:focus-within {
+  background:
+    linear-gradient(90deg, rgba(102, 127, 255, .14), transparent 24%, transparent 72%, rgba(170, 94, 255, .16)),
+    linear-gradient(180deg, rgba(19, 19, 55, .88), rgba(9, 9, 34, .92)) !important;
+  box-shadow:
+    0 24px 58px rgba(0, 0, 0, .34),
+    0 0 32px rgba(116, 88, 255, .16),
+    inset 0 1px 0 rgba(255,255,255,.08),
+    inset 0 -1px 0 rgba(255,255,255,.06) !important;
+}
+
+/* Search button: keep icon pseudo-element intact, use shadows for glass edge. */
+.mineacle-bans-search-action {
+  border: 0 !important;
+  border-radius: 8px !important;
+  background:
+    linear-gradient(135deg, rgba(188, 222, 255, .88), rgba(118, 95, 255, .94) 48%, rgba(138, 70, 255, .96)) !important;
+  box-shadow:
+    0 12px 25px rgba(87, 65, 220, .36),
+    inset 0 1px 0 rgba(255,255,255,.42),
+    inset 0 -1px 0 rgba(33, 18, 100, .26) !important;
+  transition: transform .14s ease, filter .14s ease, box-shadow .14s ease, background .14s ease;
+}
+
+.mineacle-bans-search-action::before {
+  z-index: 4 !important;
+  width: 25px !important;
+  height: 25px !important;
+  background-size: contain !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+.mineacle-bans-search-action:hover,
+.mineacle-bans-search-action:focus-visible {
+  filter: brightness(1.08) saturate(1.06);
+  box-shadow:
+    0 15px 30px rgba(96, 72, 235, .42),
+    0 0 24px rgba(145, 112, 255, .22),
+    inset 0 1px 0 rgba(255,255,255,.48),
+    inset 0 -1px 0 rgba(33, 18, 100, .28) !important;
+}
+
+.mineacle-bans-search-action:active {
+  transform: translateY(1px) scale(.985) !important;
+  filter: brightness(.96);
+}
+
+/* IP / online module */
+.mineacle-player-count-module {
+  border-radius: var(--mcx-glass-radius) !important;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(134, 103, 255, .16), transparent 66%),
+    linear-gradient(180deg, rgba(22, 14, 55, .82), rgba(12, 7, 34, .90)) !important;
+  box-shadow:
+    0 20px 46px rgba(0,0,0,.30),
+    inset 0 1px 0 rgba(255,255,255,.065),
+    inset 0 -1px 0 rgba(255,255,255,.04) !important;
+  transition: transform .16s ease, filter .16s ease, box-shadow .16s ease, background .16s ease;
+}
+
+.mineacle-player-count-module:hover,
+.mineacle-player-count-module:focus-visible {
+  filter: brightness(1.07) saturate(1.04);
+  box-shadow:
+    0 24px 56px rgba(0,0,0,.34),
+    0 0 26px rgba(129, 91, 255, .16),
+    inset 0 1px 0 rgba(255,255,255,.09),
+    inset 0 -1px 0 rgba(255,255,255,.05) !important;
+  outline: 0 !important;
+}
+
+.mineacle-player-count-module:active {
+  transform: translateY(1px) scale(.99) !important;
+}
+
+.mineacle-player-count-module.is-copied,
+.mineacle-player-count-module.is-copied:hover,
+.mineacle-player-count-module.is-copied:focus-visible,
+.mineacle-player-count-module.is-copied:active {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(154, 255, 194, .18), transparent 66%),
+    linear-gradient(180deg, rgba(29, 120, 76, .90), rgba(12, 79, 48, .94)) !important;
+  box-shadow:
+    0 24px 56px rgba(0,0,0,.32),
+    0 0 30px rgba(56, 226, 134, .18),
+    inset 0 1px 0 rgba(255,255,255,.12),
+    inset 0 -1px 0 rgba(255,255,255,.05) !important;
+  filter: none !important;
+}
+
+.mineacle-player-count-module.is-copied::before {
+  background: linear-gradient(90deg,
+    rgba(255,255,255,0) 0%,
+    rgba(226,255,237,.14) 8%,
+    rgba(226,255,237,.38) 28%,
+    rgba(255,255,255,.58) 50%,
+    rgba(226,255,237,.38) 72%,
+    rgba(226,255,237,.14) 92%,
+    rgba(255,255,255,0) 100%) !important;
+}
+
+/* Rail and icon modules: soft glass with creative hover/click */
+.mineacle-bans-rail {
+  background:
+    linear-gradient(180deg, rgba(26, 15, 55, .78), rgba(11, 6, 30, .92)) !important;
+  box-shadow:
+    0 28px 70px rgba(0,0,0,.42),
+    inset 0 1px 0 rgba(255,255,255,.07),
+    inset 0 -1px 0 rgba(255,255,255,.04) !important;
+}
+
+.mineacle-bans-rail-link,
+.mineacle-bans-rail-logo {
+  border: 0 !important;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.035)) !important;
+  box-shadow:
+    0 13px 28px rgba(0,0,0,.20),
+    inset 0 1px 0 rgba(255,255,255,.12),
+    inset 0 -1px 0 rgba(255,255,255,.035) !important;
+  transition: transform .14s ease, filter .14s ease, box-shadow .14s ease, background .14s ease;
+}
+
+.mineacle-bans-rail-link:hover,
+.mineacle-bans-rail-link:focus-visible {
+  transform: translateY(-1px);
+  filter: brightness(1.10) saturate(1.08);
+  box-shadow:
+    0 16px 32px rgba(0,0,0,.24),
+    0 0 24px rgba(151, 103, 255, .20),
+    inset 0 1px 0 rgba(255,255,255,.17),
+    inset 0 -1px 0 rgba(255,255,255,.05) !important;
+}
+
+.mineacle-bans-rail-link:active {
+  transform: translateY(1px) scale(.975);
+}
+
+.mineacle-bans-rail-link.is-active {
+  background:
+    linear-gradient(135deg, rgba(255, 180, 246, .95), rgba(168, 53, 255, .94) 55%, rgba(75, 0, 216, .96)) !important;
+  box-shadow:
+    0 18px 36px rgba(147,26,235,.34),
+    0 0 0 5px rgba(157,37,255,.16),
+    inset 0 1px 0 rgba(255,255,255,.28),
+    inset 0 -1px 0 rgba(70,0,120,.24) !important;
+}
+
+/* Footer: fixed glass, no border hover glow */
+.mineacle-footer-island {
+  background:
+    radial-gradient(circle at 30% 0%, rgba(120, 90, 255, .11), transparent 50%),
+    linear-gradient(180deg, rgba(18, 10, 37, .82), rgba(8, 4, 21, .91)) !important;
+  box-shadow:
+    0 30px 78px rgba(0, 0, 0, .32),
+    inset 0 1px 0 rgba(255,255,255,.055),
+    inset 0 -1px 0 rgba(255,255,255,.035) !important;
+}
+
+.mineacle-footer-island:hover,
+.mineacle-footer-island:focus-within,
+.mineacle-footer-island:active {
+  background:
+    radial-gradient(circle at 30% 0%, rgba(120, 90, 255, .11), transparent 50%),
+    linear-gradient(180deg, rgba(18, 10, 37, .82), rgba(8, 4, 21, .91)) !important;
+  box-shadow:
+    0 30px 78px rgba(0, 0, 0, .32),
+    inset 0 1px 0 rgba(255,255,255,.055),
+    inset 0 -1px 0 rgba(255,255,255,.035) !important;
+  transform: none !important;
+}
+
+.mineacle-footer-socials a:hover,
+.mineacle-footer-socials a:focus-visible {
+  filter: brightness(1.12);
+  transform: translateY(-1px);
+}
+
+.mineacle-footer-socials a:active {
+  transform: translateY(1px) scale(.98);
+}
+
+/* Optional result/list modules if present on the bans page */
+.mineacle-bans-table-wrap,
+.mineacle-bans-table-shell,
+.mineacle-bans-results,
+.mineacle-bans-panel,
+.mineacle-bans-card {
+  border-radius: var(--mcx-glass-radius) !important;
+  overflow: hidden;
+}
+
+.mineacle-bans-table-wrap:hover,
+.mineacle-bans-table-shell:hover,
+.mineacle-bans-results:hover,
+.mineacle-bans-panel:hover,
+.mineacle-bans-card:hover {
+  background:
+    radial-gradient(circle at 28% 0%, rgba(165, 126, 255, .13), transparent 38%),
+    linear-gradient(180deg, var(--mcx-glass-bg-hover), var(--mcx-glass-bg-deep)) !important;
+}
+
+/* Mobile scale-down */
+@media (max-width: 760px) {
+  .mineacle-bans-search-field::before,
+  .mineacle-player-count-module::before,
+  .mineacle-footer-island::before,
+  .mineacle-footer-socials a::before,
+  .mineacle-bans-rail::before {
+    left: 12px;
+    right: 12px;
+  }
+
+  .mineacle-bans-search-field::after,
+  .mineacle-player-count-module::after,
+  .mineacle-footer-island::after,
+  .mineacle-footer-socials a::after,
+  .mineacle-bans-rail::after {
+    left: 16px;
+    right: 16px;
+  }
+
+  .mineacle-bans-search-action::before {
+    width: 22px !important;
+    height: 22px !important;
+  }
+}

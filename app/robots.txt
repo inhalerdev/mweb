@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://bans.mineacle.net/sitemap.xml
-Sitemap: https://bans.mineacle.net/sitemap.txt

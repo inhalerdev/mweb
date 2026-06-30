@@ -1,7 +1,0 @@
-DirectoryIndex bans.php index.php
-<IfModule mod_rewrite.c>
-RewriteEngine On
-RewriteRule ^$ bans.php [L]
-RewriteRule ^bans/?$ bans.php [L]
-RewriteRule ^server-status/?$ server-status.php [L]
-</IfModule>
