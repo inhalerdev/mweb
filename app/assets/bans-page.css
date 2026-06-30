@@ -148,17 +148,64 @@ a {
   width: 46px;
   height: 46px;
   display: block;
-  background: var(--icon-muted);
-  -webkit-mask: var(--icon) center / contain no-repeat;
-  mask: var(--icon) center / contain no-repeat;
+  background: #8c8e92;
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
   transition: background .18s ease, filter .18s ease;
 }
 
-.mineacle-bans-rail-link:hover .mineacle-nav-icon,
-.mineacle-bans-rail-link:focus-visible .mineacle-nav-icon,
-.mineacle-bans-rail-link.is-active .mineacle-nav-icon {
-  background: var(--hover);
+.mineacle-nav-icon-store {
+  -webkit-mask-image: url("store.svg");
+  mask-image: url("store.svg");
+}
+
+.mineacle-nav-icon-vote {
+  -webkit-mask-image: url("vote.svg");
+  mask-image: url("vote.svg");
+}
+
+.mineacle-nav-icon-bans {
+  -webkit-mask-image: url("hammer.svg");
+  mask-image: url("hammer.svg");
+}
+
+.mineacle-nav-icon-stats {
+  -webkit-mask-image: url("users.svg");
+  mask-image: url("users.svg");
+}
+
+.mineacle-nav-icon-discord {
+  -webkit-mask-image: url("discord.svg");
+  mask-image: url("discord.svg");
+}
+
+.mineacle-bans-rail-link:hover .mineacle-nav-icon-store,
+.mineacle-bans-rail-link:focus-visible .mineacle-nav-icon-store {
+  background: #e757f4;
   filter: drop-shadow(0 0 18px rgba(231, 87, 244, .28));
+}
+
+.mineacle-bans-rail-link:hover .mineacle-nav-icon-vote,
+.mineacle-bans-rail-link:focus-visible .mineacle-nav-icon-vote {
+  background: #ffb509;
+  filter: drop-shadow(0 0 18px rgba(255, 181, 9, .24));
+}
+
+.mineacle-bans-rail-link:hover .mineacle-nav-icon-bans,
+.mineacle-bans-rail-link:focus-visible .mineacle-nav-icon-bans,
+.mineacle-bans-rail-link.is-active .mineacle-nav-icon-bans {
+  background: #ff5757;
+  filter: drop-shadow(0 0 18px rgba(255, 87, 87, .26));
+}
+
+.mineacle-bans-rail-link:hover .mineacle-nav-icon-stats,
+.mineacle-bans-rail-link:focus-visible .mineacle-nav-icon-stats {
+  background: #49f454;
+  filter: drop-shadow(0 0 18px rgba(73, 244, 84, .24));
 }
 
 .mineacle-bans-rail-support .mineacle-nav-icon {

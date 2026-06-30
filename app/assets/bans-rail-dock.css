@@ -2,16 +2,16 @@
 @media (min-width: 761px) {
   :root {
     --mineacle-rail-edge-gap: 28px;
-    --mineacle-content-left: calc(var(--shell-left) + var(--rail-width) + var(--rail-gap));
-    --mineacle-content-width: calc(var(--shell-width) - var(--rail-width) - var(--rail-gap));
+    --mineacle-content-left: calc(max(32px, calc((100vw - min(calc(100vw - 64px), 1620px)) / 2)) + 104px + 28px);
+    --mineacle-content-width: calc(min(calc(100vw - 64px), 1620px) - 104px - 28px);
   }
 
   .mineacle-bans-rail {
     position: fixed !important;
     top: var(--mineacle-rail-edge-gap) !important;
     bottom: var(--mineacle-rail-edge-gap) !important;
-    left: var(--shell-left) !important;
-    width: var(--rail-width) !important;
+    left: max(32px, calc((100vw - min(calc(100vw - 64px), 1620px)) / 2)) !important;
+    width: 104px !important;
     height: auto !important;
     min-height: 0 !important;
     z-index: 50;
@@ -62,10 +62,10 @@
   }
 
   .mineacle-bans-shell {
-    width: var(--shell-width) !important;
+    width: min(calc(100vw - 64px), 1620px) !important;
     min-height: 0 !important;
     margin: 0 auto !important;
-    padding: var(--mineacle-rail-edge-gap) 0 36px calc(var(--rail-width) + var(--rail-gap)) !important;
+    padding: var(--mineacle-rail-edge-gap) 0 36px calc(104px + 28px) !important;
     display: block !important;
   }
 
@@ -91,7 +91,7 @@
     width: var(--mineacle-content-width) !important;
     max-width: var(--mineacle-content-width) !important;
     margin-left: var(--mineacle-content-left) !important;
-    margin-right: var(--shell-left) !important;
+    margin-right: max(32px, calc((100vw - min(calc(100vw - 64px), 1620px)) / 2)) !important;
     margin-bottom: var(--mineacle-rail-edge-gap) !important;
   }
 }
@@ -238,7 +238,7 @@
   .mineacle-bans-search-field input {
     height: 74px !important;
     padding: 0 24px !important;
-    color: var(--text) !important;
+    color: #fff7ff !important;
     font-size: clamp(22px, 2.15vw, 34px) !important;
     line-height: 1 !important;
     font-weight: 700 !important;
@@ -290,7 +290,7 @@
 
   .mineacle-bans-search-action:hover,
   .mineacle-bans-search-action:focus-visible {
-    background: linear-gradient(135deg, #ffc0f8, var(--button-hover) 58%, #6500ee) !important;
+    background: linear-gradient(135deg, #ffc0f8, #a735ff 58%, #6500ee) !important;
     box-shadow:
       0 20px 42px rgba(151, 34, 255, .42),
       0 0 0 5px rgba(157, 37, 255, .12),

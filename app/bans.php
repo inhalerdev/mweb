@@ -25,25 +25,25 @@ mineacle_page_head('Bans');
         <nav class="mineacle-bans-rail-nav" aria-label="Primary links">
             <div class="mineacle-nav-block is-solo">
                 <a class="mineacle-bans-rail-link" href="<?php echo $store; ?>" aria-label="Store" title="Store">
-                    <span class="mineacle-nav-icon" style="--icon: url('assets/store.svg'); --hover: var(--purple-soft);"></span>
+                    <span class="mineacle-nav-icon mineacle-nav-icon-store"></span>
                 </a>
             </div>
 
             <div class="mineacle-nav-block">
                 <a class="mineacle-bans-rail-link" href="<?php echo $vote; ?>" aria-label="Vote" title="Vote">
-                    <span class="mineacle-nav-icon" style="--icon: url('assets/vote.svg'); --hover: var(--gold);"></span>
+                    <span class="mineacle-nav-icon mineacle-nav-icon-vote"></span>
                 </a>
                 <a class="mineacle-bans-rail-link is-active" href="<?php echo $bans; ?>" aria-label="Bans" title="Bans">
-                    <span class="mineacle-nav-icon" style="--icon: url('assets/hammer.svg'); --hover: var(--red);"></span>
+                    <span class="mineacle-nav-icon mineacle-nav-icon-bans"></span>
                 </a>
                 <a class="mineacle-bans-rail-link" href="<?php echo $stats; ?>" aria-label="Stats" title="Stats">
-                    <span class="mineacle-nav-icon" style="--icon: url('assets/users.svg'); --hover: var(--green);"></span>
+                    <span class="mineacle-nav-icon mineacle-nav-icon-stats"></span>
                 </a>
             </div>
         </nav>
 
         <a class="mineacle-bans-rail-support" href="<?php echo $discord; ?>" target="_blank" rel="noopener" aria-label="Discord" title="Discord">
-            <span class="mineacle-nav-icon" style="--icon: url('assets/discord.svg');"></span>
+            <span class="mineacle-nav-icon mineacle-nav-icon-discord"></span>
         </a>
     </aside>
 
