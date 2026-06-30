@@ -6,8 +6,6 @@
   --text: #f6f4f8;
   --muted: #b3b0ba;
   --icon-muted: #8c8e92;
-  --icon: none;
-  --hover: var(--purple-soft);
   --purple: #b624ff;
   --purple-soft: #e757f4;
   --gold: #ffb509;
@@ -151,15 +149,15 @@ a {
   height: 46px;
   display: block;
   background: var(--icon-muted);
-  -webkit-mask: var(--icon, none) center / contain no-repeat;
-  mask: var(--icon, none) center / contain no-repeat;
+  -webkit-mask: var(--icon) center / contain no-repeat;
+  mask: var(--icon) center / contain no-repeat;
   transition: background .18s ease, filter .18s ease;
 }
 
 .mineacle-bans-rail-link:hover .mineacle-nav-icon,
 .mineacle-bans-rail-link:focus-visible .mineacle-nav-icon,
 .mineacle-bans-rail-link.is-active .mineacle-nav-icon {
-  background: var(--hover, var(--purple-soft));
+  background: var(--hover);
   filter: drop-shadow(0 0 18px rgba(231, 87, 244, .28));
 }
 

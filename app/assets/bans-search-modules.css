@@ -1,9 +1,3 @@
-/* Local variable fallbacks keep standalone IDE CSS analysis clean. */
-:root {
-  --line-strong: rgba(218, 121, 255, .42);
-  --radius: 8px;
-}
-
 /* Mineacle Bans search/status modules: separated modules, dynamic search icon, IP copy state. */
 .mineacle-search-inline-meta {
   display: none !important;

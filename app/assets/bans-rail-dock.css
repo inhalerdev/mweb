@@ -1,13 +1,3 @@
-/* Local variable fallbacks keep standalone IDE CSS analysis clean. */
-:root {
-  --shell-width: min(calc(100vw - 64px), 1620px);
-  --shell-left: max(32px, calc((100vw - min(calc(100vw - 64px), 1620px)) / 2));
-  --rail-width: 104px;
-  --rail-gap: 28px;
-  --button-hover: #a735ff;
-  --text: #fff7ff;
-}
-
 /* Mineacle Bans rail/content alignment: fixed full-height rail, full-width content lane, aligned footer. */
 @media (min-width: 761px) {
   :root {
