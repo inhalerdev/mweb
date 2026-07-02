@@ -24,7 +24,7 @@
     updateClearButton();
   }
 
-  const setServerStatus = (online, onlineCount, maxCount) => {
+  const setServerStatus = (online, onlineCount) => {
     if (!statusNode || !statusCount) return;
 
     statusNode.classList.remove('is-loading', 'is-online', 'is-offline');
@@ -36,8 +36,7 @@
     }
 
     const count = Number.isFinite(onlineCount) ? onlineCount : 0;
-    const max = Number.isFinite(maxCount) && maxCount > 0 ? ` / ${maxCount}` : '';
-    statusCount.textContent = `${count}${max} online`;
+    statusCount.textContent = `${count} currently playing`;
   };
 
   const readNumber = (value) => {
@@ -52,8 +51,7 @@
 
     return {
       online: Boolean(payload.online),
-      onlineCount: readNumber(payload.players_online ?? payload.online_players ?? players.online),
-      maxCount: readNumber(payload.players_max ?? payload.max_players ?? players.max)
+      onlineCount: readNumber(payload.players_online ?? payload.online_players ?? players.online)
     };
   };
 
@@ -112,11 +110,11 @@
     }
 
     if (!payload) {
-      setServerStatus(false, 0, 0);
+      setServerStatus(false, 0);
       return;
     }
 
-    setServerStatus(payload.online, payload.onlineCount, payload.maxCount);
+    setServerStatus(payload.online, payload.onlineCount);
   };
 
   loadServerStatus();

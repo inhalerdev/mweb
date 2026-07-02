@@ -170,18 +170,13 @@ svg {
 }
 
 .server-status {
-  min-height: 54px;
   display: inline-flex;
   align-items: center;
   gap: 12px;
   justify-self: start;
-  padding: 0 18px;
-  border-radius: var(--radius);
-  background: var(--panel);
   color: var(--subtext);
   font-size: 0.96rem;
   font-weight: 700;
-  box-shadow: inset 0 0 0 1px var(--line);
 }
 
 .server-status-dot {
