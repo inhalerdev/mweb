@@ -16,6 +16,7 @@ return [
         'youtube_url' => getenv('YOUTUBE_URL') ?: '#',
         'tiktok_url' => getenv('TIKTOK_URL') ?: '#',
         'support_email' => getenv('SUPPORT_EMAIL') ?: 'support@mineacle.net',
+        'minecraft_ip' => getenv('MINECRAFT_IP') ?: 'mineacle.net',
     ],
     'mysql' => [
         'host' => getenv('DB_HOST') ?: '',

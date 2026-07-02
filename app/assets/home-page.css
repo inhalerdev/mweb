@@ -10,6 +10,8 @@
   --icon: #8a8a8a;
   --icon-active: #d8d8d8;
   --accent: #7b3cff;
+  --online: #4be36a;
+  --offline: #ff4b4b;
   --gap: 25px;
   --rail-width: 70px;
   --shell-max: 1920px;
@@ -161,15 +163,51 @@ svg {
 }
 
 .search-row {
-  display: flex;
-  justify-content: flex-end;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 29%);
+  gap: var(--gap);
+  align-items: center;
+}
+
+.server-status {
+  min-height: 54px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  justify-self: start;
+  padding: 0 18px;
+  border-radius: var(--radius);
+  background: var(--panel);
+  color: var(--subtext);
+  font-size: 0.96rem;
+  font-weight: 700;
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.server-status-dot {
+  width: 11px;
+  height: 11px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--offline);
+  box-shadow: 0 0 14px rgba(255, 75, 75, 0.6);
+}
+
+.server-status.is-online .server-status-dot {
+  background: var(--online);
+  box-shadow: 0 0 14px rgba(75, 227, 106, 0.6);
+}
+
+.server-status.is-loading .server-status-dot {
+  background: var(--subtext);
+  box-shadow: none;
 }
 
 .search-box {
-  width: clamp(300px, 29%, 500px);
+  width: 100%;
   min-height: 54px;
   display: grid;
-  grid-template-columns: 24px minmax(0, 1fr);
+  grid-template-columns: 24px minmax(0, 1fr) 24px;
   gap: 12px;
   align-items: center;
   padding: 0 18px;
@@ -201,6 +239,40 @@ svg {
 .search-box input::placeholder {
   color: var(--subtext);
   opacity: 1;
+}
+
+.search-clear {
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  cursor: pointer;
+  transform: none;
+  transition: none;
+}
+
+.search-clear[hidden] {
+  display: none;
+}
+
+.search-clear img {
+  width: 18px;
+  height: 18px;
+  opacity: 1;
+  filter: invert(78%) sepia(0%) saturate(0%) hue-rotate(188deg) brightness(96%) contrast(88%);
+}
+
+.search-clear:hover img,
+.search-clear:focus-visible img {
+  filter: invert(100%);
+}
+
+.search-clear:active {
+  transform: none;
 }
 
 .top-row {
@@ -507,6 +579,7 @@ svg {
   }
 
   .top-row,
+  .search-row,
   .community-panel,
   .footer-inner {
     grid-template-columns: 1fr;
@@ -534,6 +607,10 @@ svg {
   }
 
   .search-box {
+    width: 100%;
+  }
+
+  .server-status {
     width: 100%;
   }
 

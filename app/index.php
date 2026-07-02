@@ -8,6 +8,7 @@ require_once __DIR__ . '/includes/home-data.php';
 $site = mineacle_config()['site'] ?? [];
 $home = mineacle_home_data();
 $supportEmail = (string) ($site['support_email'] ?? 'support@mineacle.net');
+$minecraftIp = (string) ($site['minecraft_ip'] ?? 'mineacle.net');
 $year = date('Y');
 
 function mineacle_icon(string $name): string
@@ -75,10 +76,18 @@ mineacle_page_head('Home');
 
     <main class="home-grid" aria-label="Home layout">
         <section class="search-row" aria-label="Search">
+            <div class="server-status is-loading" data-server-status data-server-ip="<?php echo h($minecraftIp); ?>" aria-live="polite">
+                <span class="server-status-dot" aria-hidden="true"></span>
+                <span class="server-status-count" data-server-status-count>Checking server</span>
+            </div>
+
             <label class="sr-only" for="homeSearch">Search</label>
             <div class="search-box">
                 <img src="assets/icons/search.png" alt="" aria-hidden="true">
-                <input id="homeSearch" name="search" type="search" placeholder="Search" autocomplete="off">
+                <input id="homeSearch" name="search" type="search" placeholder="Search players.." autocomplete="off">
+                <button class="search-clear" type="button" aria-label="Clear search" hidden>
+                    <img src="assets/icons/clear-search.svg" alt="" aria-hidden="true">
+                </button>
             </div>
         </section>
 
