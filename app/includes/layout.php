@@ -18,6 +18,7 @@ function mineacle_page_head(string $title = 'Home'): void
     echo '<meta name="viewport" content="width=device-width, initial-scale=1">';
     echo '<title>' . h($name . ' | ' . $title) . '</title>';
     echo '<meta name="description" content="' . h($name . ' Minecraft server home page') . '">';
+    echo '<link rel="icon" type="image/png" href="assets/fav.png?v=base1">';
     echo '<link rel="stylesheet" href="assets/home-page.css?v=base1">';
     echo '</head>';
     echo '<body>';

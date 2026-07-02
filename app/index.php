@@ -7,18 +7,29 @@ require_once __DIR__ . '/includes/home-data.php';
 
 $site = mineacle_config()['site'] ?? [];
 $home = mineacle_home_data();
+$supportEmail = (string) ($site['support_email'] ?? 'support@mineacle.net');
+$supportHref = 'mailto:' . $supportEmail;
+$year = date('Y');
 
 function mineacle_icon(string $name): string
 {
+    $officialIcons = [
+        'home' => 'assets/icons/home.svg',
+        'stats' => 'assets/icons/leaderboard.svg',
+        'store' => 'assets/icons/basket-shopping.svg',
+        'bans' => 'assets/icons/gavel.svg',
+        'staff' => 'assets/icons/gavel.svg',
+        'discord' => 'assets/icons/discord.svg',
+        'x' => 'assets/icons/x-twitter.svg',
+    ];
+
+    if (isset($officialIcons[$name])) {
+        return '<span class="site-icon" style="--icon-url: url(\'' . h($officialIcons[$name]) . '\')" aria-hidden="true"></span>';
+    }
+
     $icons = [
         'logo' => '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 9 16 3l12 6v14l-12 6-12-6V9Zm12 5 7-3.5L16 7l-7 3.5L16 14Zm-8 7 6 3v-7l-6-3v7Zm10 3 6-3v-7l-6 3v7Z"/></svg>',
-        'home' => '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11 12 3l9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9Z"/></svg>',
-        'stats' => '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V9h4v11H5Zm5 0V4h4v16h-4Zm5 0v-7h4v7h-4Z"/></svg>',
-        'store' => '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1.2 12H7.2L6 8Zm2-4h8l2 4H6l2-4Zm2 7v5h2v-5h-2Zm4 0v5h2v-5h-2Z"/></svg>',
         'vote' => '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18-5-5 2.2-2.2L9 13.6l8.8-8.8L20 7 9 18Z"/></svg>',
-        'staff' => '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 20 6.5-6.5-2-2L2 18l2 2ZM14.2 6.1l3.7 3.7 1.4-1.4-3.7-3.7a3 3 0 0 0-4.2 0l-1.8 1.8 2.1 2.1 2.5-2.5ZM12 10.2 9.8 8 8.2 9.6l6.2 6.2L16 14l-2.2-2.2 4.5-4.5-1.6-1.6L12 10.2Z"/></svg>',
-        'discord' => '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.4 7.7c2.4-.7 4.8-.7 7.2 0 .4.7.8 1.6 1 2.6.4 1.6.5 3 .3 4.5-1.3 1-2.5 1.5-3.8 1.8l-.7-1.2c.8-.2 1.5-.6 2.1-1.1-.2.1-.5.2-.7.3-1.2.5-2.4.7-3.8.7s-2.6-.2-3.8-.7c-.2-.1-.5-.2-.7-.3.6.5 1.3.9 2.1 1.1l-.7 1.2c-1.3-.3-2.5-.8-3.8-1.8-.2-1.5-.1-2.9.3-4.5.2-1 .6-1.9 1-2.6ZM9 12.8c.7 0 1.2-.6 1.2-1.3S9.7 10.2 9 10.2s-1.2.6-1.2 1.3.5 1.3 1.2 1.3Zm6 0c.7 0 1.2-.6 1.2-1.3S15.7 10.2 15 10.2s-1.2.6-1.2 1.3.5 1.3 1.2 1.3Z"/></svg>',
-        'x' => '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4.2l3.2 4.4L16.2 4H20l-5.8 6.7L21 20h-4.2l-4-5.5L8 20H4.2l6.8-7.8L5 4Zm2.5 1.8 10.2 12.4h1L8.5 5.8h-1Z"/></svg>',
         'youtube' => '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8.5c.3 2.3.3 4.7 0 7-.2 1.4-1.2 2.4-2.6 2.6-4.2.4-8.6.4-12.8 0-1.4-.2-2.4-1.2-2.6-2.6-.3-2.3-.3-4.7 0-7 .2-1.4 1.2-2.4 2.6-2.6 4.2-.4 8.6-.4 12.8 0 1.4.2 2.4 1.2 2.6 2.6ZM10 15l5-3-5-3v6Z"/></svg>',
         'tiktok' => '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h3c.2 2 1.4 3.4 3.4 3.8v3.1c-1.3-.1-2.4-.5-3.4-1.2V15a5 5 0 1 1-5-5h.6v3.2c-.2 0-.4-.1-.6-.1a1.9 1.9 0 1 0 1.9 1.9L14 3Z"/></svg>',
     ];
@@ -30,8 +41,7 @@ $navLinks = [
     ['key' => 'home', 'url' => (string) ($site['home_url'] ?? '/')],
     ['key' => 'stats', 'url' => (string) ($site['stats_url'] ?? '#')],
     ['key' => 'store', 'url' => (string) ($site['store_url'] ?? '#')],
-    ['key' => 'vote', 'url' => (string) ($site['vote_url'] ?? '#')],
-    ['key' => 'staff', 'url' => (string) ($site['staff_url'] ?? '#')],
+    ['key' => 'bans', 'url' => (string) ($site['bans_url'] ?? '#')],
 ];
 
 $tiles = array_slice($home['tiles'], 0, 4);
@@ -43,7 +53,7 @@ mineacle_page_head('Home');
 <div class="site-shell">
     <aside class="rail" aria-label="Primary navigation">
         <a class="rail-logo" href="<?php echo h(mineacle_home_link($site['home_url'] ?? '/')); ?>" aria-label="Home">
-            <?php echo mineacle_icon('logo'); ?>
+            <img src="assets/brand/nav-logo.png" alt="">
         </a>
 
         <nav class="rail-nav" aria-label="Server links">
@@ -111,8 +121,19 @@ mineacle_page_head('Home');
             </div>
         </section>
 
-        <footer class="footer-panel"<?php echo mineacle_home_image_style($home['footer']['background_image_url'] ?? ''); ?> aria-label="Footer">
-            <span class="footer-mark"<?php echo mineacle_home_image_style($home['footer']['image_url'] ?? '', '--media-image'); ?>></span>
+        <footer class="footer-panel"<?php echo mineacle_home_image_style($home['footer']['background_image_url'] ?? ''); ?> aria-label="Legal notice">
+            <div class="footer-inner">
+                <a class="footer-brand" href="<?php echo h(mineacle_home_link($site['home_url'] ?? '/')); ?>" aria-label="Mineacle Studios">
+                    <img src="assets/brand/m-studios.png" alt="Mineacle Studios">
+                </a>
+
+                <section class="footer-legal" aria-labelledby="footerLegalTitle">
+                    <h2 id="footerLegalTitle">Legal Notice</h2>
+                    <p>The Mineacle Network is not affiliated with Mojang Studios or Microsoft, nor should it be considered endorsed by Mojang Studios or Microsoft. Any contributions or purchases made through Mineacle support the Mineacle Studios team.</p>
+                    <p>For support or purchase history, please contact <a href="<?php echo h($supportHref); ?>">Mineacle Support</a>.</p>
+                    <p><em>Minecraft, Mojang Studios, and related marks are property of their respective owners. Copyright 2009-<?php echo h((string) $year); ?>.</em></p>
+                </section>
+            </div>
         </footer>
     </main>
 </div>
