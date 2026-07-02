@@ -40,6 +40,23 @@
     statusCount.textContent = `${count}${max} online`;
   };
 
+  const readNumber = (value) => {
+    const number = Number(value);
+    return Number.isFinite(number) && number > 0 ? Math.floor(number) : 0;
+  };
+
+  const normalizeStatusPayload = (payload) => {
+    if (!payload || typeof payload !== 'object') return null;
+
+    const players = payload.players && typeof payload.players === 'object' ? payload.players : {};
+
+    return {
+      online: Boolean(payload.online),
+      onlineCount: readNumber(payload.players_online ?? payload.online_players ?? players.online),
+      maxCount: readNumber(payload.players_max ?? payload.max_players ?? players.max)
+    };
+  };
+
   const loadLocalServerStatus = async () => {
     try {
       const response = await fetch('api/server-status.php', {
@@ -54,32 +71,23 @@
         return null;
       }
 
-      return {
-        online: Boolean(payload && payload.online),
-        onlineCount: Number(payload && payload.players_online),
-        maxCount: Number(payload && payload.players_max)
-      };
+      return normalizeStatusPayload(payload);
     } catch (_) {
       return null;
     }
   };
 
-  const loadFallbackServerStatus = async () => {
+  const loadFallbackServerStatus = async (url) => {
     try {
-      const response = await fetch(`https://api.mcsrvstat.us/3/${encodeURIComponent(serverIp)}`, {
+      const response = await fetch(url, {
         headers: { Accept: 'application/json' },
         cache: 'no-store'
       });
 
       if (!response.ok) return null;
       const payload = await response.json();
-      const players = payload && payload.players ? payload.players : {};
 
-      return {
-        online: Boolean(payload && payload.online),
-        onlineCount: Number(players.online),
-        maxCount: Number(players.max)
-      };
+      return normalizeStatusPayload(payload);
     } catch (_) {
       return null;
     }
@@ -88,7 +96,20 @@
   const loadServerStatus = async () => {
     if (!statusNode || !statusCount) return;
 
-    const payload = await loadLocalServerStatus() || await loadFallbackServerStatus();
+    const fallbacks = [
+      `https://api.mcstatus.io/v2/status/java/${encodeURIComponent(serverIp)}`,
+      `https://api.mcsrvstat.us/3/${encodeURIComponent(serverIp)}`
+    ];
+    let payload = await loadLocalServerStatus();
+
+    for (const url of fallbacks) {
+      if (payload && (!payload.online || payload.onlineCount > 0)) break;
+
+      const fallbackPayload = await loadFallbackServerStatus(url);
+      if (!fallbackPayload) continue;
+
+      payload = !payload || fallbackPayload.onlineCount > payload.onlineCount ? fallbackPayload : payload;
+    }
 
     if (!payload) {
       setServerStatus(false, 0, 0);
