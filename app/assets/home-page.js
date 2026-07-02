@@ -11,17 +11,14 @@
   const statusCount = document.querySelector('[data-server-status-count]');
   const serverIp = statusNode ? statusNode.dataset.serverIp || 'mineacle.net' : 'mineacle.net';
   const statusRefreshMs = 5000;
-  const statusFetchTimeoutMs = 1600;
+  const statusFetchTimeoutMs = 1800;
   const statusCacheKey = `mineacle:server-status:${serverIp}`;
   const statusCacheMaxAgeMs = 15000;
   const playerSearchDelayMs = 160;
-  const playerSearchRefreshMs = 5000;
   let statusRequestActive = false;
   let playerSearchTimer = 0;
-  let playerSearchRefreshTimer = 0;
   let playerSearchAbort = null;
   let playerSearchRun = 0;
-  let playerSearchImageRefreshKey = Date.now();
 
   const updateClearButton = () => {
     if (!searchInput || !clearButton) return;
@@ -39,15 +36,8 @@
     playerSearchAbort = null;
   };
 
-  const stopPlayerSearchRefresh = () => {
-    if (!playerSearchRefreshTimer) return;
-    window.clearInterval(playerSearchRefreshTimer);
-    playerSearchRefreshTimer = 0;
-  };
-
   const hidePlayerResults = () => {
     window.clearTimeout(playerSearchTimer);
-    stopPlayerSearchRefresh();
     stopPlayerSearchRequest();
     playerSearchRun += 1;
 
@@ -103,9 +93,7 @@
       return '';
     }
 
-    const separator = url.includes('?') ? '&' : '?';
-
-    return `${url}${separator}mineacle_refresh=${playerSearchImageRefreshKey}`;
+    return url;
   };
 
   const playerProfileUrl = (name) => {
@@ -205,7 +193,6 @@
       if (run !== playerSearchRun) return;
       if (!searchInput || searchInput.value.trim() !== query) return;
 
-      playerSearchImageRefreshKey = Date.now();
       renderPlayerResults(payload && payload.success ? payload.players : []);
     } catch (error) {
       if (!error || error.name !== 'AbortError') {
@@ -230,29 +217,9 @@
       return;
     }
 
-    startPlayerSearchRefresh();
-
     playerSearchTimer = window.setTimeout(() => {
       loadPlayerResults(query);
     }, playerSearchDelayMs);
-  };
-
-  const refreshActivePlayerSearch = () => {
-    if (!searchInput || document.hidden) return;
-
-    const query = searchInput.value.trim();
-
-    if (query === '') {
-      hidePlayerResults();
-      return;
-    }
-
-    loadPlayerResults(query);
-  };
-
-  const startPlayerSearchRefresh = () => {
-    if (playerSearchRefreshTimer) return;
-    playerSearchRefreshTimer = window.setInterval(refreshActivePlayerSearch, playerSearchRefreshMs);
   };
 
   if (searchInput && clearButton) {
@@ -375,7 +342,7 @@
   };
 
   const loadLocalServerStatus = async () => {
-    const payload = await fetchStatusJson(`/api/server-status.php?fast=1&t=${Date.now()}`, 900);
+    const payload = await fetchStatusJson(`/api/server-status.php?fast=1&t=${Date.now()}`);
 
     if (payload && payload.checked === false) {
       return null;
@@ -408,9 +375,7 @@
   loadServerStatus();
   window.setInterval(loadServerStatus, statusRefreshMs);
   window.addEventListener('focus', loadServerStatus);
-  window.addEventListener('focus', refreshActivePlayerSearch);
   document.addEventListener('visibilitychange', () => {
     if (!document.hidden) loadServerStatus();
-    if (!document.hidden) refreshActivePlayerSearch();
   });
 })();

@@ -65,6 +65,7 @@ function mineacle_db(): ?PDO
     $port = (int) ($mysql['port'] ?? 3306);
     $password = (string) ($mysql['password'] ?? '');
     $charset = trim((string) ($mysql['charset'] ?? 'utf8mb4'));
+    $timeout = max(1, min(10, (int) ($mysql['timeout'] ?? 2)));
     $dsn = sprintf('mysql:host=%s;port=%d;dbname=%s;charset=%s', $host, $port, $database, $charset);
 
     try {
@@ -72,6 +73,7 @@ function mineacle_db(): ?PDO
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             PDO::ATTR_EMULATE_PREPARES => false,
+            PDO::ATTR_TIMEOUT => $timeout,
         ]);
     } catch (PDOException) {
         $pdo = null;

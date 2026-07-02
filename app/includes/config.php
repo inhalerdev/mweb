@@ -25,6 +25,7 @@ return [
         'username' => getenv('DB_USERNAME') ?: (getenv('DB_USER') ?: 'user_9ca32e8a'),
         'password' => getenv('DB_PASSWORD') ?: '',
         'charset' => getenv('DB_CHARSET') ?: 'utf8mb4',
+        'timeout' => (int) (getenv('DB_TIMEOUT') ?: 1),
     ],
     'tables' => [
         'sections' => getenv('HOME_SECTIONS_TABLE') ?: 'home_sections',
