@@ -69,14 +69,14 @@ svg {
   min-height: 100vh;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) var(--rail-width);
+  grid-template-columns: var(--rail-width) minmax(0, 1fr);
   background: var(--canvas);
 }
 
 .rail {
   position: sticky;
   top: 0;
-  grid-column: 2;
+  grid-column: 1;
   grid-row: 1;
   height: 100vh;
   display: grid;
@@ -141,7 +141,7 @@ svg {
 
 .home-grid {
   min-width: 0;
-  grid-column: 1;
+  grid-column: 2;
   grid-row: 1;
   display: grid;
   gap: var(--gap);
