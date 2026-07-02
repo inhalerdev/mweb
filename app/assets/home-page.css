@@ -16,6 +16,11 @@
   --rail-width: 70px;
   --shell-max: 1920px;
   --radius: 5px;
+  --ui-font-size: 0.875rem;
+  --ui-font-weight: 700;
+  --control-height: 48px;
+  --control-icon-size: 20px;
+  --control-button-size: 24px;
   --panel-image: none;
   --media-image: none;
   --skin-image: none;
@@ -164,25 +169,27 @@ svg {
 
 .search-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(300px, 29%);
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 30%);
   gap: var(--gap);
   align-items: center;
 }
 
 .server-status {
+  min-height: var(--control-height);
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   justify-self: start;
   color: var(--subtext);
-  font-size: 0.96rem;
-  font-weight: 700;
+  font-size: var(--ui-font-size);
+  font-weight: var(--ui-font-weight);
+  line-height: 1;
 }
 
 .server-status-dot {
   position: relative;
-  width: 11px;
-  height: 11px;
+  width: 10px;
+  height: 10px;
   flex: 0 0 auto;
   border-radius: 50%;
   background: var(--offline);
@@ -237,23 +244,27 @@ svg {
 
 .search-box {
   width: 100%;
-  min-height: 54px;
+  min-height: var(--control-height);
   display: grid;
-  grid-template-columns: 24px minmax(0, 1fr) 24px;
+  grid-template-columns: var(--control-icon-size) minmax(0, 1fr) var(--control-button-size);
   gap: 12px;
   align-items: center;
-  padding: 0 18px;
+  padding: 0 16px;
   border-radius: var(--radius);
   background: var(--panel);
   box-shadow: inset 0 0 0 1px var(--line);
 }
 
+.search-box:focus-within {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16);
+}
+
 .search-box img {
-  width: 22px;
-  height: 22px;
+  width: var(--control-icon-size);
+  height: var(--control-icon-size);
   display: block;
   object-fit: contain;
-  opacity: 0.68;
+  opacity: 0.78;
   filter: invert(78%) sepia(0%) saturate(0%) hue-rotate(188deg) brightness(96%) contrast(88%);
 }
 
@@ -265,7 +276,9 @@ svg {
   background: transparent;
   color: var(--subtext);
   font: inherit;
-  font-size: 0.96rem;
+  font-size: var(--ui-font-size);
+  font-weight: var(--ui-font-weight);
+  line-height: 1;
 }
 
 .search-box input::placeholder {
@@ -286,8 +299,8 @@ svg {
 }
 
 .search-clear {
-  width: 24px;
-  height: 24px;
+  width: var(--control-button-size);
+  height: var(--control-button-size);
   display: grid;
   place-items: center;
   padding: 0;
@@ -304,14 +317,15 @@ svg {
 }
 
 .search-clear img {
-  width: 18px;
-  height: 18px;
-  opacity: 1;
+  width: var(--control-icon-size);
+  height: var(--control-icon-size);
+  opacity: 0.78;
   filter: invert(78%) sepia(0%) saturate(0%) hue-rotate(188deg) brightness(96%) contrast(88%);
 }
 
 .search-clear:hover img,
 .search-clear:focus-visible img {
+  opacity: 1;
   filter: invert(100%);
 }
 
