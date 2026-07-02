@@ -8,7 +8,6 @@ require_once __DIR__ . '/includes/home-data.php';
 $site = mineacle_config()['site'] ?? [];
 $home = mineacle_home_data();
 $supportEmail = (string) ($site['support_email'] ?? 'support@mineacle.net');
-$supportHref = 'mailto:' . $supportEmail;
 $year = date('Y');
 
 function mineacle_icon(string $name): string
@@ -75,11 +74,19 @@ mineacle_page_head('Home');
     </aside>
 
     <main class="home-grid" aria-label="Home layout">
+        <section class="search-row" aria-label="Search">
+            <label class="sr-only" for="homeSearch">Search</label>
+            <div class="search-box">
+                <img src="assets/icons/search.png" alt="" aria-hidden="true">
+                <input id="homeSearch" name="search" type="search" placeholder="Search" autocomplete="off">
+            </div>
+        </section>
+
         <section class="top-row">
-            <a class="panel hero-panel" href="<?php echo h(mineacle_home_link($home['hero']['link_url'] ?? '#')); ?>"<?php echo mineacle_home_image_style($home['hero']['background_image_url'] ?? ''); ?> aria-label="Hero">
+            <article class="panel hero-panel"<?php echo mineacle_home_image_style($home['hero']['background_image_url'] ?? ''); ?> aria-label="Hero">
                 <span class="panel-media"<?php echo mineacle_home_image_style($home['hero']['image_url'] ?? '', '--media-image'); ?>></span>
                 <span class="sr-only">Hero banner</span>
-            </a>
+            </article>
 
             <aside class="panel player-panel" aria-label="Player summary">
                 <span class="skin-frame"<?php echo mineacle_home_image_style($home['player']['skin_url'] ?? '', '--skin-image'); ?>></span>
@@ -93,9 +100,9 @@ mineacle_page_head('Home');
 
         <section class="tile-row" aria-label="Feature links">
             <?php foreach ($tiles as $index => $tile): ?>
-                <a class="panel feature-tile feature-tile-<?php echo h((string) ($index + 1)); ?>" href="<?php echo h(mineacle_home_link($tile['link_url'] ?? '#')); ?>"<?php echo mineacle_home_image_style($tile['image_url'] ?? ''); ?> aria-label="<?php echo h((string) ($tile['tile_key'] ?? 'Feature')); ?>">
+                <article class="panel feature-tile feature-tile-<?php echo h((string) ($index + 1)); ?>"<?php echo mineacle_home_image_style($tile['image_url'] ?? ''); ?> aria-label="<?php echo h((string) ($tile['tile_key'] ?? 'Feature')); ?>">
                     <span></span>
-                </a>
+                </article>
             <?php endforeach; ?>
         </section>
 
@@ -114,23 +121,23 @@ mineacle_page_head('Home');
 
             <div class="social-stack" aria-label="Social destinations">
                 <?php foreach ($socialLinks as $link): ?>
-                    <a class="social-row" href="<?php echo h(mineacle_home_link($link['url'] ?? '#')); ?>" aria-label="<?php echo h((string) ($link['platform_key'] ?? 'Social')); ?>">
+                    <div class="social-row" aria-label="<?php echo h((string) ($link['platform_key'] ?? 'Social')); ?>">
                         <?php echo mineacle_icon((string) ($link['platform_key'] ?? 'logo')); ?>
-                    </a>
+                    </div>
                 <?php endforeach; ?>
             </div>
         </section>
 
         <footer class="footer-panel"<?php echo mineacle_home_image_style($home['footer']['background_image_url'] ?? ''); ?> aria-label="Legal notice">
             <div class="footer-inner">
-                <a class="footer-brand" href="<?php echo h(mineacle_home_link($site['home_url'] ?? '/')); ?>" aria-label="Mineacle Studios">
+                <div class="footer-brand" aria-label="Mineacle Studios">
                     <img src="assets/brand/m-studios.png" alt="Mineacle Studios">
-                </a>
+                </div>
 
                 <section class="footer-legal" aria-labelledby="footerLegalTitle">
                     <h2 id="footerLegalTitle">Legal Notice</h2>
                     <p>The Mineacle Network is not affiliated with Mojang Studios or Microsoft, nor should it be considered endorsed by Mojang Studios or Microsoft. Any contributions or purchases made through Mineacle support the Mineacle Studios team.</p>
-                    <p>For support or purchase history, please contact <a href="<?php echo h($supportHref); ?>">Mineacle Support</a>.</p>
+                    <p>For support or purchase history, please contact Mineacle Support at <?php echo h($supportEmail); ?>.</p>
                     <p><em>Minecraft, Mojang Studios, and related marks are property of their respective owners. Copyright 2009-<?php echo h((string) $year); ?>.</em></p>
                 </section>
             </div>
