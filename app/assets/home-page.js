@@ -8,7 +8,7 @@
   const statusNode = document.querySelector('[data-server-status]');
   const statusCount = document.querySelector('[data-server-status-count]');
   const serverIp = statusNode ? statusNode.dataset.serverIp || 'mineacle.net' : 'mineacle.net';
-  const statusRefreshMs = 10000;
+  const statusRefreshMs = 5000;
   let statusRequestActive = false;
 
   const updateClearButton = () => {
@@ -53,13 +53,14 @@
 
     return {
       online: Boolean(payload.online),
-      onlineCount: readNumber(payload.players_online ?? payload.online_players ?? players.online)
+      onlineCount: readNumber(payload.players_online ?? payload.online_players ?? players.online),
+      source: typeof payload.source === 'string' ? payload.source : ''
     };
   };
 
   const loadLocalServerStatus = async () => {
     try {
-      const response = await fetch('api/server-status.php', {
+      const response = await fetch(`api/server-status.php?t=${Date.now()}`, {
         headers: { Accept: 'application/json' },
         cache: 'no-store'
       });
@@ -107,6 +108,7 @@
       let payload = await loadLocalServerStatus();
 
       for (const url of fallbacks) {
+        if (payload && payload.source === 'direct') break;
         if (payload && (!payload.online || payload.onlineCount > 0)) break;
 
         const fallbackPayload = await loadFallbackServerStatus(url);

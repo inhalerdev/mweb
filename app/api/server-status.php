@@ -61,16 +61,184 @@ function mineacle_status_read_url(string $url): ?array
     return is_array($data) ? $data : null;
 }
 
+function mineacle_status_varint(int $value): string
+{
+    $bytes = '';
+
+    do {
+        $byte = $value & 0x7F;
+        $value >>= 7;
+
+        if ($value !== 0) {
+            $byte |= 0x80;
+        }
+
+        $bytes .= chr($byte);
+    } while ($value !== 0);
+
+    return $bytes;
+}
+
+function mineacle_status_read_exact($socket, int $length): ?string
+{
+    $data = '';
+
+    while (strlen($data) < $length && !feof($socket)) {
+        $chunk = fread($socket, $length - strlen($data));
+
+        if ($chunk === false || $chunk === '') {
+            return null;
+        }
+
+        $data .= $chunk;
+    }
+
+    return strlen($data) === $length ? $data : null;
+}
+
+function mineacle_status_read_socket_varint($socket): ?int
+{
+    $value = 0;
+    $shift = 0;
+
+    for ($i = 0; $i < 5; $i++) {
+        $byte = fread($socket, 1);
+
+        if ($byte === false || $byte === '') {
+            return null;
+        }
+
+        $current = ord($byte);
+        $value |= ($current & 0x7F) << $shift;
+
+        if (($current & 0x80) === 0) {
+            return $value;
+        }
+
+        $shift += 7;
+    }
+
+    return null;
+}
+
+function mineacle_status_read_buffer_varint(string $buffer, int &$offset): ?int
+{
+    $value = 0;
+    $shift = 0;
+    $length = strlen($buffer);
+
+    for ($i = 0; $i < 5; $i++) {
+        if ($offset >= $length) {
+            return null;
+        }
+
+        $current = ord($buffer[$offset]);
+        $offset++;
+        $value |= ($current & 0x7F) << $shift;
+
+        if (($current & 0x80) === 0) {
+            return $value;
+        }
+
+        $shift += 7;
+    }
+
+    return null;
+}
+
+function mineacle_status_server_parts(string $serverIp): array
+{
+    $host = preg_replace('/^minecraft:\/\//i', '', trim($serverIp));
+    $port = 25565;
+
+    if (preg_match('/^([^:]+):(\d+)$/', $host, $matches)) {
+        $host = $matches[1];
+        $port = max(1, min(65535, (int) $matches[2]));
+    } elseif (function_exists('dns_get_record')) {
+        $records = @dns_get_record('_minecraft._tcp.' . $host, DNS_SRV);
+
+        if (is_array($records) && isset($records[0]['target'], $records[0]['port'])) {
+            $host = rtrim((string) $records[0]['target'], '.');
+            $port = max(1, min(65535, (int) $records[0]['port']));
+        }
+    }
+
+    return [$host, $port];
+}
+
+function mineacle_status_direct_ping(string $serverIp): ?array
+{
+    [$host, $port] = mineacle_status_server_parts($serverIp);
+    $socket = @fsockopen($host, $port, $errno, $error, 2.0);
+
+    if (!$socket) {
+        return null;
+    }
+
+    stream_set_timeout($socket, 2);
+
+    $handshake = mineacle_status_varint(0)
+        . mineacle_status_varint(767)
+        . mineacle_status_varint(strlen($host))
+        . $host
+        . pack('n', $port)
+        . mineacle_status_varint(1);
+
+    fwrite($socket, mineacle_status_varint(strlen($handshake)) . $handshake);
+    fwrite($socket, mineacle_status_varint(1) . mineacle_status_varint(0));
+
+    $packetLength = mineacle_status_read_socket_varint($socket);
+
+    if ($packetLength === null || $packetLength <= 0) {
+        fclose($socket);
+        return null;
+    }
+
+    $packet = mineacle_status_read_exact($socket, $packetLength);
+    fclose($socket);
+
+    if ($packet === null) {
+        return null;
+    }
+
+    $offset = 0;
+    $packetId = mineacle_status_read_buffer_varint($packet, $offset);
+    $jsonLength = mineacle_status_read_buffer_varint($packet, $offset);
+
+    if ($packetId !== 0 || $jsonLength === null || $jsonLength <= 0) {
+        return null;
+    }
+
+    $json = substr($packet, $offset, $jsonLength);
+    $data = json_decode($json, true);
+
+    return is_array($data) ? $data : null;
+}
+
 function mineacle_status_normalize(array $data, string $source): array
 {
     $players = is_array($data['players'] ?? null) ? $data['players'] : [];
 
     return [
-        'online' => (bool) ($data['online'] ?? false),
+        'online' => $source === 'direct' ? true : (bool) ($data['online'] ?? false),
         'players_online' => mineacle_status_number($players['online'] ?? $data['players_online'] ?? $data['online_players'] ?? null),
         'players_max' => mineacle_status_number($players['max'] ?? $data['players_max'] ?? $data['max_players'] ?? null),
         'source' => $source,
     ];
+}
+
+$directData = mineacle_status_direct_ping($serverIp);
+
+if ($directData) {
+    $direct = mineacle_status_normalize($directData, 'direct');
+    $payload['online'] = $direct['online'];
+    $payload['players_online'] = $direct['players_online'];
+    $payload['players_max'] = $direct['players_max'];
+    $payload['source'] = $direct['source'];
+    $payload['checked'] = true;
+
+    echo json_encode($payload, JSON_UNESCAPED_SLASHES);
+    exit;
 }
 
 $providers = [
