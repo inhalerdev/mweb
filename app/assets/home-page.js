@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const serverButton = document.querySelector('.mineacle-home-server');
+  const serverButton = document.querySelector('.mineacle-copy-ip');
   const serverIpLabel = serverButton ? serverButton.querySelector('.mineacle-home-server-ip') : null;
   const onlineCountNode = document.getElementById('mineaclePlayerCountValue');
   let copiedTimer = null;
