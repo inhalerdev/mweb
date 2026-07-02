@@ -10,7 +10,7 @@
   const statusNode = document.querySelector('[data-server-status]');
   const statusCount = document.querySelector('[data-server-status-count]');
   const serverIp = statusNode ? statusNode.dataset.serverIp || 'mineacle.net' : 'mineacle.net';
-  const statusRefreshMs = 2000;
+  const statusRefreshMs = 3000;
   const statusFetchTimeoutMs = 1200;
   const statusCacheKey = `mineacle:server-status:${serverIp}`;
   const statusCacheMaxAgeMs = 15000;
@@ -351,6 +351,30 @@
     };
   };
 
+  const statusSourceRank = (source) => {
+    if (source === 'direct') return 4;
+    if (source === 'mcstatus') return 3;
+    if (source === 'mcsrvstat') return 3;
+    if (source === 'web_profiles') return 2;
+    return 1;
+  };
+
+  const chooseServerStatus = (results) => {
+    return results.reduce((best, next) => {
+      if (!next) return best;
+      if (!best) return next;
+
+      const nextRank = statusSourceRank(next.source);
+      const bestRank = statusSourceRank(best.source);
+
+      if (nextRank !== bestRank) {
+        return nextRank > bestRank ? next : best;
+      }
+
+      return next.onlineCount > best.onlineCount ? next : best;
+    }, null);
+  };
+
   const fetchStatusJson = async (url, timeoutMs = statusFetchTimeoutMs) => {
     const controller = new AbortController();
     const timeout = window.setTimeout(() => {
@@ -402,22 +426,15 @@
         loadFallbackServerStatus(`https://api.mcstatus.io/v2/status/java/${encodeURIComponent(serverIp)}`),
         loadFallbackServerStatus(`https://api.mcsrvstat.us/3/${encodeURIComponent(serverIp)}`)
       ];
-      let payload = null;
-
-      await Promise.allSettled(requests.map(async (request) => {
-        const next = await request;
-
-        if (!next) return;
-
-        if (!payload || (next.source === 'direct' && payload.source !== 'web_profiles') || next.onlineCount > payload.onlineCount) {
-          payload = next;
-          setServerStatus(next.online, next.onlineCount);
-          saveServerStatusCache(next);
-        }
+      const results = await Promise.allSettled(requests);
+      const payload = chooseServerStatus(results.map((result) => {
+        return result.status === 'fulfilled' ? result.value : null;
       }));
 
       if (!payload) {
-        setServerStatus(false, 0);
+        if (statusNode.classList.contains('is-loading')) {
+          setServerStatus(false, 0);
+        }
         return;
       }
 

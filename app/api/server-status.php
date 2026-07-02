@@ -265,19 +265,6 @@ function mineacle_status_normalize(array $data, string $source): array
     ];
 }
 
-$profileCount = mineacle_status_web_profiles_count();
-
-if ($profileCount !== null) {
-    $payload['online'] = $profileCount['online'];
-    $payload['players_online'] = $profileCount['players_online'];
-    $payload['players_max'] = $profileCount['players_max'];
-    $payload['source'] = $profileCount['source'];
-    $payload['checked'] = true;
-
-    echo json_encode($payload, JSON_UNESCAPED_SLASHES);
-    exit;
-}
-
 $directData = mineacle_status_direct_ping($serverIp, $fastMode ? 0.6 : 0.9);
 
 if ($directData) {
@@ -317,6 +304,18 @@ foreach ($providers as $source => $url) {
         $payload['players_online'] = $next['players_online'];
         $payload['players_max'] = $next['players_max'];
         $payload['source'] = $next['source'];
+    }
+}
+
+if (!$payload['checked']) {
+    $profileCount = mineacle_status_web_profiles_count();
+
+    if ($profileCount !== null) {
+        $payload['online'] = $profileCount['online'];
+        $payload['players_online'] = $profileCount['players_online'];
+        $payload['players_max'] = $profileCount['players_max'];
+        $payload['source'] = $profileCount['source'];
+        $payload['checked'] = true;
     }
 }
 
