@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteRule ^players/?$ players.php [L,QSA]
+RewriteRule ^player/([^/]+)/?$ player.php?name=$1 [L,QSA]

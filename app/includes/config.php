@@ -6,7 +6,7 @@ return [
     'site' => [
         'name' => getenv('SITE_NAME') ?: 'Mineacle',
         'home_url' => getenv('HOME_URL') ?: '/',
-        'stats_url' => getenv('STATS_URL') ?: '#',
+        'stats_url' => getenv('STATS_URL') ?: '/players',
         'store_url' => getenv('STORE_URL') ?: '#',
         'bans_url' => getenv('BANS_URL') ?: '#',
         'vote_url' => getenv('VOTE_URL') ?: '#',

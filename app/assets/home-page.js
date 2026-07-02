@@ -105,6 +105,10 @@
     return `${url}${separator}mineacle_refresh=${playerSearchImageRefreshKey}`;
   };
 
+  const playerProfileUrl = (name) => {
+    return `/player/${encodeURIComponent(name)}`;
+  };
+
   const renderPlayerResults = (players) => {
     if (!playerSearchResults) {
       return;
@@ -123,12 +127,13 @@
       const name = typeof player.name === 'string' ? player.name.trim() : '';
       if (name === '') return;
 
-      const row = document.createElement('div');
+      const row = document.createElement('a');
       const nameNode = document.createElement('span');
       const meta = playerMetaText(player);
       const headUrl = playerHeadUrl(player);
 
       row.className = 'player-search-option';
+      row.href = playerProfileUrl(name);
       row.setAttribute('role', 'option');
       applyPlayerStatusClass(row, player);
 
@@ -185,7 +190,7 @@
     playerSearchAbort = controller;
 
     try {
-      const response = await fetch(`api/player-search.php?q=${encodeURIComponent(query)}&limit=8&t=${Date.now()}`, {
+      const response = await fetch(`/api/player-search.php?q=${encodeURIComponent(query)}&limit=8&t=${Date.now()}`, {
         headers: { Accept: 'application/json' },
         cache: 'no-store',
         signal: controller.signal
@@ -306,7 +311,7 @@
 
   const loadLocalServerStatus = async () => {
     try {
-      const response = await fetch(`api/server-status.php?t=${Date.now()}`, {
+      const response = await fetch(`/api/server-status.php?t=${Date.now()}`, {
         headers: { Accept: 'application/json' },
         cache: 'no-store'
       });
