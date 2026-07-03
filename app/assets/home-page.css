@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap");
+
 :root {
   --page: #202020;
   --canvas: #080808;
@@ -14,6 +16,7 @@
   --offline: #ff4b4b;
   --warning: #ffbf45;
   --danger: #ff5a5a;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI";
   --gap: 25px;
   --rail-width: 70px;
   --radius: 5px;
@@ -43,7 +46,9 @@ body {
   margin: 0;
   background: var(--canvas);
   color: var(--subtext);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), sans-serif;
+  font-optical-sizing: auto;
+  text-rendering: geometricPrecision;
 }
 
 a {
@@ -459,9 +464,32 @@ svg {
   display: grid;
   place-items: center;
   background-color: #101010;
-  background-image:
-    linear-gradient(180deg, rgba(8, 8, 8, 0.08), rgba(8, 8, 8, 0.34)),
-    var(--panel-image, none);
+  background-image: var(--panel-image, none);
+}
+
+.hero-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(8, 8, 8, 0.08), rgba(8, 8, 8, 0.34));
+  pointer-events: none;
+}
+
+.hero-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero-panel > :not(.hero-background) {
+  position: relative;
+  z-index: 2;
 }
 
 .panel-media {

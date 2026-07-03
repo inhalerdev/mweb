@@ -11,7 +11,7 @@ function mineacle_home_defaults(): array
     return [
         'hero' => [
             'image_url' => '',
-            'background_image_url' => 'assets/brand/hero-banner-v1.png',
+            'background_image_url' => '/assets/brand/hero-banner-v1.png',
             'link_url' => '',
         ],
         'player' => [
@@ -109,7 +109,9 @@ function mineacle_home_data(): array
 
         if ($hero) {
             $data['hero'] = array_merge($data['hero'], array_filter($hero, static function (mixed $value): bool {
-                return trim((string) $value) !== '';
+                $trimmed = trim((string) $value);
+
+                return $trimmed !== '' && $trimmed !== '#';
             }));
         }
 
@@ -186,7 +188,11 @@ function mineacle_home_safe_url(mixed $url): string
         return $value === '#' ? '#' : '';
     }
 
-    if (str_starts_with($value, '/') || str_starts_with($value, './') || str_starts_with($value, 'assets/')) {
+    if (str_starts_with($value, 'assets/')) {
+        return '/' . $value;
+    }
+
+    if (str_starts_with($value, '/') || str_starts_with($value, './')) {
         return $value;
     }
 

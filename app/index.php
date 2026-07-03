@@ -47,6 +47,7 @@ $navLinks = [
 $tiles = array_slice($home['tiles'], 0, 4);
 $worlds = array_slice(array_values($home['worlds']), 0, 3);
 $socialLinks = array_slice($home['social_links'], 0, 4);
+$heroBackground = trim((string) ($home['hero']['background_image_url'] ?? ''));
 
 mineacle_page_head('Home');
 ?>
@@ -96,6 +97,9 @@ mineacle_page_head('Home');
 
         <section class="top-row">
             <article class="panel hero-panel"<?php echo mineacle_home_image_style($home['hero']['background_image_url'] ?? ''); ?> aria-label="Hero">
+                <?php if ($heroBackground !== ''): ?>
+                    <img class="hero-background" src="<?php echo h(mineacle_home_safe_url($heroBackground)); ?>" alt="" aria-hidden="true">
+                <?php endif; ?>
                 <?php if (trim((string) ($home['hero']['image_url'] ?? '')) !== ''): ?>
                     <span class="panel-media"<?php echo mineacle_home_image_style($home['hero']['image_url'] ?? '', '--media-image'); ?>></span>
                 <?php endif; ?>
