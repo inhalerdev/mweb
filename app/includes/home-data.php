@@ -11,7 +11,7 @@ function mineacle_home_defaults(): array
     return [
         'hero' => [
             'image_url' => '',
-            'background_image_url' => '',
+            'background_image_url' => 'assets/brand/hero-banner-v1.png',
             'link_url' => '',
         ],
         'player' => [
@@ -108,7 +108,9 @@ function mineacle_home_data(): array
         );
 
         if ($hero) {
-            $data['hero'] = array_merge($data['hero'], $hero);
+            $data['hero'] = array_merge($data['hero'], array_filter($hero, static function (mixed $value): bool {
+                return trim((string) $value) !== '';
+            }));
         }
 
         $community = mineacle_home_first(

@@ -96,7 +96,9 @@ mineacle_page_head('Home');
 
         <section class="top-row">
             <article class="panel hero-panel"<?php echo mineacle_home_image_style($home['hero']['background_image_url'] ?? ''); ?> aria-label="Hero">
-                <span class="panel-media"<?php echo mineacle_home_image_style($home['hero']['image_url'] ?? '', '--media-image'); ?>></span>
+                <?php if (trim((string) ($home['hero']['image_url'] ?? '')) !== ''): ?>
+                    <span class="panel-media"<?php echo mineacle_home_image_style($home['hero']['image_url'] ?? '', '--media-image'); ?>></span>
+                <?php endif; ?>
                 <span class="sr-only">Hero banner</span>
             </article>
         </section>
