@@ -606,12 +606,12 @@ svg {
 }
 
 .hero-action-primary {
-  width: 180px;
+  width: 236px;
 }
 
 .hero-action-icon {
-  width: 14px;
-  height: 14px;
+  width: 13px;
+  height: 13px;
   display: block;
   object-fit: contain;
   filter: invert(100%);

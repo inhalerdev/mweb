@@ -68,7 +68,7 @@ $socialLinks = array_slice($home['social_links'], 0, 4);
 $heroBackground = trim((string) ($home['hero']['background_image_url'] ?? ''));
 $heroBackgroundUrl = mineacle_home_safe_url($heroBackground);
 $heroBackgroundIsVideo = mineacle_home_is_video_url($heroBackgroundUrl);
-$heroAssetVersion = 'base44';
+$heroAssetVersion = 'base45';
 
 mineacle_page_head('Home');
 ?>
@@ -137,11 +137,11 @@ mineacle_page_head('Home');
                     <h1 class="hero-logo-title">
                         <img src="<?php echo h(mineacle_home_versioned_url('/assets/brand/hero-logo.png', $heroAssetVersion)); ?>" alt="Mineacle Network">
                     </h1>
-                    <p class="hero-text">A Java Edition network for supported Minecraft client versions. Copy the server IP, add Mineacle to Multiplayer, and connect from desktop.</p>
+                    <p class="hero-text">Java Edition support for Minecraft 1.21.1-1.21.6+. Copy the server IP, add Mineacle to Multiplayer, and join from desktop.</p>
                     <div class="hero-actions" aria-label="Server actions">
-                        <button class="hero-action hero-action-primary hero-play-now" type="button" data-copy-server-ip data-server-ip="<?php echo h($minecraftIp); ?>" data-default-label="Play Now" aria-label="Copy Mineacle server IP">
+                        <button class="hero-action hero-action-primary hero-play-now" type="button" data-copy-server-ip data-server-ip="<?php echo h($minecraftIp); ?>" data-default-label="Join on Java Edition" aria-label="Copy Mineacle server IP">
                             <img class="hero-action-icon" src="assets/icons/play-button-arrowhead.png" alt="" aria-hidden="true">
-                            <span data-copy-server-label>Play Now</span>
+                            <span data-copy-server-label>Join on Java Edition</span>
                         </button>
                         <button class="hero-action hero-action-secondary" type="button" data-open-join-modal>
                             How to Join
@@ -205,14 +205,14 @@ mineacle_page_head('Home');
             <img src="assets/icons/clear-search.svg" alt="" aria-hidden="true">
         </button>
         <div class="join-modal-copy">
-            <p>Java Edition</p>
-            <h2 id="joinModalTitle">How to Join Mineacle</h2>
+            <p>Java Edition 1.21.1-1.21.6+</p>
+            <h2 id="joinModalTitle">Join Mineacle</h2>
         </div>
         <div class="join-modal-media">
             <img data-join-gif data-src="<?php echo h(mineacle_home_versioned_url('/assets/brand/mineacle-how-to-join.gif', $heroAssetVersion)); ?>" alt="How to join Mineacle on Java Edition">
         </div>
         <div class="join-modal-actions">
-            <p class="join-modal-ip"><span>IP:</span> <strong><?php echo h($minecraftIp); ?></strong></p>
+            <p class="join-modal-ip"><span>Server IP:</span> <strong><?php echo h($minecraftIp); ?></strong></p>
             <button class="hero-action hero-action-primary join-modal-copy-ip" type="button" data-copy-server-ip data-server-ip="<?php echo h($minecraftIp); ?>" data-default-label="Copy" aria-label="Copy Mineacle server IP">
                 <span data-copy-server-label>Copy</span>
             </button>
