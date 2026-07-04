@@ -606,12 +606,19 @@ svg {
 }
 
 .hero-action-primary {
-  width: 260px;
+  width: 180px;
 }
 
-.hero-action strong {
-  color: var(--subtext);
-  font: inherit;
+.hero-action-icon {
+  width: 14px;
+  height: 14px;
+  display: block;
+  object-fit: contain;
+  filter: invert(100%);
+}
+
+.join-modal-copy-ip.hero-action-primary {
+  width: 122px;
 }
 
 .hero-action:hover,
@@ -636,10 +643,6 @@ svg {
   border-color: rgba(75, 227, 106, 0.68);
   background: rgba(75, 227, 106, 0.18);
   color: var(--heading);
-}
-
-.hero-action-primary.is-copied strong {
-  color: rgba(210, 255, 218, 0.9);
 }
 
 .hero-action-primary.is-copy-failed {
@@ -668,7 +671,7 @@ svg {
 
 .join-modal-panel {
   position: relative;
-  width: min(960px, calc(100vw - (var(--gap) * 2)));
+  width: min(760px, calc(100vw - (var(--gap) * 2)));
   max-height: calc(100dvh - (var(--gap) * 2));
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -686,7 +689,7 @@ svg {
 .join-modal-copy {
   display: grid;
   gap: 6px;
-  padding: 22px 58px 18px 24px;
+  padding: 20px 58px 16px 24px;
 }
 
 .join-modal-copy p,
@@ -751,15 +754,32 @@ svg {
 }
 
 .join-modal-actions {
+  min-height: 82px;
   display: flex;
-  justify-content: center;
-  padding: 16px 24px 20px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 0 24px;
   border-top: 1px solid var(--line);
   background: #101010;
 }
 
+.join-modal-ip {
+  min-width: 0;
+  margin: 0;
+  color: var(--subtext);
+  font-size: var(--ui-font-size);
+  font-weight: var(--ui-font-weight);
+  line-height: 1;
+}
+
+.join-modal-ip strong {
+  color: var(--heading);
+  font-size: 1rem;
+}
+
 .join-modal-copy-ip {
-  width: 220px;
+  flex: 0 0 auto;
 }
 
 body.has-join-modal {

@@ -68,7 +68,7 @@ $socialLinks = array_slice($home['social_links'], 0, 4);
 $heroBackground = trim((string) ($home['hero']['background_image_url'] ?? ''));
 $heroBackgroundUrl = mineacle_home_safe_url($heroBackground);
 $heroBackgroundIsVideo = mineacle_home_is_video_url($heroBackgroundUrl);
-$heroAssetVersion = 'base43';
+$heroAssetVersion = 'base44';
 
 mineacle_page_head('Home');
 ?>
@@ -139,9 +139,9 @@ mineacle_page_head('Home');
                     </h1>
                     <p class="hero-text">A Java Edition network for supported Minecraft client versions. Copy the server IP, add Mineacle to Multiplayer, and connect from desktop.</p>
                     <div class="hero-actions" aria-label="Server actions">
-                        <button class="hero-action hero-action-primary" type="button" data-copy-server-ip data-server-ip="<?php echo h($minecraftIp); ?>" data-default-label="Copy Server IP" aria-label="Copy Mineacle server IP">
-                            <span data-copy-server-label>Copy Server IP</span>
-                            <strong><?php echo h($minecraftIp); ?></strong>
+                        <button class="hero-action hero-action-primary hero-play-now" type="button" data-copy-server-ip data-server-ip="<?php echo h($minecraftIp); ?>" data-default-label="Play Now" aria-label="Copy Mineacle server IP">
+                            <img class="hero-action-icon" src="assets/icons/play-button-arrowhead.png" alt="" aria-hidden="true">
+                            <span data-copy-server-label>Play Now</span>
                         </button>
                         <button class="hero-action hero-action-secondary" type="button" data-open-join-modal>
                             How to Join
@@ -212,9 +212,9 @@ mineacle_page_head('Home');
             <img data-join-gif data-src="<?php echo h(mineacle_home_versioned_url('/assets/brand/mineacle-how-to-join.gif', $heroAssetVersion)); ?>" alt="How to join Mineacle on Java Edition">
         </div>
         <div class="join-modal-actions">
-            <button class="hero-action hero-action-primary join-modal-copy-ip" type="button" data-copy-server-ip data-server-ip="<?php echo h($minecraftIp); ?>" data-default-label="Copy IP" aria-label="Copy Mineacle server IP">
-                <span data-copy-server-label>Copy IP</span>
-                <strong><?php echo h($minecraftIp); ?></strong>
+            <p class="join-modal-ip"><span>IP:</span> <strong><?php echo h($minecraftIp); ?></strong></p>
+            <button class="hero-action hero-action-primary join-modal-copy-ip" type="button" data-copy-server-ip data-server-ip="<?php echo h($minecraftIp); ?>" data-default-label="Copy" aria-label="Copy Mineacle server IP">
+                <span data-copy-server-label>Copy</span>
             </button>
         </div>
     </section>
