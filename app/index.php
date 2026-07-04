@@ -68,7 +68,7 @@ $socialLinks = array_slice($home['social_links'], 0, 4);
 $heroBackground = trim((string) ($home['hero']['background_image_url'] ?? ''));
 $heroBackgroundUrl = mineacle_home_safe_url($heroBackground);
 $heroBackgroundIsVideo = mineacle_home_is_video_url($heroBackgroundUrl);
-$heroAssetVersion = 'base41';
+$heroAssetVersion = 'base42';
 
 mineacle_page_head('Home');
 ?>
@@ -131,13 +131,10 @@ mineacle_page_head('Home');
                     <span class="panel-media"<?php echo mineacle_home_image_style($home['hero']['image_url'] ?? '', '--media-image'); ?>></span>
                 <?php endif; ?>
                 <div class="hero-copy">
-                    <p class="hero-kicker">
-                        <span data-hero-greeting>Good Evening</span>, <span data-hero-player>player</span>
-                    </p>
                     <h1 class="hero-logo-title">
                         <img src="<?php echo h(mineacle_home_versioned_url('/assets/brand/hero-logo.png', $heroAssetVersion)); ?>" alt="Mineacle Network">
                     </h1>
-                    <p class="hero-text">Join the Java Edition server, track your progress, and jump into the community from one clean hub.</p>
+                    <p class="hero-text">A Java Edition network for supported Minecraft client versions. Copy the server IP, add Mineacle to Multiplayer, and connect from desktop.</p>
                     <div class="hero-actions" aria-label="Server actions">
                         <button class="hero-action hero-action-primary" type="button" data-copy-server-ip data-server-ip="<?php echo h($minecraftIp); ?>" data-default-label="Copy Server IP" aria-label="Copy Mineacle server IP">
                             <span data-copy-server-label>Copy Server IP</span>
@@ -147,7 +144,6 @@ mineacle_page_head('Home');
                             How to Join
                         </button>
                     </div>
-                    <p class="hero-feedback" data-copy-server-feedback aria-live="polite"></p>
                 </div>
                 <span class="sr-only">Hero banner</span>
             </article>

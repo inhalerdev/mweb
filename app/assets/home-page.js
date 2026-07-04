@@ -9,10 +9,7 @@
   const playerSearchResults = document.querySelector('[data-player-search-results]');
   const statusNode = document.querySelector('[data-server-status]');
   const statusCount = document.querySelector('[data-server-status-count]');
-  const heroGreeting = document.querySelector('[data-hero-greeting]');
-  const heroPlayer = document.querySelector('[data-hero-player]');
   const copyServerIpButtons = document.querySelectorAll('[data-copy-server-ip]');
-  const copyServerIpFeedback = document.querySelector('[data-copy-server-feedback]');
   const joinModal = document.querySelector('[data-join-modal]');
   const joinModalPanel = joinModal ? joinModal.querySelector('.join-modal-panel') : null;
   const joinGif = document.querySelector('[data-join-gif]');
@@ -29,25 +26,6 @@
   let playerSearchAbort = null;
   let playerSearchRun = 0;
   let joinModalLastFocus = null;
-
-  const setHeroGreeting = () => {
-    if (!heroGreeting) return;
-
-    const hour = new Date().getHours();
-    let dayPart = 'Evening';
-
-    if (hour >= 5 && hour < 12) {
-      dayPart = 'Morning';
-    } else if (hour >= 12 && hour < 17) {
-      dayPart = 'Afternoon';
-    }
-
-    heroGreeting.textContent = `Good ${dayPart}`;
-
-    if (heroPlayer) {
-      heroPlayer.textContent = 'player';
-    }
-  };
 
   const fallbackCopyText = (text) => {
     const input = document.createElement('textarea');
@@ -89,13 +67,12 @@
       label.textContent = copied ? 'IP Copied' : 'Copy Failed';
     }
 
-    if (copyServerIpFeedback) {
-      copyServerIpFeedback.textContent = copied ? `${ip} copied to clipboard.` : `Copy ${ip} manually.`;
-    }
+    button.classList.toggle('is-copied', copied);
+    button.classList.toggle('is-copy-failed', !copied);
 
     window.setTimeout(() => {
       if (label) label.textContent = defaultLabel || 'Copy Server IP';
-      if (copyServerIpFeedback) copyServerIpFeedback.textContent = '';
+      button.classList.remove('is-copied', 'is-copy-failed');
     }, 2200);
   };
 
@@ -124,8 +101,6 @@
       joinModalLastFocus = null;
     }
   };
-
-  setHeroGreeting();
 
   copyServerIpButtons.forEach((button) => {
     button.addEventListener('click', copyServerIp);
