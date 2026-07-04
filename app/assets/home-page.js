@@ -149,28 +149,6 @@
     setPlayerSearchExpanded(false);
   };
 
-  const playerMetaText = (player) => {
-    const status = player && player.punishment_status && typeof player.punishment_status === 'object'
-      ? player.punishment_status
-      : {};
-    const ban = status.ban && typeof status.ban === 'object' ? status.ban : {};
-    const mute = status.mute && typeof status.mute === 'object' ? status.mute : {};
-
-    if (ban.active) {
-      return ban.kind === 'temporary' ? 'Temp banned' : 'Perm banned';
-    }
-
-    if (mute.active) {
-      return mute.kind === 'temporary' ? 'Temp muted' : 'Perm muted';
-    }
-
-    if (player && typeof player.playtime_label === 'string' && player.playtime_label !== '') {
-      return player.playtime_label;
-    }
-
-    return '';
-  };
-
   const applyPlayerStatusClass = (row, player) => {
     const status = player && player.punishment_status && typeof player.punishment_status === 'object'
       ? player.punishment_status
@@ -220,7 +198,7 @@
 
       const row = document.createElement('a');
       const nameNode = document.createElement('span');
-      const meta = playerMetaText(player);
+      const actionNode = document.createElement('span');
       const headUrl = playerHeadUrl(player);
 
       row.className = 'player-search-option';
@@ -249,14 +227,9 @@
       nameNode.textContent = name;
       row.append(nameNode);
 
-      if (meta !== '') {
-        const metaNode = document.createElement('span');
-        metaNode.className = 'player-search-meta';
-        metaNode.textContent = meta;
-        row.append(metaNode);
-      } else {
-        row.classList.add('is-name-only');
-      }
+      actionNode.className = 'player-search-action';
+      actionNode.textContent = 'View Stats';
+      row.append(actionNode);
 
       playerSearchResults.append(row);
     });

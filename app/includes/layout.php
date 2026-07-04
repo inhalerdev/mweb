@@ -18,15 +18,15 @@ function mineacle_page_head(string $title = 'Home'): void
     echo '<meta name="viewport" content="width=device-width, initial-scale=1">';
     echo '<title>' . h($name . ' | ' . $title) . '</title>';
     echo '<meta name="description" content="' . h($name . ' Minecraft server home page') . '">';
-    echo '<link rel="icon" type="image/png" href="/assets/fav.png?v=base42">';
-    echo '<link rel="stylesheet" href="/assets/home-page.css?v=base42">';
+    echo '<link rel="icon" type="image/png" href="/assets/fav.png?v=base43">';
+    echo '<link rel="stylesheet" href="/assets/home-page.css?v=base43">';
     echo '</head>';
     echo '<body>';
 }
 
 function mineacle_page_end(): void
 {
-    echo '<script src="/assets/home-page.js?v=base42"></script>';
+    echo '<script src="/assets/home-page.js?v=base43"></script>';
     echo '</body>';
     echo '</html>';
 }

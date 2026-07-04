@@ -68,7 +68,7 @@ $socialLinks = array_slice($home['social_links'], 0, 4);
 $heroBackground = trim((string) ($home['hero']['background_image_url'] ?? ''));
 $heroBackgroundUrl = mineacle_home_safe_url($heroBackground);
 $heroBackgroundIsVideo = mineacle_home_is_video_url($heroBackgroundUrl);
-$heroAssetVersion = 'base42';
+$heroAssetVersion = 'base43';
 
 mineacle_page_head('Home');
 ?>
@@ -100,7 +100,10 @@ mineacle_page_head('Home');
         <section class="search-row" aria-label="Search">
             <div class="server-status is-loading" data-server-status data-server-ip="<?php echo h($minecraftIp); ?>" aria-live="polite">
                 <span class="server-status-dot" aria-hidden="true"></span>
-                <span class="server-status-count" data-server-status-count>Checking server</span>
+                <span class="server-status-main">
+                    <span class="server-status-label">Server Status</span>
+                    <span class="server-status-count" data-server-status-count>Checking server</span>
+                </span>
             </div>
 
             <label class="sr-only" for="homeSearch">Search</label>
