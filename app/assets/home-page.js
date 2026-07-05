@@ -27,6 +27,51 @@
   let playerSearchRun = 0;
   let joinModalLastFocus = null;
 
+  const disableSimpleAssetGrabs = () => {
+    const protectedMediaSelector = 'img, video, picture, svg, source';
+    const blockEvent = (event) => {
+      event.preventDefault();
+    };
+    const blockMediaDrag = (event) => {
+      if (!(event.target instanceof Element)) return;
+      if (!event.target.closest(protectedMediaSelector)) return;
+      event.preventDefault();
+    };
+    const blockInspectShortcut = (event) => {
+      const key = event.key.toLowerCase();
+      const commandKey = event.ctrlKey || event.metaKey;
+      const devToolsShortcut = event.key === 'F12'
+        || (commandKey && event.shiftKey && ['c', 'i', 'j', 'k'].includes(key))
+        || (event.metaKey && event.altKey && ['c', 'i', 'j', 'u'].includes(key))
+        || (commandKey && ['s', 'u'].includes(key));
+
+      if (!devToolsShortcut) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+    };
+    const markMedia = () => {
+      document.querySelectorAll('img, video').forEach((node) => {
+        node.setAttribute('draggable', 'false');
+      });
+    };
+
+    document.addEventListener('contextmenu', blockEvent, true);
+    document.addEventListener('dragstart', blockMediaDrag, true);
+    document.addEventListener('keydown', blockInspectShortcut, true);
+    window.addEventListener('beforeprint', blockEvent);
+    markMedia();
+
+    if ('MutationObserver' in window) {
+      new MutationObserver(markMedia).observe(document.documentElement, {
+        childList: true,
+        subtree: true
+      });
+    }
+  };
+
+  disableSimpleAssetGrabs();
+
   const fallbackCopyText = (text) => {
     const input = document.createElement('textarea');
     input.value = text;

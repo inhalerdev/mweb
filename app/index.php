@@ -116,7 +116,7 @@ $socialLinks = array_slice($home['social_links'], 0, 4);
 $heroBackground = trim((string) ($home['hero']['background_image_url'] ?? ''));
 $heroBackgroundUrl = mineacle_home_safe_url($heroBackground);
 $heroBackgroundIsVideo = mineacle_home_is_video_url($heroBackgroundUrl);
-$heroAssetVersion = 'base54';
+$heroAssetVersion = 'base56';
 
 mineacle_page_head('Home');
 ?>
@@ -176,11 +176,11 @@ mineacle_page_head('Home');
             <article class="panel hero-panel"<?php echo $heroBackgroundIsVideo ? '' : mineacle_home_image_style($home['hero']['background_image_url'] ?? ''); ?> aria-label="Hero">
                 <?php if ($heroBackground !== ''): ?>
                     <?php if ($heroBackgroundIsVideo): ?>
-                        <video class="hero-background hero-background-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+                        <video class="hero-background hero-background-video" autoplay muted loop playsinline preload="auto" controlslist="nodownload noplaybackrate" disablepictureinpicture draggable="false" aria-hidden="true">
                             <source src="<?php echo h(mineacle_home_versioned_url($heroBackgroundUrl, $heroAssetVersion)); ?>" type="video/mp4">
                         </video>
                     <?php else: ?>
-                        <img class="hero-background" src="<?php echo h($heroBackgroundUrl); ?>" alt="" aria-hidden="true">
+                        <img class="hero-background" src="<?php echo h($heroBackgroundUrl); ?>" alt="" draggable="false" aria-hidden="true">
                     <?php endif; ?>
                 <?php endif; ?>
                 <?php if (trim((string) ($home['hero']['image_url'] ?? '')) !== ''): ?>

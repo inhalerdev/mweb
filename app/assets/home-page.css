@@ -72,6 +72,13 @@ svg {
   fill: currentColor;
 }
 
+img,
+video,
+svg {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
 .site-icon {
   width: 28px;
   height: 28px;
