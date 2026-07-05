@@ -9,8 +9,8 @@
   --line: rgba(255, 255, 255, 0.08);
   --heading: #ffffff;
   --subtext: #bbbbbb;
-  --icon: #8a8a8a;
-  --icon-active: #d8d8d8;
+  --icon: #bbbbbb;
+  --icon-active: #ffffff;
   --accent: #7b3cff;
   --online: #4be36a;
   --offline: #ff4b4b;
@@ -77,8 +77,8 @@ svg {
   height: 28px;
   display: block;
   object-fit: contain;
-  opacity: 0.76;
-  filter: invert(63%) sepia(0%) saturate(18%) hue-rotate(162deg) brightness(89%) contrast(88%);
+  opacity: 1;
+  filter: invert(78%) sepia(0%) saturate(0%) hue-rotate(188deg) brightness(96%) contrast(88%);
 }
 
 .sr-only {
@@ -137,34 +137,27 @@ svg {
 }
 
 .rail-link:hover,
-.rail-link:focus-visible {
+.rail-link:focus-visible,
+.rail-link.is-active,
+.rail-link[aria-current="page"] {
   outline: 0;
   color: var(--icon-active);
+}
+
+.rail-link:hover,
+.rail-link:focus-visible {
   background: rgba(255, 255, 255, 0.06);
 }
 
 .rail-link:hover .site-icon,
-.rail-link:focus-visible .site-icon {
-  opacity: 1;
+.rail-link:focus-visible .site-icon,
+.rail-link.is-active .site-icon,
+.rail-link[aria-current="page"] .site-icon {
   filter: invert(100%);
 }
 
 .rail-store-button {
   margin-top: 8px;
-  color: var(--heading);
-  background: rgba(123, 60, 255, 0.18);
-  box-shadow: inset 0 0 0 1px rgba(123, 60, 255, 0.44);
-}
-
-.rail-store-button .site-icon {
-  opacity: 1;
-  filter: invert(100%);
-}
-
-.rail-store-button:hover,
-.rail-store-button:focus-visible {
-  background: rgba(123, 60, 255, 0.28);
-  box-shadow: inset 0 0 0 1px rgba(162, 113, 255, 0.7);
 }
 
 .rail-nav,

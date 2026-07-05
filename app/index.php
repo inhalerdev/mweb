@@ -75,6 +75,7 @@ $navLinks = [
 ];
 
 $storeLink = ['key' => 'store', 'url' => (string) ($site['store_url'] ?? '#')];
+$currentNavKey = 'home';
 
 $footerQuickLinks = [
     ['label' => 'Home', 'url' => (string) ($site['home_url'] ?? '/')],
@@ -115,7 +116,7 @@ $socialLinks = array_slice($home['social_links'], 0, 4);
 $heroBackground = trim((string) ($home['hero']['background_image_url'] ?? ''));
 $heroBackgroundUrl = mineacle_home_safe_url($heroBackground);
 $heroBackgroundIsVideo = mineacle_home_is_video_url($heroBackgroundUrl);
-$heroAssetVersion = 'base49';
+$heroAssetVersion = 'base50';
 
 mineacle_page_head('Home');
 ?>
@@ -127,11 +128,13 @@ mineacle_page_head('Home');
 
         <nav class="rail-nav" aria-label="Server links">
             <?php foreach ($navLinks as $link): ?>
-                <a class="rail-link" href="<?php echo h(mineacle_home_link($link['url'])); ?>" aria-label="<?php echo h($link['key']); ?>">
+                <?php $isActiveNavLink = (string) $link['key'] === $currentNavKey; ?>
+                <a class="rail-link<?php echo $isActiveNavLink ? ' is-active' : ''; ?>" href="<?php echo h(mineacle_home_link($link['url'])); ?>" aria-label="<?php echo h($link['key']); ?>"<?php echo $isActiveNavLink ? ' aria-current="page"' : ''; ?>>
                     <?php echo mineacle_icon((string) $link['key']); ?>
                 </a>
             <?php endforeach; ?>
-            <a class="rail-link rail-store-button" href="<?php echo h(mineacle_home_link($storeLink['url'])); ?>" aria-label="Store">
+            <?php $isStoreActive = (string) $storeLink['key'] === $currentNavKey; ?>
+            <a class="rail-link rail-store-button<?php echo $isStoreActive ? ' is-active' : ''; ?>" href="<?php echo h(mineacle_home_link($storeLink['url'])); ?>" aria-label="Store"<?php echo $isStoreActive ? ' aria-current="page"' : ''; ?>>
                 <?php echo mineacle_icon((string) $storeLink['key']); ?>
             </a>
         </nav>

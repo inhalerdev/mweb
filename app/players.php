@@ -51,6 +51,7 @@ $navLinks = [
     ['key' => 'store', 'url' => $site['store_url'] ?? '#'],
     ['key' => 'bans', 'url' => $site['bans_url'] ?? '#'],
 ];
+$currentNavKey = 'stats';
 $sortOptions = [
     'playtime' => 'Playtime',
     'online' => 'Online',
@@ -71,7 +72,8 @@ mineacle_page_head('Players');
 
         <nav class="rail-nav" aria-label="Server links">
             <?php foreach ($navLinks as $link): ?>
-                <a class="rail-link" href="<?php echo h(mineacle_players_link($link['url'])); ?>" aria-label="<?php echo h($link['key']); ?>">
+                <?php $isActiveNavLink = (string) $link['key'] === $currentNavKey; ?>
+                <a class="rail-link<?php echo $isActiveNavLink ? ' is-active' : ''; ?>" href="<?php echo h(mineacle_players_link($link['url'])); ?>" aria-label="<?php echo h($link['key']); ?>"<?php echo $isActiveNavLink ? ' aria-current="page"' : ''; ?>>
                     <?php echo mineacle_players_icon((string) $link['key']); ?>
                 </a>
             <?php endforeach; ?>
