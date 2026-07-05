@@ -79,7 +79,7 @@ $currentNavKey = 'home';
 
 $footerQuickLinks = [
     ['label' => 'Home', 'url' => (string) ($site['home_url'] ?? '/')],
-    ['label' => 'Player Stats', 'url' => (string) ($site['stats_url'] ?? '/players')],
+    ['label' => 'Leaderboards', 'url' => (string) ($site['stats_url'] ?? '/players')],
     ['label' => 'Store', 'url' => (string) ($site['store_url'] ?? '#')],
     ['label' => 'Vote', 'url' => (string) ($site['vote_url'] ?? '#')],
 ];
@@ -116,7 +116,7 @@ $socialLinks = array_slice($home['social_links'], 0, 4);
 $heroBackground = trim((string) ($home['hero']['background_image_url'] ?? ''));
 $heroBackgroundUrl = mineacle_home_safe_url($heroBackground);
 $heroBackgroundIsVideo = mineacle_home_is_video_url($heroBackgroundUrl);
-$heroAssetVersion = 'base56';
+$heroAssetVersion = mineacle_page_asset_version();
 
 mineacle_page_head('Home');
 ?>

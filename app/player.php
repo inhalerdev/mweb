@@ -25,24 +25,6 @@ if ($query !== '') {
     }
 }
 
-function mineacle_profile_icon(string $name): string
-{
-    $icons = [
-        'home' => '/assets/icons/home.svg',
-        'stats' => '/assets/icons/leaderboard.svg',
-        'store' => '/assets/icons/basket-shopping.svg',
-        'bans' => '/assets/icons/gavel.svg',
-        'discord' => '/assets/icons/discord.svg',
-        'x' => '/assets/icons/x-twitter.svg',
-    ];
-
-    if (isset($icons[$name])) {
-        return '<img class="site-icon" src="' . h($icons[$name]) . '" alt="" aria-hidden="true">';
-    }
-
-    return '';
-}
-
 function mineacle_profile_link(mixed $url): string
 {
     $value = trim((string) $url);
@@ -50,9 +32,17 @@ function mineacle_profile_link(mixed $url): string
     return $value !== '' ? $value : '#';
 }
 
-function mineacle_profile_stat(string $label, string $value): void
+function mineacle_profile_stat_row(string $label, string $value): void
 {
-    echo '<article class="profile-stat">';
+    echo '<div class="profile-stat-row">';
+    echo '<span>' . h($label) . '</span>';
+    echo '<strong>' . h($value) . '</strong>';
+    echo '</div>';
+}
+
+function mineacle_profile_quick_stat(string $label, string $value): void
+{
+    echo '<article class="profile-quick-stat">';
     echo '<span>' . h($label) . '</span>';
     echo '<strong>' . h($value) . '</strong>';
     echo '</article>';
@@ -86,10 +76,10 @@ function mineacle_profile_punishment(array $player): array
 
 $navLinks = [
     ['key' => 'home', 'url' => $site['home_url'] ?? '/'],
-    ['key' => 'stats', 'url' => $site['stats_url'] ?? '#'],
-    ['key' => 'store', 'url' => $site['store_url'] ?? '#'],
+    ['key' => 'stats', 'label' => 'Leaderboards', 'url' => $site['stats_url'] ?? '/players'],
     ['key' => 'bans', 'url' => $site['bans_url'] ?? '#'],
 ];
+$storeLink = ['key' => 'store', 'url' => $site['store_url'] ?? '#'];
 $currentNavKey = 'stats';
 
 $pageTitle = $player ? mineacle_stats_display_name($player) : 'Player';
@@ -105,23 +95,29 @@ mineacle_page_head($pageTitle);
         <nav class="rail-nav" aria-label="Server links">
             <?php foreach ($navLinks as $link): ?>
                 <?php $isActiveNavLink = (string) $link['key'] === $currentNavKey; ?>
-                <a class="rail-link<?php echo $isActiveNavLink ? ' is-active' : ''; ?>" href="<?php echo h(mineacle_profile_link($link['url'])); ?>" aria-label="<?php echo h($link['key']); ?>"<?php echo $isActiveNavLink ? ' aria-current="page"' : ''; ?>>
-                    <?php echo mineacle_profile_icon((string) $link['key']); ?>
+                <a class="rail-link<?php echo $isActiveNavLink ? ' is-active' : ''; ?>" href="<?php echo h(mineacle_profile_link($link['url'])); ?>" aria-label="<?php echo h((string) ($link['label'] ?? $link['key'])); ?>"<?php echo $isActiveNavLink ? ' aria-current="page"' : ''; ?>>
+                    <?php echo mineacle_page_icon((string) $link['key']); ?>
                 </a>
             <?php endforeach; ?>
+            <?php $isStoreActive = (string) $storeLink['key'] === $currentNavKey; ?>
+            <a class="rail-link rail-store-button<?php echo $isStoreActive ? ' is-active' : ''; ?>" href="<?php echo h(mineacle_profile_link($storeLink['url'])); ?>" aria-label="Store"<?php echo $isStoreActive ? ' aria-current="page"' : ''; ?>>
+                <?php echo mineacle_page_icon((string) $storeLink['key']); ?>
+            </a>
         </nav>
 
         <div class="rail-social" aria-label="Social links">
             <a class="rail-link" href="<?php echo h(mineacle_profile_link($site['discord_url'] ?? '#')); ?>" aria-label="Discord">
-                <?php echo mineacle_profile_icon('discord'); ?>
+                <?php echo mineacle_page_icon('discord'); ?>
             </a>
             <a class="rail-link" href="<?php echo h(mineacle_profile_link($site['x_url'] ?? '#')); ?>" aria-label="X">
-                <?php echo mineacle_profile_icon('x'); ?>
+                <?php echo mineacle_page_icon('x'); ?>
             </a>
         </div>
     </aside>
 
     <main class="home-grid profile-page" aria-label="Player profile">
+        <?php mineacle_page_search_header($site); ?>
+
         <?php if ($query === ''): ?>
             <section class="panel profile-message">
                 <h1>Player Profile</h1>
@@ -147,11 +143,12 @@ mineacle_page_head($pageTitle);
             <section class="panel profile-hero">
                 <div class="profile-skin-card">
                     <?php if ($skinChest !== ''): ?>
-                        <img src="<?php echo h($skinChest); ?>" alt="" aria-hidden="true">
+                        <img src="<?php echo h($skinChest); ?>" alt="" draggable="false" aria-hidden="true">
                     <?php endif; ?>
                 </div>
 
                 <div class="profile-identity">
+                    <p class="profile-kicker">Player Profile</p>
                     <span class="profile-online <?php echo $online ? 'is-online' : 'is-offline'; ?>">
                         <span aria-hidden="true"></span>
                         <?php echo $online ? 'Online' : 'Offline'; ?>
@@ -162,29 +159,56 @@ mineacle_page_head($pageTitle);
                         <span class="profile-pill"><?php echo h(mineacle_stats_rank_name($player)); ?></span>
                         <span class="profile-pill <?php echo h($punishment['class']); ?>"><?php echo h($punishment['label']); ?></span>
                     </div>
+                    <div class="profile-quick-stats" aria-label="Player highlights">
+                        <?php
+                        mineacle_profile_quick_stat('Playtime', mineacle_stats_playtime_label($player));
+                        mineacle_profile_quick_stat('Kills', number_format(mineacle_stats_int($player['kills'] ?? 0)));
+                        mineacle_profile_quick_stat('Balance', mineacle_stats_money_label($player));
+                        mineacle_profile_quick_stat('K/D', number_format(mineacle_stats_float($player['kd_ratio'] ?? 0), 2));
+                        ?>
+                    </div>
                 </div>
             </section>
 
-            <section class="profile-stat-grid" aria-label="Player stats">
-                <?php
-                mineacle_profile_stat('Rank', mineacle_stats_rank_name($player));
-                mineacle_profile_stat('Team', mineacle_stats_team_name($player));
-                mineacle_profile_stat('Team Role', mineacle_stats_team_role($player));
-                mineacle_profile_stat('Balance', mineacle_stats_money_label($player));
-                mineacle_profile_stat('Playtime', mineacle_stats_playtime_label($player));
-                mineacle_profile_stat('Kills', number_format(mineacle_stats_int($player['kills'] ?? 0)));
-                mineacle_profile_stat('Deaths', number_format(mineacle_stats_int($player['deaths'] ?? 0)));
-                mineacle_profile_stat('K/D', number_format(mineacle_stats_float($player['kd_ratio'] ?? 0), 2));
-                mineacle_profile_stat('Money Rank', mineacle_stats_rank_label($player['money_rank'] ?? 0));
-                mineacle_profile_stat('Kills Rank', mineacle_stats_rank_label($player['kills_rank'] ?? 0));
-                mineacle_profile_stat('Playtime Rank', mineacle_stats_rank_label($player['playtime_rank'] ?? 0));
-                mineacle_profile_stat('First Joined', mineacle_stats_date_label($player['first_joined_at'] ?? 0));
-                mineacle_profile_stat('Last Seen', mineacle_stats_last_seen_label($player));
-                mineacle_profile_stat('Team Joined', mineacle_stats_date_label($player['team_joined_at'] ?? 0));
-                mineacle_profile_stat('Updated', mineacle_stats_date_label($player['updated_at'] ?? 0));
-                ?>
+            <section class="profile-content-grid" aria-label="Player stats">
+                <article class="panel profile-section">
+                    <h2>Overview</h2>
+                    <div class="profile-stat-list">
+                        <?php
+                        mineacle_profile_stat_row('Rank', mineacle_stats_rank_name($player));
+                        mineacle_profile_stat_row('Team', mineacle_stats_team_name($player));
+                        mineacle_profile_stat_row('Team Role', mineacle_stats_team_role($player));
+                        mineacle_profile_stat_row('Deaths', number_format(mineacle_stats_int($player['deaths'] ?? 0)));
+                        ?>
+                    </div>
+                </article>
+
+                <article class="panel profile-section">
+                    <h2>Rankings</h2>
+                    <div class="profile-stat-list">
+                        <?php
+                        mineacle_profile_stat_row('Money Rank', mineacle_stats_rank_label($player['money_rank'] ?? 0));
+                        mineacle_profile_stat_row('Kills Rank', mineacle_stats_rank_label($player['kills_rank'] ?? 0));
+                        mineacle_profile_stat_row('Playtime Rank', mineacle_stats_rank_label($player['playtime_rank'] ?? 0));
+                        ?>
+                    </div>
+                </article>
+
+                <article class="panel profile-section profile-section-wide">
+                    <h2>Activity</h2>
+                    <div class="profile-stat-list is-grid">
+                        <?php
+                        mineacle_profile_stat_row('First Joined', mineacle_stats_date_label($player['first_joined_at'] ?? 0));
+                        mineacle_profile_stat_row('Last Seen', mineacle_stats_last_seen_label($player));
+                        mineacle_profile_stat_row('Team Joined', mineacle_stats_date_label($player['team_joined_at'] ?? 0));
+                        mineacle_profile_stat_row('Updated', mineacle_stats_date_label($player['updated_at'] ?? 0));
+                        ?>
+                    </div>
+                </article>
             </section>
         <?php endif; ?>
+
+        <?php mineacle_page_footer($site); ?>
     </main>
 </div>
 <?php mineacle_page_end(); ?>

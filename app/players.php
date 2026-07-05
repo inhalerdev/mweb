@@ -17,22 +17,6 @@ try {
     $loadError = true;
 }
 
-function mineacle_players_icon(string $name): string
-{
-    $icons = [
-        'home' => '/assets/icons/home.svg',
-        'stats' => '/assets/icons/leaderboard.svg',
-        'store' => '/assets/icons/basket-shopping.svg',
-        'bans' => '/assets/icons/gavel.svg',
-        'discord' => '/assets/icons/discord.svg',
-        'x' => '/assets/icons/x-twitter.svg',
-    ];
-
-    return isset($icons[$name])
-        ? '<img class="site-icon" src="' . h($icons[$name]) . '" alt="" aria-hidden="true">'
-        : '';
-}
-
 function mineacle_players_link(mixed $url): string
 {
     $value = trim((string) $url);
@@ -47,10 +31,10 @@ function mineacle_players_profile_url(array $player): string
 
 $navLinks = [
     ['key' => 'home', 'url' => $site['home_url'] ?? '/'],
-    ['key' => 'stats', 'url' => $site['stats_url'] ?? '/players'],
-    ['key' => 'store', 'url' => $site['store_url'] ?? '#'],
+    ['key' => 'stats', 'label' => 'Leaderboards', 'url' => $site['stats_url'] ?? '/players'],
     ['key' => 'bans', 'url' => $site['bans_url'] ?? '#'],
 ];
+$storeLink = ['key' => 'store', 'url' => $site['store_url'] ?? '#'];
 $currentNavKey = 'stats';
 $sortOptions = [
     'playtime' => 'Playtime',
@@ -62,7 +46,7 @@ $sortOptions = [
     'last_seen' => 'Last Seen',
 ];
 
-mineacle_page_head('Players');
+mineacle_page_head('Leaderboards');
 ?>
 <div class="site-shell">
     <aside class="rail" aria-label="Primary navigation">
@@ -73,27 +57,33 @@ mineacle_page_head('Players');
         <nav class="rail-nav" aria-label="Server links">
             <?php foreach ($navLinks as $link): ?>
                 <?php $isActiveNavLink = (string) $link['key'] === $currentNavKey; ?>
-                <a class="rail-link<?php echo $isActiveNavLink ? ' is-active' : ''; ?>" href="<?php echo h(mineacle_players_link($link['url'])); ?>" aria-label="<?php echo h($link['key']); ?>"<?php echo $isActiveNavLink ? ' aria-current="page"' : ''; ?>>
-                    <?php echo mineacle_players_icon((string) $link['key']); ?>
+                <a class="rail-link<?php echo $isActiveNavLink ? ' is-active' : ''; ?>" href="<?php echo h(mineacle_players_link($link['url'])); ?>" aria-label="<?php echo h((string) ($link['label'] ?? $link['key'])); ?>"<?php echo $isActiveNavLink ? ' aria-current="page"' : ''; ?>>
+                    <?php echo mineacle_page_icon((string) $link['key']); ?>
                 </a>
             <?php endforeach; ?>
+            <?php $isStoreActive = (string) $storeLink['key'] === $currentNavKey; ?>
+            <a class="rail-link rail-store-button<?php echo $isStoreActive ? ' is-active' : ''; ?>" href="<?php echo h(mineacle_players_link($storeLink['url'])); ?>" aria-label="Store"<?php echo $isStoreActive ? ' aria-current="page"' : ''; ?>>
+                <?php echo mineacle_page_icon((string) $storeLink['key']); ?>
+            </a>
         </nav>
 
         <div class="rail-social" aria-label="Social links">
             <a class="rail-link" href="<?php echo h(mineacle_players_link($site['discord_url'] ?? '#')); ?>" aria-label="Discord">
-                <?php echo mineacle_players_icon('discord'); ?>
+                <?php echo mineacle_page_icon('discord'); ?>
             </a>
             <a class="rail-link" href="<?php echo h(mineacle_players_link($site['x_url'] ?? '#')); ?>" aria-label="X">
-                <?php echo mineacle_players_icon('x'); ?>
+                <?php echo mineacle_page_icon('x'); ?>
             </a>
         </div>
     </aside>
 
     <main class="home-grid players-page" aria-label="Player stats">
+        <?php mineacle_page_search_header($site); ?>
+
         <section class="panel players-header">
             <div>
-                <h1>Players</h1>
-                <p>Stats from MineacleCore WebProfiles</p>
+                <h1>Leaderboards</h1>
+                <p>Browse Mineacle player stats and open a full profile.</p>
             </div>
 
             <form class="players-filter" method="get" action="/players">
@@ -134,7 +124,7 @@ mineacle_page_head('Players');
                     <a class="player-card" href="<?php echo h(mineacle_players_profile_url($player)); ?>">
                         <span class="player-card-head">
                             <?php if ($head !== ''): ?>
-                                <img src="<?php echo h($head); ?>" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                                <img src="<?php echo h($head); ?>" alt="" aria-hidden="true" loading="lazy" decoding="async" draggable="false">
                             <?php endif; ?>
                         </span>
                         <span class="player-card-main">
@@ -153,6 +143,8 @@ mineacle_page_head('Players');
                 <?php endforeach; ?>
             </section>
         <?php endif; ?>
+
+        <?php mineacle_page_footer($site); ?>
     </main>
 </div>
 <?php mineacle_page_end(); ?>
