@@ -46,6 +46,7 @@ return [
         'database_enabled' => strtolower((string) getenv('HOME_DATABASE_ENABLED')) === 'true',
     ],
     'admin' => [
+        'username' => (string) getenv('ADMIN_USERNAME'),
         'password' => (string) getenv('ADMIN_PASSWORD'),
         'password_hash' => (string) getenv('ADMIN_PASSWORD_HASH'),
     ],

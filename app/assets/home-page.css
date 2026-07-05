@@ -1810,6 +1810,11 @@ body.has-announcement-modal {
   gap: 18px;
 }
 
+.admin-login {
+  width: min(100%, 520px);
+  justify-self: center;
+}
+
 .admin-login form,
 .admin-form {
   display: grid;
@@ -1914,6 +1919,11 @@ body.has-announcement-modal {
 .admin-button-secondary {
   border-color: rgba(255, 255, 255, 0.14);
   background: rgba(255, 255, 255, 0.07);
+}
+
+.admin-login .admin-button {
+  width: 100%;
+  justify-self: stretch;
 }
 
 .admin-notice {

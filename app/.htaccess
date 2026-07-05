@@ -1,4 +1,5 @@
 RewriteEngine On
+RewriteRule ^admin\.php$ /admin [R=302,L]
 RewriteRule ^admin/?$ admin.php [L,QSA]
 RewriteRule ^players/?$ players.php [L,QSA]
 RewriteRule ^player/?$ player.php [L,QSA]

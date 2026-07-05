@@ -4,6 +4,13 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/includes/layout.php';
 
+$adminPath = (string) (parse_url((string) ($_SERVER['REQUEST_URI'] ?? ''), PHP_URL_PATH) ?: '');
+if (preg_match('/\/admin\.php$/', $adminPath) === 1) {
+    header('Location: /admin', true, 302);
+    exit;
+}
+header('X-Robots-Tag: noindex, nofollow', false);
+
 function mineacle_admin_start_session(): void
 {
     if (session_status() !== PHP_SESSION_NONE) {
@@ -24,11 +31,40 @@ function mineacle_admin_config(): array
     return is_array($config['admin'] ?? null) ? $config['admin'] : [];
 }
 
+function mineacle_admin_configured_username(): string
+{
+    $admin = mineacle_admin_config();
+
+    return trim((string) ($admin['username'] ?? ''));
+}
+
+function mineacle_admin_username_configured(): bool
+{
+    return mineacle_admin_configured_username() !== '';
+}
+
 function mineacle_admin_password_configured(): bool
 {
     $admin = mineacle_admin_config();
 
     return trim((string) ($admin['password_hash'] ?? '')) !== '' || trim((string) ($admin['password'] ?? '')) !== '';
+}
+
+function mineacle_admin_credentials_configured(): bool
+{
+    return mineacle_admin_username_configured() && mineacle_admin_password_configured();
+}
+
+function mineacle_admin_username_matches(string $username): bool
+{
+    $configured = mineacle_admin_configured_username();
+    $submitted = trim($username);
+
+    if ($configured === '' || $submitted === '') {
+        return false;
+    }
+
+    return hash_equals(strtolower($configured), strtolower($submitted));
 }
 
 function mineacle_admin_password_matches(string $password): bool
@@ -42,6 +78,28 @@ function mineacle_admin_password_matches(string $password): bool
     }
 
     return $plain !== '' && hash_equals($plain, $password);
+}
+
+function mineacle_admin_login_delay_seconds(): int
+{
+    $lockedUntil = (int) ($_SESSION['mineacle_admin_login_locked_until'] ?? 0);
+
+    return max(0, $lockedUntil - time());
+}
+
+function mineacle_admin_record_failed_login(): void
+{
+    $attempts = (int) ($_SESSION['mineacle_admin_login_attempts'] ?? 0) + 1;
+    $_SESSION['mineacle_admin_login_attempts'] = $attempts;
+
+    if ($attempts >= 5) {
+        $_SESSION['mineacle_admin_login_locked_until'] = time() + 300;
+    }
+}
+
+function mineacle_admin_clear_failed_login(): void
+{
+    unset($_SESSION['mineacle_admin_login_attempts'], $_SESSION['mineacle_admin_login_locked_until']);
 }
 
 function mineacle_admin_authenticated(): bool
@@ -213,20 +271,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if ($action === 'login') {
+            $username = (string) ($_POST['username'] ?? '');
             $password = (string) ($_POST['password'] ?? '');
 
-            if (!mineacle_admin_password_configured()) {
-                throw new RuntimeException('Admin password is not configured.');
+            if (!mineacle_admin_credentials_configured()) {
+                throw new RuntimeException('Admin username or password is not configured.');
             }
 
-            if (!mineacle_admin_password_matches($password)) {
-                throw new RuntimeException('Incorrect password.');
+            $delay = mineacle_admin_login_delay_seconds();
+            if ($delay > 0) {
+                $minutes = (int) ceil($delay / 60);
+                throw new RuntimeException('Too many login attempts. Try again in ' . $minutes . ' minute' . ($minutes === 1 ? '' : 's') . '.');
             }
 
+            if (!mineacle_admin_username_matches($username) || !mineacle_admin_password_matches($password)) {
+                mineacle_admin_record_failed_login();
+                throw new RuntimeException('Invalid username or password.');
+            }
+
+            session_regenerate_id(true);
+            mineacle_admin_clear_failed_login();
             $_SESSION['mineacle_admin'] = true;
+            $_SESSION['mineacle_admin_user'] = mineacle_admin_configured_username();
+            unset($_SESSION['mineacle_admin_csrf']);
             $messages[] = 'Logged in.';
         } elseif ($action === 'logout') {
-            unset($_SESSION['mineacle_admin']);
+            unset($_SESSION['mineacle_admin'], $_SESSION['mineacle_admin_user'], $_SESSION['mineacle_admin_csrf']);
+            mineacle_admin_clear_failed_login();
+            session_regenerate_id(true);
             $messages[] = 'Logged out.';
         } elseif ($action === 'save_announcement') {
             if (!mineacle_admin_authenticated()) {
@@ -286,10 +358,10 @@ mineacle_page_head('Admin');
         <p class="admin-notice is-error"><?php echo h($error); ?></p>
     <?php endforeach; ?>
 
-    <?php if (!mineacle_admin_password_configured()): ?>
+    <?php if (!mineacle_admin_credentials_configured()): ?>
         <section class="admin-panel">
-            <h2>Admin Password Needed</h2>
-            <p class="admin-muted">Set <code>ADMIN_PASSWORD</code> or <code>ADMIN_PASSWORD_HASH</code> in Wasmer environment variables before this page can publish updates.</p>
+            <h2>Admin Credentials Needed</h2>
+            <p class="admin-muted">Set <code>ADMIN_USERNAME</code> and <code>ADMIN_PASSWORD</code> or <code>ADMIN_PASSWORD_HASH</code> in Wasmer environment variables before this page can publish updates.</p>
         </section>
     <?php elseif (!mineacle_admin_authenticated()): ?>
         <section class="admin-panel admin-login">
@@ -297,6 +369,10 @@ mineacle_page_head('Admin');
             <form method="post" action="/admin">
                 <input type="hidden" name="csrf" value="<?php echo h($csrf); ?>">
                 <input type="hidden" name="action" value="login">
+                <label>
+                    <span>Username</span>
+                    <input name="username" type="text" autocomplete="username" required>
+                </label>
                 <label>
                     <span>Password</span>
                     <input name="password" type="password" autocomplete="current-password" required>
