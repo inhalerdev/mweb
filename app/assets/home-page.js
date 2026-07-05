@@ -4,6 +4,7 @@
   document.documentElement.classList.add('is-ready');
 
   const searchInput = document.getElementById('homeSearch');
+  const playerSearchForm = document.querySelector('[data-player-search-form]');
   const clearButton = document.querySelector('.search-clear');
   const playerSearchRoot = document.querySelector('[data-player-search]');
   const playerSearchResults = document.querySelector('[data-player-search-results]');
@@ -223,6 +224,21 @@
     return `/player/${encodeURIComponent(name)}`;
   };
 
+  const openTypedPlayerProfile = (event) => {
+    if (!searchInput) return;
+
+    const query = searchInput.value.trim();
+
+    if (query === '') {
+      event.preventDefault();
+      hidePlayerResults();
+      return;
+    }
+
+    event.preventDefault();
+    window.location.assign(playerProfileUrl(query));
+  };
+
   const renderPlayerResults = (players) => {
     if (!playerSearchResults) {
       return;
@@ -358,6 +374,10 @@
       searchInput.focus();
     });
     updateClearButton();
+  }
+
+  if (playerSearchForm) {
+    playerSearchForm.addEventListener('submit', openTypedPlayerProfile);
   }
 
   document.addEventListener('click', (event) => {

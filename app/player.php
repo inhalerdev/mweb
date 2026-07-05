@@ -6,7 +6,7 @@ require_once __DIR__ . '/includes/layout.php';
 require_once __DIR__ . '/includes/stats-lib.php';
 
 $site = mineacle_config()['site'] ?? [];
-$query = trim((string) ($_GET['name'] ?? $_GET['player'] ?? ''));
+$query = trim((string) ($_GET['name'] ?? $_GET['player'] ?? $_GET['search'] ?? ''));
 $pathInfo = trim((string) ($_SERVER['PATH_INFO'] ?? ''), '/');
 
 if ($query === '' && $pathInfo !== '') {

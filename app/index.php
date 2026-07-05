@@ -161,13 +161,13 @@ mineacle_page_head('Home');
 
             <label class="sr-only" for="homeSearch">Search</label>
             <div class="player-search" data-player-search>
-                <div class="search-box">
+                <form class="search-box" action="/player" method="get" role="search" data-player-search-form>
                     <img src="assets/icons/search.png" alt="" aria-hidden="true">
-                    <input id="homeSearch" name="search" type="search" placeholder="Search players.." autocomplete="off" aria-autocomplete="list" aria-controls="playerSearchResults" aria-expanded="false">
+                    <input id="homeSearch" name="name" type="search" placeholder="Search players.." autocomplete="off" aria-autocomplete="list" aria-controls="playerSearchResults" aria-expanded="false">
                     <button class="search-clear" type="button" aria-label="Clear search" hidden>
                         <img src="assets/icons/clear-search.svg" alt="" aria-hidden="true">
                     </button>
-                </div>
+                </form>
                 <div class="player-search-results" id="playerSearchResults" data-player-search-results role="listbox" aria-label="Player search results" hidden></div>
             </div>
         </section>
