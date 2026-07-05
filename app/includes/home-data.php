@@ -102,12 +102,33 @@ function mineacle_home_all(PDO $pdo, string $sql, array $params = []): array
     return is_array($rows) ? $rows : [];
 }
 
+function mineacle_home_apply_announcements(array $data, PDO $pdo): array
+{
+    try {
+        $announcements = mineacle_home_table('announcements');
+        $announcementRows = mineacle_home_all(
+            $pdo,
+            "SELECT announcement_key, title, eyebrow, body, content, image_url, link_url FROM {$announcements} WHERE is_enabled = 1 ORDER BY sort_order ASC, id ASC LIMIT 12"
+        );
+
+        if ($announcementRows) {
+            $data['announcements'] = $announcementRows;
+        }
+    } catch (Throwable) {
+        // The announcements table may not exist on older installs yet.
+    }
+
+    return $data;
+}
+
 function mineacle_home_data(): array
 {
     $data = mineacle_home_defaults();
     $config = mineacle_config();
+    $useHomeDatabase = (bool) ($config['home']['database_enabled'] ?? false);
+    $hasDatabasePassword = trim((string) (($config['mysql']['password'] ?? ''))) !== '';
 
-    if (!((bool) ($config['home']['database_enabled'] ?? false))) {
+    if (!$useHomeDatabase && !$hasDatabasePassword) {
         return $data;
     }
 
@@ -117,9 +138,14 @@ function mineacle_home_data(): array
         return $data;
     }
 
+    $data = mineacle_home_apply_announcements($data, $pdo);
+
+    if (!$useHomeDatabase) {
+        return $data;
+    }
+
     try {
         $sections = mineacle_home_table('sections');
-        $announcements = mineacle_home_table('announcements');
         $worlds = mineacle_home_table('worlds');
         $playerSummary = mineacle_home_table('player_summary');
         $socialLinks = mineacle_home_table('social_links');
@@ -165,19 +191,6 @@ function mineacle_home_data(): array
 
         if ($player) {
             $data['player'] = array_merge($data['player'], $player);
-        }
-
-        try {
-            $announcementRows = mineacle_home_all(
-                $pdo,
-                "SELECT announcement_key, title, eyebrow, body, content, image_url, link_url FROM {$announcements} WHERE is_enabled = 1 ORDER BY sort_order ASC, id ASC LIMIT 12"
-            );
-
-            if ($announcementRows) {
-                $data['announcements'] = $announcementRows;
-            }
-        } catch (Throwable) {
-            // The announcements table may not exist on older installs yet.
         }
 
         $worldRows = mineacle_home_all(

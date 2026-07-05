@@ -570,7 +570,7 @@ mineacle_page_head('Admin');
         </section>
     <?php else: ?>
         <?php if (!$homeDatabaseEnabled): ?>
-            <p class="admin-notice">Set <code>HOME_DATABASE_ENABLED=true</code> in Wasmer so saved announcements appear on the public homepage.</p>
+            <p class="admin-notice">Announcements now publish to the homepage from this admin panel. <code>HOME_DATABASE_ENABLED=true</code> is only needed for optional database-managed hero, footer, and social sections.</p>
         <?php endif; ?>
 
         <section class="admin-grid">
