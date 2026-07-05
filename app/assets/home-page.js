@@ -27,6 +27,14 @@
   const announcementModalMedia = document.querySelector('[data-announcement-modal-media]');
   const announcementModalImage = document.querySelector('[data-announcement-modal-image]');
   const announcementModalLink = document.querySelector('[data-announcement-modal-link]');
+  const announcementCarousel = document.querySelector('[data-announcement-carousel]');
+  const announcementTrack = document.querySelector('[data-announcement-track]');
+  const announcementPrevButton = document.querySelector('[data-announcement-prev]');
+  const announcementNextButton = document.querySelector('[data-announcement-next]');
+  const announcementDots = document.querySelectorAll('[data-announcement-dot]');
+  const adminImageDrop = document.querySelector('[data-admin-image-drop]');
+  const adminImageInput = document.querySelector('[data-admin-image-input]');
+  const adminUploadLabel = document.querySelector('[data-admin-upload-label]');
   const serverIp = statusNode ? statusNode.dataset.serverIp || 'mineacle.net' : 'mineacle.net';
   const statusRefreshMs = 5000;
   const statusFetchTimeoutMs = 1800;
@@ -228,6 +236,166 @@
     }
   };
 
+  const setupAnnouncementCarousel = () => {
+    if (!announcementCarousel || !announcementTrack) return;
+
+    const cards = Array.from(announcementTrack.querySelectorAll('[data-announcement-card]'));
+    if (cards.length === 0) return;
+
+    let scrollFrame = 0;
+    let dragging = false;
+    let dragStartX = 0;
+    let dragStartScroll = 0;
+
+    const getActiveIndex = () => {
+      const scrollLeft = announcementTrack.scrollLeft;
+      let activeIndex = 0;
+      let shortestDistance = Number.POSITIVE_INFINITY;
+
+      cards.forEach((card, index) => {
+        const distance = Math.abs(card.offsetLeft - scrollLeft);
+        if (distance < shortestDistance) {
+          shortestDistance = distance;
+          activeIndex = index;
+        }
+      });
+
+      return activeIndex;
+    };
+
+    const updateCarouselState = () => {
+      const activeIndex = getActiveIndex();
+      const maxScroll = Math.max(0, announcementTrack.scrollWidth - announcementTrack.clientWidth - 2);
+
+      if (announcementPrevButton) {
+        announcementPrevButton.disabled = announcementTrack.scrollLeft <= 2;
+      }
+
+      if (announcementNextButton) {
+        announcementNextButton.disabled = announcementTrack.scrollLeft >= maxScroll;
+      }
+
+      announcementDots.forEach((dot) => {
+        const dotIndex = Number(dot.getAttribute('data-announcement-dot'));
+        dot.classList.toggle('is-active', dotIndex === activeIndex);
+      });
+    };
+
+    const scrollToAnnouncement = (index) => {
+      const nextCard = cards[Math.max(0, Math.min(cards.length - 1, index))];
+      if (!nextCard) return;
+
+      announcementTrack.scrollTo({
+        left: nextCard.offsetLeft,
+        behavior: 'smooth'
+      });
+    };
+
+    if (announcementPrevButton) {
+      announcementPrevButton.addEventListener('click', () => {
+        scrollToAnnouncement(getActiveIndex() - 1);
+      });
+    }
+
+    if (announcementNextButton) {
+      announcementNextButton.addEventListener('click', () => {
+        scrollToAnnouncement(getActiveIndex() + 1);
+      });
+    }
+
+    announcementDots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        scrollToAnnouncement(Number(dot.getAttribute('data-announcement-dot')));
+      });
+    });
+
+    announcementTrack.addEventListener('scroll', () => {
+      if (scrollFrame) return;
+
+      scrollFrame = window.requestAnimationFrame(() => {
+        scrollFrame = 0;
+        updateCarouselState();
+      });
+    }, { passive: true });
+
+    announcementTrack.addEventListener('pointerdown', (event) => {
+      if (event.button !== 0) return;
+      if (event.target instanceof Element && event.target.closest('button, a')) return;
+
+      dragging = true;
+      dragStartX = event.clientX;
+      dragStartScroll = announcementTrack.scrollLeft;
+      announcementTrack.classList.add('is-dragging');
+      announcementTrack.setPointerCapture(event.pointerId);
+    });
+
+    announcementTrack.addEventListener('pointermove', (event) => {
+      if (!dragging) return;
+      announcementTrack.scrollLeft = dragStartScroll - (event.clientX - dragStartX);
+    });
+
+    const stopDragging = (event) => {
+      if (!dragging) return;
+      dragging = false;
+      announcementTrack.classList.remove('is-dragging');
+
+      if (announcementTrack.hasPointerCapture(event.pointerId)) {
+        announcementTrack.releasePointerCapture(event.pointerId);
+      }
+    };
+
+    announcementTrack.addEventListener('pointerup', stopDragging);
+    announcementTrack.addEventListener('pointercancel', stopDragging);
+    window.addEventListener('resize', updateCarouselState);
+    updateCarouselState();
+  };
+
+  const setupAdminImageDrop = () => {
+    if (!adminImageDrop || !(adminImageInput instanceof HTMLInputElement) || !adminUploadLabel) return;
+
+    const defaultLabel = adminUploadLabel.textContent || 'Drag an image here or click to upload';
+
+    const setFileLabel = () => {
+      const file = adminImageInput.files && adminImageInput.files.length > 0 ? adminImageInput.files[0] : null;
+      adminUploadLabel.textContent = file ? file.name : defaultLabel;
+    };
+
+    const setDragging = (dragging) => {
+      adminImageDrop.classList.toggle('is-dragging', dragging);
+    };
+
+    ['dragenter', 'dragover'].forEach((eventName) => {
+      adminImageDrop.addEventListener(eventName, (event) => {
+        event.preventDefault();
+        setDragging(true);
+      });
+    });
+
+    ['dragleave', 'dragend'].forEach((eventName) => {
+      adminImageDrop.addEventListener(eventName, () => {
+        setDragging(false);
+      });
+    });
+
+    adminImageDrop.addEventListener('drop', (event) => {
+      event.preventDefault();
+      setDragging(false);
+
+      if (!event.dataTransfer || event.dataTransfer.files.length === 0) return;
+
+      try {
+        adminImageInput.files = event.dataTransfer.files;
+      } catch (_) {
+        return;
+      }
+
+      setFileLabel();
+    });
+
+    adminImageInput.addEventListener('change', setFileLabel);
+    setFileLabel();
+  };
+
   copyServerIpButtons.forEach((button) => {
     button.addEventListener('click', copyServerIp);
   });
@@ -247,6 +415,9 @@
   closeAnnouncementButtons.forEach((button) => {
     button.addEventListener('click', closeAnnouncementModal);
   });
+
+  setupAnnouncementCarousel();
+  setupAdminImageDrop();
 
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && joinModal && !joinModal.hidden) {

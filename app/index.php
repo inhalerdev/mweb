@@ -110,7 +110,8 @@ $footerLegalLinks = [
     ['label' => 'Support', 'url' => $supportLink],
 ];
 
-$announcements = array_slice($home['announcements'], 0, 3);
+$announcements = array_slice($home['announcements'], 0, 12);
+$announcementCount = count($announcements);
 $socialLinks = array_slice($home['social_links'], 0, 4);
 $heroBackground = trim((string) ($home['hero']['background_image_url'] ?? ''));
 $heroBackgroundUrl = mineacle_home_safe_url($heroBackground);
@@ -210,26 +211,46 @@ mineacle_page_head('Home');
                 <h2>Announcements</h2>
             </div>
 
-            <div class="announcements-grid">
-            <?php foreach ($announcements as $announcement): ?>
-                <?php
-                $announcementUrl = mineacle_home_link($announcement['link_url'] ?? '#');
-                $announcementTag = trim((string) ($announcement['eyebrow'] ?? 'Update'));
-                $announcementTitle = trim((string) ($announcement['title'] ?? 'Announcement'));
-                $announcementBody = trim((string) ($announcement['body'] ?? 'More details will be posted soon.'));
-                $announcementContent = trim((string) ($announcement['content'] ?? ''));
-                $announcementImage = mineacle_home_safe_url($announcement['image_url'] ?? '');
-                ?>
-                <article class="announcement-card">
-                    <?php if ($announcementImage !== ''): ?>
-                        <img src="<?php echo h($announcementImage); ?>" alt="" loading="lazy" decoding="async" draggable="false">
-                    <?php endif; ?>
-                    <p><?php echo h($announcementTag !== '' ? $announcementTag : 'Update'); ?></p>
-                    <h3><?php echo h($announcementTitle !== '' ? $announcementTitle : 'Announcement'); ?></h3>
-                    <span><?php echo h($announcementBody !== '' ? $announcementBody : 'More details will be posted soon.'); ?></span>
-                    <button type="button" data-open-announcement-modal data-announcement-title="<?php echo h($announcementTitle !== '' ? $announcementTitle : 'Announcement'); ?>" data-announcement-eyebrow="<?php echo h($announcementTag !== '' ? $announcementTag : 'Update'); ?>" data-announcement-summary="<?php echo h($announcementBody !== '' ? $announcementBody : 'More details will be posted soon.'); ?>" data-announcement-content="<?php echo h($announcementContent !== '' ? $announcementContent : $announcementBody); ?>" data-announcement-image="<?php echo h($announcementImage); ?>" data-announcement-link="<?php echo h($announcementUrl); ?>">Read More</button>
-                </article>
-            <?php endforeach; ?>
+            <div class="announcements-shell" data-announcement-carousel>
+                <button class="announcement-nav announcement-nav-prev" type="button" data-announcement-prev aria-label="Previous announcement"<?php echo $announcementCount < 2 ? ' disabled' : ''; ?>>
+                    <span aria-hidden="true">‹</span>
+                </button>
+
+                <div class="announcements-viewport" data-announcement-track tabindex="0" aria-label="Announcement carousel">
+                    <div class="announcements-grid">
+                    <?php foreach ($announcements as $index => $announcement): ?>
+                        <?php
+                        $announcementUrl = mineacle_home_link($announcement['link_url'] ?? '#');
+                        $announcementTag = trim((string) ($announcement['eyebrow'] ?? 'Update'));
+                        $announcementTitle = trim((string) ($announcement['title'] ?? 'Announcement'));
+                        $announcementBody = trim((string) ($announcement['body'] ?? 'More details will be posted soon.'));
+                        $announcementContent = trim((string) ($announcement['content'] ?? ''));
+                        $announcementImage = mineacle_home_safe_url($announcement['image_url'] ?? '');
+                        ?>
+                        <article class="announcement-card" data-announcement-card>
+                            <?php if ($announcementImage !== ''): ?>
+                                <img src="<?php echo h($announcementImage); ?>" alt="" loading="lazy" decoding="async" draggable="false">
+                            <?php endif; ?>
+                            <p><?php echo h($announcementTag !== '' ? $announcementTag : 'Update'); ?></p>
+                            <h3><?php echo h($announcementTitle !== '' ? $announcementTitle : 'Announcement'); ?></h3>
+                            <span><?php echo h($announcementBody !== '' ? $announcementBody : 'More details will be posted soon.'); ?></span>
+                            <button type="button" data-open-announcement-modal data-announcement-title="<?php echo h($announcementTitle !== '' ? $announcementTitle : 'Announcement'); ?>" data-announcement-eyebrow="<?php echo h($announcementTag !== '' ? $announcementTag : 'Update'); ?>" data-announcement-summary="<?php echo h($announcementBody !== '' ? $announcementBody : 'More details will be posted soon.'); ?>" data-announcement-content="<?php echo h($announcementContent !== '' ? $announcementContent : $announcementBody); ?>" data-announcement-image="<?php echo h($announcementImage); ?>" data-announcement-link="<?php echo h($announcementUrl); ?>">Read More</button>
+                        </article>
+                    <?php endforeach; ?>
+                    </div>
+                </div>
+
+                <button class="announcement-nav announcement-nav-next" type="button" data-announcement-next aria-label="Next announcement"<?php echo $announcementCount < 2 ? ' disabled' : ''; ?>>
+                    <span aria-hidden="true">›</span>
+                </button>
+
+                <?php if ($announcementCount > 1): ?>
+                    <div class="announcement-dots" aria-label="Announcement pages">
+                        <?php foreach ($announcements as $index => $_): ?>
+                            <button type="button" data-announcement-dot="<?php echo h((string) $index); ?>" aria-label="Go to announcement <?php echo h((string) ($index + 1)); ?>"<?php echo $index === 0 ? ' class="is-active"' : ''; ?>></button>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
             </div>
         </section>
 

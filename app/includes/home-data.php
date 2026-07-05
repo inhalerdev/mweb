@@ -170,7 +170,7 @@ function mineacle_home_data(): array
         try {
             $announcementRows = mineacle_home_all(
                 $pdo,
-                "SELECT announcement_key, title, eyebrow, body, content, image_url, link_url FROM {$announcements} WHERE is_enabled = 1 ORDER BY sort_order ASC, id ASC LIMIT 3"
+                "SELECT announcement_key, title, eyebrow, body, content, image_url, link_url FROM {$announcements} WHERE is_enabled = 1 ORDER BY sort_order ASC, id ASC LIMIT 12"
             );
 
             if ($announcementRows) {

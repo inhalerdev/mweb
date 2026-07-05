@@ -168,6 +168,11 @@ function mineacle_admin_ensure_announcements_table(PDO $pdo, string $tableSql): 
     }
 }
 
+function mineacle_admin_announcement_id(): int
+{
+    return max(0, (int) ($_POST['announcement_id'] ?? $_GET['edit'] ?? 0));
+}
+
 function mineacle_admin_trim(string $key, int $limit): string
 {
     return substr(trim((string) ($_POST[$key] ?? '')), 0, $limit);
@@ -188,6 +193,67 @@ function mineacle_admin_clean_url(string $value, string $fallback): string
     return filter_var($value, FILTER_VALIDATE_URL) ? substr($value, 0, 512) : $fallback;
 }
 
+function mineacle_admin_uploaded_image_url(): string
+{
+    if (!isset($_FILES['image_file']) || !is_array($_FILES['image_file'])) {
+        return '';
+    }
+
+    $file = $_FILES['image_file'];
+    $error = (int) ($file['error'] ?? UPLOAD_ERR_NO_FILE);
+
+    if ($error === UPLOAD_ERR_NO_FILE) {
+        return '';
+    }
+
+    if ($error !== UPLOAD_ERR_OK) {
+        throw new RuntimeException('The image upload failed. Try a smaller image or use an image URL.');
+    }
+
+    $size = (int) ($file['size'] ?? 0);
+    if ($size <= 0 || $size > 5 * 1024 * 1024) {
+        throw new RuntimeException('Announcement images must be 5 MB or smaller.');
+    }
+
+    $tmpName = (string) ($file['tmp_name'] ?? '');
+    if ($tmpName === '' || !is_uploaded_file($tmpName)) {
+        throw new RuntimeException('The uploaded image could not be verified.');
+    }
+
+    $imageInfo = getimagesize($tmpName);
+    $mime = is_array($imageInfo) ? (string) ($imageInfo['mime'] ?? '') : '';
+    $extensions = [
+        'image/gif' => 'gif',
+        'image/jpeg' => 'jpg',
+        'image/png' => 'png',
+        'image/webp' => 'webp',
+    ];
+
+    if (!isset($extensions[$mime])) {
+        throw new RuntimeException('Use a PNG, JPG, WebP, or GIF image.');
+    }
+
+    $relativeDir = 'assets/uploads/announcements';
+    $absoluteDir = __DIR__ . '/' . $relativeDir;
+
+    if (!is_dir($absoluteDir) && !mkdir($absoluteDir, 0755, true) && !is_dir($absoluteDir)) {
+        throw new RuntimeException('Could not create the announcement upload folder.');
+    }
+
+    if (!is_writable($absoluteDir)) {
+        throw new RuntimeException('The announcement upload folder is not writable. Use an image URL for now.');
+    }
+
+    $filename = 'announcement-' . date('YmdHis') . '-' . bin2hex(random_bytes(6)) . '.' . $extensions[$mime];
+    $target = $absoluteDir . '/' . $filename;
+
+    if (!move_uploaded_file($tmpName, $target)) {
+        throw new RuntimeException('The uploaded image could not be saved.');
+    }
+
+    return '/' . $relativeDir . '/' . $filename;
+}
+
 function mineacle_admin_announcement_key(string $title): string
 {
     $slug = strtolower(trim((string) preg_replace('/[^A-Za-z0-9]+/', '-', $title), '-'));
@@ -199,13 +265,15 @@ function mineacle_admin_announcement_key(string $title): string
     return substr($slug, 0, 42) . '-' . date('YmdHis');
 }
 
-function mineacle_admin_save_announcement(PDO $pdo, string $tableSql): void
+function mineacle_admin_save_announcement(PDO $pdo, string $tableSql): int
 {
+    $announcementId = mineacle_admin_announcement_id();
     $title = mineacle_admin_trim('title', 120);
     $eyebrow = mineacle_admin_trim('eyebrow', 48);
     $body = mineacle_admin_trim('body', 420);
     $content = mineacle_admin_trim('content', 10000);
-    $imageUrl = mineacle_admin_clean_url(mineacle_admin_trim('image_url', 512), '');
+    $uploadedImageUrl = mineacle_admin_uploaded_image_url();
+    $imageUrl = $uploadedImageUrl !== '' ? $uploadedImageUrl : mineacle_admin_clean_url(mineacle_admin_trim('image_url', 512), '');
     $linkUrl = mineacle_admin_clean_url(mineacle_admin_trim('link_url', 512), '#');
     $sortOrder = max(0, min(9999, (int) ($_POST['sort_order'] ?? 10)));
     $enabled = isset($_POST['is_enabled']) ? 1 : 0;
@@ -220,6 +288,38 @@ function mineacle_admin_save_announcement(PDO $pdo, string $tableSql): void
 
     if ($content === '') {
         $content = $body;
+    }
+
+    if (isset($_POST['remove_image']) && $uploadedImageUrl === '') {
+        $imageUrl = '';
+    }
+
+    if ($announcementId > 0) {
+        $statement = $pdo->prepare(
+            "UPDATE {$tableSql}
+            SET title = :title,
+                eyebrow = :eyebrow,
+                body = :body,
+                image_url = :image_url,
+                content = :content,
+                link_url = :link_url,
+                sort_order = :sort_order,
+                is_enabled = :is_enabled
+            WHERE id = :id"
+        );
+        $statement->execute([
+            ':id' => $announcementId,
+            ':title' => $title,
+            ':eyebrow' => $eyebrow,
+            ':body' => $body,
+            ':image_url' => $imageUrl !== '' ? $imageUrl : null,
+            ':content' => $content,
+            ':link_url' => $linkUrl,
+            ':sort_order' => $sortOrder,
+            ':is_enabled' => $enabled,
+        ]);
+
+        return $announcementId;
     }
 
     $statement = $pdo->prepare(
@@ -237,15 +337,59 @@ function mineacle_admin_save_announcement(PDO $pdo, string $tableSql): void
         ':sort_order' => $sortOrder,
         ':is_enabled' => $enabled,
     ]);
+
+    return (int) $pdo->lastInsertId();
+}
+
+function mineacle_admin_find_announcement(PDO $pdo, string $tableSql, int $id): array
+{
+    if ($id <= 0) {
+        return [];
+    }
+
+    $statement = $pdo->prepare(
+        "SELECT id, announcement_key, title, eyebrow, body, image_url, content, link_url, sort_order, is_enabled, updated_at
+        FROM {$tableSql}
+        WHERE id = :id
+        LIMIT 1"
+    );
+    $statement->execute([':id' => $id]);
+    $row = $statement->fetch();
+
+    return is_array($row) ? $row : [];
+}
+
+function mineacle_admin_delete_announcement(PDO $pdo, string $tableSql, int $id): void
+{
+    if ($id <= 0) {
+        throw new RuntimeException('Choose an announcement to remove.');
+    }
+
+    $statement = $pdo->prepare("DELETE FROM {$tableSql} WHERE id = :id LIMIT 1");
+    $statement->execute([':id' => $id]);
+}
+
+function mineacle_admin_toggle_announcement(PDO $pdo, string $tableSql, int $id): void
+{
+    if ($id <= 0) {
+        throw new RuntimeException('Choose an announcement to update.');
+    }
+
+    $statement = $pdo->prepare(
+        "UPDATE {$tableSql}
+        SET is_enabled = CASE WHEN is_enabled = 1 THEN 0 ELSE 1 END
+        WHERE id = :id"
+    );
+    $statement->execute([':id' => $id]);
 }
 
 function mineacle_admin_recent_announcements(PDO $pdo, string $tableSql): array
 {
     $statement = $pdo->query(
-        "SELECT title, eyebrow, is_enabled, sort_order, updated_at
+        "SELECT id, announcement_key, title, eyebrow, body, image_url, content, link_url, is_enabled, sort_order, updated_at
         FROM {$tableSql}
         ORDER BY sort_order ASC, id DESC
-        LIMIT 12"
+        LIMIT 24"
     );
     $rows = $statement->fetchAll();
 
@@ -259,6 +403,8 @@ $config = mineacle_config();
 $messages = [];
 $errors = [];
 $recentAnnouncements = [];
+$editingAnnouncement = [];
+$editingAnnouncementId = mineacle_admin_announcement_id();
 $pdo = mineacle_db();
 $tableSql = '';
 
@@ -311,8 +457,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $tableSql = mineacle_admin_table_sql();
             mineacle_admin_ensure_announcements_table($pdo, $tableSql);
-            mineacle_admin_save_announcement($pdo, $tableSql);
-            $messages[] = 'Announcement saved.';
+            $wasEditing = mineacle_admin_announcement_id() > 0;
+            $editingAnnouncementId = mineacle_admin_save_announcement($pdo, $tableSql);
+            $messages[] = $wasEditing ? 'Announcement saved.' : 'Announcement created.';
+        } elseif ($action === 'delete_announcement') {
+            if (!mineacle_admin_authenticated()) {
+                throw new RuntimeException('Please log in first.');
+            }
+
+            if (!$pdo instanceof PDO) {
+                throw new RuntimeException('Database connection is not available.');
+            }
+
+            $deleteId = mineacle_admin_announcement_id();
+            $tableSql = mineacle_admin_table_sql();
+            mineacle_admin_ensure_announcements_table($pdo, $tableSql);
+            mineacle_admin_delete_announcement($pdo, $tableSql, $deleteId);
+            if ($editingAnnouncementId === $deleteId) {
+                $editingAnnouncementId = 0;
+            }
+            $messages[] = 'Announcement removed.';
+        } elseif ($action === 'toggle_announcement') {
+            if (!mineacle_admin_authenticated()) {
+                throw new RuntimeException('Please log in first.');
+            }
+
+            if (!$pdo instanceof PDO) {
+                throw new RuntimeException('Database connection is not available.');
+            }
+
+            $tableSql = mineacle_admin_table_sql();
+            mineacle_admin_ensure_announcements_table($pdo, $tableSql);
+            mineacle_admin_toggle_announcement($pdo, $tableSql, mineacle_admin_announcement_id());
+            $messages[] = 'Announcement visibility updated.';
         }
     } catch (Throwable $error) {
         $errors[] = $error->getMessage();
@@ -323,6 +500,7 @@ if (mineacle_admin_authenticated() && $pdo instanceof PDO) {
     try {
         $tableSql = $tableSql !== '' ? $tableSql : mineacle_admin_table_sql();
         mineacle_admin_ensure_announcements_table($pdo, $tableSql);
+        $editingAnnouncement = mineacle_admin_find_announcement($pdo, $tableSql, $editingAnnouncementId);
         $recentAnnouncements = mineacle_admin_recent_announcements($pdo, $tableSql);
     } catch (Throwable $error) {
         $errors[] = $error->getMessage();
@@ -331,6 +509,16 @@ if (mineacle_admin_authenticated() && $pdo instanceof PDO) {
 
 $csrf = mineacle_admin_csrf();
 $homeDatabaseEnabled = (bool) ($config['home']['database_enabled'] ?? false);
+$isEditingAnnouncement = $editingAnnouncement !== [];
+$editAnnouncementId = (int) ($editingAnnouncement['id'] ?? 0);
+$editEyebrow = (string) ($editingAnnouncement['eyebrow'] ?? 'Latest');
+$editTitle = (string) ($editingAnnouncement['title'] ?? '');
+$editImageUrl = (string) ($editingAnnouncement['image_url'] ?? '');
+$editLinkUrl = (string) ($editingAnnouncement['link_url'] ?? '');
+$editBody = (string) ($editingAnnouncement['body'] ?? '');
+$editContent = (string) ($editingAnnouncement['content'] ?? '');
+$editSortOrder = (string) ($editingAnnouncement['sort_order'] ?? '10');
+$editIsEnabled = !$isEditingAnnouncement || ((int) ($editingAnnouncement['is_enabled'] ?? 0)) === 1;
 
 mineacle_page_head('Admin');
 ?>
@@ -386,45 +574,66 @@ mineacle_page_head('Admin');
         <?php endif; ?>
 
         <section class="admin-grid">
-            <form class="admin-panel admin-form" method="post" action="/admin">
+            <form id="announcement-editor" class="admin-panel admin-form" method="post" action="/admin#announcement-editor" enctype="multipart/form-data">
                 <input type="hidden" name="csrf" value="<?php echo h($csrf); ?>">
                 <input type="hidden" name="action" value="save_announcement">
-                <h2>New Announcement</h2>
+                <input type="hidden" name="announcement_id" value="<?php echo h((string) $editAnnouncementId); ?>">
+                <div class="admin-form-heading">
+                    <h2><?php echo $isEditingAnnouncement ? 'Edit Announcement' : 'New Announcement'; ?></h2>
+                    <?php if ($isEditingAnnouncement): ?>
+                        <a href="/admin#announcement-editor">New Post</a>
+                    <?php endif; ?>
+                </div>
                 <label>
                     <span>Small Label</span>
-                    <input name="eyebrow" type="text" maxlength="48" placeholder="Latest" value="Latest">
+                    <input name="eyebrow" type="text" maxlength="48" placeholder="Latest" value="<?php echo h($editEyebrow !== '' ? $editEyebrow : 'Latest'); ?>">
                 </label>
                 <label>
                     <span>Title</span>
-                    <input name="title" type="text" maxlength="120" placeholder="Network Update" required>
+                    <input name="title" type="text" maxlength="120" placeholder="Network Update" value="<?php echo h($editTitle); ?>" required>
+                </label>
+                <label class="admin-upload" data-admin-image-drop>
+                    <span>Image Upload</span>
+                    <strong data-admin-upload-label>Drag an image here or click to upload</strong>
+                    <small>PNG, JPG, WebP, or GIF up to 5 MB. Uploaded images replace the image URL.</small>
+                    <input name="image_file" type="file" accept="image/png,image/jpeg,image/webp,image/gif" data-admin-image-input>
                 </label>
                 <label>
                     <span>Image URL</span>
-                    <input name="image_url" type="text" maxlength="512" placeholder="https://... or /assets/...">
+                    <input name="image_url" type="text" maxlength="512" placeholder="https://... or /assets/..." value="<?php echo h($editImageUrl); ?>">
                 </label>
+                <?php if ($editImageUrl !== ''): ?>
+                    <div class="admin-current-image">
+                        <img src="<?php echo h($editImageUrl); ?>" alt="" loading="lazy" decoding="async">
+                        <label class="admin-checkbox">
+                            <input name="remove_image" type="checkbox">
+                            <span>Remove image on save</span>
+                        </label>
+                    </div>
+                <?php endif; ?>
                 <label>
                     <span>Optional Link</span>
-                    <input name="link_url" type="text" maxlength="512" placeholder="https://...">
+                    <input name="link_url" type="text" maxlength="512" placeholder="https://..." value="<?php echo h($editLinkUrl); ?>">
                 </label>
                 <label>
                     <span>Short Summary</span>
-                    <textarea name="body" maxlength="420" rows="3" placeholder="Short card text shown on the homepage." required></textarea>
+                    <textarea name="body" maxlength="420" rows="3" placeholder="Short card text shown on the homepage." required><?php echo h($editBody); ?></textarea>
                 </label>
                 <label>
                     <span>Full Read More Copy</span>
-                    <textarea name="content" maxlength="10000" rows="8" placeholder="Full update text shown in the pop up."></textarea>
+                    <textarea name="content" maxlength="10000" rows="8" placeholder="Full update text shown in the pop up."><?php echo h($editContent); ?></textarea>
                 </label>
                 <div class="admin-form-row">
                     <label>
                         <span>Order</span>
-                        <input name="sort_order" type="number" min="0" max="9999" value="10">
+                        <input name="sort_order" type="number" min="0" max="9999" value="<?php echo h($editSortOrder); ?>">
                     </label>
                     <label class="admin-checkbox">
-                        <input name="is_enabled" type="checkbox" checked>
+                        <input name="is_enabled" type="checkbox"<?php echo $editIsEnabled ? ' checked' : ''; ?>>
                         <span>Visible</span>
                     </label>
                 </div>
-                <button class="admin-button" type="submit">Post Announcement</button>
+                <button class="admin-button" type="submit"><?php echo $isEditingAnnouncement ? 'Save Changes' : 'Post Announcement'; ?></button>
             </form>
 
             <section class="admin-panel admin-recent">
@@ -434,10 +643,33 @@ mineacle_page_head('Admin');
                 <?php else: ?>
                     <div class="admin-recent-list">
                         <?php foreach ($recentAnnouncements as $announcement): ?>
-                            <article>
+                            <?php
+                            $recentId = (int) ($announcement['id'] ?? 0);
+                            $recentImage = (string) ($announcement['image_url'] ?? '');
+                            $recentVisible = ((int) ($announcement['is_enabled'] ?? 0)) === 1;
+                            ?>
+                            <article<?php echo $recentId === $editAnnouncementId ? ' class="is-editing"' : ''; ?>>
+                                <?php if ($recentImage !== ''): ?>
+                                    <img src="<?php echo h($recentImage); ?>" alt="" loading="lazy" decoding="async">
+                                <?php endif; ?>
                                 <span><?php echo h((string) ($announcement['eyebrow'] ?? 'Update')); ?></span>
                                 <strong><?php echo h((string) ($announcement['title'] ?? 'Announcement')); ?></strong>
-                                <small><?php echo ((int) ($announcement['is_enabled'] ?? 0)) === 1 ? 'Visible' : 'Hidden'; ?> · Order <?php echo h((string) ($announcement['sort_order'] ?? 0)); ?></small>
+                                <small><?php echo $recentVisible ? 'Visible' : 'Hidden'; ?> · Order <?php echo h((string) ($announcement['sort_order'] ?? 0)); ?></small>
+                                <div class="admin-recent-actions">
+                                    <a class="admin-button admin-button-secondary" href="/admin?edit=<?php echo h((string) $recentId); ?>#announcement-editor">Edit</a>
+                                    <form method="post" action="/admin">
+                                        <input type="hidden" name="csrf" value="<?php echo h($csrf); ?>">
+                                        <input type="hidden" name="action" value="toggle_announcement">
+                                        <input type="hidden" name="announcement_id" value="<?php echo h((string) $recentId); ?>">
+                                        <button class="admin-button admin-button-secondary" type="submit"><?php echo $recentVisible ? 'Hide' : 'Show'; ?></button>
+                                    </form>
+                                    <form method="post" action="/admin" onsubmit="return confirm('Remove this announcement?');">
+                                        <input type="hidden" name="csrf" value="<?php echo h($csrf); ?>">
+                                        <input type="hidden" name="action" value="delete_announcement">
+                                        <input type="hidden" name="announcement_id" value="<?php echo h((string) $recentId); ?>">
+                                        <button class="admin-button admin-button-danger" type="submit">Remove</button>
+                                    </form>
+                                </div>
                             </article>
                         <?php endforeach; ?>
                     </div>
