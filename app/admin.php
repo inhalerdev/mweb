@@ -383,6 +383,36 @@ function mineacle_admin_toggle_announcement(PDO $pdo, string $tableSql, int $id)
     $statement->execute([':id' => $id]);
 }
 
+function mineacle_admin_duplicate_announcement(PDO $pdo, string $tableSql, int $id): int
+{
+    $source = mineacle_admin_find_announcement($pdo, $tableSql, $id);
+
+    if ($source === []) {
+        throw new RuntimeException('Choose an announcement to duplicate.');
+    }
+
+    $title = 'Copy of ' . trim((string) ($source['title'] ?? 'Announcement'));
+    $title = substr($title, 0, 120);
+    $sortOrder = max(0, min(9999, (int) ($source['sort_order'] ?? 10) + 1));
+
+    $statement = $pdo->prepare(
+        "INSERT INTO {$tableSql} (announcement_key, title, eyebrow, body, image_url, content, link_url, sort_order, is_enabled)
+        VALUES (:announcement_key, :title, :eyebrow, :body, :image_url, :content, :link_url, :sort_order, 1)"
+    );
+    $statement->execute([
+        ':announcement_key' => mineacle_admin_announcement_key($title),
+        ':title' => $title,
+        ':eyebrow' => (string) ($source['eyebrow'] ?? 'Update'),
+        ':body' => (string) ($source['body'] ?? ''),
+        ':image_url' => (string) ($source['image_url'] ?? '') !== '' ? (string) $source['image_url'] : null,
+        ':content' => (string) ($source['content'] ?? ''),
+        ':link_url' => (string) ($source['link_url'] ?? '#'),
+        ':sort_order' => $sortOrder,
+    ]);
+
+    return (int) $pdo->lastInsertId();
+}
+
 function mineacle_admin_recent_announcements(PDO $pdo, string $tableSql): array
 {
     $statement = $pdo->query(
@@ -459,7 +489,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             mineacle_admin_ensure_announcements_table($pdo, $tableSql);
             $wasEditing = mineacle_admin_announcement_id() > 0;
             $editingAnnouncementId = mineacle_admin_save_announcement($pdo, $tableSql);
-            $messages[] = $wasEditing ? 'Announcement saved.' : 'Announcement created.';
+            $messages[] = $wasEditing ? 'Announcement saved.' : 'Announcement published.';
         } elseif ($action === 'delete_announcement') {
             if (!mineacle_admin_authenticated()) {
                 throw new RuntimeException('Please log in first.');
@@ -490,6 +520,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             mineacle_admin_ensure_announcements_table($pdo, $tableSql);
             mineacle_admin_toggle_announcement($pdo, $tableSql, mineacle_admin_announcement_id());
             $messages[] = 'Announcement visibility updated.';
+        } elseif ($action === 'duplicate_announcement') {
+            if (!mineacle_admin_authenticated()) {
+                throw new RuntimeException('Please log in first.');
+            }
+
+            if (!$pdo instanceof PDO) {
+                throw new RuntimeException('Database connection is not available.');
+            }
+
+            $tableSql = mineacle_admin_table_sql();
+            mineacle_admin_ensure_announcements_table($pdo, $tableSql);
+            $editingAnnouncementId = mineacle_admin_duplicate_announcement($pdo, $tableSql, mineacle_admin_announcement_id());
+            $messages[] = 'Announcement duplicated and published.';
         }
     } catch (Throwable $error) {
         $errors[] = $error->getMessage();
@@ -633,7 +676,7 @@ mineacle_page_head('Admin');
                         <span>Visible</span>
                     </label>
                 </div>
-                <button class="admin-button" type="submit"><?php echo $isEditingAnnouncement ? 'Save Changes' : 'Post Announcement'; ?></button>
+                <button class="admin-button" type="submit"><?php echo $isEditingAnnouncement ? 'Save Changes' : 'Publish'; ?></button>
             </form>
 
             <section class="admin-panel admin-recent">
@@ -662,6 +705,12 @@ mineacle_page_head('Admin');
                                         <input type="hidden" name="action" value="toggle_announcement">
                                         <input type="hidden" name="announcement_id" value="<?php echo h((string) $recentId); ?>">
                                         <button class="admin-button admin-button-secondary" type="submit"><?php echo $recentVisible ? 'Hide' : 'Show'; ?></button>
+                                    </form>
+                                    <form method="post" action="/admin#announcement-editor">
+                                        <input type="hidden" name="csrf" value="<?php echo h($csrf); ?>">
+                                        <input type="hidden" name="action" value="duplicate_announcement">
+                                        <input type="hidden" name="announcement_id" value="<?php echo h((string) $recentId); ?>">
+                                        <button class="admin-button admin-button-secondary" type="submit">Duplicate + Publish</button>
                                     </form>
                                     <form method="post" action="/admin" onsubmit="return confirm('Remove this announcement?');">
                                         <input type="hidden" name="csrf" value="<?php echo h($csrf); ?>">

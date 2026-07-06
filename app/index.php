@@ -323,8 +323,8 @@ mineacle_page_head('Home');
 <div class="announcement-modal" data-announcement-modal hidden>
     <div class="announcement-modal-backdrop" data-close-announcement-modal></div>
     <section class="announcement-modal-panel" role="dialog" aria-modal="true" aria-labelledby="announcementModalTitle" tabindex="-1">
-        <button class="join-modal-close" type="button" data-close-announcement-modal aria-label="Close announcement">
-            <img src="assets/icons/clear-search.svg" alt="" aria-hidden="true">
+        <button class="join-modal-close announcement-modal-close" type="button" data-close-announcement-modal aria-label="Close announcement">
+            <img src="/assets/icons/clear-search.svg" alt="" aria-hidden="true" draggable="false">
         </button>
         <div class="announcement-modal-media" data-announcement-modal-media hidden>
             <img src="" alt="" data-announcement-modal-image draggable="false">

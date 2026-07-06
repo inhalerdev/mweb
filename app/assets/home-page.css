@@ -1088,6 +1088,16 @@ body.has-announcement-modal {
   outline: 0;
 }
 
+.announcement-modal-close {
+  z-index: 8;
+  background: rgba(16, 16, 16, 0.9);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.34), inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.announcement-modal-close img {
+  filter: invert(100%);
+}
+
 .announcement-modal-media[hidden] {
   display: none;
 }
@@ -1244,10 +1254,10 @@ body.has-announcement-modal {
 }
 
 .footer-panel {
-  min-height: clamp(300px, 24vw, 410px);
+  min-height: clamp(230px, 18vw, 315px);
   display: grid;
   margin: 0 calc(var(--gap) * -1) calc(var(--gap) * -1);
-  padding: clamp(28px, 3.2vw, 44px) calc(var(--gap) + clamp(34px, 4vw, 56px));
+  padding: clamp(22px, 2.4vw, 34px) calc(var(--gap) + clamp(28px, 3.4vw, 48px));
   background: #181818;
 }
 
@@ -1256,20 +1266,20 @@ body.has-announcement-modal {
   min-height: 100%;
   display: grid;
   grid-template-columns: minmax(320px, 1.12fr) minmax(140px, 0.45fr) minmax(140px, 0.45fr);
-  grid-template-rows: auto 1fr auto;
-  gap: clamp(44px, 8vw, 150px);
+  grid-template-rows: auto auto;
+  gap: clamp(22px, 3vw, 42px) clamp(34px, 7vw, 118px);
   align-items: start;
 }
 
 .footer-about {
   max-width: 610px;
   display: grid;
-  gap: 18px;
+  gap: 14px;
   align-content: start;
 }
 
 .footer-brand img {
-  width: min(100%, 285px);
+  width: min(100%, 250px);
   display: block;
   object-fit: contain;
   filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.34));
@@ -1337,11 +1347,11 @@ a[aria-label="Discord"]:focus-visible .site-icon {
   display: grid;
   gap: 4px;
   align-content: start;
-  padding-top: 16px;
+  padding-top: 10px;
 }
 
 .footer-links h2 {
-  margin: 0 0 20px;
+  margin: 0 0 14px;
   color: var(--heading);
   font-size: clamp(1rem, 0.92rem + 0.22vw, 1.16rem);
   font-weight: 800;
@@ -1357,7 +1367,7 @@ a[aria-label="Discord"]:focus-visible .site-icon {
 
 .footer-bottom {
   grid-column: 1 / -1;
-  grid-row: 3;
+  grid-row: 2;
   align-self: end;
   display: flex;
   align-items: center;
@@ -1406,7 +1416,7 @@ a[aria-label="Discord"]:focus-visible .site-icon {
   }
 
   .footer-panel {
-    padding: 30px calc(var(--gap) + 36px);
+    padding: 26px calc(var(--gap) + 30px);
   }
 
   .profile-quick-stats {
