@@ -286,10 +286,6 @@ function mineacle_admin_save_announcement(PDO $pdo, string $tableSql): int
         $eyebrow = 'Update';
     }
 
-    if ($content === '') {
-        $content = $body;
-    }
-
     if (isset($_POST['remove_image']) && $uploadedImageUrl === '') {
         $imageUrl = '';
     }

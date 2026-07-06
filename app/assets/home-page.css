@@ -26,7 +26,7 @@
   --control-icon-size: 20px;
   --control-button-size: 24px;
   --announcement-card-height: clamp(170px, 15vw, 230px);
-  --hero-height: max(430px, calc(100dvh - var(--announcement-card-height) - 198px));
+  --hero-height: clamp(560px, calc(100dvh - 128px), 980px);
   --panel-image: none;
   --media-image: none;
   --fill: 0%;
@@ -222,14 +222,12 @@ svg {
   align-items: center;
   gap: 12px;
   justify-self: start;
-  padding: 0 16px;
-  border: 1px solid var(--line);
+  padding: 0 18px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: var(--radius);
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.035)),
-    #151515;
-  color: var(--subtext);
-  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.22), inset 0 0 0 1px rgba(255, 255, 255, 0.035);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--heading);
+  box-shadow: none;
   font-size: var(--ui-font-size);
   font-weight: var(--ui-font-weight);
   line-height: 1;
@@ -241,10 +239,11 @@ svg {
 }
 
 .server-status-label {
-  color: rgba(255, 255, 255, 0.58);
+  color: var(--subtext);
   font-size: 0.68rem;
   font-weight: 800;
   line-height: 1;
+  opacity: 0.7;
   text-transform: uppercase;
 }
 
@@ -892,12 +891,15 @@ body.has-announcement-modal {
 .announcements-viewport {
   min-width: 0;
   overflow-x: auto;
+  overscroll-behavior-x: contain;
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
 
-.announcements-section.has-carousel .announcements-viewport {
+.announcements-section.has-carousel .announcements-viewport,
+.announcements-section.has-carousel .announcement-card {
   cursor: grab;
 }
 
@@ -914,6 +916,10 @@ body.has-announcement-modal {
   cursor: grabbing;
   scroll-behavior: auto;
   user-select: none;
+}
+
+.announcements-viewport.is-dragging .announcement-card {
+  cursor: grabbing;
 }
 
 .announcements-grid {
@@ -974,7 +980,8 @@ body.has-announcement-modal {
   line-height: 1.45;
 }
 
-.announcement-card button {
+.announcement-card button,
+.announcement-card a {
   align-self: end;
   justify-self: start;
   margin-top: 6px;
@@ -987,12 +994,33 @@ body.has-announcement-modal {
   font-size: var(--ui-font-size);
   font-weight: var(--ui-font-weight);
   line-height: 1;
+  text-decoration: none;
+}
+
+.announcement-card button::after,
+.announcement-card a::after {
+  content: ">";
+  display: inline-block;
+  margin-left: 7px;
+  color: currentColor;
+  font-size: 0.86em;
+  transform: translateY(-1px);
+  transition: transform 180ms ease;
 }
 
 .announcement-card button:hover,
-.announcement-card button:focus-visible {
+.announcement-card button:focus-visible,
+.announcement-card a:hover,
+.announcement-card a:focus-visible {
   opacity: 0.72;
   outline: 0;
+}
+
+.announcement-card button:hover::after,
+.announcement-card button:focus-visible::after,
+.announcement-card a:hover::after,
+.announcement-card a:focus-visible::after {
+  transform: translate(2px, -1px);
 }
 
 .announcement-nav {
@@ -1029,7 +1057,7 @@ body.has-announcement-modal {
 .announcement-dots {
   display: flex;
   justify-content: center;
-  gap: 4px;
+  gap: 1px;
 }
 
 .announcements-section.has-carousel .announcement-dots {
@@ -1038,8 +1066,8 @@ body.has-announcement-modal {
 
 .announcement-dots button {
   position: relative;
-  width: 24px;
-  height: 14px;
+  width: 19px;
+  height: 12px;
   border: 0;
   padding: 0;
   background: transparent;
@@ -1066,7 +1094,7 @@ body.has-announcement-modal {
 }
 
 .announcement-dots button.is-active::before {
-  width: 22px;
+  width: 17px;
   background: var(--heading);
   box-shadow: 0 0 14px rgba(255, 255, 255, 0.2);
   animation: announcement-dot-settle 360ms cubic-bezier(0.2, 0.8, 0.2, 1);

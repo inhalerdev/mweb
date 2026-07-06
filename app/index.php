@@ -230,6 +230,8 @@ mineacle_page_head('Home');
                         $announcementBody = trim((string) ($announcement['body'] ?? 'More details will be posted soon.'));
                         $announcementContent = trim((string) ($announcement['content'] ?? ''));
                         $announcementImage = mineacle_home_safe_url($announcement['image_url'] ?? '');
+                        $announcementHasContent = $announcementContent !== '';
+                        $announcementHasLink = $announcementUrl !== '#';
                         ?>
                         <article class="announcement-card" data-announcement-card>
                             <?php if ($announcementImage !== ''): ?>
@@ -238,7 +240,11 @@ mineacle_page_head('Home');
                             <p><?php echo h($announcementTag !== '' ? $announcementTag : 'Update'); ?></p>
                             <h3><?php echo h($announcementTitle !== '' ? $announcementTitle : 'Announcement'); ?></h3>
                             <span><?php echo h($announcementBody !== '' ? $announcementBody : 'More details will be posted soon.'); ?></span>
-                            <button type="button" data-open-announcement-modal data-announcement-title="<?php echo h($announcementTitle !== '' ? $announcementTitle : 'Announcement'); ?>" data-announcement-eyebrow="<?php echo h($announcementTag !== '' ? $announcementTag : 'Update'); ?>" data-announcement-summary="<?php echo h($announcementBody !== '' ? $announcementBody : 'More details will be posted soon.'); ?>" data-announcement-content="<?php echo h($announcementContent !== '' ? $announcementContent : $announcementBody); ?>" data-announcement-image="<?php echo h($announcementImage); ?>" data-announcement-link="<?php echo h($announcementUrl); ?>">Read More</button>
+                            <?php if ($announcementHasContent): ?>
+                                <button type="button" data-open-announcement-modal data-announcement-title="<?php echo h($announcementTitle !== '' ? $announcementTitle : 'Announcement'); ?>" data-announcement-eyebrow="<?php echo h($announcementTag !== '' ? $announcementTag : 'Update'); ?>" data-announcement-summary="<?php echo h($announcementBody !== '' ? $announcementBody : 'More details will be posted soon.'); ?>" data-announcement-content="<?php echo h($announcementContent); ?>" data-announcement-image="<?php echo h($announcementImage); ?>" data-announcement-link="<?php echo h($announcementUrl); ?>">Read More</button>
+                            <?php elseif ($announcementHasLink): ?>
+                                <a href="<?php echo h($announcementUrl); ?>">Open Link</a>
+                            <?php endif; ?>
                         </article>
                     <?php endforeach; ?>
                     </div>

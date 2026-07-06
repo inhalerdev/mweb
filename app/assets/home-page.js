@@ -200,7 +200,7 @@
       announcementModalSummary.textContent = button.dataset.announcementSummary || '';
     }
 
-    fillTextWithBreaks(announcementModalContent, button.dataset.announcementContent || button.dataset.announcementSummary || '');
+    fillTextWithBreaks(announcementModalContent, button.dataset.announcementContent || '');
 
     const imageUrl = button.dataset.announcementImage || '';
     if (announcementModalMedia && announcementModalImage) {
