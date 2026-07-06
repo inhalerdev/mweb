@@ -84,13 +84,6 @@ $footerQuickLinks = [
     ['label' => 'Vote', 'url' => (string) ($site['vote_url'] ?? '#')],
 ];
 
-$footerCommunityLinks = [
-    ['label' => 'Discord', 'url' => (string) ($site['discord_url'] ?? '#')],
-    ['label' => 'X/Twitter', 'url' => (string) ($site['x_url'] ?? '#')],
-    ['label' => 'YouTube', 'url' => (string) ($site['youtube_url'] ?? '#')],
-    ['label' => 'TikTok', 'url' => (string) ($site['tiktok_url'] ?? '#')],
-];
-
 $footerSocialLinks = [
     ['key' => 'discord', 'label' => 'Discord', 'url' => (string) ($site['discord_url'] ?? '#')],
     ['key' => 'x', 'label' => 'X/Twitter', 'url' => (string) ($site['x_url'] ?? '#')],
@@ -209,17 +202,10 @@ mineacle_page_head('Home');
         <?php if ($announcementCount > 0): ?>
         <section class="announcements-section<?php echo $announcementCanSlide ? ' has-carousel' : ''; ?>" aria-label="Announcements">
             <div class="section-heading">
-                <p>Latest</p>
-                <h2>Announcements</h2>
+                <h2>Latest Network <strong>Updates</strong></h2>
             </div>
 
             <div class="announcements-shell" data-announcement-carousel>
-                <?php if ($announcementCanSlide): ?>
-                    <button class="announcement-nav announcement-nav-prev" type="button" data-announcement-prev aria-label="Previous announcement">
-                        <span aria-hidden="true">‹</span>
-                    </button>
-                <?php endif; ?>
-
                 <div class="announcements-viewport" data-announcement-track tabindex="0" aria-label="Announcement carousel">
                     <div class="announcements-grid">
                     <?php foreach ($announcements as $index => $announcement): ?>
@@ -249,12 +235,6 @@ mineacle_page_head('Home');
                     <?php endforeach; ?>
                     </div>
                 </div>
-
-                <?php if ($announcementCanSlide): ?>
-                    <button class="announcement-nav announcement-nav-next" type="button" data-announcement-next aria-label="Next announcement">
-                        <span aria-hidden="true">›</span>
-                    </button>
-                <?php endif; ?>
 
                 <?php if ($announcementCanSlide): ?>
                     <div class="announcement-dots" aria-label="Announcement pages">
@@ -304,12 +284,15 @@ mineacle_page_head('Home');
                     <?php endforeach; ?>
                 </nav>
 
-                <nav class="footer-links" aria-label="Community links">
-                    <h2>Community:</h2>
-                    <?php foreach ($footerCommunityLinks as $link): ?>
-                        <a href="<?php echo h(mineacle_home_link($link['url'])); ?>"><?php echo h($link['label']); ?></a>
-                    <?php endforeach; ?>
-                </nav>
+                <section class="footer-bug-panel" aria-label="Report a bug">
+                    <a class="footer-bug-banner" href="<?php echo h(mineacle_footer_link($supportLink)); ?>">
+                        <span>
+                            <strong>Report a Bug</strong>
+                            <small>Found an issue? Send it to Mineacle Studios.</small>
+                        </span>
+                        <img src="assets/brand/bug-mob.png" alt="" aria-hidden="true" draggable="false">
+                    </a>
+                </section>
 
                 <p class="footer-bottom">
                     <img src="assets/brand/nav-logo.png" alt="" aria-hidden="true">

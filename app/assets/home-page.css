@@ -672,13 +672,13 @@ svg {
 
 .hero-action-primary {
   border-color: rgba(123, 60, 255, 0.52);
-  background: rgba(123, 60, 255, 0.2);
+  background: rgba(123, 60, 255, 0.32);
 }
 
 .hero-action-primary:hover,
 .hero-action-primary:focus-visible {
   border-color: rgba(162, 113, 255, 0.74);
-  background: rgba(123, 60, 255, 0.28);
+  background: rgba(123, 60, 255, 0.4);
 }
 
 .hero-action-primary.is-copied {
@@ -853,8 +853,10 @@ body.has-announcement-modal {
 
 .section-heading {
   display: grid;
-  gap: 8px;
+  gap: 0;
   align-content: start;
+  justify-items: center;
+  text-align: center;
 }
 
 .section-heading p,
@@ -875,20 +877,27 @@ body.has-announcement-modal {
   font-size: clamp(1rem, 0.86rem + 0.45vw, 1.35rem);
   font-weight: 800;
   line-height: 1;
+  text-transform: uppercase;
+}
+
+.section-heading h2 strong {
+  color: #ff55ff;
+  font-weight: 800;
 }
 
 .announcements-shell {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 12px;
+  gap: 8px;
   align-items: center;
 }
 
 .announcements-section.has-carousel .announcements-shell {
-  grid-template-columns: 42px minmax(0, 1fr) 42px;
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .announcements-viewport {
+  position: relative;
   min-width: 0;
   overflow-x: auto;
   overscroll-behavior-x: contain;
@@ -901,6 +910,11 @@ body.has-announcement-modal {
 .announcements-section.has-carousel .announcements-viewport,
 .announcements-section.has-carousel .announcement-card {
   cursor: grab;
+}
+
+.announcements-section.has-carousel .announcements-viewport {
+  -webkit-mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 118px), rgba(0, 0, 0, 0.38) calc(100% - 42px), transparent 100%);
+  mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 118px), rgba(0, 0, 0, 0.38) calc(100% - 42px), transparent 100%);
 }
 
 .announcements-viewport::-webkit-scrollbar {
@@ -927,6 +941,10 @@ body.has-announcement-modal {
   grid-auto-columns: calc((100% - (var(--gap) * 2)) / 3);
   grid-auto-flow: column;
   gap: var(--gap);
+}
+
+.announcements-section.has-carousel .announcements-grid {
+  grid-auto-columns: calc((100% - (var(--gap) * 3)) / 3.5);
 }
 
 .announcement-card {
@@ -1061,7 +1079,7 @@ body.has-announcement-modal {
 }
 
 .announcements-section.has-carousel .announcement-dots {
-  grid-column: 2;
+  grid-column: 1;
 }
 
 .announcement-dots button {
@@ -1347,6 +1365,12 @@ body.has-announcement-modal {
   width: min(100%, 250px);
   display: block;
   object-fit: contain;
+  filter: grayscale(1) saturate(0.22) brightness(1.45) opacity(0.62) drop-shadow(0 12px 22px rgba(0, 0, 0, 0.34));
+  transition: filter 180ms ease, opacity 180ms ease;
+}
+
+.footer-brand:hover img,
+.footer-brand:focus-within img {
   filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.34));
 }
 
@@ -1388,9 +1412,7 @@ body.has-announcement-modal {
 }
 
 .footer-socials a:hover,
-.footer-socials a:focus-visible,
-.footer-links a:hover,
-.footer-links a:focus-visible {
+.footer-socials a:focus-visible {
   color: var(--heading);
   opacity: 0.72;
   outline: 0;
@@ -1412,6 +1434,7 @@ a[aria-label="Discord"]:focus-visible .site-icon {
   display: grid;
   gap: 4px;
   align-content: start;
+  justify-items: start;
   padding-top: 10px;
 }
 
@@ -1424,10 +1447,86 @@ a[aria-label="Discord"]:focus-visible .site-icon {
 }
 
 .footer-links a {
+  width: max-content;
+  max-width: 100%;
+  display: inline-flex;
   color: var(--heading);
   font-size: clamp(0.98rem, 0.9rem + 0.22vw, 1.14rem);
   font-weight: 500;
   line-height: 1.24;
+  transition: color 160ms ease, opacity 160ms ease;
+}
+
+.footer-links a:hover,
+.footer-links a:focus-visible {
+  color: #ff55ff;
+  opacity: 1;
+  outline: 0;
+}
+
+.footer-bug-panel {
+  align-self: start;
+  padding-top: 10px;
+}
+
+.footer-bug-banner {
+  position: relative;
+  min-height: 116px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 112px;
+  gap: 14px;
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(255, 85, 255, 0.22);
+  border-radius: var(--radius);
+  padding: 18px 0 18px 18px;
+  background:
+    linear-gradient(135deg, rgba(255, 85, 255, 0.14), rgba(123, 60, 255, 0.08)),
+    rgba(255, 255, 255, 0.045);
+  color: var(--heading);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.035);
+  text-decoration: none;
+  transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+}
+
+.footer-bug-banner:hover,
+.footer-bug-banner:focus-visible {
+  border-color: rgba(255, 85, 255, 0.54);
+  background:
+    linear-gradient(135deg, rgba(255, 85, 255, 0.2), rgba(123, 60, 255, 0.12)),
+    rgba(255, 255, 255, 0.065);
+  outline: 0;
+  transform: translateY(-1px);
+}
+
+.footer-bug-banner span {
+  min-width: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.footer-bug-banner strong {
+  color: var(--heading);
+  font-size: clamp(1rem, 0.9rem + 0.26vw, 1.16rem);
+  font-weight: 800;
+  line-height: 1;
+}
+
+.footer-bug-banner small {
+  color: var(--subtext);
+  font-size: var(--ui-font-size);
+  font-weight: var(--ui-font-weight);
+  line-height: 1.35;
+}
+
+.footer-bug-banner img {
+  width: 118px;
+  max-height: 118px;
+  align-self: end;
+  justify-self: end;
+  object-fit: contain;
+  object-position: right bottom;
+  filter: drop-shadow(0 18px 22px rgba(0, 0, 0, 0.34));
 }
 
 .footer-bottom {
@@ -1459,12 +1558,15 @@ a[aria-label="Discord"]:focus-visible .site-icon {
   text-decoration: underline;
   text-decoration-color: rgba(255, 255, 255, 0.28);
   text-underline-offset: 3px;
+  transition: color 160ms ease, opacity 160ms ease, text-decoration-color 160ms ease;
 }
 
 .footer-policy-links a:hover,
 .footer-policy-links a:focus-visible {
-  opacity: 0.72;
+  color: #ff55ff;
+  opacity: 1;
   outline: 0;
+  text-decoration-color: rgba(255, 85, 255, 0.5);
 }
 
 .footer-bottom img {
@@ -2415,6 +2517,20 @@ a[aria-label="Discord"]:focus-visible .site-icon {
 
   .footer-links {
     padding-top: 0;
+  }
+
+  .footer-bug-panel {
+    padding-top: 0;
+  }
+
+  .footer-bug-banner {
+    min-height: 0;
+    grid-template-columns: 1fr;
+    padding: 18px;
+  }
+
+  .footer-bug-banner img {
+    display: none;
   }
 
   .footer-bottom {

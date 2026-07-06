@@ -6,7 +6,7 @@ require_once __DIR__ . '/db.php';
 
 function mineacle_page_asset_version(): string
 {
-    return 'base72';
+    return 'base73';
 }
 
 function mineacle_page_public_link(mixed $url): string
@@ -95,12 +95,6 @@ function mineacle_page_footer(array $site): void
         ['label' => 'Store', 'url' => (string) ($site['store_url'] ?? '#')],
         ['label' => 'Vote', 'url' => (string) ($site['vote_url'] ?? '#')],
     ];
-    $communityLinks = [
-        ['label' => 'Discord', 'url' => (string) ($site['discord_url'] ?? '#')],
-        ['label' => 'X/Twitter', 'url' => (string) ($site['x_url'] ?? '#')],
-        ['label' => 'YouTube', 'url' => (string) ($site['youtube_url'] ?? '#')],
-        ['label' => 'TikTok', 'url' => (string) ($site['tiktok_url'] ?? '#')],
-    ];
     $socialLinks = [
         ['key' => 'discord', 'label' => 'Discord', 'url' => (string) ($site['discord_url'] ?? '#')],
         ['key' => 'x', 'label' => 'X/Twitter', 'url' => (string) ($site['x_url'] ?? '#')],
@@ -129,11 +123,12 @@ function mineacle_page_footer(array $site): void
         echo '<a href="' . h(mineacle_page_public_link($link['url'])) . '">' . h($link['label']) . '</a>';
     }
     echo '</nav>';
-    echo '<nav class="footer-links" aria-label="Community links"><h2>Community:</h2>';
-    foreach ($communityLinks as $link) {
-        echo '<a href="' . h(mineacle_page_public_link($link['url'])) . '">' . h($link['label']) . '</a>';
-    }
-    echo '</nav>';
+    echo '<section class="footer-bug-panel" aria-label="Report a bug">';
+    echo '<a class="footer-bug-banner" href="' . h(mineacle_page_public_link($supportLink)) . '">';
+    echo '<span><strong>Report a Bug</strong><small>Found an issue? Send it to Mineacle Studios.</small></span>';
+    echo '<img src="/assets/brand/bug-mob.png" alt="" aria-hidden="true" draggable="false">';
+    echo '</a>';
+    echo '</section>';
     echo '<p class="footer-bottom"><img src="/assets/brand/nav-logo.png" alt="" aria-hidden="true" draggable="false"><span>';
     echo 'Copyright © ' . h((string) $year) . ' Mineacle Studios. All Rights Reserved. The Mineacle Network is not affiliated with or endorsed by Mojang Studios or Microsoft.';
     echo ' <span class="footer-policy-links">';
