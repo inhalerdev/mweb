@@ -1029,7 +1029,7 @@ body.has-announcement-modal {
 .announcement-dots {
   display: flex;
   justify-content: center;
-  gap: 8px;
+  gap: 4px;
 }
 
 .announcements-section.has-carousel .announcement-dots {
@@ -1037,21 +1037,67 @@ body.has-announcement-modal {
 }
 
 .announcement-dots button {
-  width: 7px;
-  height: 7px;
+  position: relative;
+  width: 24px;
+  height: 14px;
   border: 0;
-  border-radius: 999px;
   padding: 0;
-  background: rgba(255, 255, 255, 0.22);
+  background: transparent;
   cursor: pointer;
 }
 
-.announcement-dots button.is-active,
-.announcement-dots button:hover,
-.announcement-dots button:focus-visible {
-  width: 20px;
-  outline: 0;
+.announcement-dots button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.24);
+  transform: translate(-50%, -50%);
+  transition: width 280ms cubic-bezier(0.2, 0.8, 0.2, 1), background 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.announcement-dots button:hover::before,
+.announcement-dots button:focus-visible::before {
+  background: rgba(255, 255, 255, 0.55);
+  transform: translate(-50%, -50%) scale(1.14);
+}
+
+.announcement-dots button.is-active::before {
+  width: 22px;
   background: var(--heading);
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.2);
+  animation: announcement-dot-settle 360ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.announcement-dots button:focus-visible {
+  outline: 0;
+}
+
+@keyframes announcement-dot-settle {
+  0% {
+    transform: translate(-50%, -50%) scaleX(0.72);
+  }
+
+  62% {
+    transform: translate(-50%, -50%) scaleX(1.08);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .announcement-dots button::before {
+    transition: none;
+  }
+
+  .announcement-dots button.is-active::before {
+    animation: none;
+  }
 }
 
 .announcement-modal[hidden] {
