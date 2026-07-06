@@ -1088,24 +1088,6 @@ body.has-announcement-modal {
   outline: 0;
 }
 
-.announcement-modal-close {
-  z-index: 8;
-  border-color: rgba(255, 255, 255, 0.18);
-  background: #202020;
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.34);
-}
-
-.announcement-modal-close:hover,
-.announcement-modal-close:focus-visible {
-  background: #272727;
-  border-color: rgba(255, 255, 255, 0.24);
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.34);
-}
-
-.announcement-modal-close img {
-  filter: invert(100%);
-}
-
 .announcement-modal-media[hidden] {
   display: none;
 }
