@@ -265,7 +265,7 @@ mineacle_page_head('Home');
             <div class="footer-inner">
                 <section class="footer-about" aria-label="Mineacle Studios">
                     <div class="footer-brand">
-                        <img src="assets/brand/m-studios-web.png" alt="Mineacle Studios">
+                        <img src="assets/brand/mncl-studios-web.png" alt="Mineacle Studios">
                     </div>
                     <p>Mineacle Studios is a small team of Minecraft developers building the custom systems behind the Mineacle Network. After over a year of trial, error, and refinement, we are creating a smooth, polished, community-driven survival experience while staying true to the Minecraft everyone already loves.</p>
                     <div class="footer-socials" aria-label="Social links">

@@ -6,7 +6,7 @@ require_once __DIR__ . '/db.php';
 
 function mineacle_page_asset_version(): string
 {
-    return 'base82';
+    return 'base84';
 }
 
 function mineacle_page_public_link(mixed $url): string
@@ -47,19 +47,7 @@ function mineacle_page_is_local_host(string $url): bool
 
 function mineacle_page_home_url(array $site = []): string
 {
-    $value = trim((string) ($site['home_url'] ?? ''));
-
-    if ($value === '' || $value === '/' || $value === './' || $value === '/index.php' || $value === 'index.php') {
-        return 'https://mineacle.net/';
-    }
-
-    $safe = mineacle_page_public_link($value);
-
-    if (mineacle_page_is_local_host($safe)) {
-        return 'https://mineacle.net/';
-    }
-
-    return $safe !== '#' ? $safe : 'https://mineacle.net/';
+    return 'https://mineacle.net/';
 }
 
 function mineacle_page_leaderboards_url(array $site = []): string
@@ -182,7 +170,7 @@ function mineacle_page_footer(array $site): void
     echo '<footer class="footer-panel" aria-label="Footer">';
     echo '<div class="footer-inner">';
     echo '<section class="footer-about" aria-label="Mineacle Studios">';
-    echo '<div class="footer-brand"><img src="/assets/brand/m-studios-web.png" alt="Mineacle Studios" draggable="false"></div>';
+    echo '<div class="footer-brand"><img src="/assets/brand/mncl-studios-web.png" alt="Mineacle Studios" draggable="false"></div>';
     echo '<p>Mineacle Studios is a small team of Minecraft developers building the custom systems behind the Mineacle Network. After over a year of trial, error, and refinement, we are creating a smooth, polished, community-driven survival experience while staying true to the Minecraft everyone already loves.</p>';
     echo '<div class="footer-socials" aria-label="Social links">';
     foreach ($socialLinks as $link) {
