@@ -30,6 +30,21 @@ function mineacle_page_public_link(mixed $url): string
     return filter_var($value, FILTER_VALIDATE_URL) ? $value : '#';
 }
 
+function mineacle_page_is_local_host(string $url): bool
+{
+    $host = strtolower((string) parse_url($url, PHP_URL_HOST));
+
+    if ($host === '') {
+        return false;
+    }
+
+    if (in_array($host, ['localhost', '127.0.0.1', '0.0.0.0', '::1'], true)) {
+        return true;
+    }
+
+    return preg_match('/^(10\.|192\.168\.|172\.(1[6-9]|2[0-9]|3[0-1])\.)/', $host) === 1;
+}
+
 function mineacle_page_home_url(array $site = []): string
 {
     $value = trim((string) ($site['home_url'] ?? ''));
@@ -39,6 +54,10 @@ function mineacle_page_home_url(array $site = []): string
     }
 
     $safe = mineacle_page_public_link($value);
+
+    if (mineacle_page_is_local_host($safe)) {
+        return 'https://mineacle.net/';
+    }
 
     return $safe !== '#' ? $safe : 'https://mineacle.net/';
 }
@@ -59,6 +78,10 @@ function mineacle_page_leaderboards_url(array $site = []): string
     $safe = mineacle_page_public_link($value);
 
     if ($safe === '#') {
+        return 'https://mineacle.net/leaderboards.php';
+    }
+
+    if (mineacle_page_is_local_host($safe)) {
         return 'https://mineacle.net/leaderboards.php';
     }
 
