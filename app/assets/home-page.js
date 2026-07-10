@@ -147,6 +147,8 @@
 
     const label = button.querySelector('[data-copy-server-label]');
     const defaultLabel = button.dataset.defaultLabel || (label ? label.textContent : 'Copy Server IP');
+    const copiedLabel = button.dataset.copiedLabel || 'IP Copied';
+    const failedLabel = button.dataset.failedLabel || 'Copy Failed';
     const ip = button.dataset.serverIp || serverIp || 'mineacle.net';
     let copied;
 
@@ -162,7 +164,7 @@
     }
 
     if (label) {
-      label.textContent = copied ? 'IP Copied' : 'Copy Failed';
+      label.textContent = copied ? copiedLabel : failedLabel;
     }
 
     button.classList.toggle('is-copied', copied);
@@ -811,16 +813,20 @@
   const setServerStatus = (online, onlineCount) => {
     if (!statusNode || !statusCount) return;
 
+    const format = statusNode.dataset.statusFormat || 'default';
+
     statusNode.classList.remove('is-loading', 'is-online', 'is-offline');
     statusNode.classList.add(online ? 'is-online' : 'is-offline');
 
     if (!online) {
-      statusCount.textContent = 'Server offline';
+      statusCount.textContent = format === 'hero-join' ? 'Server Offline' : 'Server offline';
       return;
     }
 
     const count = Number.isFinite(onlineCount) ? onlineCount : 0;
-    statusCount.textContent = `${count} Currently Playing`;
+    statusCount.textContent = format === 'hero-join'
+      ? `Join ${count} ${count === 1 ? 'Player' : 'Players'} Online`
+      : `${count} Currently Playing`;
   };
 
   const saveServerStatusCache = (payload) => {

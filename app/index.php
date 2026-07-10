@@ -149,28 +149,6 @@ mineacle_page_head('Home');
     </aside>
 
     <main class="home-grid" aria-label="Home layout">
-        <section class="search-row" aria-label="Search">
-            <div class="server-status is-loading" data-server-status data-server-ip="<?php echo h($minecraftIp); ?>" aria-live="polite">
-                <span class="server-status-dot" aria-hidden="true"></span>
-                <span class="server-status-main">
-                    <span class="server-status-label">Server Status</span>
-                    <span class="server-status-count" data-server-status-count>Checking server</span>
-                </span>
-            </div>
-
-            <label class="sr-only" for="homeSearch">Search</label>
-            <div class="player-search" data-player-search>
-                <form class="search-box" action="/player" method="get" role="search" data-player-search-form>
-                    <img src="assets/icons/search.png" alt="" aria-hidden="true">
-                    <input id="homeSearch" name="name" type="search" placeholder="Search players.." autocomplete="off" aria-autocomplete="list" aria-controls="playerSearchResults" aria-expanded="false">
-                    <button class="search-clear" type="button" aria-label="Clear search" hidden>
-                        <img src="assets/icons/clear-search.svg" alt="" aria-hidden="true">
-                    </button>
-                </form>
-                <div class="player-search-results" id="playerSearchResults" data-player-search-results role="listbox" aria-label="Player search results" hidden></div>
-            </div>
-        </section>
-
         <section class="top-row">
             <article class="panel hero-panel"<?php echo $heroBackgroundIsVideo ? '' : mineacle_home_image_style($home['hero']['background_image_url'] ?? ''); ?> aria-label="Hero">
                 <?php if ($heroBackground !== ''): ?>
@@ -189,14 +167,13 @@ mineacle_page_head('Home');
                     <h1 class="hero-logo-title">
                         <img src="<?php echo h(mineacle_home_versioned_url('/assets/brand/hero-logo-web.png', $heroAssetVersion)); ?>" alt="Mineacle Network">
                     </h1>
-                    <p class="hero-text">Java Edition support for Minecraft 1.21.11 to 26+. Copy the server IP, add Mineacle to Multiplayer, and join from desktop.</p>
                     <div class="hero-actions" aria-label="Server actions">
-                        <button class="hero-action hero-action-primary hero-play-now" type="button" data-copy-server-ip data-server-ip="<?php echo h($minecraftIp); ?>" data-default-label="Join on Java Edition" aria-label="Copy Mineacle server IP">
-                            <img class="hero-action-icon" src="assets/icons/play-button-arrowhead.png" alt="" aria-hidden="true">
-                            <span data-copy-server-label>Join on Java Edition</span>
+                        <button class="hero-action hero-action-primary hero-copy-ip" type="button" data-copy-server-ip data-server-ip="<?php echo h($minecraftIp); ?>" data-default-label="Play Now" data-copied-label="IP Copied" data-failed-label="Copy Failed" aria-label="Copy Mineacle server IP">
+                            <span class="hero-action-state-icon" aria-hidden="true"></span>
+                            <span data-copy-server-label>Play Now</span>
                         </button>
-                        <button class="hero-action hero-action-secondary" type="button" data-open-join-modal>
-                            How to Join
+                        <button class="hero-action hero-action-status is-loading" type="button" data-open-join-modal data-server-status data-status-format="hero-join" data-server-ip="<?php echo h($minecraftIp); ?>" aria-live="polite">
+                            <span data-server-status-count>Join Players Online</span>
                         </button>
                     </div>
                 </div>

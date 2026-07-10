@@ -624,7 +624,7 @@ svg {
   align-self: center;
   justify-self: center;
   display: grid;
-  gap: 18px;
+  gap: 28px;
   justify-items: center;
   color: var(--subtext);
   text-align: center;
@@ -658,12 +658,12 @@ svg {
 }
 
 .hero-actions {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: minmax(190px, 1fr) minmax(260px, 1.35fr);
   gap: 12px;
   align-items: center;
   justify-content: center;
-  margin-top: 6px;
+  margin-top: 2px;
 }
 
 .hero-action {
@@ -674,7 +674,7 @@ svg {
   gap: 12px;
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: var(--radius);
-  padding: 0 18px;
+  padding: 0 20px;
   background: rgba(255, 255, 255, 0.08);
   color: var(--heading);
   box-shadow: none;
@@ -683,22 +683,48 @@ svg {
   font-size: var(--ui-font-size);
   font-weight: var(--ui-font-weight);
   line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .hero-action-primary {
-  width: 236px;
+  min-width: 190px;
 }
 
-.hero-action-icon {
-  width: 13px;
-  height: 13px;
+.hero-action-state-icon {
+  position: relative;
+  width: 22px;
+  height: 22px;
   display: block;
-  object-fit: contain;
-  filter: invert(100%);
+  flex: 0 0 auto;
+  border: 3px solid currentColor;
+}
+
+.hero-action-state-icon::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 8px solid currentColor;
+  transform: translate(-34%, -50%);
+}
+
+.hero-action-primary.is-copied .hero-action-state-icon::before {
+  width: 9px;
+  height: 14px;
+  border: 0;
+  border-right: 4px solid currentColor;
+  border-bottom: 4px solid currentColor;
+  transform: translate(-50%, -62%) rotate(45deg);
 }
 
 .join-modal-copy-ip.hero-action-primary {
   width: 122px;
+  min-width: 122px;
 }
 
 .hero-action:hover,
@@ -709,25 +735,49 @@ svg {
 }
 
 .hero-action-primary {
-  border-color: rgba(255, 136, 255, 0.64);
-  background: rgba(255, 85, 255, 0.68);
+  border-color: #ff55ff;
+  background: #ff55ff;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12), 0 12px 30px rgba(255, 85, 255, 0.24);
 }
 
 .hero-action-primary:hover,
 .hero-action-primary:focus-visible {
-  border-color: rgba(255, 136, 255, 0.88);
-  background: #ff55ff;
+  border-color: #ff88ff;
+  background: #ff88ff;
 }
 
 .hero-action-primary.is-copied {
-  border-color: rgba(75, 227, 106, 0.68);
-  background: rgba(75, 227, 106, 0.18);
+  border-color: #45ff4f;
+  background: #45ff4f;
   color: var(--heading);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.14), 0 12px 30px rgba(69, 255, 79, 0.22);
 }
 
 .hero-action-primary.is-copy-failed {
   border-color: rgba(255, 90, 90, 0.62);
   background: rgba(255, 90, 90, 0.14);
+}
+
+.hero-action-status {
+  min-width: 280px;
+  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(187, 187, 187, 0.72);
+  color: var(--heading);
+}
+
+.hero-action-status:hover,
+.hero-action-status:focus-visible {
+  border-color: rgba(255, 255, 255, 0.34);
+  background: rgba(210, 210, 210, 0.82);
+}
+
+.hero-action-status.is-online {
+  background: rgba(187, 187, 187, 0.72);
+}
+
+.hero-action-status.is-offline,
+.hero-action-status.is-loading {
+  color: var(--heading);
 }
 
 .join-modal[hidden] {
