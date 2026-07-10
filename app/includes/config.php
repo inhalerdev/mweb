@@ -31,7 +31,7 @@ return [
         'name' => $mineacleEnv(['SITE_NAME', 'site_name'], 'Mineacle'),
         'home_url' => $mineacleEnv(['HOME_URL', 'home_url'], 'https://mineacle.net/'),
         'stats_url' => $mineacleEnv(['STATS_URL', 'stats_url'], 'https://mineacle.net/leaderboards.php'),
-        'store_url' => $mineacleEnv(['STORE_URL', 'store_url'], '#'),
+        'store_url' => $mineacleEnv(['STORE_URL', 'store_url'], 'https://store.mineacle.net/'),
         'bans_url' => $mineacleEnv(['BANS_URL', 'bans_url'], '#'),
         'vote_url' => $mineacleEnv(['VOTE_URL', 'vote_url'], '#'),
         'staff_url' => $mineacleEnv(['STAFF_URL', 'staff_url'], '#'),

@@ -108,21 +108,25 @@ svg {
   min-height: 100vh;
   margin: 0;
   display: grid;
-  grid-template-columns: var(--rail-width) minmax(0, 1fr);
+  grid-template-columns: calc(var(--rail-width) + var(--gap)) minmax(0, 1fr);
   background: var(--canvas);
 }
 
 .rail {
   position: sticky;
-  top: 0;
+  top: var(--gap);
   grid-column: 1;
   grid-row: 1;
-  height: 100vh;
+  width: var(--rail-width);
+  height: var(--hero-height);
+  align-self: start;
+  margin: var(--gap) 0 var(--gap) var(--gap);
   display: grid;
   grid-template-rows: auto 1fr auto;
   justify-items: center;
   gap: 0;
   padding: 18px 0 20px;
+  border-radius: var(--radius);
   background: var(--rail);
 }
 
@@ -140,6 +144,7 @@ svg {
   width: 48px;
   height: 48px;
   color: var(--accent);
+  transition: transform 180ms ease;
 }
 
 .rail-logo svg,
@@ -149,6 +154,19 @@ svg {
   display: block;
   object-fit: contain;
   filter: none;
+  transition: transform 180ms ease;
+}
+
+.rail-logo:hover,
+.rail-logo:focus-visible {
+  outline: 0;
+}
+
+.rail-logo:hover svg,
+.rail-logo:hover img,
+.rail-logo:focus-visible svg,
+.rail-logo:focus-visible img {
+  transform: scale(1.08);
 }
 
 .rail-link svg,
@@ -660,8 +678,10 @@ svg {
 }
 
 .hero-action {
-  min-height: var(--control-height);
-  display: inline-flex;
+  height: var(--control-height);
+  display: inline-grid;
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
   align-items: center;
   justify-content: center;
   gap: 12px;
@@ -677,11 +697,16 @@ svg {
   font-weight: var(--ui-font-weight);
   line-height: 1;
   text-transform: uppercase;
+  vertical-align: middle;
   white-space: nowrap;
 }
 
 .hero-action-primary {
   min-width: 190px;
+}
+
+.hero-copy-ip.hero-action-primary {
+  width: 190px;
 }
 
 .hero-action-icon-stack {
@@ -691,6 +716,15 @@ svg {
   display: grid;
   place-items: center;
   flex: 0 0 auto;
+}
+
+.hero-action [data-copy-server-label],
+.hero-action [data-server-status-count] {
+  min-height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
 
 .hero-action-icon {
@@ -842,27 +876,28 @@ svg {
   display: grid;
   place-items: center;
   padding: 0;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.08);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   cursor: pointer;
+  color: var(--subtext);
+  transition: color 160ms ease;
 }
 
-.join-modal-close img {
-  width: 18px;
-  height: 18px;
-  filter: invert(78%) sepia(0%) saturate(0%) hue-rotate(188deg) brightness(96%) contrast(88%);
+.join-modal-close::before {
+  content: "";
+  width: 34px;
+  height: 34px;
+  display: block;
+  background: currentColor;
+  -webkit-mask: url("icons/close-window.svg") center / contain no-repeat;
+  mask: url("icons/close-window.svg") center / contain no-repeat;
 }
 
 .join-modal-close:hover,
 .join-modal-close:focus-visible {
   outline: 0;
-  background: rgba(255, 255, 255, 0.13);
-}
-
-.join-modal-close:hover img,
-.join-modal-close:focus-visible img {
-  filter: invert(100%);
+  color: #FF5555;
 }
 
 .join-modal-media {
@@ -1271,18 +1306,12 @@ body.has-announcement-modal {
 
 .announcement-modal-close {
   z-index: 8;
-  border-color: rgba(255, 255, 255, 0.18);
-  background: #303030;
+  color: var(--heading);
 }
 
 .announcement-modal-close:hover,
 .announcement-modal-close:focus-visible {
-  background: #383838;
-  border-color: rgba(255, 255, 255, 0.24);
-}
-
-.announcement-modal-close img {
-  filter: invert(100%);
+  color: #FF5555;
 }
 
 .announcement-modal-media[hidden] {
@@ -3005,10 +3034,12 @@ a[aria-label="Discord"]:focus-visible .site-icon {
     width: 100%;
     height: 100%;
     min-height: 100vh;
+    margin: 0;
     display: grid;
     place-items: center;
     padding: 0;
     border: 0;
+    border-radius: 0;
     background: var(--canvas);
   }
 

@@ -6,7 +6,7 @@ require_once __DIR__ . '/db.php';
 
 function mineacle_page_asset_version(): string
 {
-    return 'base93';
+    return 'base96';
 }
 
 function mineacle_page_clean_text(string $value): string
@@ -17,25 +17,10 @@ function mineacle_page_clean_text(string $value): string
 function mineacle_page_meta_title(string $title, string $siteName): string
 {
     $cleanTitle = mineacle_page_clean_text($title) ?: 'Home';
+    $normalizedTitle = strtolower($cleanTitle);
 
-    if (strcasecmp($cleanTitle, 'Home') === 0) {
-        return $siteName . ' - Minecraft Java Server';
-    }
-
-    if (strcasecmp($cleanTitle, 'Leaderboards') === 0) {
-        return $siteName . ' Leaderboards';
-    }
-
-    if (strcasecmp($cleanTitle, 'Admin') === 0) {
-        return $siteName . ' Admin';
-    }
-
-    if (strcasecmp($cleanTitle, 'Player') === 0) {
-        return $siteName . ' Player Stats';
-    }
-
-    if (stripos($cleanTitle, $siteName) !== false) {
-        return $cleanTitle;
+    if ($normalizedTitle === 'leaderboards') {
+        $cleanTitle = 'Leaderboard';
     }
 
     return $cleanTitle . ' | ' . $siteName;
@@ -45,7 +30,7 @@ function mineacle_page_meta_description(string $title, string $siteName): string
 {
     $cleanTitle = mineacle_page_clean_text($title) ?: 'Home';
 
-    if (strcasecmp($cleanTitle, 'Leaderboards') === 0) {
+    if (in_array(strtolower($cleanTitle), ['leaderboard', 'leaderboards'], true)) {
         return 'View ' . $siteName . ' player leaderboards, rankings, and server stats.';
     }
 

@@ -293,9 +293,7 @@ mineacle_page_head('Home');
 <div class="announcement-modal" data-announcement-modal hidden>
     <div class="announcement-modal-backdrop" data-close-announcement-modal></div>
     <section class="announcement-modal-panel" role="dialog" aria-modal="true" aria-labelledby="announcementModalTitle" tabindex="-1">
-        <button class="join-modal-close announcement-modal-close" type="button" data-close-announcement-modal aria-label="Close announcement">
-            <img src="<?php echo h(mineacle_home_versioned_url('/assets/icons/close-window.svg', $heroAssetVersion)); ?>" alt="" aria-hidden="true" draggable="false">
-        </button>
+        <button class="join-modal-close announcement-modal-close" type="button" data-close-announcement-modal aria-label="Close announcement"></button>
         <div class="announcement-modal-media" data-announcement-modal-media hidden>
             <img src="" alt="" data-announcement-modal-image draggable="false">
         </div>
@@ -311,9 +309,7 @@ mineacle_page_head('Home');
 <div class="join-modal" data-join-modal hidden>
     <div class="join-modal-backdrop" data-close-join-modal></div>
     <section class="join-modal-panel" role="dialog" aria-modal="true" aria-labelledby="joinModalTitle" tabindex="-1">
-        <button class="join-modal-close" type="button" data-close-join-modal aria-label="Close how to join">
-            <img src="<?php echo h(mineacle_home_versioned_url('/assets/icons/close-window.svg', $heroAssetVersion)); ?>" alt="" aria-hidden="true" draggable="false">
-        </button>
+        <button class="join-modal-close" type="button" data-close-join-modal aria-label="Close how to join"></button>
         <div class="join-modal-copy">
             <p>Java Edition 1.21.11 to 26+</p>
             <h2 id="joinModalTitle">Join Mineacle</h2>
