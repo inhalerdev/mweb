@@ -32,7 +32,7 @@
   --control-icon-size: 20px;
   --control-button-size: 24px;
   --announcement-card-height: clamp(170px, 15vw, 230px);
-  --hero-height: clamp(560px, calc(100dvh - 128px), 980px);
+  --hero-height: max(560px, calc(100dvh - (var(--gap) * 2)));
   --panel-image: none;
   --media-image: none;
   --fill: 0%;
@@ -148,7 +148,7 @@ svg {
   height: 48px;
   display: block;
   object-fit: contain;
-  filter: drop-shadow(0 0 4px rgba(123, 60, 255, 0.65));
+  filter: none;
 }
 
 .rail-link svg,
@@ -186,7 +186,6 @@ svg {
 .rail-store-button {
   margin-top: 0;
   background: var(--store-button);
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12), 0 10px 24px rgba(255, 85, 255, 0.22);
   color: var(--heading);
 }
 
@@ -200,7 +199,6 @@ svg {
 .rail-store-button.is-active,
 .rail-store-button[aria-current="page"] {
   background: var(--store-button-hover);
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.16), 0 12px 28px rgba(255, 136, 255, 0.28);
 }
 
 .rail-store-button:hover svg,
@@ -296,7 +294,6 @@ svg {
   flex: 0 0 auto;
   border-radius: 50%;
   background: var(--offline);
-  box-shadow: 0 0 14px rgba(255, 75, 75, 0.6);
 }
 
 .server-status-dot::after {
@@ -311,7 +308,6 @@ svg {
 
 .server-status.is-online .server-status-dot {
   background: var(--online);
-  box-shadow: 0 0 14px rgba(75, 227, 106, 0.6);
 }
 
 .server-status.is-online .server-status-dot::after {
@@ -466,7 +462,6 @@ svg {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: #303030;
-  box-shadow: 0 16px 28px rgba(0, 0, 0, 0.34);
 }
 
 .player-search-results[hidden] {
@@ -583,7 +578,7 @@ svg {
   min-height: var(--hero-height);
   display: grid;
   place-items: center;
-  padding: clamp(42px, 6vw, 92px);
+  padding: clamp(44px, 7vw, 104px);
   background-color: #101010;
   background-image: var(--panel-image, none);
 }
@@ -628,7 +623,6 @@ svg {
   justify-items: center;
   color: var(--subtext);
   text-align: center;
-  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.54);
 }
 
 .hero-text {
@@ -650,7 +644,6 @@ svg {
   display: block;
   object-fit: contain;
   object-position: center;
-  filter: drop-shadow(0 16px 24px rgba(0, 0, 0, 0.42));
 }
 
 .hero-text {
@@ -691,40 +684,43 @@ svg {
   min-width: 190px;
 }
 
-.hero-action-state-icon {
+.hero-action-icon-stack {
   position: relative;
   width: 22px;
   height: 22px;
-  display: block;
+  display: grid;
+  place-items: center;
   flex: 0 0 auto;
-  border: 3px solid currentColor;
 }
 
-.hero-action-state-icon::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-top: 5px solid transparent;
-  border-bottom: 5px solid transparent;
-  border-left: 8px solid currentColor;
-  transform: translate(-34%, -50%);
+.hero-action-icon {
+  grid-area: 1 / 1;
+  width: 22px;
+  height: 22px;
+  display: block;
+  object-fit: contain;
+  filter: invert(100%);
+  transition: opacity 160ms ease, transform 160ms ease;
 }
 
-.hero-action-primary.is-copied .hero-action-state-icon::before {
-  width: 9px;
-  height: 14px;
-  border: 0;
-  border-right: 4px solid currentColor;
-  border-bottom: 4px solid currentColor;
-  transform: translate(-50%, -62%) rotate(45deg);
+.hero-action-icon-copied {
+  opacity: 0;
+  transform: scale(0.86);
+}
+
+.hero-action-primary.is-copied .hero-action-icon-default {
+  opacity: 0;
+  transform: scale(0.86);
+}
+
+.hero-action-primary.is-copied .hero-action-icon-copied {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .join-modal-copy-ip.hero-action-primary {
-  width: 122px;
-  min-width: 122px;
+  width: 190px;
+  min-width: 190px;
 }
 
 .hero-action:hover,
@@ -737,7 +733,6 @@ svg {
 .hero-action-primary {
   border-color: #ff55ff;
   background: #ff55ff;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12), 0 12px 30px rgba(255, 85, 255, 0.24);
 }
 
 .hero-action-primary:hover,
@@ -750,7 +745,6 @@ svg {
   border-color: #45ff4f;
   background: #45ff4f;
   color: var(--heading);
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.14), 0 12px 30px rgba(69, 255, 79, 0.22);
 }
 
 .hero-action-primary.is-copy-failed {
@@ -807,7 +801,6 @@ svg {
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 8px;
   background: #101010;
-  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.62);
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
 }
@@ -1200,7 +1193,7 @@ body.has-announcement-modal {
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.24);
   transform: translate(-50%, -50%);
-  transition: width 280ms cubic-bezier(0.2, 0.8, 0.2, 1), background 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+  transition: width 280ms cubic-bezier(0.2, 0.8, 0.2, 1), background 180ms ease, transform 180ms ease;
 }
 
 .announcement-dots button:hover::before,
@@ -1212,7 +1205,6 @@ body.has-announcement-modal {
 .announcement-dots button.is-active::before {
   width: 17px;
   background: var(--heading);
-  box-shadow: 0 0 14px rgba(255, 255, 255, 0.2);
   animation: announcement-dot-settle 360ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
@@ -1271,7 +1263,6 @@ body.has-announcement-modal {
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 8px;
   background: #101010;
-  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.62), 0 0 0 1px rgba(255, 255, 255, 0.04);
 }
 
 .announcement-modal-panel:focus {
@@ -1282,14 +1273,12 @@ body.has-announcement-modal {
   z-index: 8;
   border-color: rgba(255, 255, 255, 0.18);
   background: #303030;
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.34);
 }
 
 .announcement-modal-close:hover,
 .announcement-modal-close:focus-visible {
   background: #383838;
   border-color: rgba(255, 255, 255, 0.24);
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.34);
 }
 
 .announcement-modal-close img {
@@ -1472,7 +1461,6 @@ body.has-announcement-modal {
   max-height: 132px;
   display: block;
   object-fit: contain;
-  filter: drop-shadow(0 14px 30px rgba(0, 0, 0, 0.36));
 }
 
 .creator-videos {
@@ -1621,13 +1609,13 @@ body.has-announcement-modal {
   height: auto;
   display: block;
   object-fit: contain;
-  filter: grayscale(1) saturate(0.08) brightness(1.08) contrast(1.04) drop-shadow(0 12px 22px rgba(0, 0, 0, 0.34));
+  filter: grayscale(1) saturate(0.08) brightness(1.08) contrast(1.04);
   transition: filter 250ms cubic-bezier(0.22, 1, 0.36, 1), opacity 250ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .footer-brand:hover img,
 .footer-brand:focus-within img {
-  filter: grayscale(0) saturate(1) brightness(1) contrast(1) drop-shadow(0 12px 22px rgba(0, 0, 0, 0.34));
+  filter: grayscale(0) saturate(1) brightness(1) contrast(1);
 }
 
 .footer-about p {
@@ -1784,7 +1772,6 @@ a[aria-label="Discord"]:focus-visible .site-icon {
   max-height: 132px;
   object-fit: contain;
   object-position: right bottom;
-  filter: drop-shadow(0 18px 22px rgba(0, 0, 0, 0.34));
   pointer-events: none;
 }
 
@@ -1887,7 +1874,6 @@ a[aria-label="Discord"]:focus-visible .site-icon {
   display: block;
   object-fit: contain;
   image-rendering: pixelated;
-  filter: drop-shadow(0 18px 26px rgba(0, 0, 0, 0.35));
 }
 
 .profile-identity {
@@ -1937,7 +1923,6 @@ a[aria-label="Discord"]:focus-visible .site-icon {
   height: 10px;
   border-radius: 50%;
   background: var(--offline);
-  box-shadow: 0 0 14px rgba(255, 75, 75, 0.6);
 }
 
 .profile-online span::after {
@@ -1952,7 +1937,6 @@ a[aria-label="Discord"]:focus-visible .site-icon {
 
 .profile-online.is-online span {
   background: var(--online);
-  box-shadow: 0 0 14px rgba(75, 227, 106, 0.6);
 }
 
 .profile-online.is-online span::after {
@@ -2305,12 +2289,10 @@ a[aria-label="Discord"]:focus-visible .site-icon {
   flex: 0 0 auto;
   border-radius: 50%;
   background: var(--offline);
-  box-shadow: 0 0 10px rgba(255, 75, 75, 0.45);
 }
 
 .player-card-status.is-online span {
   background: var(--online);
-  box-shadow: 0 0 10px rgba(75, 227, 106, 0.45);
 }
 
 .leaderboard-page {
@@ -2400,7 +2382,7 @@ a[aria-label="Discord"]:focus-visible .site-icon {
 .leaderboard-tabs a[aria-current="page"] {
   background: rgba(255, 85, 255, 0.28);
   color: var(--heading);
-  box-shadow: inset 0 0 0 1px rgba(255, 85, 255, 0.72), 0 0 28px rgba(255, 85, 255, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(255, 85, 255, 0.72);
 }
 
 .leaderboard-controls .players-filter {
@@ -2496,7 +2478,7 @@ a[aria-label="Discord"]:focus-visible .site-icon {
 .leaderboard-podium-card:focus-visible {
   outline: 0;
   transform: translateY(-2px);
-  box-shadow: inset 0 0 0 1px rgba(255, 85, 255, 0.42), 0 18px 40px rgba(0, 0, 0, 0.24);
+  box-shadow: inset 0 0 0 1px rgba(255, 85, 255, 0.42);
 }
 
 .leaderboard-podium-card.is-rank-1 {
@@ -2509,7 +2491,6 @@ a[aria-label="Discord"]:focus-visible .site-icon {
 
 .leaderboard-podium-card.is-rank-1::before {
   background: #ff55ff;
-  box-shadow: 0 0 22px rgba(255, 85, 255, 0.45);
 }
 
 .leaderboard-podium-card.is-rank-2 {

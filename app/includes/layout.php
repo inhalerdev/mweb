@@ -6,7 +6,77 @@ require_once __DIR__ . '/db.php';
 
 function mineacle_page_asset_version(): string
 {
-    return 'base89';
+    return 'base93';
+}
+
+function mineacle_page_clean_text(string $value): string
+{
+    return trim((string) preg_replace('/\s+/', ' ', $value));
+}
+
+function mineacle_page_meta_title(string $title, string $siteName): string
+{
+    $cleanTitle = mineacle_page_clean_text($title) ?: 'Home';
+
+    if (strcasecmp($cleanTitle, 'Home') === 0) {
+        return $siteName . ' - Minecraft Java Server';
+    }
+
+    if (strcasecmp($cleanTitle, 'Leaderboards') === 0) {
+        return $siteName . ' Leaderboards';
+    }
+
+    if (strcasecmp($cleanTitle, 'Admin') === 0) {
+        return $siteName . ' Admin';
+    }
+
+    if (strcasecmp($cleanTitle, 'Player') === 0) {
+        return $siteName . ' Player Stats';
+    }
+
+    if (stripos($cleanTitle, $siteName) !== false) {
+        return $cleanTitle;
+    }
+
+    return $cleanTitle . ' | ' . $siteName;
+}
+
+function mineacle_page_meta_description(string $title, string $siteName): string
+{
+    $cleanTitle = mineacle_page_clean_text($title) ?: 'Home';
+
+    if (strcasecmp($cleanTitle, 'Leaderboards') === 0) {
+        return 'View ' . $siteName . ' player leaderboards, rankings, and server stats.';
+    }
+
+    if (strcasecmp($cleanTitle, 'Admin') === 0) {
+        return 'Manage ' . $siteName . ' website announcements.';
+    }
+
+    if (strcasecmp($cleanTitle, 'Player') === 0) {
+        return 'View a ' . $siteName . ' player profile and server stats.';
+    }
+
+    if (strcasecmp($cleanTitle, 'Home') !== 0) {
+        return 'View ' . $cleanTitle . '\'s ' . $siteName . ' player profile and server stats.';
+    }
+
+    return $siteName . ' is a Minecraft Java Edition network with player stats, updates, and community links.';
+}
+
+function mineacle_page_canonical_url(): string
+{
+    $path = parse_url((string) ($_SERVER['REQUEST_URI'] ?? '/'), PHP_URL_PATH);
+
+    if (!is_string($path) || $path === '') {
+        $path = '/';
+    }
+
+    if ($path === '/index.php') {
+        $path = '/';
+    }
+
+    return 'https://mineacle.net' . $path;
 }
 
 function mineacle_page_public_link(mixed $url): string
@@ -210,15 +280,33 @@ function mineacle_page_head(string $title = 'Home'): void
     mineacle_security_headers();
     $config = mineacle_config();
     $site = $config['site'] ?? [];
-    $name = (string) ($site['name'] ?? 'Mineacle');
+    $name = mineacle_page_clean_text((string) ($site['name'] ?? 'Mineacle')) ?: 'Mineacle';
+    $metaTitle = mineacle_page_meta_title($title, $name);
+    $metaDescription = mineacle_page_meta_description($title, $name);
+    $canonicalUrl = mineacle_page_canonical_url();
+    $isAdmin = strcasecmp(mineacle_page_clean_text($title), 'Admin') === 0;
 
     echo '<!doctype html>';
     echo '<html lang="en">';
     echo '<head>';
     echo '<meta charset="utf-8">';
     echo '<meta name="viewport" content="width=device-width, initial-scale=1">';
-    echo '<title>' . h($name . ' | ' . $title) . '</title>';
-    echo '<meta name="description" content="' . h($name . ' Minecraft server home page') . '">';
+    echo '<title>' . h($metaTitle) . '</title>';
+    echo '<meta name="description" content="' . h($metaDescription) . '">';
+    echo '<link rel="canonical" href="' . h($canonicalUrl) . '">';
+    echo '<meta property="og:site_name" content="' . h($name) . '">';
+    echo '<meta property="og:type" content="website">';
+    echo '<meta property="og:title" content="' . h($metaTitle) . '">';
+    echo '<meta property="og:description" content="' . h($metaDescription) . '">';
+    echo '<meta property="og:url" content="' . h($canonicalUrl) . '">';
+    echo '<meta name="twitter:card" content="summary">';
+    echo '<meta name="twitter:title" content="' . h($metaTitle) . '">';
+    echo '<meta name="twitter:description" content="' . h($metaDescription) . '">';
+
+    if ($isAdmin) {
+        echo '<meta name="robots" content="noindex,nofollow">';
+    }
+
     $assetVersion = mineacle_page_asset_version();
 
     echo '<link rel="icon" type="image/png" href="/assets/fav-web.png?v=' . h($assetVersion) . '">';

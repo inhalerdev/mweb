@@ -169,7 +169,10 @@ mineacle_page_head('Home');
                     </h1>
                     <div class="hero-actions" aria-label="Server actions">
                         <button class="hero-action hero-action-primary hero-copy-ip" type="button" data-copy-server-ip data-server-ip="<?php echo h($minecraftIp); ?>" data-default-label="Play Now" data-copied-label="IP Copied" data-failed-label="Copy Failed" aria-label="Copy Mineacle server IP">
-                            <span class="hero-action-state-icon" aria-hidden="true"></span>
+                            <span class="hero-action-icon-stack" aria-hidden="true">
+                                <img class="hero-action-icon hero-action-icon-default" src="<?php echo h(mineacle_home_versioned_url('/assets/icons/copy-ip-play.svg', $heroAssetVersion)); ?>" alt="">
+                                <img class="hero-action-icon hero-action-icon-copied" src="<?php echo h(mineacle_home_versioned_url('/assets/icons/copy-ip-tick.svg', $heroAssetVersion)); ?>" alt="">
+                            </span>
                             <span data-copy-server-label>Play Now</span>
                         </button>
                         <button class="hero-action hero-action-status is-loading" type="button" data-open-join-modal data-server-status data-status-format="hero-join" data-server-ip="<?php echo h($minecraftIp); ?>" aria-live="polite">
@@ -291,7 +294,7 @@ mineacle_page_head('Home');
     <div class="announcement-modal-backdrop" data-close-announcement-modal></div>
     <section class="announcement-modal-panel" role="dialog" aria-modal="true" aria-labelledby="announcementModalTitle" tabindex="-1">
         <button class="join-modal-close announcement-modal-close" type="button" data-close-announcement-modal aria-label="Close announcement">
-            <img src="/assets/icons/clear-search.svg" alt="" aria-hidden="true" draggable="false">
+            <img src="<?php echo h(mineacle_home_versioned_url('/assets/icons/close-window.svg', $heroAssetVersion)); ?>" alt="" aria-hidden="true" draggable="false">
         </button>
         <div class="announcement-modal-media" data-announcement-modal-media hidden>
             <img src="" alt="" data-announcement-modal-image draggable="false">
@@ -309,7 +312,7 @@ mineacle_page_head('Home');
     <div class="join-modal-backdrop" data-close-join-modal></div>
     <section class="join-modal-panel" role="dialog" aria-modal="true" aria-labelledby="joinModalTitle" tabindex="-1">
         <button class="join-modal-close" type="button" data-close-join-modal aria-label="Close how to join">
-            <img src="assets/icons/clear-search.svg" alt="" aria-hidden="true">
+            <img src="<?php echo h(mineacle_home_versioned_url('/assets/icons/close-window.svg', $heroAssetVersion)); ?>" alt="" aria-hidden="true" draggable="false">
         </button>
         <div class="join-modal-copy">
             <p>Java Edition 1.21.11 to 26+</p>
@@ -320,8 +323,12 @@ mineacle_page_head('Home');
         </div>
         <div class="join-modal-actions">
             <p class="join-modal-ip"><span>Server IP:</span> <strong><?php echo h($minecraftIp); ?></strong></p>
-            <button class="hero-action hero-action-primary join-modal-copy-ip" type="button" data-copy-server-ip data-server-ip="<?php echo h($minecraftIp); ?>" data-default-label="Copy" aria-label="Copy Mineacle server IP">
-                <span data-copy-server-label>Copy</span>
+            <button class="hero-action hero-action-primary hero-copy-ip join-modal-copy-ip" type="button" data-copy-server-ip data-server-ip="<?php echo h($minecraftIp); ?>" data-default-label="Copy IP" data-copied-label="IP Copied" data-failed-label="Copy Failed" aria-label="Copy Mineacle server IP">
+                <span class="hero-action-icon-stack" aria-hidden="true">
+                    <img class="hero-action-icon hero-action-icon-default" src="<?php echo h(mineacle_home_versioned_url('/assets/icons/copy-ip-play.svg', $heroAssetVersion)); ?>" alt="">
+                    <img class="hero-action-icon hero-action-icon-copied" src="<?php echo h(mineacle_home_versioned_url('/assets/icons/copy-ip-tick.svg', $heroAssetVersion)); ?>" alt="">
+                </span>
+                <span data-copy-server-label>Copy IP</span>
             </button>
         </div>
     </section>
