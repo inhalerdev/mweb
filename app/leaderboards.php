@@ -258,6 +258,7 @@ function mineacle_players_render_team_podium(array $team): void
 
 $navLinks = [
     ['key' => 'home', 'url' => $homeUrl],
+    ['key' => 'vote', 'url' => $site['vote_url'] ?? '#'],
     ['key' => 'stats', 'label' => 'Leaderboards', 'url' => $leaderboardsUrl],
     ['key' => 'bans', 'url' => $site['bans_url'] ?? '#'],
 ];

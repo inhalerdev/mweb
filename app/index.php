@@ -73,6 +73,7 @@ $leaderboardsUrl = mineacle_page_leaderboards_url($site);
 
 $navLinks = [
     ['key' => 'home', 'url' => $homeUrl],
+    ['key' => 'vote', 'url' => (string) ($site['vote_url'] ?? '#')],
     ['key' => 'stats', 'label' => 'Leaderboards', 'url' => $leaderboardsUrl],
     ['key' => 'bans', 'url' => (string) ($site['bans_url'] ?? '#')],
 ];
