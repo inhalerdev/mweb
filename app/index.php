@@ -21,7 +21,6 @@ function mineacle_icon(string $name): string
         'vote' => 'assets/icons/rail-vote.png' . $iconVersion,
         'store' => 'assets/icons/rail-store.png' . $iconVersion,
         'bans' => 'assets/icons/rail-bans.png' . $iconVersion,
-        'staff' => 'assets/icons/gavel.svg',
         'discord' => 'assets/icons/discord.svg',
         'x' => 'assets/icons/x-twitter.svg',
     ];
@@ -31,13 +30,11 @@ function mineacle_icon(string $name): string
     }
 
     $icons = [
-        'logo' => '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 9 16 3l12 6v14l-12 6-12-6V9Zm12 5 7-3.5L16 7l-7 3.5L16 14Zm-8 7 6 3v-7l-6-3v7Zm10 3 6-3v-7l-6 3v7Z"/></svg>',
-        'vote' => '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18-5-5 2.2-2.2L9 13.6l8.8-8.8L20 7 9 18Z"/></svg>',
         'youtube' => '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8.5c.3 2.3.3 4.7 0 7-.2 1.4-1.2 2.4-2.6 2.6-4.2.4-8.6.4-12.8 0-1.4-.2-2.4-1.2-2.6-2.6-.3-2.3-.3-4.7 0-7 .2-1.4 1.2-2.4 2.6-2.6 4.2-.4 8.6-.4 12.8 0 1.4.2 2.4 1.2 2.6 2.6ZM10 15l5-3-5-3v6Z"/></svg>',
         'tiktok' => '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h3c.2 2 1.4 3.4 3.4 3.8v3.1c-1.3-.1-2.4-.5-3.4-1.2V15a5 5 0 1 1-5-5h.6v3.2c-.2 0-.4-.1-.6-.1a1.9 1.9 0 1 0 1.9 1.9L14 3Z"/></svg>',
     ];
 
-    return $icons[$name] ?? $icons['logo'];
+    return $icons[$name] ?? '';
 }
 
 function mineacle_home_is_video_url(string $url): bool
