@@ -97,15 +97,18 @@ function mineacle_stats_team_select_list(array $columns): string
         'team_id' => [['team_id', 'id', 'uuid'], "''"],
         'name' => [['team_name', 'name', 'display_name'], "''"],
         'tag' => [['tag', 'team_tag', 'prefix'], "''"],
-        'owner_uuid' => [['owner_uuid', 'leader_uuid', 'owner'], "''"],
+        'owner_uuid' => [['owner_uuid', 'founder_uuid', 'leader_uuid', 'owner'], "''"],
         'owner_name' => [['owner_name', 'leader_name', 'leader', 'owner_username'], "''"],
         'members' => [['members', 'member_count', 'total_members', 'players'], '0'],
         'online_members' => [['online_members', 'online_count', 'members_online', 'online'], '0'],
-        'balance_cents' => [['balance_cents', 'bank_balance_cents', 'team_balance_cents'], '0'],
+        'balance_cents' => [['total_balance_cents', 'balance_cents', 'bank_balance_cents', 'team_balance_cents'], '0'],
+        'balance_formatted' => [['total_balance_formatted', 'balance_formatted', 'bank_balance_formatted', 'team_balance_formatted'], "''"],
         'balance' => [['balance', 'bank_balance', 'team_balance'], '0'],
         'kills' => [['kills', 'team_kills', 'total_kills'], '0'],
         'deaths' => [['deaths', 'team_deaths', 'total_deaths'], '0'],
         'kd_ratio' => [['kd_ratio', 'kdr', 'team_kd_ratio'], '0'],
+        'capital_rank' => [['capital_rank', 'money_rank', 'balance_rank'], '0'],
+        'kd_rank' => [['kd_rank', 'kdr_rank'], '0'],
         'playtime_seconds' => [['playtime_seconds', 'total_playtime_seconds', 'team_playtime_seconds'], '0'],
         'wins' => [['wins', 'team_wins'], '0'],
         'losses' => [['losses', 'team_losses'], '0'],
@@ -284,7 +287,7 @@ function mineacle_stats_players(int $limit = 25, int $offset = 0, string $sort =
     return $players;
 }
 
-function mineacle_stats_teams(int $limit = 50, int $offset = 0, string $sort = 'points', string $search = ''): array
+function mineacle_stats_teams(int $limit = 50, int $offset = 0, string $sort = 'kd', string $search = ''): array
 {
     $pdo = mineacle_core_db();
 
@@ -304,20 +307,26 @@ function mineacle_stats_teams(int $limit = 50, int $offset = 0, string $sort = '
     $columns = mineacle_stats_columns($pdo, $tableSql);
     $select = mineacle_stats_team_select_list($columns);
     $sortCandidates = [
+        'kd' => ['kd_rank', 'kdr_rank', 'kd_ratio', 'kdr', 'team_kd_ratio'],
+        'capital' => ['capital_rank', 'money_rank', 'balance_rank', 'total_balance_cents', 'balance_cents', 'bank_balance_cents', 'team_balance_cents'],
         'points' => ['points', 'score', 'rating', 'elo'],
-        'balance' => ['balance_cents', 'bank_balance_cents', 'team_balance_cents', 'balance', 'bank_balance', 'team_balance'],
+        'balance' => ['total_balance_cents', 'balance_cents', 'bank_balance_cents', 'team_balance_cents', 'balance', 'bank_balance', 'team_balance'],
         'kills' => ['kills', 'team_kills', 'total_kills'],
-        'kd' => ['kd_ratio', 'kdr', 'team_kd_ratio'],
         'members' => ['members', 'member_count', 'total_members', 'players'],
         'wins' => ['wins', 'team_wins'],
         'playtime' => ['playtime_seconds', 'total_playtime_seconds', 'team_playtime_seconds'],
         'updated' => ['updated_at', 'updated', 'last_updated'],
         'name' => ['team_name', 'name', 'display_name'],
     ];
-    $sortColumn = mineacle_stats_column_from_candidates($columns, $sortCandidates[$sort] ?? $sortCandidates['points']);
+    $sort = array_key_exists($sort, $sortCandidates) ? $sort : 'kd';
+    $sortColumn = mineacle_stats_column_from_candidates($columns, $sortCandidates[$sort]);
     $orderColumn = is_string($sortColumn) ? mineacle_stats_column_sql($sortColumn) : null;
     $nameColumn = mineacle_stats_column_from_candidates($columns, ['team_name', 'name', 'display_name']);
     $nameSql = is_string($nameColumn) ? mineacle_stats_column_sql($nameColumn) : null;
+    $killsColumn = mineacle_stats_column_from_candidates($columns, ['total_kills', 'kills', 'team_kills']);
+    $killsSql = is_string($killsColumn) ? mineacle_stats_column_sql($killsColumn) : null;
+    $balanceColumn = mineacle_stats_column_from_candidates($columns, ['total_balance_cents', 'balance_cents', 'bank_balance_cents', 'team_balance_cents']);
+    $balanceSql = is_string($balanceColumn) ? mineacle_stats_column_sql($balanceColumn) : null;
     $searchColumns = [];
 
     foreach (['team_name', 'name', 'display_name', 'tag', 'team_tag', 'owner_name', 'leader_name'] as $column) {
@@ -349,13 +358,54 @@ function mineacle_stats_teams(int $limit = 50, int $offset = 0, string $sort = '
     }
 
     $order = [];
+    $appendOrder = static function (string $expression) use (&$order): void {
+        if (!in_array($expression, $order, true)) {
+            $order[] = $expression;
+        }
+    };
 
-    if ($orderColumn !== null) {
-        $order[] = $orderColumn . ' DESC';
+    if ($sort === 'kd') {
+        $kdRankColumn = mineacle_stats_column_from_candidates($columns, ['kd_rank', 'kdr_rank']);
+        $kdRankSql = is_string($kdRankColumn) ? mineacle_stats_column_sql($kdRankColumn) : null;
+
+        if ($kdRankSql !== null) {
+            $appendOrder('CASE WHEN ' . $kdRankSql . ' > 0 THEN 0 ELSE 1 END ASC');
+            $appendOrder($kdRankSql . ' ASC');
+        } elseif ($orderColumn !== null) {
+            $appendOrder($orderColumn . ' DESC');
+        }
+
+        if ($killsSql !== null) {
+            $appendOrder($killsSql . ' DESC');
+        }
+
+        if ($balanceSql !== null) {
+            $appendOrder($balanceSql . ' DESC');
+        }
+    } elseif ($sort === 'capital') {
+        $capitalRankColumn = mineacle_stats_column_from_candidates($columns, ['capital_rank', 'money_rank', 'balance_rank']);
+        $capitalRankSql = is_string($capitalRankColumn) ? mineacle_stats_column_sql($capitalRankColumn) : null;
+
+        if ($capitalRankSql !== null) {
+            $appendOrder('CASE WHEN ' . $capitalRankSql . ' > 0 THEN 0 ELSE 1 END ASC');
+            $appendOrder($capitalRankSql . ' ASC');
+        } elseif ($balanceSql !== null) {
+            $appendOrder($balanceSql . ' DESC');
+        } elseif ($orderColumn !== null) {
+            $appendOrder($orderColumn . ' DESC');
+        }
+
+        if ($killsSql !== null) {
+            $appendOrder($killsSql . ' DESC');
+        }
+    } elseif ($sort === 'name' && $orderColumn !== null) {
+        $appendOrder($orderColumn . ' ASC');
+    } elseif ($orderColumn !== null) {
+        $appendOrder($orderColumn . ' DESC');
     }
 
     if ($nameSql !== null) {
-        $order[] = $nameSql . ' ASC';
+        $appendOrder($nameSql . ' ASC');
     }
 
     if ($order === []) {

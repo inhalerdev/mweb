@@ -6,7 +6,7 @@ require_once __DIR__ . '/db.php';
 
 function mineacle_page_asset_version(): string
 {
-    return 'base99';
+    return 'base100';
 }
 
 function mineacle_page_clean_text(string $value): string

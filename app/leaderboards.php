@@ -17,7 +17,7 @@ $loadError = false;
 
 try {
     if ($view === 'teams') {
-        $teams = mineacle_stats_teams(50, 0, 'points', $search);
+        $teams = mineacle_stats_teams(50, 0, 'kd', $search);
     } else {
         $players = mineacle_stats_players(200, 0, 'playtime', $search);
     }
@@ -62,6 +62,12 @@ function mineacle_leaderboards_team_name(array $team): string
 
 function mineacle_leaderboards_team_money(array $team): string
 {
+    $formatted = trim((string) ($team['balance_formatted'] ?? ''));
+
+    if ($formatted !== '') {
+        return $formatted;
+    }
+
     $cents = mineacle_stats_int($team['balance_cents'] ?? 0);
 
     if ($cents > 0) {
@@ -96,7 +102,7 @@ $hasResults = $view === 'teams' ? $teams !== [] : $players !== [];
 $resultCount = $view === 'teams' ? count($teams) : count($players);
 $viewTitle = $view === 'teams' ? 'Teams' : 'Survival Players';
 $viewDescription = $view === 'teams'
-    ? 'Top 50 teams from Mineacle Core team standings.'
+    ? 'Top 50 teams from Mineacle Core team standings, ranked by team K/D performance.'
     : 'Top 200 Survival players from Mineacle Core profile stats.';
 
 mineacle_page_head('Leaderboards');
@@ -188,7 +194,8 @@ mineacle_page_head('Leaderboards');
                         <span>Balance</span>
                         <span>Kills</span>
                         <span>K/D</span>
-                        <span>Points</span>
+                        <span>K/D Rank</span>
+                        <span>Capital Rank</span>
                     </div>
 
                     <div class="players-list">
@@ -212,7 +219,8 @@ mineacle_page_head('Leaderboards');
                                 <span class="player-card-stat"><?php echo h(mineacle_leaderboards_team_money($team)); ?></span>
                                 <span class="player-card-stat"><?php echo h(number_format($kills)); ?></span>
                                 <span class="player-card-stat"><?php echo h(mineacle_leaderboards_kd($kills, $deaths, $team['kd_ratio'] ?? 0)); ?></span>
-                                <span class="player-card-stat"><?php echo h(number_format(mineacle_stats_int($team['points'] ?? 0))); ?></span>
+                                <span class="player-card-stat"><?php echo h(mineacle_stats_rank_label($team['kd_rank'] ?? 0)); ?></span>
+                                <span class="player-card-stat"><?php echo h(mineacle_stats_rank_label($team['capital_rank'] ?? 0)); ?></span>
                             </article>
                         <?php endforeach; ?>
                     </div>
