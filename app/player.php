@@ -3,18 +3,11 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/includes/layout.php';
-require_once __DIR__ . '/includes/home-data.php';
 require_once __DIR__ . '/includes/stats-lib.php';
 
 $site = mineacle_config()['site'] ?? [];
 $homeUrl = mineacle_page_home_url($site);
 $leaderboardsUrl = mineacle_page_leaderboards_url($site);
-$minecraftIp = trim((string) ($site['minecraft_ip'] ?? 'mineacle.net'));
-
-if ($minecraftIp === '') {
-    $minecraftIp = 'mineacle.net';
-}
-
 $directPath = parse_url((string) ($_SERVER['REQUEST_URI'] ?? ''), PHP_URL_PATH);
 $directUsername = trim((string) ($_GET['username'] ?? ''));
 
@@ -22,8 +15,6 @@ if ($directPath === '/player.php' && preg_match('/^[A-Za-z0-9_]{1,32}$/', $direc
     header('Location: https://mineacle.net/player/' . rawurlencode($directUsername), true, 301);
     exit;
 }
-
-$home = mineacle_home_data();
 
 function mineacle_profile_requested_username(): string
 {
@@ -49,85 +40,6 @@ function mineacle_profile_link(mixed $url): string
     return $value !== '' ? $value : '#';
 }
 
-function mineacle_profile_is_video_url(string $url): bool
-{
-    $path = parse_url($url, PHP_URL_PATH);
-
-    return is_string($path) && preg_match('/\.(m4v|mp4|mov|webm)$/i', $path) === 1;
-}
-
-function mineacle_profile_versioned_url(string $url, string $version): string
-{
-    if ($url === '' || $url === '#') {
-        return $url;
-    }
-
-    $separator = strpos($url, '?') === false ? '?' : '&';
-
-    return $url . $separator . 'v=' . rawurlencode($version);
-}
-
-function mineacle_profile_render_hero(array $home, string $minecraftIp, string $assetVersion): void
-{
-    $heroBackground = trim((string) ($home['hero']['background_image_url'] ?? ''));
-    $heroBackgroundUrl = mineacle_home_safe_url($heroBackground);
-    $heroBackgroundIsVideo = mineacle_profile_is_video_url($heroBackgroundUrl);
-
-    echo '<section class="top-row">';
-    echo '<article class="panel hero-panel"' . ($heroBackgroundIsVideo ? '' : mineacle_home_image_style($home['hero']['background_image_url'] ?? '')) . ' aria-label="Hero">';
-
-    if ($heroBackground !== '') {
-        if ($heroBackgroundIsVideo) {
-            echo '<video class="hero-background hero-background-video" data-hero-video autoplay muted loop playsinline preload="none" controlslist="nodownload noplaybackrate" disablepictureinpicture draggable="false" aria-hidden="true">';
-            echo '<source data-src="' . h(mineacle_profile_versioned_url($heroBackgroundUrl, $assetVersion)) . '" type="video/mp4">';
-            echo '</video>';
-        } else {
-            echo '<img class="hero-background" src="' . h($heroBackgroundUrl) . '" alt="" draggable="false" aria-hidden="true">';
-        }
-    }
-
-    echo '<div class="hero-copy">';
-    echo '<h1 class="hero-logo-title"><img src="' . h(mineacle_profile_versioned_url('/assets/brand/hero-logo-web.png', $assetVersion)) . '" alt="Mineacle"></h1>';
-    echo '<div class="hero-actions" aria-label="Server actions">';
-    echo '<button class="hero-action hero-action-primary hero-copy-ip" type="button" data-copy-server-ip data-server-ip="' . h($minecraftIp) . '" data-default-label="Play Now" data-copied-label="IP Copied" data-failed-label="Copy Failed" aria-label="Copy Mineacle server IP">';
-    echo '<span class="hero-action-icon-stack" aria-hidden="true">';
-    echo '<img class="hero-action-icon hero-action-icon-default" src="' . h(mineacle_profile_versioned_url('/assets/icons/copy-ip-play.svg', $assetVersion)) . '" alt="">';
-    echo '<img class="hero-action-icon hero-action-icon-copied" src="' . h(mineacle_profile_versioned_url('/assets/icons/copy-ip-tick.svg', $assetVersion)) . '" alt="">';
-    echo '</span>';
-    echo '<span data-copy-server-label>Play Now</span>';
-    echo '</button>';
-    echo '<button class="hero-action hero-action-status is-loading" type="button" data-open-join-modal data-server-status data-status-format="hero-join" data-server-ip="' . h($minecraftIp) . '" aria-live="polite">';
-    echo '<span data-server-status-count>Join Players Online</span>';
-    echo '</button>';
-    echo '</div>';
-    echo '</div>';
-    echo '<span class="sr-only">Hero banner</span>';
-    echo '</article>';
-    echo '</section>';
-}
-
-function mineacle_profile_render_join_modal(string $minecraftIp, string $assetVersion): void
-{
-    echo '<div class="join-modal" data-join-modal hidden>';
-    echo '<div class="join-modal-backdrop" data-close-join-modal></div>';
-    echo '<section class="join-modal-panel" role="dialog" aria-modal="true" aria-labelledby="joinModalTitle" tabindex="-1">';
-    echo '<button class="join-modal-close" type="button" data-close-join-modal aria-label="Close how to join"></button>';
-    echo '<div class="join-modal-copy"><p>Java Edition 1.21.11 to 26+</p><h2 id="joinModalTitle">Join Mineacle</h2></div>';
-    echo '<div class="join-modal-media"><img data-join-gif data-src="' . h(mineacle_profile_versioned_url('/assets/brand/mineacle-how-to-join.gif', $assetVersion)) . '" alt="How to join Mineacle on Java Edition"></div>';
-    echo '<div class="join-modal-actions">';
-    echo '<p class="join-modal-ip"><span>Server IP:</span> <strong>' . h($minecraftIp) . '</strong></p>';
-    echo '<button class="hero-action hero-action-primary hero-copy-ip join-modal-copy-ip" type="button" data-copy-server-ip data-server-ip="' . h($minecraftIp) . '" data-default-label="Copy IP" data-copied-label="IP Copied" data-failed-label="Copy Failed" aria-label="Copy Mineacle server IP">';
-    echo '<span class="hero-action-icon-stack" aria-hidden="true">';
-    echo '<img class="hero-action-icon hero-action-icon-default" src="' . h(mineacle_profile_versioned_url('/assets/icons/copy-ip-play.svg', $assetVersion)) . '" alt="">';
-    echo '<img class="hero-action-icon hero-action-icon-copied" src="' . h(mineacle_profile_versioned_url('/assets/icons/copy-ip-tick.svg', $assetVersion)) . '" alt="">';
-    echo '</span>';
-    echo '<span data-copy-server-label>Copy IP</span>';
-    echo '</button>';
-    echo '</div>';
-    echo '</section>';
-    echo '</div>';
-}
-
 function mineacle_profile_kd(array $player): string
 {
     return mineacle_stats_kd_label(
@@ -135,32 +47,6 @@ function mineacle_profile_kd(array $player): string
         mineacle_stats_int($player['deaths'] ?? 0),
         $player['kd_ratio'] ?? 0
     );
-}
-
-function mineacle_profile_punishment(array $player): array
-{
-    $status = is_array($player['punishment_status'] ?? null) ? $player['punishment_status'] : [];
-    $ban = is_array($status['ban'] ?? null) ? $status['ban'] : [];
-    $mute = is_array($status['mute'] ?? null) ? $status['mute'] : [];
-
-    if (!empty($ban['active'])) {
-        return [
-            'label' => ($ban['kind'] ?? '') === 'temporary' ? 'Temp Banned' : 'Perm Banned',
-            'class' => ($ban['kind'] ?? '') === 'temporary' ? 'is-warning' : 'is-danger',
-        ];
-    }
-
-    if (!empty($mute['active'])) {
-        return [
-            'label' => ($mute['kind'] ?? '') === 'temporary' ? 'Temp Muted' : 'Perm Muted',
-            'class' => 'is-muted',
-        ];
-    }
-
-    return [
-        'label' => 'Clear',
-        'class' => 'is-clear',
-    ];
 }
 
 function mineacle_profile_team_view_model(array $player, ?array $team): array
@@ -184,7 +70,6 @@ function mineacle_profile_team_view_model(array $player, ?array $team): array
 function mineacle_profile_view_model(array $player, ?array $team): array
 {
     $skin = is_array($player['skin'] ?? null) ? $player['skin'] : [];
-    $punishment = mineacle_profile_punishment($player);
     $online = mineacle_stats_online($player);
     $teamView = mineacle_profile_team_view_model($player, $team);
     $rankName = mineacle_stats_rank_name($player);
@@ -201,8 +86,6 @@ function mineacle_profile_view_model(array $player, ?array $team): array
         'status_label' => $online ? 'Online' : 'Offline',
         'location_label' => $online ? 'Located in Survival' : 'Last seen ' . mineacle_stats_last_seen_label($player),
         'last_seen' => mineacle_stats_last_seen_label($player),
-        'punishment_label' => (string) $punishment['label'],
-        'punishment_class' => (string) $punishment['class'],
         'balance' => mineacle_stats_money_label($player),
         'kills' => number_format(mineacle_stats_int($player['kills'] ?? 0)),
         'deaths' => number_format(mineacle_stats_int($player['deaths'] ?? 0)),
@@ -212,7 +95,6 @@ function mineacle_profile_view_model(array $player, ?array $team): array
         'kills_rank' => mineacle_stats_rank_label($player['kills_rank'] ?? 0),
         'playtime_rank' => mineacle_stats_rank_label($player['playtime_rank'] ?? 0),
         'first_joined' => mineacle_stats_date_label($player['first_joined_at'] ?? 0),
-        'updated' => mineacle_stats_date_label($player['updated_at'] ?? 0),
         'team' => $teamView,
     ];
 }
@@ -304,8 +186,6 @@ mineacle_page_head($pageTitle, $metaOptions);
     </aside>
 
     <main class="home-grid profile-page" aria-label="Player profile">
-        <?php mineacle_profile_render_hero($home, $minecraftIp, $assetVersion); ?>
-
         <?php if ($loadError): ?>
             <section class="panel profile-message">
                 <h1>Unable to load player stats right now</h1>
@@ -334,10 +214,6 @@ mineacle_page_head($pageTitle, $metaOptions);
                             <strong class="<?php echo $viewModel['online'] ? 'is-online' : 'is-offline'; ?>"><?php echo h((string) $viewModel['status_label']); ?></strong>
                             <span><?php echo h((string) $viewModel['location_label']); ?></span>
                         </p>
-                        <p>
-                            <strong class="<?php echo h((string) $viewModel['punishment_class']); ?>"><?php echo h((string) $viewModel['punishment_label']); ?></strong>
-                            <span>Updated <?php echo h((string) $viewModel['updated']); ?></span>
-                        </p>
                     </div>
                 </div>
 
@@ -361,5 +237,4 @@ mineacle_page_head($pageTitle, $metaOptions);
         <?php mineacle_page_footer($site); ?>
     </main>
 </div>
-<?php mineacle_profile_render_join_modal($minecraftIp, $assetVersion); ?>
 <?php mineacle_page_end(); ?>

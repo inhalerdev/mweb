@@ -714,6 +714,10 @@
 
       nameNode.className = 'player-search-name ranked-player-name';
 
+      if (rankLabel === '+') {
+        nameNode.classList.add('is-plus-rank');
+      }
+
       if (rankLabel !== '') {
         const rankNode = document.createElement('span');
         rankNode.className = 'ranked-player-name__rank';
