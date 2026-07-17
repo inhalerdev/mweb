@@ -1965,30 +1965,52 @@ a[aria-label="Discord"]:focus-visible .site-icon {
 
 .profile-page {
   align-content: start;
+  --profile-summary-height: clamp(92px, min(9vw, 13dvh), 138px);
 }
 
 .profile-main-panel {
+  position: relative;
+  isolation: isolate;
   min-height: var(--hero-height);
   height: var(--hero-height);
   display: grid;
   grid-template-rows: minmax(0, 1fr) var(--profile-summary-height);
   overflow: hidden;
   padding: 0;
+  background: #191919;
+}
+
+.profile-main-panel::before,
+.profile-main-panel::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.profile-main-panel::before {
+  inset: -24px;
+  z-index: -2;
+  background: url("brand/player-hero-bg.png") center / cover no-repeat;
+  filter: blur(20px);
+  transform: scale(1.03);
+}
+
+.profile-main-panel::after {
+  inset: 0;
+  z-index: -1;
   background:
-    linear-gradient(90deg, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.08) 48%, rgba(0, 0, 0, 0.34)),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.06), rgba(8, 8, 8, 0.38)),
-    url("brand/player-hero-bg.png") center / cover no-repeat,
-    #191919;
+    linear-gradient(90deg, rgba(0, 0, 0, 0.34), rgba(0, 0, 0, 0.12) 48%, rgba(0, 0, 0, 0.42)),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(8, 8, 8, 0.44));
 }
 
 .profile-hero-content {
   min-height: 0;
   display: grid;
-  grid-template-columns: minmax(340px, 0.86fr) minmax(360px, 1fr);
+  grid-template-columns: minmax(260px, 0.86fr) minmax(280px, 1fr);
   align-items: center;
   justify-items: center;
-  gap: clamp(22px, 4vw, 86px);
-  padding: clamp(30px, 5vw, 72px) clamp(36px, 7vw, 130px) 0;
+  gap: clamp(16px, 3.5vw, 74px);
+  padding: clamp(20px, 4.4dvh, 64px) clamp(28px, 6vw, 118px) 0;
 }
 
 .profile-bust-stage {
@@ -2000,7 +2022,7 @@ a[aria-label="Discord"]:focus-visible .site-icon {
 }
 
 .profile-bust-stage img {
-  width: min(100%, 560px);
+  width: clamp(220px, 32vw, 560px);
   max-height: 100%;
   display: block;
   object-fit: contain;
@@ -2029,7 +2051,7 @@ a[aria-label="Discord"]:focus-visible .site-icon {
   display: grid;
   align-self: center;
   justify-items: start;
-  gap: 14px;
+  gap: clamp(8px, 1.25dvh, 14px);
   text-align: left;
 }
 
@@ -2038,7 +2060,7 @@ a[aria-label="Discord"]:focus-visible .site-icon {
   margin: 0;
   overflow-wrap: anywhere;
   color: var(--heading);
-  font-size: clamp(2rem, 1.05rem + 2.4vw, 4.1rem);
+  font-size: clamp(1.65rem, min(4vw, 6dvh), 4.1rem);
   font-weight: 800;
   line-height: 0.95;
   text-transform: uppercase;
@@ -2072,7 +2094,6 @@ a[aria-label="Discord"]:focus-visible .site-icon {
   font-size: 0.72rem;
   font-weight: var(--ui-font-weight);
   line-height: 1.15;
-  text-transform: uppercase;
 }
 
 .profile-state-lines p::before,
@@ -2090,6 +2111,7 @@ a[aria-label="Discord"]:focus-visible .site-icon {
   font-size: 0.68rem;
   font-weight: var(--ui-font-weight);
   line-height: 1;
+  text-transform: uppercase;
 }
 
 .profile-state-lines strong.is-online,
@@ -2126,34 +2148,12 @@ a[aria-label="Discord"]:focus-visible .site-icon {
   color: #ff55ff;
 }
 
-.profile-meta-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px 24px;
-  margin: 4px 0 0;
-}
-
-.profile-meta-list div {
-  display: grid;
-  gap: 5px;
-}
-
-.profile-meta-list dt,
-.profile-meta-list dd {
-  margin: 0;
-}
-
-.profile-meta-list dt {
-  color: var(--subtext);
-  font-size: 0.66rem;
-  line-height: 1;
-  text-transform: uppercase;
-}
-
-.profile-meta-list dd {
+.profile-joined-date {
+  margin: 2px 0 0;
   color: var(--heading);
-  font-size: 0.82rem;
-  line-height: 1;
+  font-size: clamp(0.72rem, 0.65rem + 0.22vw, 0.84rem);
+  font-weight: var(--ui-font-weight);
+  line-height: 1.15;
 }
 
 .profile-summary-bar {

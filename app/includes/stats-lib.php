@@ -962,13 +962,7 @@ function mineacle_stats_rank_name(array $player): string
             continue;
         }
 
-        $normalized = strtolower(str_replace(' ', '', $candidate));
-
-        if (in_array($normalized, ['mineacle+', 'mineacleplus', 'plus'], true)) {
-            return '+';
-        }
-
-        return $candidate;
+        return '+';
     }
 
     return '';
@@ -976,11 +970,31 @@ function mineacle_stats_rank_name(array $player): string
 
 function mineacle_stats_rank_color(array $player): string
 {
-    $rankName = strtolower(mineacle_stats_rank_name($player));
+    $rankSources = [
+        trim((string) ($player['rank_key'] ?? '')),
+        trim((string) ($player['rank_name'] ?? '')),
+        trim(strip_tags((string) ($player['rank_prefix'] ?? ''))),
+    ];
     $color = strtolower(trim((string) ($player['rank_color'] ?? '')));
 
-    if ($rankName === '+') {
-        return '#ff55ff';
+    foreach ($rankSources as $source) {
+        if (mineacle_stats_rank_is_default($source)) {
+            continue;
+        }
+
+        $normalized = strtolower(str_replace([' ', '_', '-'], '', $source));
+
+        if (in_array($normalized, ['developer', 'dev'], true)) {
+            return '#ffaa00';
+        }
+
+        if (in_array($normalized, ['admin', 'administrator'], true)) {
+            return '#ff5555';
+        }
+
+        if (in_array($normalized, ['mineacle+', 'mineacleplus', 'plus'], true)) {
+            return '#ff55ff';
+        }
     }
 
     return preg_match('/^#[0-9a-f]{6}$/', $color) === 1 ? $color : '#bbbbbb';
@@ -1112,6 +1126,12 @@ function mineacle_stats_relative_time_label(mixed $millis): string
         $days = max(1, (int) floor($delta / 86400));
 
         return $days . 'd ago';
+    }
+
+    if (date('Ym', $seconds) === date('Ym')) {
+        $weeks = max(1, (int) floor($delta / 604800));
+
+        return $weeks . 'w ago';
     }
 
     return mineacle_stats_date_label($millis);

@@ -314,14 +314,8 @@ mineacle_page_head($pageTitle, $metaOptions);
                                 <strong class="<?php echo $viewModel['online'] ? 'is-online' : 'is-offline'; ?>"><?php echo h((string) $viewModel['status_label']); ?></strong>
                                 <span><?php echo mineacle_profile_status_line_html((string) $viewModel['location_label'], (string) $viewModel['world_name']); ?></span>
                             </p>
-                            <?php if ($viewModel['secondary_status'] !== ''): ?>
-                                <p class="profile-secondary-status"><?php echo mineacle_profile_status_line_html((string) $viewModel['secondary_status'], (string) $viewModel['world_name']); ?></p>
-                            <?php endif; ?>
                         </div>
-                        <dl class="profile-meta-list">
-                            <div><dt>Joined</dt><dd><?php echo h((string) $viewModel['first_joined']); ?></dd></div>
-                            <div><dt>Last Seen</dt><dd><?php echo h((string) $viewModel['last_seen']); ?></dd></div>
-                        </dl>
+                        <p class="profile-joined-date">Joined <?php echo h((string) $viewModel['first_joined']); ?></p>
                     </div>
                 </div>
 
