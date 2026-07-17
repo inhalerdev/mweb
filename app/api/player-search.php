@@ -123,106 +123,6 @@ function mineacle_player_uuid_key(mixed $uuid): ?string
     return is_string($compact) && $compact !== '' ? $compact : $value;
 }
 
-function mineacle_player_skin_identifier(?string $uuid, string $name, bool $uuidOnly = false): ?string
-{
-    $uuidKey = mineacle_player_uuid_key($uuid);
-
-    if ($uuidKey !== null) {
-        return rawurlencode($uuidKey);
-    }
-
-    if ($uuidOnly || $name === '') {
-        return null;
-    }
-
-    return rawurlencode($name);
-}
-
-function mineacle_player_skin_size(mixed $value, int $fallback, int $max = 600): int
-{
-    $size = (int) $value;
-
-    return max(16, min($max, $size > 0 ? $size : $fallback));
-}
-
-function mineacle_player_skin_cache_query(): string
-{
-    return 'skin=' . (string) floor(time() / 60);
-}
-
-function mineacle_player_skin_url(string $url): string
-{
-    return $url . (str_contains($url, '?') ? '&' : '?') . mineacle_player_skin_cache_query();
-}
-
-function mineacle_player_skin_assets(?string $uuid, string $name, array $config): array
-{
-    $provider = strtolower(trim((string) ($config['provider'] ?? 'crafty')));
-    $headSize = mineacle_player_skin_size($config['head_size'] ?? null, 96);
-    $chestSize = mineacle_player_skin_size($config['chest_size'] ?? null, 320);
-    $bustWidth = mineacle_player_skin_size($config['bust_width'] ?? null, 960, 1400);
-    $bustHeight = mineacle_player_skin_size($config['bust_height'] ?? null, 1080, 1600);
-
-    if (!in_array($provider, ['crafty', 'mineskin', 'minotar', 'mc-heads', 'crafatar'], true)) {
-        $provider = 'crafty';
-    }
-
-    $uuidOnly = $provider === 'crafatar';
-    $identifier = mineacle_player_skin_identifier($uuid, $name, $uuidOnly);
-
-    if ($identifier === null) {
-        return [
-            'provider' => $provider,
-            'head' => null,
-            'chest' => null,
-            'bust' => null,
-        ];
-    }
-
-    if ($provider === 'crafty') {
-        return [
-            'provider' => $provider,
-            'head' => mineacle_player_skin_url('https://render.crafty.gg/2d/head/' . $identifier . '?size=' . $headSize),
-            'chest' => mineacle_player_skin_url('https://render.crafty.gg/3d/bust/' . $identifier . '?width=' . $chestSize . '&height=' . max(420, $chestSize + 220) . '&x=-25&z=35&shadow=false'),
-            'bust' => mineacle_player_skin_url('https://render.crafty.gg/3d/bust/' . $identifier . '?width=' . $bustWidth . '&height=' . $bustHeight . '&x=-25&z=35&shadow=false'),
-        ];
-    }
-
-    if ($provider === 'minotar') {
-        return [
-            'provider' => $provider,
-            'head' => mineacle_player_skin_url('https://minotar.net/helm/' . $identifier . '/' . $headSize . '.png'),
-            'chest' => mineacle_player_skin_url('https://minotar.net/armor/bust/' . $identifier . '/' . $chestSize . '.png'),
-            'bust' => mineacle_player_skin_url('https://minotar.net/armor/bust/' . $identifier . '/' . $chestSize . '.png'),
-        ];
-    }
-
-    if ($provider === 'mc-heads') {
-        return [
-            'provider' => $provider,
-            'head' => mineacle_player_skin_url('https://mc-heads.net/avatar/' . $identifier . '/' . $headSize . '.png'),
-            'chest' => mineacle_player_skin_url('https://mc-heads.net/body/' . $identifier . '/' . $chestSize . '.png'),
-            'bust' => mineacle_player_skin_url('https://mc-heads.net/body/' . $identifier . '/' . $chestSize . '.png'),
-        ];
-    }
-
-    if ($provider === 'crafatar') {
-        return [
-            'provider' => $provider,
-            'head' => mineacle_player_skin_url('https://crafatar.com/renders/head/' . $identifier . '?scale=4&overlay'),
-            'chest' => mineacle_player_skin_url('https://crafatar.com/renders/body/' . $identifier . '?scale=4&overlay'),
-            'bust' => mineacle_player_skin_url('https://crafatar.com/renders/body/' . $identifier . '?scale=4&overlay'),
-        ];
-    }
-
-    return [
-        'provider' => $provider,
-        'head' => mineacle_player_skin_url('https://mineskin.eu/helm/' . $identifier . '/' . $headSize . '.png'),
-        'chest' => mineacle_player_skin_url('https://mineskin.eu/armor/bust/' . $identifier . '/' . $chestSize . '.png'),
-        'bust' => mineacle_player_skin_url('https://mineskin.eu/armor/bust/' . $identifier . '/' . $chestSize . '.png'),
-    ];
-}
-
 function mineacle_player_bool(mixed $value): bool
 {
     if (is_bool($value)) {
@@ -423,7 +323,6 @@ function mineacle_player_litebans_statuses(PDO $pdo, array $tables, array $playe
 
 $config = mineacle_config();
 $tables = $config['tables'] ?? [];
-$skinConfig = is_array($config['skins'] ?? null) ? $config['skins'] : [];
 $table = (string) ($tables['player_profiles'] ?? 'mineacle_web_profiles');
 $tableSql = mineacle_player_identifier($table);
 
@@ -504,6 +403,10 @@ try {
     $rankPrefixColumn = mineacle_player_first_column($columns, ['rank_prefix']);
     $rankColorColumn = mineacle_player_first_column($columns, ['rank_color']);
     $rankWeightColumn = mineacle_player_first_column($columns, ['rank_weight']);
+    $onlineColumn = mineacle_player_first_column($columns, ['online']);
+    $worldKeyColumn = mineacle_player_first_column($columns, ['world_key']);
+    $worldNameColumn = mineacle_player_first_column($columns, ['world_name']);
+    $worldGroupColumn = mineacle_player_first_column($columns, ['world_group']);
 
     $nameSql = mineacle_player_identifier($nameColumn);
 
@@ -523,6 +426,10 @@ try {
         $rankPrefixColumn ? mineacle_player_identifier($rankPrefixColumn) . ' AS rank_prefix' : "'' AS rank_prefix",
         $rankColorColumn ? mineacle_player_identifier($rankColorColumn) . ' AS rank_color' : "'' AS rank_color",
         $rankWeightColumn ? mineacle_player_identifier($rankWeightColumn) . ' AS rank_weight' : '0 AS rank_weight',
+        $onlineColumn ? mineacle_player_identifier($onlineColumn) . ' AS online' : '0 AS online',
+        $worldKeyColumn ? mineacle_player_identifier($worldKeyColumn) . ' AS world_key' : "'' AS world_key",
+        $worldNameColumn ? mineacle_player_identifier($worldNameColumn) . ' AS world_name' : "'' AS world_name",
+        $worldGroupColumn ? mineacle_player_identifier($worldGroupColumn) . ' AS world_group' : "'' AS world_group",
         $playtimeColumn ? mineacle_player_identifier($playtimeColumn) . ' AS playtime_seconds' : 'NULL AS playtime_seconds',
         $lastSeenColumn ? mineacle_player_identifier($lastSeenColumn) . ' AS last_seen' : 'NULL AS last_seen',
         $joinedColumn ? mineacle_player_identifier($joinedColumn) . ' AS joined_at' : 'NULL AS joined_at',
@@ -533,7 +440,17 @@ try {
 
     if ($query !== '') {
         $safeQuery = mineacle_player_like_value($query);
-        $sql .= ' WHERE ' . $nameSql . ' LIKE :prefix OR ' . $nameSql . ' LIKE :contains';
+        $displaySql = $displayColumn ? mineacle_player_identifier($displayColumn) : null;
+        $searchParts = [$nameSql . ' LIKE :prefix', $nameSql . ' LIKE :contains'];
+
+        if ($displaySql !== null && $displaySql !== $nameSql) {
+            $searchParts[] = $displaySql . ' LIKE :display_prefix';
+            $searchParts[] = $displaySql . ' LIKE :display_contains';
+            $params[':display_prefix'] = $safeQuery . '%';
+            $params[':display_contains'] = '%' . $safeQuery . '%';
+        }
+
+        $sql .= ' WHERE ' . implode(' OR ', $searchParts);
         $params[':prefix'] = $safeQuery . '%';
         $params[':contains'] = '%' . $safeQuery . '%';
     }
@@ -573,7 +490,13 @@ try {
             'rank_prefix' => $row['rank_prefix'] ?? '',
             'rank_color' => $row['rank_color'] ?? '',
             'rank_weight' => $row['rank_weight'] ?? 0,
+            'online' => $row['online'] ?? 0,
+            'world_key' => $row['world_key'] ?? '',
+            'world_name' => $row['world_name'] ?? '',
+            'world_group' => $row['world_group'] ?? '',
+            'last_seen' => $row['last_seen'] ?? 0,
         ];
+        $statusView = mineacle_stats_status_view($rankPlayer);
 
         $players[] = [
             'name' => $name,
@@ -581,11 +504,16 @@ try {
             'rank_label' => mineacle_stats_rank_name($rankPlayer),
             'rank_color' => mineacle_stats_rank_color($rankPlayer),
             'uuid' => $row['uuid'] !== null ? (string) $row['uuid'] : null,
-            'skin' => mineacle_player_skin_assets($row['uuid'] !== null ? (string) $row['uuid'] : null, $name, $skinConfig),
+            'skin' => mineacle_stats_skin_assets($row['uuid'] !== null ? (string) $row['uuid'] : null, $name),
             'playtime_seconds' => $playtimeSeconds,
             'playtime_label' => mineacle_player_playtime_label($playtimeSeconds),
             'last_seen' => $row['last_seen'] !== null ? (string) $row['last_seen'] : null,
             'joined_at' => $row['joined_at'] !== null ? (string) $row['joined_at'] : null,
+            'online' => $statusView['online'],
+            'world_name' => $statusView['world'],
+            'status_label' => $statusView['label'],
+            'status_line' => $statusView['line'],
+            'status_secondary' => $statusView['secondary'],
             'punishment_status' => [
                 'ban' => mineacle_player_empty_punishment('ban'),
                 'mute' => mineacle_player_empty_punishment('mute'),

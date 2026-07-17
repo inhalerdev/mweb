@@ -684,13 +684,19 @@
 
       const displayName = typeof player.display_name === 'string' && player.display_name.trim() !== '' ? player.display_name.trim() : name;
       const rankLabel = typeof player.rank_label === 'string' ? player.rank_label.trim() : '';
-      const rankColor = typeof player.rank_color === 'string' && /^#[0-9a-f]{6}$/i.test(player.rank_color.trim()) ? player.rank_color.trim() : '#ff55ff';
+      const rankColor = typeof player.rank_color === 'string' && /^#[0-9a-f]{6}$/i.test(player.rank_color.trim()) ? player.rank_color.trim() : '#bbbbbb';
+      const statusLabel = typeof player.status_label === 'string' ? player.status_label.trim() : '';
+      const statusLine = typeof player.status_line === 'string' ? player.status_line.trim() : '';
       const row = document.createElement('a');
+      const copyNode = document.createElement('span');
       const nameNode = document.createElement('span');
+      const metaNode = document.createElement('small');
       const actionNode = document.createElement('span');
       const headUrl = playerHeadUrl(player);
 
       row.className = 'player-search-option';
+      row.classList.toggle('is-online-player', player.online === true);
+      row.classList.toggle('is-offline-player', player.online !== true);
       row.href = playerProfileUrl(name);
       row.setAttribute('role', 'option');
       applyPlayerStatusClass(row, player);
@@ -730,7 +736,17 @@
       displayNode.className = 'ranked-player-name__name';
       displayNode.textContent = displayName;
       nameNode.append(displayNode);
-      row.append(nameNode);
+
+      copyNode.className = 'player-search-copy';
+      copyNode.append(nameNode);
+
+      if (statusLabel !== '' || statusLine !== '') {
+        metaNode.className = 'player-search-meta';
+        metaNode.textContent = [statusLabel, statusLine].filter(Boolean).join(' · ');
+        copyNode.append(metaNode);
+      }
+
+      row.append(copyNode);
 
       actionNode.className = 'player-search-action';
       actionNode.textContent = 'View Stats';

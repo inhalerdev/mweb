@@ -11,7 +11,7 @@ $leaderboardsUrl = mineacle_page_leaderboards_url($site);
 $directPath = parse_url((string) ($_SERVER['REQUEST_URI'] ?? ''), PHP_URL_PATH);
 $directUsername = trim((string) ($_GET['username'] ?? ''));
 
-if ($directPath === '/player.php' && preg_match('/^[A-Za-z0-9_]{1,32}$/', $directUsername) === 1) {
+if ($directPath === '/player.php' && preg_match('/^[A-Za-z0-9_-]{1,64}$/', $directUsername) === 1) {
     header('Location: https://mineacle.net/player/' . rawurlencode($directUsername), true, 301);
     exit;
 }
@@ -70,22 +70,28 @@ function mineacle_profile_team_view_model(array $player, ?array $team): array
 function mineacle_profile_view_model(array $player, ?array $team): array
 {
     $skin = is_array($player['skin'] ?? null) ? $player['skin'] : [];
-    $online = mineacle_stats_online($player);
     $teamView = mineacle_profile_team_view_model($player, $team);
     $rankName = mineacle_stats_rank_name($player);
+    $statusView = mineacle_stats_status_view($player);
     $displayName = mineacle_stats_display_name($player);
+    $username = mineacle_stats_username($player);
+    $rankColor = mineacle_stats_rank_color($player);
 
     return [
-        'username' => mineacle_stats_username($player),
+        'uuid' => trim((string) ($player['uuid'] ?? '')),
+        'username' => $username,
         'display_name' => $displayName,
         'ranked_name_html' => mineacle_stats_ranked_name_html($player, 'profile-ranked-name'),
         'rank_name' => $rankName,
+        'rank_color' => $rankColor,
         'skin_head' => trim((string) ($skin['head'] ?? '')),
         'skin_bust' => trim((string) (($skin['bust'] ?? '') ?: ($skin['chest'] ?? ''))),
-        'online' => $online,
-        'status_label' => $online ? 'Online' : 'Offline',
-        'location_label' => $online ? 'Located in Survival' : 'Last seen ' . mineacle_stats_last_seen_label($player),
-        'last_seen' => mineacle_stats_last_seen_label($player),
+        'online' => $statusView['online'],
+        'status_label' => $statusView['label'],
+        'location_label' => $statusView['line'],
+        'secondary_status' => $statusView['secondary'],
+        'world_name' => $statusView['world'],
+        'last_seen' => $statusView['last_seen'],
         'balance' => mineacle_stats_money_label($player),
         'kills' => number_format(mineacle_stats_int($player['kills'] ?? 0)),
         'deaths' => number_format(mineacle_stats_int($player['deaths'] ?? 0)),
@@ -107,8 +113,98 @@ function mineacle_profile_stat_item(string $label, string $value, string $icon, 
     echo '</article>';
 }
 
+function mineacle_profile_world_class(string $world): string
+{
+    $normalized = strtolower($world);
+
+    if (str_contains($normalized, 'nether')) {
+        return 'is-nether';
+    }
+
+    if (str_contains($normalized, 'end')) {
+        return 'is-end';
+    }
+
+    if (str_contains($normalized, 'spawn')) {
+        return 'is-spawn';
+    }
+
+    if (str_contains($normalized, 'overworld')) {
+        return 'is-overworld';
+    }
+
+    return 'is-world';
+}
+
+function mineacle_profile_status_line_html(string $line, string $world): string
+{
+    $world = trim($world);
+
+    if ($line === '' || $world === '' || !str_contains($line, $world)) {
+        return h($line);
+    }
+
+    $parts = explode($world, $line, 2);
+    $class = mineacle_profile_world_class($world);
+
+    return h($parts[0])
+        . '<span class="profile-world-name ' . h($class) . '">' . h($world) . '</span>'
+        . h($parts[1] ?? '');
+}
+
+function mineacle_profile_fight_head(array $skin, string $name): string
+{
+    $url = trim((string) ($skin['head'] ?? ''));
+
+    if ($url !== '') {
+        return '<img src="' . h($url) . '" alt="" loading="lazy" decoding="async" draggable="false" aria-hidden="true">';
+    }
+
+    return '<span aria-hidden="true">' . h(strtoupper(substr($name !== '' ? $name : '?', 0, 1))) . '</span>';
+}
+
+function mineacle_profile_fight_row(array $fight, array $viewModel, int $index): void
+{
+    $result = (string) ($fight['result'] ?? 'LOSS');
+    $isWin = $result === 'WIN';
+    $opponentDisplay = trim((string) ($fight['opponent_display_name'] ?? 'Unknown Player'));
+    $opponentUsername = trim((string) ($fight['opponent_username'] ?? ''));
+    $opponentSkin = is_array($fight['opponent_skin'] ?? null) ? $fight['opponent_skin'] : [];
+    $playerHead = trim((string) ($viewModel['skin_head'] ?? ''));
+    $winnerName = $isWin ? (string) $viewModel['display_name'] : $opponentDisplay;
+    $loserName = $isWin ? $opponentDisplay : (string) $viewModel['display_name'];
+    $playerHearts = $isWin ? (string) ($fight['winner_hearts_label'] ?? '0') : (string) ($fight['loser_hearts_label'] ?? '0');
+    $opponentHearts = $isWin ? (string) ($fight['loser_hearts_label'] ?? '0') : (string) ($fight['winner_hearts_label'] ?? '0');
+
+    echo '<article class="profile-duel-row ' . ($isWin ? 'is-win' : 'is-loss') . '">';
+    echo '<span class="profile-duel-result">' . h($result) . '</span>';
+    echo '<span class="profile-duel-fighter is-self">';
+    echo '<span class="profile-duel-head">';
+    if ($playerHead !== '') {
+        echo '<img src="' . h($playerHead) . '" alt="" loading="' . ($index < 4 ? 'eager' : 'lazy') . '" decoding="async" draggable="false" aria-hidden="true">';
+    } else {
+        echo '<span aria-hidden="true">' . h(strtoupper(substr((string) $viewModel['display_name'], 0, 1))) . '</span>';
+    }
+    echo '</span>';
+    echo '<span><strong>' . h((string) $viewModel['display_name']) . '</strong><small>' . h($playerHearts) . ' hearts</small></span>';
+    echo '</span>';
+    echo '<span class="profile-duel-vs">vs</span>';
+    echo '<span class="profile-duel-fighter is-opponent">';
+    echo '<span class="profile-duel-head">' . mineacle_profile_fight_head($opponentSkin, $opponentDisplay) . '</span>';
+    echo '<span><strong>' . h($opponentDisplay) . '</strong>';
+    if ($opponentUsername !== '' && strcasecmp($opponentUsername, $opponentDisplay) !== 0) {
+        echo '<small>@' . h($opponentUsername) . '</small>';
+    }
+    echo '<small>' . h($opponentHearts) . ' hearts</small>';
+    echo '</span></span>';
+    echo '<span class="profile-duel-detail"><strong>' . h((string) ($fight['world_label'] ?? 'Survival')) . '</strong><small>' . h($winnerName) . ' defeated ' . h($loserName) . '</small></span>';
+    echo '<span class="profile-duel-hearts">' . mineacle_stats_hearts_html($fight['winner_hearts'] ?? 0) . '<small>' . h((string) ($fight['heart_text'] ?? '')) . '</small></span>';
+    echo '<span class="profile-duel-time"><strong>' . h((string) ($fight['duration_label'] ?? '0s')) . '</strong><small>' . h((string) ($fight['ended_label'] ?? 'Unknown')) . '</small></span>';
+    echo '</article>';
+}
+
 $query = mineacle_profile_requested_username();
-$validUsername = preg_match('/^[A-Za-z0-9_]{1,32}$/', $query) === 1;
+$validUsername = preg_match('/^[A-Za-z0-9_-]{1,64}$/', $query) === 1;
 $player = null;
 $team = null;
 $loadError = false;
@@ -138,6 +234,7 @@ $storeLink = ['key' => 'store', 'url' => $site['store_url'] ?? '#'];
 $currentNavKey = 'stats';
 $assetVersion = mineacle_page_asset_version();
 $viewModel = $player ? mineacle_profile_view_model($player, $team) : null;
+$fightState = $viewModel !== null ? mineacle_stats_recent_fights((string) $viewModel['uuid'], 18) : ['available' => true, 'fights' => []];
 $pageTitle = $viewModel ? (string) $viewModel['display_name'] : 'Player';
 $metaOptions = [];
 
@@ -199,21 +296,32 @@ mineacle_page_head($pageTitle, $metaOptions);
             </section>
         <?php else: ?>
             <section class="panel profile-main-panel" aria-label="<?php echo h((string) $viewModel['display_name']); ?> stats">
-                <div class="profile-bust-stage">
-                    <?php if ($viewModel['skin_bust'] !== ''): ?>
-                        <img src="<?php echo h((string) $viewModel['skin_bust']); ?>" alt="" draggable="false" aria-hidden="true">
-                    <?php else: ?>
-                        <span><?php echo h(strtoupper(substr((string) $viewModel['display_name'], 0, 1))); ?></span>
-                    <?php endif; ?>
-                </div>
+                <div class="profile-hero-content">
+                    <div class="profile-bust-stage<?php echo $viewModel['skin_bust'] !== '' ? ' has-skin' : ''; ?>">
+                        <?php if ($viewModel['skin_bust'] !== ''): ?>
+                            <img src="<?php echo h((string) $viewModel['skin_bust']); ?>" alt="" draggable="false" aria-hidden="true" onerror="this.parentElement.classList.remove('has-skin');this.remove();">
+                        <?php endif; ?>
+                        <span class="profile-bust-fallback"><?php echo h(strtoupper(substr((string) $viewModel['display_name'], 0, 1))); ?></span>
+                    </div>
 
-                <div class="profile-player-lockup">
-                    <h1><?php echo $viewModel['ranked_name_html']; ?></h1>
-                    <div class="profile-state-lines">
-                        <p>
-                            <strong class="<?php echo $viewModel['online'] ? 'is-online' : 'is-offline'; ?>"><?php echo h((string) $viewModel['status_label']); ?></strong>
-                            <span><?php echo h((string) $viewModel['location_label']); ?></span>
-                        </p>
+                    <div class="profile-player-lockup">
+                        <h1><?php echo $viewModel['ranked_name_html']; ?></h1>
+                        <?php if (strcasecmp((string) $viewModel['username'], (string) $viewModel['display_name']) !== 0): ?>
+                            <p class="profile-username">@<?php echo h((string) $viewModel['username']); ?></p>
+                        <?php endif; ?>
+                        <div class="profile-state-lines">
+                            <p>
+                                <strong class="<?php echo $viewModel['online'] ? 'is-online' : 'is-offline'; ?>"><?php echo h((string) $viewModel['status_label']); ?></strong>
+                                <span><?php echo mineacle_profile_status_line_html((string) $viewModel['location_label'], (string) $viewModel['world_name']); ?></span>
+                            </p>
+                            <?php if ($viewModel['secondary_status'] !== ''): ?>
+                                <p class="profile-secondary-status"><?php echo mineacle_profile_status_line_html((string) $viewModel['secondary_status'], (string) $viewModel['world_name']); ?></p>
+                            <?php endif; ?>
+                        </div>
+                        <dl class="profile-meta-list">
+                            <div><dt>Joined</dt><dd><?php echo h((string) $viewModel['first_joined']); ?></dd></div>
+                            <div><dt>Last Seen</dt><dd><?php echo h((string) $viewModel['last_seen']); ?></dd></div>
+                        </dl>
                     </div>
                 </div>
 
@@ -230,7 +338,22 @@ mineacle_page_head($pageTitle, $metaOptions);
             </section>
 
             <section class="panel profile-recent-panel" aria-label="Recent fights">
-                <span class="sr-only">Recent fights will appear here once fight events are connected.</span>
+                <header class="profile-section-heading">
+                    <span><img src="/assets/icons/player-duels.png?v=<?php echo h(rawurlencode($assetVersion)); ?>" alt="" aria-hidden="true" draggable="false"></span>
+                    <h2>Recent Duels</h2>
+                </header>
+
+                <?php if (!$fightState['available']): ?>
+                    <div class="profile-duels-empty">Fight history is temporarily unavailable</div>
+                <?php elseif (($fightState['fights'] ?? []) === []): ?>
+                    <div class="profile-duels-empty">No recorded fights yet</div>
+                <?php else: ?>
+                    <div class="profile-duels-scroll" aria-label="18 most recent duels">
+                        <?php foreach ($fightState['fights'] as $index => $fight): ?>
+                            <?php if (is_array($fight)) mineacle_profile_fight_row($fight, $viewModel, (int) $index); ?>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
             </section>
         <?php endif; ?>
 

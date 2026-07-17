@@ -6,7 +6,7 @@ require_once __DIR__ . '/db.php';
 
 function mineacle_stats_table_sql(string $table): ?string
 {
-    if (!in_array($table, ['mineacle_web_profiles', 'mineacle_web_teams'], true) || !preg_match('/^[A-Za-z0-9_]+$/', $table)) {
+    if (!in_array($table, ['mineacle_web_profiles', 'mineacle_web_teams', 'mineacle_web_fights'], true) || !preg_match('/^[A-Za-z0-9_]+$/', $table)) {
         return null;
     }
 
@@ -49,6 +49,10 @@ function mineacle_stats_select_list(array $columns): string
         'rank_prefix' => "''",
         'rank_color' => "''",
         'rank_weight' => '0',
+        'online' => '0',
+        'world_key' => "''",
+        'world_name' => "''",
+        'world_group' => "''",
         'team_id' => "''",
         'team_name' => "''",
         'team_role' => "''",
@@ -65,7 +69,6 @@ function mineacle_stats_select_list(array $columns): string
         'playtime_rank' => '0',
         'first_joined_at' => '0',
         'last_seen' => '0',
-        'online' => '0',
         'updated_at' => '0',
     ];
     $select = [];
@@ -428,15 +431,36 @@ function mineacle_stats_profile_by_username(string $username): ?array
 
     $columns = mineacle_stats_columns($pdo, $tableSql);
     $usernameColumn = $columns['username'] ?? null;
+    $displayColumn = $columns['display_name'] ?? null;
+    $uuidColumn = $columns['uuid'] ?? null;
     $usernameSql = is_string($usernameColumn) ? mineacle_stats_column_sql($usernameColumn) : null;
+    $displaySql = is_string($displayColumn) ? mineacle_stats_column_sql($displayColumn) : null;
+    $uuidSql = is_string($uuidColumn) ? mineacle_stats_column_sql($uuidColumn) : null;
+    $where = [];
+    $params = [];
 
-    if ($usernameSql === null) {
-        throw new RuntimeException('Player username column is not available.');
+    if ($usernameSql !== null) {
+        $where[] = 'LOWER(' . $usernameSql . ') = LOWER(:username)';
+        $params[':username'] = $username;
+    }
+
+    if ($displaySql !== null) {
+        $where[] = 'LOWER(' . $displaySql . ') = LOWER(:display_name)';
+        $params[':display_name'] = $username;
+    }
+
+    if ($uuidSql !== null) {
+        $where[] = 'REPLACE(LOWER(' . $uuidSql . "), '-', '') = :uuid";
+        $params[':uuid'] = preg_replace('/[^a-f0-9]/', '', strtolower($username)) ?: $username;
+    }
+
+    if ($where === []) {
+        throw new RuntimeException('Player lookup columns are not available.');
     }
 
     $select = mineacle_stats_select_list($columns);
-    $statement = $pdo->prepare('SELECT ' . $select . ' FROM ' . $tableSql . ' WHERE LOWER(' . $usernameSql . ') = LOWER(:username) LIMIT 1');
-    $statement->execute([':username' => $username]);
+    $statement = $pdo->prepare('SELECT ' . $select . ' FROM ' . $tableSql . ' WHERE ' . implode(' OR ', $where) . ' LIMIT 1');
+    $statement->execute($params);
     $row = $statement->fetch();
 
     if (!is_array($row)) {
@@ -944,7 +968,7 @@ function mineacle_stats_rank_name(array $player): string
             return '+';
         }
 
-        return strtoupper($candidate);
+        return $candidate;
     }
 
     return '';
@@ -959,7 +983,7 @@ function mineacle_stats_rank_color(array $player): string
         return '#ff55ff';
     }
 
-    return preg_match('/^#[0-9a-f]{6}$/', $color) === 1 ? $color : '#ff55ff';
+    return preg_match('/^#[0-9a-f]{6}$/', $color) === 1 ? $color : '#bbbbbb';
 }
 
 function mineacle_stats_ranked_name_html(array $player, string $className = 'ranked-player-name'): string
@@ -1057,6 +1081,42 @@ function mineacle_stats_date_label(mixed $millis): string
     return date('M j, Y', (int) floor($value / 1000));
 }
 
+function mineacle_stats_relative_time_label(mixed $millis): string
+{
+    $value = mineacle_stats_int($millis);
+
+    if ($value <= 0) {
+        return 'Unknown';
+    }
+
+    $seconds = (int) floor($value / 1000);
+    $delta = max(0, time() - $seconds);
+
+    if ($delta < 45) {
+        return 'just now';
+    }
+
+    if ($delta < 3600) {
+        $minutes = max(1, (int) floor($delta / 60));
+
+        return $minutes . 'm ago';
+    }
+
+    if ($delta < 86400) {
+        $hours = max(1, (int) floor($delta / 3600));
+
+        return $hours . 'h ago';
+    }
+
+    if ($delta < 604800) {
+        $days = max(1, (int) floor($delta / 86400));
+
+        return $days . 'd ago';
+    }
+
+    return mineacle_stats_date_label($millis);
+}
+
 function mineacle_stats_online(array $player): bool
 {
     return mineacle_stats_int($player['online'] ?? 0) === 1;
@@ -1064,7 +1124,48 @@ function mineacle_stats_online(array $player): bool
 
 function mineacle_stats_last_seen_label(array $player): string
 {
-    return mineacle_stats_online($player) ? 'Online now' : mineacle_stats_date_label($player['last_seen'] ?? 0);
+    return mineacle_stats_online($player) ? 'Online now' : mineacle_stats_relative_time_label($player['last_seen'] ?? 0);
+}
+
+function mineacle_stats_world_name(array $player): string
+{
+    $worldName = trim((string) ($player['world_name'] ?? ''));
+
+    if ($worldName !== '') {
+        return $worldName;
+    }
+
+    $worldKey = strtolower(trim((string) ($player['world_key'] ?? '')));
+    $fallbacks = [
+        'spawn1' => 'Spawn 1',
+        'spawn2' => 'Spawn 2',
+        'spawn3' => 'Spawn 3',
+        'origins' => 'Overworld',
+        'origins_nether' => 'Nether',
+        'origins_the_end' => 'End',
+        'world_nether' => 'Nether',
+        'world_the_end' => 'End',
+    ];
+
+    return $fallbacks[$worldKey] ?? '';
+}
+
+function mineacle_stats_status_view(array $player): array
+{
+    $online = mineacle_stats_online($player);
+    $world = mineacle_stats_world_name($player);
+    $lastSeen = mineacle_stats_last_seen_label($player);
+
+    return [
+        'online' => $online,
+        'label' => $online ? 'Online' : 'Offline',
+        'line' => $online
+            ? ($world !== '' ? 'Located in ' . $world : 'Online now')
+            : 'Last seen ' . $lastSeen,
+        'secondary' => !$online && $world !== '' ? 'Last seen in ' . $world : '',
+        'world' => $world,
+        'last_seen' => $lastSeen,
+    ];
 }
 
 function mineacle_stats_skin_identifier(?string $uuid, string $username, bool $uuidOnly = false): ?string
@@ -1100,18 +1201,38 @@ function mineacle_stats_skin_url(string $url): string
     return $url . (str_contains($url, '?') ? '&' : '?') . mineacle_stats_skin_cache_query();
 }
 
+function mineacle_stats_mc_api_path(?string $uuid, string $username, string $type, int $size): ?string
+{
+    $uuidKey = preg_replace('/[^a-f0-9]/', '', strtolower(trim((string) $uuid)));
+
+    if (is_string($uuidKey) && $uuidKey !== '') {
+        return mineacle_stats_skin_url('https://mc-api.io/render/' . rawurlencode($type) . '/' . rawurlencode($uuidKey) . '?size=' . $size);
+    }
+
+    $username = trim($username);
+
+    if ($username === '') {
+        return null;
+    }
+
+    return mineacle_stats_skin_url('https://mc-api.io/render/' . rawurlencode($type) . '/' . rawurlencode($username) . '/java?size=' . $size);
+}
+
 function mineacle_stats_skin_assets(?string $uuid, string $username): array
 {
     $config = mineacle_config();
     $skin = is_array($config['skins'] ?? null) ? $config['skins'] : [];
-    $provider = strtolower(trim((string) ($skin['provider'] ?? 'crafty')));
-    $headSize = mineacle_stats_skin_size($skin['head_size'] ?? null, 96);
+    $provider = strtolower(trim((string) ($skin['provider'] ?? 'mc-api')));
+    $headSize = mineacle_stats_skin_size($skin['head_size'] ?? null, 96, 512);
     $chestSize = mineacle_stats_skin_size($skin['chest_size'] ?? null, 320);
-    $bustWidth = mineacle_stats_skin_size($skin['bust_width'] ?? null, 960, 1400);
-    $bustHeight = mineacle_stats_skin_size($skin['bust_height'] ?? null, 1080, 1600);
+    $bustSize = mineacle_stats_skin_size($skin['bust_size'] ?? null, 512, 512);
 
-    if (!in_array($provider, ['crafty', 'mineskin', 'minotar', 'mc-heads', 'crafatar'], true)) {
-        $provider = 'crafty';
+    if ($provider === 'mcapi') {
+        $provider = 'mc-api';
+    }
+
+    if (!in_array($provider, ['mc-api', 'crafty', 'mineskin', 'minotar', 'mc-heads', 'crafatar'], true)) {
+        $provider = 'mc-api';
     }
 
     $identifier = mineacle_stats_skin_identifier($uuid, $username, $provider === 'crafatar');
@@ -1125,12 +1246,24 @@ function mineacle_stats_skin_assets(?string $uuid, string $username): array
         ];
     }
 
+    if ($provider === 'mc-api') {
+        $head = mineacle_stats_mc_api_path($uuid, $username, 'face', $headSize);
+        $bust = mineacle_stats_mc_api_path($uuid, $username, 'bust', $bustSize);
+
+        return [
+            'provider' => $provider,
+            'head' => $head,
+            'chest' => $bust,
+            'bust' => $bust,
+        ];
+    }
+
     if ($provider === 'crafty') {
         return [
             'provider' => $provider,
             'head' => mineacle_stats_skin_url('https://render.crafty.gg/2d/head/' . $identifier . '?size=' . $headSize),
             'chest' => mineacle_stats_skin_url('https://render.crafty.gg/3d/bust/' . $identifier . '?width=' . $chestSize . '&height=' . max(420, $chestSize + 220) . '&x=-25&z=35&shadow=false'),
-            'bust' => mineacle_stats_skin_url('https://render.crafty.gg/3d/bust/' . $identifier . '?width=' . $bustWidth . '&height=' . $bustHeight . '&x=-25&z=35&shadow=false'),
+            'bust' => mineacle_stats_skin_url('https://render.crafty.gg/3d/bust/' . $identifier . '?width=960&height=1080&x=-25&z=35&shadow=false'),
         ];
     }
 
@@ -1167,6 +1300,166 @@ function mineacle_stats_skin_assets(?string $uuid, string $username): array
         'chest' => mineacle_stats_skin_url('https://mineskin.eu/armor/bust/' . $identifier . '/' . $chestSize . '.png'),
         'bust' => mineacle_stats_skin_url('https://mineskin.eu/armor/bust/' . $identifier . '/' . $chestSize . '.png'),
     ];
+}
+
+function mineacle_stats_duration_label(mixed $seconds): string
+{
+    $value = max(0, mineacle_stats_int($seconds));
+
+    if ($value < 60) {
+        return $value . 's';
+    }
+
+    $minutes = intdiv($value, 60);
+    $remainingSeconds = $value % 60;
+
+    return $minutes . 'm ' . str_pad((string) $remainingSeconds, 2, '0', STR_PAD_LEFT) . 's';
+}
+
+function mineacle_stats_decimal_label(mixed $value): string
+{
+    if (!is_numeric($value)) {
+        return '0';
+    }
+
+    $formatted = number_format((float) $value, 2, '.', '');
+    $formatted = rtrim(rtrim($formatted, '0'), '.');
+
+    return $formatted === '' ? '0' : $formatted;
+}
+
+function mineacle_stats_fight_world_name(array $fight): string
+{
+    $worldName = trim((string) ($fight['world_name'] ?? ''));
+
+    if ($worldName !== '') {
+        return $worldName;
+    }
+
+    $worldKey = strtolower(trim((string) ($fight['world_key'] ?? '')));
+    $fallbacks = [
+        'origins' => 'Overworld',
+        'origins_nether' => 'Nether',
+        'origins_the_end' => 'End',
+        'world_nether' => 'Nether',
+        'world_the_end' => 'End',
+    ];
+
+    return $fallbacks[$worldKey] ?? 'Survival';
+}
+
+function mineacle_stats_recent_fights(string $profileUuid, int $limit = 18): array
+{
+    $uuidKey = preg_replace('/[^a-f0-9]/', '', strtolower(trim($profileUuid)));
+
+    if (!is_string($uuidKey) || $uuidKey === '') {
+        return ['available' => true, 'fights' => []];
+    }
+
+    $pdo = mineacle_core_db();
+
+    if (!$pdo instanceof PDO) {
+        return ['available' => false, 'fights' => []];
+    }
+
+    $config = mineacle_config();
+    $tables = $config['tables'] ?? [];
+    $table = (string) ($tables['fights'] ?? 'mineacle_web_fights');
+    $tableSql = mineacle_stats_table_sql($table);
+
+    if ($tableSql === null) {
+        return ['available' => false, 'fights' => []];
+    }
+
+    $limit = max(1, min(18, $limit));
+    $winnerKeySql = "REPLACE(LOWER(`winner_uuid`), '-', '')";
+    $loserKeySql = "REPLACE(LOWER(`loser_uuid`), '-', '')";
+    $sql = 'SELECT '
+        . '`fight_id`, '
+        . '`winner_uuid`, `winner_username`, `winner_display_name`, '
+        . '`loser_uuid`, `loser_username`, `loser_display_name`, '
+        . '`world_key`, `world_name`, '
+        . '`winner_hearts`, `loser_hearts`, '
+        . '`started_at`, `ended_at`, `duration_seconds`, '
+        . 'CASE WHEN ' . $winnerKeySql . ' = ? THEN \'WIN\' ELSE \'LOSS\' END AS `result`, '
+        . 'CASE WHEN ' . $winnerKeySql . ' = ? THEN `loser_uuid` ELSE `winner_uuid` END AS `opponent_uuid`, '
+        . 'CASE WHEN ' . $winnerKeySql . ' = ? THEN `loser_username` ELSE `winner_username` END AS `opponent_username`, '
+        . 'CASE WHEN ' . $winnerKeySql . ' = ? THEN `loser_display_name` ELSE `winner_display_name` END AS `opponent_display_name` '
+        . 'FROM ' . $tableSql . ' '
+        . 'WHERE ' . $winnerKeySql . ' = ? OR ' . $loserKeySql . ' = ? '
+        . 'ORDER BY `ended_at` DESC '
+        . 'LIMIT ' . $limit;
+
+    try {
+        $statement = $pdo->prepare($sql);
+        $statement->execute([$uuidKey, $uuidKey, $uuidKey, $uuidKey, $uuidKey, $uuidKey]);
+        $rows = $statement->fetchAll();
+    } catch (Throwable) {
+        return ['available' => false, 'fights' => []];
+    }
+
+    $fights = [];
+
+    foreach ($rows as $row) {
+        if (!is_array($row)) {
+            continue;
+        }
+
+        $opponentUsername = trim((string) ($row['opponent_username'] ?? ''));
+        $opponentDisplayName = trim((string) ($row['opponent_display_name'] ?? ''));
+        $opponentUuid = trim((string) ($row['opponent_uuid'] ?? ''));
+        $winnerHearts = mineacle_stats_decimal_label($row['winner_hearts'] ?? 0);
+        $result = strtoupper(trim((string) ($row['result'] ?? 'LOSS'))) === 'WIN' ? 'WIN' : 'LOSS';
+
+        if ($opponentDisplayName === '') {
+            $opponentDisplayName = $opponentUsername !== '' ? $opponentUsername : 'Unknown Player';
+        }
+
+        $row['result'] = $result;
+        $row['opponent_username'] = $opponentUsername;
+        $row['opponent_display_name'] = $opponentDisplayName;
+        $row['opponent_skin'] = mineacle_stats_skin_assets($opponentUuid, $opponentUsername !== '' ? $opponentUsername : $opponentDisplayName);
+        $row['world_label'] = mineacle_stats_fight_world_name($row);
+        $row['winner_hearts_label'] = $winnerHearts;
+        $row['loser_hearts_label'] = mineacle_stats_decimal_label($row['loser_hearts'] ?? 0);
+        $row['heart_text'] = $result === 'WIN'
+            ? 'Won with ' . $winnerHearts . ' hearts'
+            : 'Opponent won with ' . $winnerHearts . ' hearts';
+        $row['duration_label'] = mineacle_stats_duration_label($row['duration_seconds'] ?? 0);
+        $row['ended_label'] = mineacle_stats_relative_time_label($row['ended_at'] ?? 0);
+        $fights[] = $row;
+    }
+
+    return ['available' => true, 'fights' => $fights];
+}
+
+function mineacle_stats_hearts_html(mixed $hearts, string $className = 'fight-hearts'): string
+{
+    $value = max(0.0, mineacle_stats_float($hearts));
+    $label = mineacle_stats_decimal_label($value);
+    $full = (int) floor($value);
+    $fraction = $value - $full;
+    $totalIcons = min(20, $full + ($fraction > 0 ? 1 : 0));
+    $html = '<span class="' . h($className) . '" role="img" aria-label="' . h($label . ' hearts remaining') . '">';
+
+    for ($index = 0; $index < $totalIcons; $index++) {
+        $fill = 100;
+
+        if ($index === $full && $fraction > 0) {
+            $fill = max(1, min(100, (int) round($fraction * 100)));
+        }
+
+        $html .= '<span class="' . h($className) . '__heart" style="--fill:' . h((string) $fill) . '%"></span>';
+    }
+
+    if ($value > $totalIcons) {
+        $html .= '<span class="' . h($className) . '__extra">+' . h(mineacle_stats_decimal_label($value - $totalIcons)) . '</span>';
+    }
+
+    $html .= '<span class="' . h($className) . '__text">' . h($label) . '</span>';
+    $html .= '</span>';
+
+    return $html;
 }
 
 function mineacle_stats_empty_punishment(string $type): array

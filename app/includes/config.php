@@ -67,6 +67,7 @@ return [
         'social_links' => $mineacleEnv(['HOME_SOCIAL_TABLE', 'home_social_table'], 'home_social_links'),
         'player_profiles' => $mineacleEnv(['PLAYER_PROFILES_TABLE', 'player_profiles_table'], 'mineacle_web_profiles'),
         'teams' => $mineacleEnv(['TEAMS_TABLE', 'PLAYER_TEAMS_TABLE', 'teams_table'], 'mineacle_web_teams'),
+        'fights' => $mineacleEnv(['PLAYER_FIGHTS_TABLE', 'player_fights_table'], 'mineacle_web_fights'),
         'litebans_bans' => $mineacleEnv(['LITEBANS_BANS_TABLE', 'litebans_bans_table'], 'litebans_bans'),
         'litebans_mutes' => $mineacleEnv(['LITEBANS_MUTES_TABLE', 'litebans_mutes_table'], 'litebans_mutes'),
     ],
@@ -85,9 +86,10 @@ return [
         'password_hash' => $mineacleEnv(['ADMIN_PASSWORD_HASH', 'admin_password_hash']),
     ],
     'skins' => [
-        'provider' => strtolower($mineacleEnv(['SKIN_PROVIDER', 'skin_provider'], 'crafty')),
-        'head_size' => (int) $mineacleEnv(['SKIN_HEAD_SIZE', 'skin_head_size'], '64'),
-        'chest_size' => (int) $mineacleEnv(['SKIN_CHEST_SIZE', 'skin_chest_size'], '180'),
+        'provider' => strtolower($mineacleEnv(['SKIN_PROVIDER', 'skin_provider'], 'mc-api')),
+        'head_size' => (int) $mineacleEnv(['SKIN_HEAD_SIZE', 'skin_head_size'], '96'),
+        'chest_size' => (int) $mineacleEnv(['SKIN_CHEST_SIZE', 'skin_chest_size'], '320'),
+        'bust_size' => (int) $mineacleEnv(['SKIN_BUST_SIZE', 'skin_bust_size'], '512'),
     ],
     'security' => [
         'debug' => strtolower($mineacleEnv(['APP_DEBUG', 'app_debug'])) === 'true',
