@@ -6,7 +6,7 @@ require_once __DIR__ . '/db.php';
 
 function mineacle_page_asset_version(): string
 {
-    return 'base108';
+    return 'base109';
 }
 
 function mineacle_page_clean_text(string $value): string
@@ -301,7 +301,7 @@ function mineacle_page_head(string $title = 'Home', array $options = []): void
     echo '<link rel="icon" type="image/png" href="/assets/fav-web.png?v=' . h($assetVersion) . '">';
     echo '<link rel="preconnect" href="https://fonts.googleapis.com">';
     echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>';
-    echo '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;800&display=swap">';
+    echo '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap">';
     echo '<link rel="stylesheet" href="/assets/home-page.css?v=' . h($assetVersion) . '">';
     echo '</head>';
     echo '<body>';

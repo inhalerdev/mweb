@@ -9,7 +9,7 @@ if ($frontPath === '') {
     $frontPath = '/';
 }
 
-if (preg_match('#^/player/([A-Za-z0-9_]{1,32})$#', $frontPath, $frontMatch) === 1) {
+if (preg_match('#^/player/([A-Za-z0-9_-]{1,64})$#', $frontPath, $frontMatch) === 1) {
     $_GET['username'] = rawurldecode($frontMatch[1]);
     require __DIR__ . '/player.php';
     exit;
