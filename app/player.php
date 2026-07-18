@@ -100,16 +100,25 @@ function mineacle_profile_view_model(array $player, ?array $team): array
         'money_rank' => mineacle_stats_rank_label($player['money_rank'] ?? 0),
         'kills_rank' => mineacle_stats_rank_label($player['kills_rank'] ?? 0),
         'playtime_rank' => mineacle_stats_rank_label($player['playtime_rank'] ?? 0),
+        'global_rank' => mineacle_stats_rank_label($player['money_rank'] ?? 0),
         'first_joined' => mineacle_stats_date_label($player['first_joined_at'] ?? 0),
         'team' => $teamView,
     ];
 }
 
-function mineacle_profile_stat_item(string $label, string $value, string $icon, string $alt = ''): void
+function mineacle_profile_stat_item(string $label, string $value, string $icon, string $alt = '', string $subvalue = ''): void
 {
     echo '<article class="profile-summary-item">';
     echo '<span>' . h($label) . '</span>';
-    echo '<strong><img src="' . h($icon) . '" alt="' . h($alt) . '" draggable="false"> ' . h($value) . '</strong>';
+    echo '<strong>';
+    if ($icon !== '') {
+        echo '<img src="' . h($icon) . '" alt="' . h($alt) . '" draggable="false"> ';
+    }
+    echo '<span class="profile-summary-value">' . h($value);
+    if ($subvalue !== '') {
+        echo '<small>' . h($subvalue) . '</small>';
+    }
+    echo '</span></strong>';
     echo '</article>';
 }
 
@@ -163,43 +172,57 @@ function mineacle_profile_fight_head(array $skin, string $name): string
     return '<span aria-hidden="true">' . h(strtoupper(substr($name !== '' ? $name : '?', 0, 1))) . '</span>';
 }
 
+function mineacle_profile_fight_date_label(mixed $timestamp): string
+{
+    $value = mineacle_stats_int($timestamp);
+
+    if ($value <= 0) {
+        return 'Unknown';
+    }
+
+    if ($value > 9999999999) {
+        $value = (int) floor($value / 1000);
+    }
+
+    return date('n/j/Y', $value);
+}
+
+function mineacle_profile_duel_fighter_html(string $headHtml, string $name, mixed $hearts, string $className = ''): string
+{
+    $classes = trim('profile-duel-fighter ' . $className);
+
+    return '<span class="' . h($classes) . '">'
+        . '<span class="profile-duel-head">' . $headHtml . '</span>'
+        . '<span class="profile-duel-copy">'
+        . '<strong>' . h($name !== '' ? $name : 'Unknown Player') . '</strong>'
+        . mineacle_stats_hearts_html($hearts, 'duel-hearts')
+        . '</span>'
+        . '</span>';
+}
+
 function mineacle_profile_fight_row(array $fight, array $viewModel, int $index): void
 {
     $result = (string) ($fight['result'] ?? 'LOSS');
     $isWin = $result === 'WIN';
     $opponentDisplay = trim((string) ($fight['opponent_display_name'] ?? 'Unknown Player'));
-    $opponentUsername = trim((string) ($fight['opponent_username'] ?? ''));
     $opponentSkin = is_array($fight['opponent_skin'] ?? null) ? $fight['opponent_skin'] : [];
     $playerHead = trim((string) ($viewModel['skin_head'] ?? ''));
-    $winnerName = $isWin ? (string) $viewModel['display_name'] : $opponentDisplay;
-    $loserName = $isWin ? $opponentDisplay : (string) $viewModel['display_name'];
-    $playerHearts = $isWin ? (string) ($fight['winner_hearts_label'] ?? '0') : (string) ($fight['loser_hearts_label'] ?? '0');
-    $opponentHearts = $isWin ? (string) ($fight['loser_hearts_label'] ?? '0') : (string) ($fight['winner_hearts_label'] ?? '0');
+    $playerHearts = $isWin ? ($fight['winner_hearts'] ?? 0) : ($fight['loser_hearts'] ?? 0);
+    $opponentHearts = $isWin ? ($fight['loser_hearts'] ?? 0) : ($fight['winner_hearts'] ?? 0);
+    $playerName = (string) ($viewModel['display_name'] ?? 'Player');
+    $playerHeadHtml = $playerHead !== ''
+        ? '<img src="' . h($playerHead) . '" alt="" loading="' . ($index < 4 ? 'eager' : 'lazy') . '" decoding="async" draggable="false" aria-hidden="true">'
+        : '<span aria-hidden="true">' . h(strtoupper(substr($playerName, 0, 1))) . '</span>';
+    $opponentHeadHtml = mineacle_profile_fight_head($opponentSkin, $opponentDisplay);
 
     echo '<article class="profile-duel-row ' . ($isWin ? 'is-win' : 'is-loss') . '">';
     echo '<span class="profile-duel-result">' . h($result) . '</span>';
-    echo '<span class="profile-duel-fighter is-self">';
-    echo '<span class="profile-duel-head">';
-    if ($playerHead !== '') {
-        echo '<img src="' . h($playerHead) . '" alt="" loading="' . ($index < 4 ? 'eager' : 'lazy') . '" decoding="async" draggable="false" aria-hidden="true">';
-    } else {
-        echo '<span aria-hidden="true">' . h(strtoupper(substr((string) $viewModel['display_name'], 0, 1))) . '</span>';
-    }
-    echo '</span>';
-    echo '<span><strong>' . h((string) $viewModel['display_name']) . '</strong><small>' . h($playerHearts) . ' hearts</small></span>';
-    echo '</span>';
+    echo mineacle_profile_duel_fighter_html($playerHeadHtml, $playerName, $playerHearts, 'is-self');
     echo '<span class="profile-duel-vs">vs</span>';
-    echo '<span class="profile-duel-fighter is-opponent">';
-    echo '<span class="profile-duel-head">' . mineacle_profile_fight_head($opponentSkin, $opponentDisplay) . '</span>';
-    echo '<span><strong>' . h($opponentDisplay) . '</strong>';
-    if ($opponentUsername !== '' && strcasecmp($opponentUsername, $opponentDisplay) !== 0) {
-        echo '<small>@' . h($opponentUsername) . '</small>';
-    }
-    echo '<small>' . h($opponentHearts) . ' hearts</small>';
-    echo '</span></span>';
-    echo '<span class="profile-duel-detail"><strong>' . h((string) ($fight['world_label'] ?? 'Survival')) . '</strong><small>' . h($winnerName) . ' defeated ' . h($loserName) . '</small></span>';
-    echo '<span class="profile-duel-hearts">' . mineacle_stats_hearts_html($fight['winner_hearts'] ?? 0) . '<small>' . h((string) ($fight['heart_text'] ?? '')) . '</small></span>';
-    echo '<span class="profile-duel-time"><strong>' . h((string) ($fight['duration_label'] ?? '0s')) . '</strong><small>' . h((string) ($fight['ended_label'] ?? 'Unknown')) . '</small></span>';
+    echo mineacle_profile_duel_fighter_html($opponentHeadHtml, $opponentDisplay, $opponentHearts, 'is-opponent');
+    echo '<span class="profile-duel-world">' . h((string) ($fight['world_label'] ?? 'Survival')) . '</span>';
+    echo '<span class="profile-duel-duration">' . h((string) ($fight['duration_label'] ?? '0s')) . '</span>';
+    echo '<span class="profile-duel-date">' . h(mineacle_profile_fight_date_label($fight['ended_at'] ?? 0)) . '</span>';
     echo '</article>';
 }
 
@@ -234,7 +257,7 @@ $storeLink = ['key' => 'store', 'url' => $site['store_url'] ?? '#'];
 $currentNavKey = 'stats';
 $assetVersion = mineacle_page_asset_version();
 $viewModel = $player ? mineacle_profile_view_model($player, $team) : null;
-$fightState = $viewModel !== null ? mineacle_stats_recent_fights((string) $viewModel['uuid'], 18) : ['available' => true, 'fights' => []];
+$fightState = $viewModel !== null ? mineacle_stats_recent_fights((string) $viewModel['uuid'], 16) : ['available' => true, 'fights' => []];
 $pageTitle = $viewModel ? (string) $viewModel['display_name'] : 'Player';
 $metaOptions = [];
 
@@ -321,12 +344,12 @@ mineacle_page_head($pageTitle, $metaOptions);
 
                 <div class="profile-summary-bar" aria-label="Player stat summary">
                     <?php
-                    mineacle_profile_stat_item('Player Balance', (string) $viewModel['balance'], '/assets/icons/player-money.png?v=' . rawurlencode($assetVersion), 'Balance');
-                    mineacle_profile_stat_item('Player Kills', (string) $viewModel['kills'], '/assets/icons/player-sword.png?v=' . rawurlencode($assetVersion), 'Kills');
-                    mineacle_profile_stat_item('Player Deaths', (string) $viewModel['deaths'], '/assets/icons/player-heart.png?v=' . rawurlencode($assetVersion), 'Deaths');
-                    mineacle_profile_stat_item('Player Playtime', (string) $viewModel['playtime'], '/assets/icons/player-clock.png?v=' . rawurlencode($assetVersion), 'Playtime');
-                    mineacle_profile_stat_item('Player Team', (string) $viewModel['team']['name'], '/assets/icons/player-castle.png?v=' . rawurlencode($assetVersion), 'Team');
-                    mineacle_profile_stat_item('Team Role', (string) $viewModel['team']['role'], '/assets/icons/player-person.png?v=' . rawurlencode($assetVersion), 'Role');
+                    mineacle_profile_stat_item('Current Balance', (string) $viewModel['balance'], '/assets/icons/player-money.png?v=' . rawurlencode($assetVersion), 'Balance');
+                    mineacle_profile_stat_item('Global Kills', (string) $viewModel['kills'], '/assets/icons/player-sword.png?v=' . rawurlencode($assetVersion), 'Kills');
+                    mineacle_profile_stat_item('Global Deaths', (string) $viewModel['deaths'], '/assets/icons/player-heart.png?v=' . rawurlencode($assetVersion), 'Deaths');
+                    mineacle_profile_stat_item('Global Playtime', (string) $viewModel['playtime'], '/assets/icons/player-clock.png?v=' . rawurlencode($assetVersion), 'Playtime');
+                    mineacle_profile_stat_item('Player Team', (string) $viewModel['team']['name'], '/assets/icons/player-castle.png?v=' . rawurlencode($assetVersion), 'Team', (string) $viewModel['team']['role']);
+                    mineacle_profile_stat_item('Global Rank', (string) $viewModel['global_rank'], '', '');
                     ?>
                 </div>
             </section>
@@ -342,10 +365,21 @@ mineacle_page_head($pageTitle, $metaOptions);
                 <?php elseif (($fightState['fights'] ?? []) === []): ?>
                     <div class="profile-duels-empty">No recorded fights yet</div>
                 <?php else: ?>
-                    <div class="profile-duels-scroll" aria-label="18 most recent duels">
-                        <?php foreach ($fightState['fights'] as $index => $fight): ?>
-                            <?php if (is_array($fight)) mineacle_profile_fight_row($fight, $viewModel, (int) $index); ?>
-                        <?php endforeach; ?>
+                    <div class="profile-duels-table">
+                        <div class="profile-duels-head" aria-hidden="true">
+                            <span>Status</span>
+                            <span>Player</span>
+                            <span></span>
+                            <span>Opponent</span>
+                            <span>World</span>
+                            <span>Duration</span>
+                            <span>Date</span>
+                        </div>
+                        <div class="profile-duels-scroll" aria-label="16 most recent duels">
+                            <?php foreach ($fightState['fights'] as $index => $fight): ?>
+                                <?php if (is_array($fight)) mineacle_profile_fight_row($fight, $viewModel, (int) $index); ?>
+                            <?php endforeach; ?>
+                        </div>
                     </div>
                 <?php endif; ?>
             </section>

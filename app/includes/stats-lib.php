@@ -1368,7 +1368,7 @@ function mineacle_stats_fight_world_name(array $fight): string
     return $fallbacks[$worldKey] ?? 'Survival';
 }
 
-function mineacle_stats_recent_fights(string $profileUuid, int $limit = 18): array
+function mineacle_stats_recent_fights(string $profileUuid, int $limit = 16): array
 {
     $uuidKey = preg_replace('/[^a-f0-9]/', '', strtolower(trim($profileUuid)));
 
@@ -1391,7 +1391,7 @@ function mineacle_stats_recent_fights(string $profileUuid, int $limit = 18): arr
         return ['available' => false, 'fights' => []];
     }
 
-    $limit = max(1, min(18, $limit));
+    $limit = max(1, min(16, $limit));
     $winnerKeySql = "REPLACE(LOWER(`winner_uuid`), '-', '')";
     $loserKeySql = "REPLACE(LOWER(`loser_uuid`), '-', '')";
     $sql = 'SELECT '
@@ -1457,26 +1457,31 @@ function mineacle_stats_hearts_html(mixed $hearts, string $className = 'fight-he
 {
     $value = max(0.0, mineacle_stats_float($hearts));
     $label = mineacle_stats_decimal_label($value);
-    $full = (int) floor($value);
-    $fraction = $value - $full;
-    $totalIcons = min(20, $full + ($fraction > 0 ? 1 : 0));
+    $visualValue = min(10.0, $value);
+    $assetVersion = function_exists('mineacle_page_asset_version') ? mineacle_page_asset_version() : 'base';
+    $assetQuery = '?v=' . rawurlencode($assetVersion);
+    $fullHeart = '/assets/icons/full-heart.png' . $assetQuery;
+    $partialHeart = '/assets/icons/partial-heart.png' . $assetQuery;
+    $emptyHeart = '/assets/icons/empty-heart.png' . $assetQuery;
     $html = '<span class="' . h($className) . '" role="img" aria-label="' . h($label . ' hearts remaining') . '">';
 
-    for ($index = 0; $index < $totalIcons; $index++) {
-        $fill = 100;
+    for ($index = 0; $index < 10; $index++) {
+        $remaining = $visualValue - $index;
+        $src = $emptyHeart;
+        $state = 'empty';
 
-        if ($index === $full && $fraction > 0) {
-            $fill = max(1, min(100, (int) round($fraction * 100)));
+        if ($remaining >= 1) {
+            $src = $fullHeart;
+            $state = 'full';
+        } elseif ($remaining > 0) {
+            $src = $partialHeart;
+            $state = 'partial';
         }
 
-        $html .= '<span class="' . h($className) . '__heart" style="--fill:' . h((string) $fill) . '%"></span>';
+        $html .= '<img class="' . h($className) . '__heart is-' . h($state) . '" src="' . h($src) . '" alt="" draggable="false" loading="lazy" decoding="async" aria-hidden="true">';
     }
 
-    if ($value > $totalIcons) {
-        $html .= '<span class="' . h($className) . '__extra">+' . h(mineacle_stats_decimal_label($value - $totalIcons)) . '</span>';
-    }
-
-    $html .= '<span class="' . h($className) . '__text">' . h($label) . '</span>';
+    $html .= '<span class="' . h($className) . '__text">' . h($label . ' hearts remaining') . '</span>';
     $html .= '</span>';
 
     return $html;

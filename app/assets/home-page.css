@@ -1978,9 +1978,9 @@ a[aria-label="Discord"]:focus-visible .site-icon {
 
 .profile-page {
   align-content: start;
-  --profile-summary-height: clamp(70px, 7dvh, 96px);
-  --profile-header-height: clamp(250px, 38dvh, 380px);
-  --profile-duels-height: calc(var(--hero-height) - var(--profile-header-height) - var(--gap));
+  --profile-summary-height: clamp(92px, 8.4dvh, 126px);
+  --profile-header-height: clamp(350px, 44dvh, 500px);
+  --profile-duels-height: max(330px, calc(var(--hero-height) - var(--profile-header-height) - var(--gap)));
 }
 
 .profile-main-panel {
@@ -2021,14 +2021,14 @@ a[aria-label="Discord"]:focus-visible .site-icon {
 .profile-hero-content {
   position: relative;
   z-index: 2;
-  width: min(100%, 1040px);
+  width: min(100%, 980px);
   justify-self: center;
   min-height: 0;
   display: grid;
-  grid-template-columns: minmax(190px, 0.72fr) minmax(280px, 0.9fr);
+  grid-template-columns: minmax(220px, 0.62fr) minmax(280px, 0.74fr);
   align-items: center;
   justify-items: center;
-  gap: clamp(10px, 2.2vw, 38px);
+  gap: clamp(8px, 1.8vw, 30px);
   padding: clamp(14px, 2.8dvh, 34px) clamp(26px, 5vw, 86px) 0;
 }
 
@@ -2043,7 +2043,7 @@ a[aria-label="Discord"]:focus-visible .site-icon {
 }
 
 .profile-bust-stage img {
-  width: clamp(150px, min(23vw, 34dvh), 380px);
+  width: clamp(210px, min(24vw, 39dvh), 430px);
   max-height: 100%;
   display: block;
   object-fit: contain;
@@ -2082,7 +2082,7 @@ a[aria-label="Discord"]:focus-visible .site-icon {
   margin: 0;
   overflow-wrap: anywhere;
   color: var(--heading);
-  font-size: clamp(1.38rem, min(3.1vw, 5dvh), 3rem);
+  font-size: clamp(1.85rem, min(3.55vw, 5.7dvh), 4rem);
   font-weight: var(--font-extrabold);
   line-height: 0.95;
   text-transform: uppercase;
@@ -2113,8 +2113,8 @@ a[aria-label="Discord"]:focus-visible .site-icon {
   gap: 8px;
   margin: 0;
   color: var(--subtext);
-  font-size: 0.72rem;
-  font-weight: var(--ui-font-weight);
+  font-size: clamp(0.8rem, 0.72rem + 0.18vw, 0.94rem);
+  font-weight: var(--font-semibold);
   line-height: 1.15;
 }
 
@@ -2124,14 +2124,14 @@ a[aria-label="Discord"]:focus-visible .site-icon {
 }
 
 .profile-state-lines strong {
-  min-height: 24px;
+  min-height: 26px;
   display: inline-flex;
   align-items: center;
   border-radius: 3px;
-  padding: 0 10px;
+  padding: 0 11px;
   color: var(--heading);
-  font-size: 0.68rem;
-  font-weight: var(--ui-font-weight);
+  font-size: clamp(0.7rem, 0.66rem + 0.1vw, 0.78rem);
+  font-weight: var(--font-bold);
   line-height: 1;
   text-transform: uppercase;
 }
@@ -2198,15 +2198,14 @@ a[aria-label="Discord"]:focus-visible .site-icon {
   gap: 6px;
 }
 
-.profile-summary-item span {
+.profile-summary-item > span {
   min-width: 0;
   overflow: hidden;
   color: var(--subtext);
-  font-size: clamp(0.62rem, 0.55rem + 0.16vw, 0.72rem);
-  font-weight: var(--ui-font-weight);
+  font-size: clamp(0.68rem, 0.6rem + 0.16vw, 0.82rem);
+  font-weight: var(--font-semibold);
   line-height: 1;
   text-overflow: ellipsis;
-  text-transform: uppercase;
   white-space: nowrap;
 }
 
@@ -2217,11 +2216,30 @@ a[aria-label="Discord"]:focus-visible .site-icon {
   gap: 8px;
   overflow: hidden;
   color: var(--heading);
-  font-size: clamp(0.78rem, 0.7rem + 0.2vw, 0.95rem);
-  font-weight: var(--ui-font-weight);
+  font-size: clamp(0.82rem, 0.72rem + 0.24vw, 1rem);
+  font-weight: var(--font-semibold);
   line-height: 1.1;
   text-overflow: ellipsis;
-  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.profile-summary-value {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+  overflow: hidden;
+  color: var(--heading);
+  text-overflow: ellipsis;
+}
+
+.profile-summary-value small {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--subtext);
+  font-size: clamp(0.64rem, 0.58rem + 0.16vw, 0.76rem);
+  font-weight: var(--font-semibold);
+  line-height: 1;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
@@ -2273,33 +2291,57 @@ a[aria-label="Discord"]:focus-visible .site-icon {
   text-transform: uppercase;
 }
 
+.profile-duels-table {
+  min-height: 0;
+  align-self: start;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+
+.profile-duels-head,
+.profile-duel-row {
+  display: grid;
+  grid-template-columns: minmax(78px, 0.52fr) minmax(230px, 1.55fr) 46px minmax(230px, 1.55fr) minmax(118px, 0.78fr) minmax(92px, 0.58fr) minmax(112px, 0.66fr);
+  align-items: center;
+  gap: clamp(10px, 1.3vw, 18px);
+}
+
+.profile-duels-head {
+  min-height: 42px;
+  padding: 0 clamp(14px, 1.7vw, 22px);
+  background: #303030;
+  color: var(--subtext);
+  font-size: clamp(0.68rem, 0.62rem + 0.14vw, 0.78rem);
+  font-weight: var(--font-bold);
+  line-height: 1;
+}
+
 .profile-duels-scroll {
   min-height: 0;
-  max-height: none;
+  max-height: clamp(260px, 30dvh, 328px);
   overflow: auto;
   overscroll-behavior: contain;
   display: grid;
-  border-radius: var(--radius);
+  align-content: start;
   scrollbar-color: rgba(255, 255, 255, 0.28) transparent;
 }
 
 .profile-duel-row {
-  min-height: clamp(54px, 7dvh, 76px);
-  display: grid;
-  grid-template-columns: 62px minmax(170px, 1fr) 34px minmax(170px, 1fr) minmax(170px, 0.9fr) minmax(210px, 1fr) minmax(92px, 0.4fr);
-  align-items: center;
-  gap: 14px;
-  padding: 10px 16px;
-  background: #424242;
+  min-height: clamp(64px, 7.2dvh, 82px);
+  padding: 10px clamp(14px, 1.7vw, 22px);
+  background: #3f3f3f;
   color: var(--subtext);
 }
 
 .profile-duel-row:nth-child(odd) {
-  background: #515151;
+  background: #4a4a4a;
 }
 
 .profile-duel-result {
-  min-height: 26px;
+  min-height: 25px;
+  width: min(100%, 88px);
   display: inline-grid;
   place-items: center;
   border-radius: 3px;
@@ -2325,13 +2367,13 @@ a[aria-label="Discord"]:focus-visible .site-icon {
 }
 
 .profile-duel-head {
-  width: 38px;
-  height: 38px;
+  width: clamp(42px, 4.4dvh, 54px);
+  height: clamp(42px, 4.4dvh, 54px);
   flex: 0 0 auto;
   display: grid;
   place-items: center;
   overflow: hidden;
-  border-radius: var(--radius);
+  border-radius: 0;
   background: rgba(0, 0, 0, 0.16);
 }
 
@@ -2349,29 +2391,20 @@ a[aria-label="Discord"]:focus-visible .site-icon {
   font-weight: var(--font-extrabold);
 }
 
-.profile-duel-fighter strong,
-.profile-duel-detail strong,
-.profile-duel-time strong {
+.profile-duel-copy {
+  min-width: 0;
+  display: grid;
+  gap: 5px;
+}
+
+.profile-duel-fighter strong {
   min-width: 0;
   overflow: hidden;
   display: block;
   color: var(--heading);
-  font-size: 0.86rem;
+  font-size: clamp(0.82rem, 0.76rem + 0.16vw, 0.96rem);
+  font-weight: var(--font-bold);
   line-height: 1.1;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.profile-duel-fighter small,
-.profile-duel-detail small,
-.profile-duel-hearts small,
-.profile-duel-time small {
-  min-width: 0;
-  overflow: hidden;
-  display: block;
-  color: var(--subtext);
-  font-size: 0.68rem;
-  line-height: 1.2;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -2384,41 +2417,52 @@ a[aria-label="Discord"]:focus-visible .site-icon {
   text-transform: uppercase;
 }
 
-.profile-duel-hearts {
+.profile-duel-world,
+.profile-duel-duration,
+.profile-duel-date {
   min-width: 0;
-  display: grid;
-  gap: 5px;
+  overflow: hidden;
+  color: var(--heading);
+  font-size: clamp(0.78rem, 0.72rem + 0.16vw, 0.92rem);
+  font-weight: var(--font-bold);
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .fight-hearts {
-  max-width: 190px;
   display: flex;
   align-items: center;
-  gap: 3px;
+  gap: 2px;
   overflow: hidden;
 }
 
-.fight-hearts__heart {
-  width: 14px;
-  height: 14px;
-  flex: 0 0 14px;
+.fight-hearts__heart,
+.duel-hearts__heart {
+  width: 13px;
+  height: 13px;
+  flex: 0 0 13px;
   display: block;
-  background:
-    linear-gradient(90deg, #ffffff var(--fill), rgba(255, 255, 255, 0.2) var(--fill)),
-    url("icons/player-heart.png") center / contain no-repeat;
-  -webkit-mask: url("icons/player-heart.png") center / contain no-repeat;
-  mask: url("icons/player-heart.png") center / contain no-repeat;
+  object-fit: contain;
+  image-rendering: pixelated;
 }
 
-.fight-hearts__extra,
-.fight-hearts__text {
-  color: var(--heading);
-  font-size: 0.68rem;
-  line-height: 1;
+.duel-hearts {
+  max-width: 160px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  overflow: hidden;
 }
 
-.fight-hearts__text {
-  margin-left: 3px;
+.fight-hearts__text,
+.duel-hearts__text {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
 .profile-duels-empty {
@@ -2433,7 +2477,7 @@ a[aria-label="Discord"]:focus-visible .site-icon {
 
 @media (max-width: 1280px) {
   .profile-hero-content {
-    grid-template-columns: minmax(180px, 0.76fr) minmax(260px, 0.92fr);
+    grid-template-columns: minmax(190px, 0.68fr) minmax(250px, 0.82fr);
     padding-inline: clamp(22px, 4vw, 64px);
   }
 
@@ -2442,9 +2486,30 @@ a[aria-label="Discord"]:focus-visible .site-icon {
     padding-inline: clamp(22px, 4vw, 64px);
   }
 
+  .profile-duels-head,
   .profile-duel-row {
-    grid-template-columns: 56px minmax(150px, 1fr) 28px minmax(150px, 1fr) minmax(140px, 0.8fr) minmax(170px, 1fr) minmax(80px, 0.4fr);
+    grid-template-columns: 72px minmax(190px, 1.42fr) 34px minmax(190px, 1.42fr) minmax(100px, 0.72fr) minmax(78px, 0.52fr) minmax(92px, 0.6fr);
     gap: 10px;
+  }
+}
+
+@media (max-height: 760px) and (min-width: 981px) {
+  .profile-page {
+    --profile-summary-height: clamp(82px, 8dvh, 104px);
+    --profile-header-height: clamp(300px, 42dvh, 390px);
+  }
+
+  .profile-bust-stage img {
+    width: clamp(180px, min(22vw, 36dvh), 360px);
+  }
+
+  .profile-player-lockup h1 {
+    font-size: clamp(1.55rem, min(3vw, 5dvh), 3.25rem);
+  }
+
+  .profile-section-heading span {
+    width: 34px;
+    height: 34px;
   }
 }
 
@@ -2489,6 +2554,10 @@ a[aria-label="Discord"]:focus-visible .site-icon {
     max-height: 440px;
   }
 
+  .profile-duels-head {
+    display: none;
+  }
+
   .profile-duel-row {
     grid-template-columns: minmax(0, 1fr);
     align-items: start;
@@ -2504,10 +2573,10 @@ a[aria-label="Discord"]:focus-visible .site-icon {
     display: none;
   }
 
-  .profile-duel-detail,
-  .profile-duel-hearts,
-  .profile-duel-time {
-    padding-left: 48px;
+  .profile-duel-world,
+  .profile-duel-duration,
+  .profile-duel-date {
+    padding-left: 52px;
   }
 }
 
