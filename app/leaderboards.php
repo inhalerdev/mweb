@@ -407,11 +407,11 @@ function mineacle_leaderboards_team_initial(array $team): string
 function mineacle_leaderboards_category_icon(string $category, string $assetVersion): string
 {
     $icons = [
-        'players' => 'leaderboard-top-overall.png',
-        'teams' => 'leaderboard-top-teams.png',
-        'economy' => 'leaderboard-balance-top.png',
-        'combat' => 'leaderboard-top-pvp.png',
-        'activity' => 'leaderboard-activity.png',
+        'players' => 'leaderboard-top-overall-pixel.svg',
+        'teams' => 'leaderboard-top-teams-pixel.svg',
+        'economy' => 'leaderboard-balance-top-pixel.svg',
+        'combat' => 'leaderboard-top-pvp-pixel.svg',
+        'activity' => 'leaderboard-activity-pixel.svg',
     ];
     $file = $icons[$category] ?? 'rail-leaderboard.png';
 
@@ -469,79 +469,95 @@ mineacle_page_head('Leaderboards');
     </aside>
 
     <main class="home-grid players-page leaderboard-page" aria-label="Leaderboards">
-        <section class="leaderboard-hero-shell" aria-label="Leaderboard overview">
-            <div class="panel leaderboard-hero leaderboard-hero-main">
-                <img class="leaderboard-hero-mark" src="/assets/icons/rail-leaderboard.png?v=<?php echo h(rawurlencode($assetVersion)); ?>" alt="" aria-hidden="true" draggable="false">
+        <section class="panel leaderboard-overview" aria-label="Leaderboard overview">
+            <div class="leaderboard-hero-content">
                 <div class="leaderboard-copy">
                     <p>Survival Rankings</p>
                     <h1>Leaderboards</h1>
                     <span>Track Mineacle's strongest players, richest teams, active grinders, and qualified combat leaders.</span>
                 </div>
+
+                <aside class="leaderboard-top-card" aria-label="<?php echo h($topTitle); ?>">
+                    <header class="leaderboard-top-heading">
+                        <span class="leaderboard-top-heading-icon" aria-hidden="true">
+                            <img src="<?php echo h(mineacle_leaderboards_category_icon($category, $assetVersion)); ?>" alt="" draggable="false">
+                        </span>
+                        <span>
+                            <small><?php echo h((string) $categories[$category]['label']); ?></small>
+                            <strong><?php echo h($topTitle); ?></strong>
+                        </span>
+                    </header>
+                    <div class="leaderboard-top-list">
+                        <?php if ($topRows === []): ?>
+                            <article class="leaderboard-top-entry">
+                                <span class="leaderboard-top-rank">--</span>
+                                <span class="leaderboard-top-avatar" aria-hidden="true">?</span>
+                                <span><strong>Pending</strong><small>Waiting for stats</small></span>
+                            </article>
+                        <?php else: ?>
+                            <?php foreach ($topRows as $index => $entry): ?>
+                                <?php
+                                $rank = $index + 1;
+                                $head = $tableMode === 'players' ? mineacle_leaderboards_player_head($entry) : '';
+                                ?>
+                                <?php if ($tableMode === 'players'): ?>
+                                    <a class="leaderboard-top-entry is-rank-<?php echo h((string) $rank); ?>" href="<?php echo h(mineacle_players_profile_url($entry)); ?>">
+                                        <span class="leaderboard-top-rank">#<?php echo h((string) $rank); ?></span>
+                                        <span class="leaderboard-top-avatar" aria-hidden="true">
+                                            <?php if ($head !== ''): ?>
+                                                <img src="<?php echo h($head); ?>" alt="" loading="lazy" decoding="async" draggable="false">
+                                            <?php else: ?>
+                                                ?
+                                            <?php endif; ?>
+                                        </span>
+                                        <span>
+                                            <strong><?php echo mineacle_stats_ranked_name_html($entry, 'leaderboard-ranked-name'); ?></strong>
+                                            <small><?php echo h(mineacle_leaderboards_top_metric($entry, $tableMode, $sort)); ?></small>
+                                        </span>
+                                    </a>
+                                <?php else: ?>
+                                    <article class="leaderboard-top-entry is-rank-<?php echo h((string) $rank); ?>">
+                                        <span class="leaderboard-top-rank">#<?php echo h((string) $rank); ?></span>
+                                        <span class="leaderboard-top-avatar" aria-hidden="true"><?php echo h(mineacle_leaderboards_team_initial($entry)); ?></span>
+                                        <span>
+                                            <strong><?php echo h(mineacle_leaderboards_top_name($entry, $tableMode)); ?></strong>
+                                            <small><?php echo h(mineacle_leaderboards_top_metric($entry, $tableMode, $sort)); ?></small>
+                                        </span>
+                                    </article>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
+                </aside>
             </div>
 
-            <aside class="panel leaderboard-top-card" aria-label="<?php echo h($topTitle); ?>">
-                <p><?php echo h((string) $categories[$category]['label']); ?></p>
-                <h2><?php echo h($topTitle); ?></h2>
-                <div class="leaderboard-top-list">
-                    <?php if ($topRows === []): ?>
-                        <article class="leaderboard-top-entry">
-                            <span class="leaderboard-top-rank">--</span>
-                            <span class="leaderboard-top-avatar" aria-hidden="true">?</span>
-                            <span><strong>Pending</strong><small>Waiting for stats</small></span>
-                        </article>
-                    <?php else: ?>
-                        <?php foreach ($topRows as $index => $entry): ?>
-                            <?php
-                            $rank = $index + 1;
-                            $head = $tableMode === 'players' ? mineacle_leaderboards_player_head($entry) : '';
-                            ?>
-                            <?php if ($tableMode === 'players'): ?>
-                                <a class="leaderboard-top-entry is-rank-<?php echo h((string) $rank); ?>" href="<?php echo h(mineacle_players_profile_url($entry)); ?>">
-                                    <span class="leaderboard-top-rank">#<?php echo h((string) $rank); ?></span>
-                                    <span class="leaderboard-top-avatar" aria-hidden="true">
-                                        <?php if ($head !== ''): ?>
-                                            <img src="<?php echo h($head); ?>" alt="" loading="lazy" decoding="async" draggable="false">
-                                        <?php else: ?>
-                                            ?
-                                        <?php endif; ?>
-                                    </span>
-                                    <span>
-                                        <strong><?php echo mineacle_stats_ranked_name_html($entry, 'leaderboard-ranked-name'); ?></strong>
-                                        <small><?php echo h(mineacle_leaderboards_top_metric($entry, $tableMode, $sort)); ?></small>
-                                    </span>
-                                </a>
-                            <?php else: ?>
-                                <article class="leaderboard-top-entry is-rank-<?php echo h((string) $rank); ?>">
-                                    <span class="leaderboard-top-rank">#<?php echo h((string) $rank); ?></span>
-                                    <span class="leaderboard-top-avatar" aria-hidden="true"><?php echo h(mineacle_leaderboards_team_initial($entry)); ?></span>
-                                    <span>
-                                        <strong><?php echo h(mineacle_leaderboards_top_name($entry, $tableMode)); ?></strong>
-                                        <small><?php echo h(mineacle_leaderboards_top_metric($entry, $tableMode, $sort)); ?></small>
-                                    </span>
-                                </article>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                </div>
-            </aside>
+            <nav class="leaderboard-category-grid" aria-label="Leaderboard categories">
+                <?php foreach ($categories as $key => $card): ?>
+                    <?php $isActive = $category === $key; ?>
+                    <a class="leaderboard-category-card<?php echo $isActive ? ' is-active' : ''; ?>" href="<?php echo h(mineacle_leaderboards_url((string) $key)); ?>"<?php echo $isActive ? ' aria-current="page"' : ''; ?>>
+                        <span class="leaderboard-category-icon" aria-hidden="true">
+                            <img src="<?php echo h(mineacle_leaderboards_category_icon((string) $key, $assetVersion)); ?>" alt="" draggable="false">
+                        </span>
+                        <span class="leaderboard-category-copy">
+                            <strong><?php echo h((string) $card['label']); ?></strong>
+                            <small><?php echo h((string) $card['copy']); ?></small>
+                        </span>
+                    </a>
+                <?php endforeach; ?>
+            </nav>
         </section>
 
-        <section class="panel leaderboard-board leaderboard-hub" aria-label="<?php echo h($leaderboardTitle); ?>">
-            <div class="leaderboard-hub-top">
-                <nav class="leaderboard-category-grid" aria-label="Leaderboard categories">
-                    <?php foreach ($categories as $key => $card): ?>
-                        <?php $isActive = $category === $key; ?>
-                        <a class="leaderboard-category-card<?php echo $isActive ? ' is-active' : ''; ?>" href="<?php echo h(mineacle_leaderboards_url((string) $key)); ?>"<?php echo $isActive ? ' aria-current="page"' : ''; ?>>
-                            <span class="leaderboard-category-icon" aria-hidden="true">
-                                <img src="<?php echo h(mineacle_leaderboards_category_icon((string) $key, $assetVersion)); ?>" alt="" draggable="false">
-                            </span>
-                            <span class="leaderboard-category-copy">
-                                <strong><?php echo h((string) $card['label']); ?></strong>
-                                <small><?php echo h((string) $card['copy']); ?></small>
-                            </span>
-                        </a>
-                    <?php endforeach; ?>
-                </nav>
+        <section class="panel leaderboard-board" aria-label="<?php echo h($leaderboardTitle); ?>">
+            <div class="leaderboard-board-top">
+                <header class="profile-section-heading leaderboard-section-heading">
+                    <span aria-hidden="true">
+                        <img src="<?php echo h(mineacle_leaderboards_category_icon($category, $assetVersion)); ?>" alt="" draggable="false">
+                    </span>
+                    <div>
+                        <p><?php echo h((string) $categories[$category]['label']); ?> Leaderboard</p>
+                        <h2><?php echo h($leaderboardTitle); ?></h2>
+                    </div>
+                </header>
 
                 <form class="leaderboard-search<?php echo $canSuggestPlayers ? ' player-search' : ''; ?>" method="get" action="<?php echo h($leaderboardsUrl); ?>"<?php echo $canSuggestPlayers ? ' data-player-search data-player-search-form data-player-search-submit="filter"' : ''; ?>>
                     <input type="hidden" name="category" value="<?php echo h($category); ?>">
@@ -549,10 +565,10 @@ mineacle_page_head('Leaderboards');
                     <label class="sr-only" for="homeSearch"><?php echo h($searchPlaceholder); ?></label>
                     <div class="leaderboard-search-grid">
                         <div class="search-box">
-                            <img src="/assets/icons/search.png?v=<?php echo h(rawurlencode($assetVersion)); ?>" alt="" aria-hidden="true" draggable="false">
+                            <img src="/assets/icons/search-pixel.svg?v=<?php echo h(rawurlencode($assetVersion)); ?>" alt="" aria-hidden="true" draggable="false">
                             <input id="homeSearch" name="search" type="search" placeholder="<?php echo h($searchPlaceholder); ?>" value="<?php echo h($search); ?>" autocomplete="off"<?php echo $canSuggestPlayers ? ' role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="leaderboardPlayerSearchResults"' : ''; ?>>
                             <button class="search-clear" type="button" aria-label="Clear search" hidden>
-                                <img src="/assets/icons/clear-search.svg?v=<?php echo h(rawurlencode($assetVersion)); ?>" alt="" draggable="false">
+                                <img src="/assets/icons/clear-search-pixel.svg?v=<?php echo h(rawurlencode($assetVersion)); ?>" alt="" draggable="false">
                             </button>
                         </div>
                         <button class="leaderboard-search-submit" type="submit">Filter</button>
@@ -563,22 +579,20 @@ mineacle_page_head('Leaderboards');
                 </form>
             </div>
 
-            <nav class="leaderboard-subfilters" aria-label="<?php echo h((string) $categories[$category]['label']); ?> filters">
-                <?php foreach ($views as $viewKey => $viewData): ?>
-                    <?php $isActiveView = $view === $viewKey; ?>
-                    <a class="<?php echo $isActiveView ? 'is-active' : ''; ?>" href="<?php echo h(mineacle_leaderboards_url($category, (string) $viewKey, $search)); ?>"<?php echo $isActiveView ? ' aria-current="page"' : ''; ?>>
-                        <?php echo h((string) $viewData['label']); ?>
-                    </a>
-                <?php endforeach; ?>
-            </nav>
+            <div class="leaderboard-view-row">
+                <nav class="leaderboard-subfilters" aria-label="<?php echo h((string) $categories[$category]['label']); ?> filters">
+                    <?php foreach ($views as $viewKey => $viewData): ?>
+                        <?php $isActiveView = $view === $viewKey; ?>
+                        <a class="<?php echo $isActiveView ? 'is-active' : ''; ?>" href="<?php echo h(mineacle_leaderboards_url($category, (string) $viewKey, $search)); ?>"<?php echo $isActiveView ? ' aria-current="page"' : ''; ?>>
+                            <?php echo h((string) $viewData['label']); ?>
+                        </a>
+                    <?php endforeach; ?>
+                </nav>
 
-            <div class="leaderboard-board-header">
-                <div>
-                    <h2><?php echo h($leaderboardTitle); ?></h2>
-                    <p><?php echo h($leaderboardDescription); ?></p>
-                </div>
-                <span><?php echo $hasResults ? h(number_format($shownStart) . '-' . number_format($shownEnd) . ' of ' . number_format($resultTotal)) : h(number_format($resultTotal) . ' results'); ?></span>
+                <span class="leaderboard-result-count"><?php echo $hasResults ? h(number_format($shownStart) . '-' . number_format($shownEnd) . ' of ' . number_format($resultTotal)) : h(number_format($resultTotal) . ' results'); ?></span>
             </div>
+
+            <p class="leaderboard-description"><?php echo h($leaderboardDescription); ?></p>
 
             <?php if ($loadError): ?>
                 <section class="profile-message">

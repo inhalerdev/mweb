@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" shape-rendering="crispEdges">
+  <defs>
+    <mask id="overall-cut">
+      <rect width="32" height="32" fill="#fff"/>
+      <rect x="9" y="17" width="4" height="4" fill="#000"/>
+      <rect x="19" y="17" width="4" height="4" fill="#000"/>
+      <rect x="14" y="22" width="4" height="3" fill="#000"/>
+    </mask>
+  </defs>
+  <path d="M4 5h4v4h5V3h6v6h5V5h4v10H4zm3 10h18v10h-3v5h-5v-5h-2v5h-5v-5H7z" mask="url(#overall-cut)"/>
+</svg>

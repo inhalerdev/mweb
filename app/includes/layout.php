@@ -6,7 +6,7 @@ require_once __DIR__ . '/db.php';
 
 function mineacle_page_asset_version(): string
 {
-    return 'base112';
+    return 'base115';
 }
 
 function mineacle_page_clean_text(string $value): string
@@ -150,13 +150,14 @@ function mineacle_page_icon(string $name): string
     $assetVersion = rawurlencode(mineacle_page_asset_version());
     $iconVersion = '?v=' . $assetVersion;
     $officialIcons = [
-        'home' => '/assets/icons/rail-home.png' . $iconVersion,
-        'stats' => '/assets/icons/rail-leaderboard.png' . $iconVersion,
-        'vote' => '/assets/icons/rail-vote.png' . $iconVersion,
-        'store' => '/assets/icons/rail-store.png' . $iconVersion,
-        'bans' => '/assets/icons/rail-bans.png' . $iconVersion,
-        'discord' => '/assets/icons/discord.svg',
-        'x' => '/assets/icons/x-twitter.svg',
+        'home' => '/assets/icons/rail-home-pixel.svg' . $iconVersion,
+        'stats' => '/assets/icons/rail-leaderboard-pixel.svg' . $iconVersion,
+        'vote' => '/assets/icons/rail-vote-pixel.svg' . $iconVersion,
+        'store' => '/assets/icons/rail-store-pixel.svg' . $iconVersion,
+        'bans' => '/assets/icons/rail-bans-pixel.svg' . $iconVersion,
+        'discord' => '/assets/icons/discord-pixel.svg' . $iconVersion,
+        'x' => '/assets/icons/x-twitter-pixel.svg' . $iconVersion,
+        'youtube' => '/assets/icons/youtube-pixel.svg' . $iconVersion,
     ];
 
     if (isset($officialIcons[$name])) {
