@@ -107,6 +107,20 @@ svg {
   filter: invert(78%) sepia(0%) saturate(0%) hue-rotate(188deg) brightness(96%) contrast(88%);
 }
 
+.site-icon-layered {
+  position: relative;
+}
+
+.site-icon-layered > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
 .rail-link .site-icon,
 .leaderboard-category-card img,
 .leaderboard-top-avatar img,
@@ -1008,8 +1022,8 @@ svg {
   height: 34px;
   display: block;
   background: currentColor;
-  -webkit-mask: url("icons/close-window.svg") center / contain no-repeat;
-  mask: url("icons/close-window.svg") center / contain no-repeat;
+  -webkit-mask: url("icons/close.svg") center / contain no-repeat;
+  mask: url("icons/close.svg") center / contain no-repeat;
 }
 
 .join-modal-close:hover,
@@ -1815,11 +1829,37 @@ body.has-announcement-modal {
   background: rgba(88, 101, 242, 0.16);
 }
 
-a[aria-label="Discord"]:hover .site-icon,
-a[aria-label="Discord"]:focus-visible .site-icon {
+.rail-link .discord-icon,
+.rail-link:hover .discord-icon,
+.rail-link:focus-visible .discord-icon,
+.rail-link.is-active .discord-icon,
+.rail-link[aria-current="page"] .discord-icon,
+.footer-socials .discord-icon,
+.rail-link .site-icon-x,
+.rail-link:hover .site-icon-x,
+.rail-link:focus-visible .site-icon-x,
+.rail-link.is-active .site-icon-x,
+.rail-link[aria-current="page"] .site-icon-x,
+.footer-socials .site-icon-x {
+  filter: none;
+}
+
+.rail-link:hover .discord-icon,
+.rail-link:focus-visible .discord-icon {
+  transform: none;
+}
+
+a[aria-label="Discord"]:hover .discord-icon-mark,
+a[aria-label="Discord"]:focus-visible .discord-icon-mark {
   animation: discord-spin 0.62s cubic-bezier(0.2, 0.8, 0.2, 1);
-  filter: brightness(0) saturate(100%) invert(41%) sepia(79%) saturate(2122%) hue-rotate(219deg) brightness(98%) contrast(93%);
   transform-origin: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a[aria-label="Discord"]:hover .discord-icon-mark,
+  a[aria-label="Discord"]:focus-visible .discord-icon-mark {
+    animation: none;
+  }
 }
 
 .footer-links {

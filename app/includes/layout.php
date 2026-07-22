@@ -6,7 +6,7 @@ require_once __DIR__ . '/db.php';
 
 function mineacle_page_asset_version(): string
 {
-    return 'base115';
+    return 'base116';
 }
 
 function mineacle_page_clean_text(string $value): string
@@ -149,19 +149,31 @@ function mineacle_page_icon(string $name): string
 {
     $assetVersion = rawurlencode(mineacle_page_asset_version());
     $iconVersion = '?v=' . $assetVersion;
+
+    if ($name === 'discord') {
+        $square = '/assets/icons/discord-square.svg' . $iconVersion;
+        $mark = '/assets/icons/discord-mark.svg' . $iconVersion;
+
+        return '<span class="site-icon site-icon-layered discord-icon" aria-hidden="true">'
+            . '<img class="discord-icon-square" src="' . h($square) . '" alt="" draggable="false">'
+            . '<img class="discord-icon-mark" src="' . h($mark) . '" alt="" draggable="false">'
+            . '</span>';
+    }
+
     $officialIcons = [
-        'home' => '/assets/icons/rail-home-pixel.svg' . $iconVersion,
-        'stats' => '/assets/icons/rail-leaderboard-pixel.svg' . $iconVersion,
-        'vote' => '/assets/icons/rail-vote-pixel.svg' . $iconVersion,
-        'store' => '/assets/icons/rail-store-pixel.svg' . $iconVersion,
-        'bans' => '/assets/icons/rail-bans-pixel.svg' . $iconVersion,
-        'discord' => '/assets/icons/discord-pixel.svg' . $iconVersion,
-        'x' => '/assets/icons/x-twitter-pixel.svg' . $iconVersion,
+        'home' => '/assets/icons/home.svg' . $iconVersion,
+        'stats' => '/assets/icons/leaderboard.svg' . $iconVersion,
+        'vote' => '/assets/icons/vote.svg' . $iconVersion,
+        'store' => '/assets/icons/store.svg' . $iconVersion,
+        'bans' => '/assets/icons/bans.svg' . $iconVersion,
+        'x' => '/assets/icons/x-social.svg' . $iconVersion,
         'youtube' => '/assets/icons/youtube-pixel.svg' . $iconVersion,
     ];
 
     if (isset($officialIcons[$name])) {
-        return '<img class="site-icon" src="' . h($officialIcons[$name]) . '" alt="" aria-hidden="true">';
+        $className = $name === 'x' ? 'site-icon site-icon-x' : 'site-icon';
+
+        return '<img class="' . $className . '" src="' . h($officialIcons[$name]) . '" alt="" aria-hidden="true" draggable="false">';
     }
 
     $icons = [

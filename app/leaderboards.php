@@ -146,52 +146,6 @@ $categories = [
             ],
         ],
     ],
-    'activity' => [
-        'label' => 'Activity',
-        'copy' => 'Online, playtime, and recently seen player movement.',
-        'views' => [
-            'online' => [
-                'label' => 'Online',
-                'title' => 'Online Now',
-                'description' => 'Players currently online, ordered by recent server activity.',
-                'table' => 'players',
-                'sort' => 'online',
-                'max' => 100,
-            ],
-            'playtime' => [
-                'label' => 'Playtime',
-                'title' => 'Top Playtime',
-                'description' => 'Players with the most recorded Mineacle playtime.',
-                'table' => 'players',
-                'sort' => 'playtime',
-                'max' => 100,
-            ],
-            'recent' => [
-                'label' => 'Recently Seen',
-                'title' => 'Recently Seen',
-                'description' => 'Players ordered by their latest server activity.',
-                'table' => 'players',
-                'sort' => 'recent',
-                'max' => 100,
-            ],
-            'veterans' => [
-                'label' => 'Veterans',
-                'title' => 'Server Veterans',
-                'description' => 'Players ordered by their earliest recorded first join.',
-                'table' => 'players',
-                'sort' => 'veterans',
-                'max' => 100,
-            ],
-            'newest' => [
-                'label' => 'Newest',
-                'title' => 'Newest Players',
-                'description' => 'Players ordered by their most recent first join.',
-                'table' => 'players',
-                'sort' => 'newest',
-                'max' => 100,
-            ],
-        ],
-    ],
 ];
 
 if (!isset($categories[$category])) {
@@ -407,13 +361,12 @@ function mineacle_leaderboards_team_initial(array $team): string
 function mineacle_leaderboards_category_icon(string $category, string $assetVersion): string
 {
     $icons = [
-        'players' => 'leaderboard-top-overall-pixel.svg',
-        'teams' => 'leaderboard-top-teams-pixel.svg',
-        'economy' => 'leaderboard-balance-top-pixel.svg',
-        'combat' => 'leaderboard-top-pvp-pixel.svg',
-        'activity' => 'leaderboard-activity-pixel.svg',
+        'players' => 'leaderboard-top-overall.svg',
+        'teams' => 'leaderboard-top-teams.svg',
+        'economy' => 'leaderboard-balance-top.svg',
+        'combat' => 'top-pvp.svg',
     ];
-    $file = $icons[$category] ?? 'rail-leaderboard.png';
+    $file = $icons[$category] ?? 'leaderboard.svg';
 
     return '/assets/icons/' . $file . '?v=' . rawurlencode($assetVersion);
 }
@@ -474,7 +427,7 @@ mineacle_page_head('Leaderboards');
                 <div class="leaderboard-copy">
                     <p>Survival Rankings</p>
                     <h1>Leaderboards</h1>
-                    <span>Track Mineacle's strongest players, richest teams, active grinders, and qualified combat leaders.</span>
+                    <span>Track Mineacle's strongest players, richest teams, and qualified combat leaders.</span>
                 </div>
 
                 <aside class="leaderboard-top-card" aria-label="<?php echo h($topTitle); ?>">
