@@ -1,8 +1,30 @@
-<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080">
-	<defs>
-		<image  width="1080" height="1080" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABDgAAAQ4AQMAAADW3v7MAAAAAXNSR0IB2cksfwAAAAZQTFRFAAAAWGXyjPHKFQAAAAJ0Uk5TAP9bkSK1AAADuUlEQVR4nO3OsbFBUQBF0YtERgda0Rmt6UQJhGbM+N8YwW7AfcHayTnhWo1vu9v4eff99604ODg4ODg4ODgW4Tidf69491pzcHBwcHBwcHAsxrF5zkF8uhw5ODg4ODg4ODiW4DhcZyrePbYcHBwcHBwcHByzHa/ZiE8cjaNxNI7G0TgaR+NoHI2jcTSOxtE4GkfjaByNo3E0jsbROBpH42gcjaNxNI7G0TgaR+NoHI2jcTSOxtE4GkfjaByNo3E0jsbROBpH42gcjaNxNI7G0TgaR+NoHI2jcTSOxtE4GkfjaByNo3E0jsbROBpH42gcjaNxNI7G0TgaR+NoHI2jcTSOxtE4GkfjaByNo3E0jsbROBpH42gcjaNxNI7G0TgaR+NoHI2jcTSOxtE4GkfjaByNo3E0jsbROBpH42gcjaNxNI7G0TgaR+NoHI2jcTSOxtE4GkfjaByNo3E0jsbROBpH42gcjaNxNI7G0TgaR+NoHI2jcTSOxtE4GkfjaByNo3E0jsbROBpH42gcjaNxNI7G0TgaR+NoHI2jcTSOxtE4GkfjaByNo3E0jsbROBpH42gcjaNxNI7G0TgaR+NoHI2jcTSOxtE4GkfjaByNo3E0jsbROBpH42gcjaNxNI7G0TgaR+NoHI2jcTSOxtE4GkfjaByNo3E0jsbROBpH42gcjaNxNI7G0TgaR+NoHI2jcTSOxtE4GkfjaByNo3E0jsbROBpH42gcjaNxNI7G0TgaR+NoHI2jcTSOxtE4GkfjaByNo3E0jsbROBpH42gcjaNxNI7G0TgaR+NoHI2jcTSOxtE4GkfjaByNo3E0jsbROBpH42gcjaNxNI7G0TgaR+NoHI2jcTSOxtE4GkfjaByNo3E0jsbROBpH42gcjaNxNI7G0TgaR+NoHI2jcTSOxtE4GkfjaByNo3E0jsbROBpH42gcjaNxNI7G0TgaR+NoHI2jcTSOxtE4GkfjaByNo3E0jsbROBpH42gcjaNxNI7G0TgaR+NoHI2jcTSOxtE4GkfjaByNo3E0jsbROBpH42gcjaNxNI7G0TgaR+NoHI2jcTSOxtE4GkfjaByNo3E0jsbROBpH42gcjaNxNI7G0TgaR+NoHI2jcTSOxtE4GkfjaByNo3E0jsbROBpH42gcjaNxNI7G0TgaR1uMY4zDdTbiseXg4ODg4ODg4JjvGGPznKm4HMfg4ODg4ODg4OBYguO/03kO4rX+LAcHBwcHBwcHxzIcY+xuv1fc99/HwcHBwcHBwcEx1/EHzN/Q1YjIypwAAAAASUVORK5CYII="/>
-	</defs>
-	<style>
-	</style>
-	<use id="discord-square" href="#img1" x="0" y="0"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" shape-rendering="crispEdges">
+<rect x="6" y="2" width="20" height="1" fill="currentColor"/>
+<rect x="6" y="3" width="20" height="1" fill="currentColor"/>
+<rect x="4" y="4" width="24" height="1" fill="currentColor"/>
+<rect x="4" y="5" width="24" height="1" fill="currentColor"/>
+<rect x="3" y="6" width="26" height="1" fill="currentColor"/>
+<rect x="3" y="7" width="26" height="1" fill="currentColor"/>
+<rect x="2" y="8" width="28" height="1" fill="currentColor"/>
+<rect x="2" y="9" width="28" height="1" fill="currentColor"/>
+<rect x="2" y="10" width="28" height="1" fill="currentColor"/>
+<rect x="2" y="11" width="28" height="1" fill="currentColor"/>
+<rect x="2" y="12" width="28" height="1" fill="currentColor"/>
+<rect x="2" y="13" width="28" height="1" fill="currentColor"/>
+<rect x="2" y="14" width="28" height="1" fill="currentColor"/>
+<rect x="2" y="15" width="28" height="1" fill="currentColor"/>
+<rect x="2" y="16" width="28" height="1" fill="currentColor"/>
+<rect x="2" y="17" width="28" height="1" fill="currentColor"/>
+<rect x="2" y="18" width="28" height="1" fill="currentColor"/>
+<rect x="2" y="19" width="28" height="1" fill="currentColor"/>
+<rect x="2" y="20" width="28" height="1" fill="currentColor"/>
+<rect x="2" y="21" width="28" height="1" fill="currentColor"/>
+<rect x="2" y="22" width="28" height="1" fill="currentColor"/>
+<rect x="2" y="23" width="28" height="1" fill="currentColor"/>
+<rect x="3" y="24" width="26" height="1" fill="currentColor"/>
+<rect x="3" y="25" width="26" height="1" fill="currentColor"/>
+<rect x="4" y="26" width="24" height="1" fill="currentColor"/>
+<rect x="4" y="27" width="24" height="1" fill="currentColor"/>
+<rect x="6" y="28" width="20" height="1" fill="currentColor"/>
+<rect x="6" y="29" width="20" height="1" fill="currentColor"/>
 </svg>

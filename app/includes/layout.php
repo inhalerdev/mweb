@@ -6,7 +6,7 @@ require_once __DIR__ . '/db.php';
 
 function mineacle_page_asset_version(): string
 {
-    return 'base119';
+    return 'base120';
 }
 
 function mineacle_page_clean_text(string $value): string
@@ -169,19 +169,26 @@ function mineacle_page_icon(string $name): string
             . '</span>';
     }
 
+    if ($name === 'x') {
+        $square = '/assets/icons/x-square.svg' . $iconVersion;
+        $mark = '/assets/icons/x-mark.svg' . $iconVersion;
+
+        return '<span class="site-icon site-icon-layered x-icon" aria-hidden="true">'
+            . '<img class="x-icon-square" src="' . h($square) . '" alt="" draggable="false">'
+            . '<img class="x-icon-mark" src="' . h($mark) . '" alt="" draggable="false">'
+            . '</span>';
+    }
+
     $officialIcons = [
         'home' => '/assets/icons/home.svg' . $iconVersion,
         'stats' => '/assets/icons/leaderboard.svg' . $iconVersion,
         'vote' => '/assets/icons/vote.svg' . $iconVersion,
         'bans' => '/assets/icons/bans.svg' . $iconVersion,
-        'x' => '/assets/icons/x-social.svg' . $iconVersion,
         'youtube' => '/assets/icons/youtube-pixel.svg' . $iconVersion,
     ];
 
     if (isset($officialIcons[$name])) {
-        $className = $name === 'x' ? 'site-icon site-icon-x' : 'site-icon';
-
-        return '<img class="' . $className . '" src="' . h($officialIcons[$name]) . '" alt="" aria-hidden="true" draggable="false">';
+        return '<img class="site-icon" src="' . h($officialIcons[$name]) . '" alt="" aria-hidden="true" draggable="false">';
     }
 
     $icons = [

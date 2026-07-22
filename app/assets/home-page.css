@@ -217,7 +217,8 @@ svg {
   transition: filter 180ms ease, opacity 180ms ease, transform 180ms ease;
 }
 
-.rail-link .discord-icon {
+.rail-link .discord-icon,
+.rail-link .x-icon {
   aspect-ratio: 1;
 }
 
@@ -1842,7 +1843,8 @@ body.has-announcement-modal {
   filter: invert(100%);
 }
 
-.footer-socials .discord-icon {
+.footer-socials .discord-icon,
+.footer-socials .x-icon {
   aspect-ratio: 1;
 }
 
@@ -1864,26 +1866,40 @@ body.has-announcement-modal {
 .rail-link.is-active .discord-icon,
 .rail-link[aria-current="page"] .discord-icon,
 .footer-socials .discord-icon,
-.rail-link .site-icon-x,
-.rail-link:hover .site-icon-x,
-.rail-link:focus-visible .site-icon-x,
-.rail-link.is-active .site-icon-x,
-.rail-link[aria-current="page"] .site-icon-x,
-.footer-socials .site-icon-x {
+.rail-link .x-icon,
+.rail-link:hover .x-icon,
+.rail-link:focus-visible .x-icon,
+.rail-link.is-active .x-icon,
+.rail-link[aria-current="page"] .x-icon,
+.footer-socials .x-icon {
   filter: none;
 }
 
 .rail-link:hover .discord-icon,
 .rail-link:focus-visible .discord-icon,
-.rail-social .rail-link:hover .site-icon-x,
-.rail-social .rail-link:focus-visible .site-icon-x {
+.rail-social .rail-link:hover .x-icon,
+.rail-social .rail-link:focus-visible .x-icon {
   transform: none;
 }
 
-.rail-social .rail-link[aria-label="X"]:hover .site-icon-x,
-.rail-social .rail-link[aria-label="X"]:focus-visible .site-icon-x,
-.footer-socials a[aria-label="X/Twitter"]:hover .site-icon-x,
-.footer-socials a[aria-label="X/Twitter"]:focus-visible .site-icon-x {
+.discord-icon-square {
+  filter: invert(41%) sepia(88%) saturate(1651%) hue-rotate(214deg) brightness(98%) contrast(94%);
+}
+
+.discord-icon-mark,
+.x-icon-mark {
+  filter: var(--rail-icon-white-filter);
+}
+
+.x-icon-square {
+  filter: none;
+  transition: filter 180ms ease;
+}
+
+.rail-social .rail-link[aria-label="X"]:hover .x-icon-square,
+.rail-social .rail-link[aria-label="X"]:focus-visible .x-icon-square,
+.footer-socials a[aria-label="X/Twitter"]:hover .x-icon-square,
+.footer-socials a[aria-label="X/Twitter"]:focus-visible .x-icon-square {
   filter: invert(8%);
 }
 
