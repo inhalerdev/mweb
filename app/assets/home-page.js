@@ -38,6 +38,7 @@
   const adminImageInput = document.querySelector('[data-admin-image-input]');
   const adminUploadLabel = document.querySelector('[data-admin-upload-label]');
   const heroVideo = document.querySelector('[data-hero-video]');
+  const leaderboardPage = document.querySelector('.leaderboard-page');
   const serverIp = statusNode ? statusNode.dataset.serverIp || 'mineacle.net' : 'mineacle.net';
   const statusRefreshMs = 15000;
   const statusFetchTimeoutMs = 4200;
@@ -51,6 +52,8 @@
   let playerSearchRun = 0;
   let joinModalLastFocus = null;
   let announcementModalLastFocus = null;
+  let leaderboardViewAbort = null;
+  let leaderboardViewRun = 0;
   let externalStatusFailureCount = 0;
   let lastExternalStatusCheck = 0;
   const videoFallbackSvg = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360"%3E%3Crect width="640" height="360" fill="%23202020"/%3E%3Cpath fill="%23ff55ff" d="M282 238V122l104 58-104 58z"/%3E%3C/svg%3E';
@@ -620,6 +623,93 @@
     setPlayerSearchExpanded(false);
   };
 
+  const loadLeaderboardView = async (url, pushHistory = true) => {
+    const board = document.getElementById('rankings');
+
+    if (!leaderboardPage || !board) return false;
+
+    if (leaderboardViewAbort) {
+      leaderboardViewAbort.abort();
+    }
+
+    const run = leaderboardViewRun + 1;
+    const controller = new AbortController();
+    const scrollLeft = window.scrollX;
+    const scrollTop = window.scrollY;
+    leaderboardViewRun = run;
+    leaderboardViewAbort = controller;
+    board.classList.add('is-view-loading');
+    board.setAttribute('aria-busy', 'true');
+
+    try {
+      const response = await fetch(url, {
+        headers: {
+          Accept: 'text/html',
+          'X-Requested-With': 'fetch'
+        },
+        cache: 'no-store',
+        signal: controller.signal
+      });
+
+      if (!response.ok) return false;
+
+      const html = await response.text();
+      if (run !== leaderboardViewRun) return null;
+
+      const nextDocument = new DOMParser().parseFromString(html, 'text/html');
+      const currentTopCard = document.querySelector('.leaderboard-top-card');
+      const nextTopCard = nextDocument.querySelector('.leaderboard-top-card');
+      const currentHeading = board.querySelector('.leaderboard-section-heading');
+      const nextHeading = nextDocument.querySelector('#rankings .leaderboard-section-heading');
+      const currentViewRow = board.querySelector('.leaderboard-view-row');
+      const nextViewRow = nextDocument.querySelector('#rankings .leaderboard-view-row');
+      const currentResults = board.querySelector('[data-leaderboard-results]');
+      const nextResults = nextDocument.querySelector('#rankings [data-leaderboard-results]');
+      const currentViewInput = board.querySelector('[data-leaderboard-view-input]');
+      const nextViewInput = nextDocument.querySelector('#rankings [data-leaderboard-view-input]');
+      const nextBoard = nextDocument.getElementById('rankings');
+
+      if (!currentTopCard || !nextTopCard || !currentHeading || !nextHeading
+        || !currentViewRow || !nextViewRow || !currentResults || !nextResults
+        || !currentViewInput || !nextViewInput || !nextBoard) {
+        return false;
+      }
+
+      currentTopCard.replaceWith(nextTopCard);
+      currentHeading.replaceWith(nextHeading);
+      currentViewRow.replaceWith(nextViewRow);
+      currentResults.replaceWith(nextResults);
+      currentViewInput.value = nextViewInput.value;
+      board.setAttribute('aria-label', nextBoard.getAttribute('aria-label') || 'Leaderboard rankings');
+
+      if (nextDocument.title) {
+        document.title = nextDocument.title;
+      }
+
+      if (pushHistory) {
+        window.history.pushState({ mineacleLeaderboardView: true }, '', url);
+      }
+
+      window.requestAnimationFrame(() => {
+        window.scrollTo(scrollLeft, scrollTop);
+      });
+
+      return true;
+    } catch (error) {
+      if (error && error.name === 'AbortError') return null;
+      return false;
+    } finally {
+      if (leaderboardViewAbort === controller) {
+        leaderboardViewAbort = null;
+      }
+
+      if (run === leaderboardViewRun) {
+        board.classList.remove('is-view-loading');
+        board.removeAttribute('aria-busy');
+      }
+    }
+  };
+
   const applyPlayerStatusClass = (row, player) => {
     const status = player && player.punishment_status && typeof player.punishment_status === 'object'
       ? player.punishment_status
@@ -731,7 +821,7 @@
       if (rankLabel !== '') {
         const rankNode = document.createElement('span');
         rankNode.className = 'ranked-player-name__rank';
-        rankNode.style.setProperty('--rank-color', rankColor);
+        nameNode.style.setProperty('--rank-color', rankColor);
         rankNode.textContent = rankLabel;
         nameNode.append(rankNode);
       }
@@ -848,6 +938,42 @@
     if (!playerSearchRoot || playerSearchRoot.contains(event.target)) return;
     hidePlayerResults();
   });
+
+  document.addEventListener('click', async (event) => {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    if (!(event.target instanceof Element)) return;
+
+    const link = event.target.closest('[data-leaderboard-view-link]');
+    if (!(link instanceof HTMLAnchorElement) || link.target === '_blank') return;
+
+    if (link.getAttribute('aria-current') === 'page') {
+      event.preventDefault();
+      return;
+    }
+
+    const url = new URL(link.href, window.location.href);
+    if (url.pathname !== '/leaderboards') return;
+
+    const viewUrl = `${url.pathname}${url.search}${url.hash}`;
+
+    event.preventDefault();
+    hidePlayerResults();
+
+    const loaded = await loadLeaderboardView(viewUrl, true);
+    if (loaded === false) {
+      window.location.assign(viewUrl);
+    }
+  });
+
+  if (leaderboardPage) {
+    window.addEventListener('popstate', async () => {
+      const loaded = await loadLeaderboardView(window.location.href, false);
+
+      if (loaded === false) {
+        window.location.reload();
+      }
+    });
+  }
 
   const setServerStatus = (online, onlineCount) => {
     if (!statusNode || !statusCount) return;

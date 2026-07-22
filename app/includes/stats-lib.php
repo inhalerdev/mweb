@@ -1015,10 +1015,11 @@ function mineacle_stats_ranked_name_html(array $player, string $className = 'ran
     $rankName = mineacle_stats_rank_name($player);
     $class = preg_match('/^[A-Za-z0-9_-]+$/', $className) === 1 ? $className : 'ranked-player-name';
     $classAttribute = $class . ($rankName === '+' ? ' is-plus-rank' : '');
-    $html = '<span class="' . h($classAttribute) . '">';
+    $rankStyle = $rankName !== '' ? ' style="--rank-color: ' . h(mineacle_stats_rank_color($player)) . '"' : '';
+    $html = '<span class="' . h($classAttribute) . '"' . $rankStyle . '>';
 
     if ($rankName !== '') {
-        $html .= '<span class="' . h($class) . '__rank" style="--rank-color: ' . h(mineacle_stats_rank_color($player)) . '">' . h($rankName) . '</span>';
+        $html .= '<span class="' . h($class) . '__rank">' . h($rankName) . '</span>';
     }
 
     $html .= '<span class="' . h($class) . '__name">' . h($displayName) . '</span>';
