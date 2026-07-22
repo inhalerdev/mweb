@@ -655,7 +655,7 @@ svg {
 .ranked-player-name__name {
   min-width: 0;
   overflow: hidden;
-  color: var(--heading);
+  color: #bbbbbb;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -679,15 +679,9 @@ svg {
 .leaderboard-ranked-name__name {
   min-width: 0;
   overflow: hidden;
-  color: var(--heading);
+  color: #bbbbbb;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.ranked-player-name.is-plus-rank .ranked-player-name__name,
-.profile-ranked-name.is-plus-rank .profile-ranked-name__name,
-.leaderboard-ranked-name.is-plus-rank .leaderboard-ranked-name__name {
-  color: var(--rank-color, #ff55ff);
 }
 
 .player-search-action {
@@ -725,22 +719,6 @@ svg {
 
 .player-search-option.is-muted .player-search-name {
   color: var(--subtext);
-}
-
-.player-search-option.is-temp-banned .ranked-player-name__name {
-  color: var(--warning);
-}
-
-.player-search-option.is-perm-banned .ranked-player-name__name {
-  color: var(--danger);
-}
-
-.player-search-option.is-muted .ranked-player-name__name {
-  color: var(--subtext);
-}
-
-.player-search-option .ranked-player-name.is-plus-rank .ranked-player-name__name {
-  color: var(--rank-color, #ff55ff);
 }
 
 .top-row {
@@ -1856,6 +1834,21 @@ body.has-announcement-modal {
   height: auto;
   opacity: 1;
   filter: invert(100%);
+}
+
+.footer-socials a[aria-label="YouTube"] .site-icon {
+  filter: none;
+  transition: filter 180ms ease;
+}
+
+.footer-socials a[aria-label="YouTube"]:hover .site-icon,
+.footer-socials a[aria-label="YouTube"]:focus-visible .site-icon {
+  filter: brightness(1.12);
+}
+
+.footer-socials a[aria-label="YouTube"]:hover,
+.footer-socials a[aria-label="YouTube"]:focus-visible {
+  opacity: 1;
 }
 
 .footer-socials .discord-icon,

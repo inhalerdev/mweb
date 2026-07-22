@@ -998,6 +998,10 @@ function mineacle_stats_rank_color(array $player): string
     $rankName = trim((string) ($player['rank_name'] ?? ''));
     $color = strtolower(trim((string) ($player['rank_color'] ?? '')));
 
+    if (preg_match('/^#?[0-9a-f]{6}$/', $color) === 1) {
+        return '#' . ltrim($color, '#');
+    }
+
     foreach ([$rankKey, $rankPrefix, $rankName] as $source) {
         $knownColor = mineacle_stats_known_rank_color($source);
 
@@ -1006,7 +1010,7 @@ function mineacle_stats_rank_color(array $player): string
         }
     }
 
-    return preg_match('/^#[0-9a-f]{6}$/', $color) === 1 ? $color : '#bbbbbb';
+    return '#bbbbbb';
 }
 
 function mineacle_stats_ranked_name_html(array $player, string $className = 'ranked-player-name'): string
