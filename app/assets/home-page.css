@@ -26,6 +26,7 @@
   --rail-width: 70px;
   --rail-item-size: 46px;
   --rail-icon-size: 32px;
+  --rail-store-button-size: 40px;
   --rail-stack-gap: 18px;
   --radius: 5px;
   --ui-font-size: 0.875rem;
@@ -260,6 +261,7 @@ svg {
 .rail-store-button:focus-visible .store-icon,
 .rail-store-button.is-active .store-icon,
 .rail-store-button[aria-current="page"] .store-icon {
+  width: var(--rail-store-button-size);
   aspect-ratio: 1;
   filter: none;
   transform: none;
@@ -282,9 +284,13 @@ svg {
   transition: background 180ms ease;
 }
 
-.store-icon-mark {
+.store-icon > .store-icon-mark {
+  inset: 50% auto auto 50%;
   z-index: 1;
+  width: var(--rail-icon-size);
+  height: auto;
   filter: var(--rail-icon-white-filter);
+  transform: translate(-50%, -50%);
 }
 
 .rail-store-button:hover .store-icon-square,
@@ -1878,7 +1884,7 @@ body.has-announcement-modal {
 .rail-social .rail-link[aria-label="X"]:focus-visible .site-icon-x,
 .footer-socials a[aria-label="X/Twitter"]:hover .site-icon-x,
 .footer-socials a[aria-label="X/Twitter"]:focus-visible .site-icon-x {
-  filter: invert(15%);
+  filter: invert(8%);
 }
 
 .footer-socials a[aria-label="Discord"]:hover,
